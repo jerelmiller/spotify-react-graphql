@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  text-align: center;
   height: 100vh;
   display: grid;
   grid-template-areas:
