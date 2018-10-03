@@ -23,10 +23,37 @@ const Link = styled(NavLink)`
   font-size: 0.8rem;
   letter-spacing: 1px;
   transition: color 0.3s ease-in-out;
+  position: relative;
 
   &.active,
   &:hover {
     color: #fff;
+  }
+
+  &::after,
+  .active::after {
+    content: '';
+    background: #2ab759;
+    position: absolute;
+    width: 30%;
+    top: 80%;
+    left: 50%;
+  }
+
+  &::after {
+    opacity: 0;
+    transform: translateX(-50%) scaleX(0);
+    transition: transform 0.2s ease-out, opacity 0.3s ease-out;
+  }
+
+  &.active::after {
+    content: '';
+    opacity: 1;
+    height: 2px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%) scaleX(1);
   }
 `
 
