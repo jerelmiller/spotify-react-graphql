@@ -1,17 +1,22 @@
 import React from 'react'
 import { Link } from '@reach/router'
 
-const NavLink = ({ activeClassName, className, ...rest }) => (
+const NavLink = ({ activeClassName, className, exact, ...rest }) => (
   <Link
     {...rest}
-    getProps={({ isCurrent }) => ({
-      className: isCurrent ? `${className} ${activeClassName}` : className
-    })}
+    getProps={({ isCurrent, isPartiallyCurrent }) => {
+      const match = exact ? isCurrent : isPartiallyCurrent
+
+      return {
+        className: match ? `${className} ${activeClassName}` : className
+      }
+    }}
   />
 )
 
 NavLink.defaultProps = {
-  activeClassName: 'active'
+  activeClassName: 'active',
+  exact: true
 }
 
 export default NavLink
