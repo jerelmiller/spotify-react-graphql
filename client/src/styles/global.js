@@ -4,15 +4,46 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
+    font-family: spotify-circular, "Helvetica Neue", Helvetica, Arial, "Hiragino Kaku Gothic Pro", Meiryo, "MS Gothic", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  }
+
+  @font-face {
+    font-family: spotify-circular;
+    src:
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Light.woff2) format("woff2"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Light.woff) format("woff"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Light.ttf) format("ttf");
+    font-weight: 200;
+    font-style: normal;
+    font-display:swap
+  }
+
+  @font-face {
+    font-family: spotify-circular;
+    src:
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Book.woff2) format("woff2"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Book.woff) format("woff"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Book.ttf) format("ttf");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: spotify-circular;
+    src:
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Bold.woff2) format("woff2"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Bold.woff) format("woff"),
+      url(https://open.scdn.co/fonts/CircularSpUIv3T-Bold.ttf) format("ttf");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap
   }
 `
 
