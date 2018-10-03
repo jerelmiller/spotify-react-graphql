@@ -9,9 +9,11 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
-  code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  a {
+    text-decoration: none;
+    color: inherit;
   }
+
 
   @font-face {
     font-family: spotify-circular;
