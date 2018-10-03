@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import cors from 'cors'
 import express from 'express'
 import schema from './schema'
 import resolvers from './resolvers'
@@ -6,6 +7,8 @@ import { ApolloServer } from 'apollo-server-express'
 
 const app = express()
 const server = new ApolloServer({ typeDefs: schema, resolvers })
+
+app.use(cors())
 
 server.applyMiddleware({ app })
 
