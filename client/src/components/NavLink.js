@@ -16,7 +16,7 @@ const NavLink = ({ activeClassName, className, exact, ...rest }) => (
 
 NavLink.defaultProps = {
   activeClassName: 'active',
-  exact: true
+  exact: false
 }
 
 export default NavLink
