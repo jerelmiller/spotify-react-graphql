@@ -20,6 +20,7 @@ const Main = styled.main`
   grid-area: main;
   background: #181818;
   color: #fff;
+  padding: 2rem;
 `
 
 const Footer = styled.footer`

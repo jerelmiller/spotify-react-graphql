@@ -18,6 +18,11 @@ const Link = styled(NavLink)`
   display: block;
   color: rgba(255, 255, 255, 0.6);
   padding: 1rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease-in-out;
 
   &.active,
   &:hover {
