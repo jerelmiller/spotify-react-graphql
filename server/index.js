@@ -1,13 +1,11 @@
-require('dotenv').config()
-
-const express = require('express')
-const typeDefs = require('./schema')
-const resolvers = require('./resolvers')
-const { ApolloServer } = require('apollo-server-express')
+import 'dotenv/config'
+import express from 'express'
+import schema from './schema'
+import resolvers from './resolvers'
+import { ApolloServer } from 'apollo-server-express'
 
 const app = express()
-
-const server = new ApolloServer({ typeDefs, resolvers })
+const server = new ApolloServer({ typeDefs: schema, resolvers })
 
 server.applyMiddleware({ app })
 
