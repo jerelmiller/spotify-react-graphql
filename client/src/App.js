@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import AppLayout from './components/AppLayout'
 import GlobalStyle from './styles/global'
-import RouteBrowse from './routes/browse'
-import RouteBrowseFeatured from './routes/browse/featured'
+import Browse from './routes/browse'
+import BrowseFeatured from './routes/browse/featured'
+import BrowseDiscovered from './routes/browse/discovered'
 import { Redirect, Router } from '@reach/router'
 
 class App extends Component {
@@ -13,9 +14,10 @@ class App extends Component {
         <AppLayout>
           <Router>
             <Redirect noThrow from="/" to="browse/featured" />
-            <RouteBrowse path="browse">
-              <RouteBrowseFeatured path="featured" />
-            </RouteBrowse>
+            <Browse path="browse">
+              <BrowseDiscovered path="discovered" />
+              <BrowseFeatured path="featured" />
+            </Browse>
           </Router>
         </AppLayout>
       </>
