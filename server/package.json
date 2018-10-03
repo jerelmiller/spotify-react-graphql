@@ -14,7 +14,8 @@
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "prettier": "^1.14.3"
   },
   "scripts": {
     "start": "nodemon --exec babel-node ./index.js"
