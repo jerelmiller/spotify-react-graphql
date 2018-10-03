@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import GlobalStyle from 'styles/global'
 import logo from './logo.svg'
 import styled, { keyframes } from 'styled-components'
 
@@ -39,22 +40,25 @@ const Link = styled.a`
 class App extends Component {
   render() {
     return (
-      <Container>
-        <Header className="App-header">
-          <Logo src={logo} alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <Link
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </Link>
-        </Header>
-      </Container>
+      <>
+        <GlobalStyle />
+        <Container>
+          <Header className="App-header">
+            <Logo src={logo} alt="logo" />
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <Link
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </Link>
+          </Header>
+        </Container>
+      </>
     )
   }
 }
