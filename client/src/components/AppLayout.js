@@ -19,6 +19,7 @@ const Sidebar = styled.aside`
 const Main = styled.main`
   grid-area: main;
   background: #181818;
+  color: #fff;
 `
 
 const Footer = styled.footer`
