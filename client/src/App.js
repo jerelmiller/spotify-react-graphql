@@ -5,6 +5,7 @@ import GlobalStyle from './styles/global'
 import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
+import SetToken from './routes/set-token'
 import { Redirect, Router } from '@reach/router'
 
 class App extends Component {
@@ -16,6 +17,7 @@ class App extends Component {
           <Router>
             <Redirect noThrow from="/" to="browse/featured" />
             <Login path="login" />
+            <SetToken path="set-token" />
             <Browse path="browse">
               <BrowseDiscover path="discover" />
               <BrowseFeatured path="featured" />
