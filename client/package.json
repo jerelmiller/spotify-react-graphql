@@ -4,7 +4,11 @@
   "private": true,
   "dependencies": {
     "@reach/router": "1.2.1",
+    "apollo-boost": "^0.1.16",
+    "graphql": "^14.0.2",
+    "graphql-tag": "^2.10.0",
     "react": "16.5.2",
+    "react-apollo": "^2.2.4",
     "react-dom": "16.5.2",
     "react-scripts": "2.0.3",
     "styled-components": "^4.0.0-beta.9"
