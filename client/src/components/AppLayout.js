@@ -1,6 +1,9 @@
 import React from 'react'
+import Avatar from './Avatar'
 import AppMain from './AppMain'
+import gql from 'graphql-tag'
 import styled from 'styled-components'
+import { Query } from 'react-apollo'
 
 const Container = styled.div`
   height: 100vh;
@@ -15,6 +18,7 @@ const Container = styled.div`
 const Sidebar = styled.aside`
   grid-area: sidebar;
   background: #121212;
+  color: #fff;
 `
 
 const Footer = styled.footer`
@@ -23,11 +27,36 @@ const Footer = styled.footer`
 `
 
 const AppLayout = ({ children }) => (
-  <Container>
-    <Sidebar />
-    <AppMain>{children}</AppMain>
-    <Footer />
-  </Container>
+  <Query
+    query={gql`
+      query AppLayoutQuery {
+        viewer {
+          user {
+            id
+            displayName
+            images {
+              url
+            }
+          }
+        }
+      }
+    `}
+  >
+    {({ loading, data: { viewer } }) => (
+      <Container>
+        <Sidebar>
+          {loading || (
+            <>
+              <Avatar image={viewer.user.images[0]} />
+              {viewer.user.displayName}
+            </>
+          )}
+        </Sidebar>
+        <AppMain>{children}</AppMain>
+        <Footer />
+      </Container>
+    )}
+  </Query>
 )
 
 export default AppLayout
