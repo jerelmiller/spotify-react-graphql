@@ -81,7 +81,17 @@ export default gql`
   }
 
   type User {
+    """
+    The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the user.
+    """
     id: ID!
+
+    "The name displayed on the user’s profile. null if not available."
+    displayName: String
+
+    "The user’s profile image."
+    images: [Image!]!
   }
 
   "Info about the current logged-in user"
