@@ -1,4 +1,5 @@
 import React from 'react'
+import gql from 'graphql-tag'
 import styled from 'styled-components'
 
 const Img = styled.img`
@@ -8,5 +9,13 @@ const Img = styled.img`
 `
 
 const Avatar = ({ image }) => <Img src={image.url} alt="avatar" />
+
+Avatar.fragments = {
+  image: gql`
+    fragment Avatar_image on Image {
+      url
+    }
+  `
+}
 
 export default Avatar
