@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import client from './config/apollo'
 import AppLayout from './components/AppLayout'
 import Login from './routes/login'
 import GlobalStyle from './styles/global'
@@ -6,12 +7,13 @@ import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
 import SetToken from './routes/set-token'
+import { ApolloProvider } from 'react-apollo'
 import { Redirect, Router } from '@reach/router'
 
 class App extends Component {
   render() {
     return (
-      <>
+      <ApolloProvider client={client}>
         <GlobalStyle />
         <AppLayout>
           <Router>
@@ -24,7 +26,7 @@ class App extends Component {
             </Browse>
           </Router>
         </AppLayout>
-      </>
+      </ApolloProvider>
     )
   }
 }
