@@ -4,7 +4,7 @@ import { Redirect } from '@reach/router'
 
 const SetToken = () => (
   <QueryParams>
-    {({ query }) => {
+    {query => {
       localStorage.setItem('token', query.get('token'))
 
       return <Redirect noThrow to="/browse/featured" />
