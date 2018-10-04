@@ -3,6 +3,9 @@ import { gql } from 'apollo-server'
 export default gql`
   type Query {
     artist(id: ID!): Artist
+
+    "Get information for the current logged-in user"
+    viewer: Viewer
   }
 
   type Artist {
@@ -75,5 +78,14 @@ export default gql`
 
   enum ExternalUrlType {
     SPOTIFY
+  }
+
+  type User {
+    id: ID!
+  }
+
+  "Info about the current logged-in user"
+  type Viewer {
+    user: User
   }
 `
