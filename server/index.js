@@ -6,6 +6,7 @@ import schema from './schema'
 import resolvers from './resolvers'
 import { URLSearchParams } from 'url'
 import { ApolloServer } from 'apollo-server-express'
+import { SpotifyAPI } from './data-sources'
 
 const SCOPES = [
   'streaming',
@@ -29,6 +30,9 @@ const app = express()
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  dataSources: () => ({
+    spotifyAPI: new SpotifyAPI()
+  }),
   context: ({ req }) => ({
     accessToken: req.headers.authorization
   })
