@@ -26,7 +26,13 @@ const SCOPES = [
 ].join(' ')
 
 const app = express()
-const server = new ApolloServer({ typeDefs: schema, resolvers })
+const server = new ApolloServer({
+  typeDefs: schema,
+  resolvers,
+  context: ({ req }) => ({
+    accessToken: req.headers.authorization
+  })
+})
 
 app.use(cors())
 
