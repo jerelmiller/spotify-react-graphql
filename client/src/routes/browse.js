@@ -35,7 +35,7 @@ const Link = styled(NavLink)`
     content: '';
     background: #2ab759;
     position: absolute;
-    width: 30%;
+    width: 30px;
     top: 80%;
     left: 50%;
   }
