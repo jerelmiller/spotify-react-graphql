@@ -49,15 +49,21 @@ app.get('/oauth/finalize', async (req, res) => {
   body.append('client_id', process.env.CLIENT_ID)
   body.append('client_secret', process.env.CLIENT_SECRET)
 
-  const data = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body
-  }).then(res => res.json())
+  const { access_token, refresh_token } = await fetch(
+    'https://accounts.spotify.com/api/token',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body
+    }
+  ).then(res => res.json())
 
-  res.send(data)
+  const params = new URLSearchParams()
+  params.set('token', access_token)
+
+  res.redirect(`${process.env.CLIENT_URI}/set-token?${params}`)
 })
 
 server.applyMiddleware({ app })
