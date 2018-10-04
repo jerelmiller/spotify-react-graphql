@@ -1,6 +1,6 @@
 import React from 'react'
-import Avatar from './Avatar'
 import AppMain from './AppMain'
+import UserAvatar from './UserAvatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
@@ -33,25 +33,17 @@ const AppLayout = ({ children }) => (
         viewer {
           user {
             id
-            displayName
-            images {
-              url
-            }
+            ...UserAvatar_user
           }
         }
       }
+
+      ${UserAvatar.fragments.user}
     `}
   >
     {({ loading, data: { viewer } }) => (
       <Container>
-        <Sidebar>
-          {loading || (
-            <>
-              <Avatar image={viewer.user.images[0]} />
-              {viewer.user.displayName}
-            </>
-          )}
-        </Sidebar>
+        <Sidebar>{loading || <UserAvatar user={viewer.user} />}</Sidebar>
         <AppMain>{children}</AppMain>
         <Footer />
       </Container>
