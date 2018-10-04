@@ -10,11 +10,15 @@ const httpLink = new HttpLink({
   uri: `${process.env.REACT_APP_API_HOST}/graphql`
 })
 
-const setAuthorizationLink = setContext(() => ({
-  headers: {
-    Authorization: localStorage.getItem('token') || null
+const setAuthorizationLink = setContext(() => {
+  const token = localStorage.getItem('token')
+
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : null
+    }
   }
-}))
+})
 
 const client = new ApolloClient({
   cache,
