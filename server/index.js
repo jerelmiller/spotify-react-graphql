@@ -35,7 +35,7 @@ app.get('/oauth/init', (req, res) => {
   query.set('response_type', 'code')
   query.set('client_id', process.env.CLIENT_ID)
   query.set('redirect_uri', process.env.REDIRECT_URI)
-  query.set('scopes', SCOPES)
+  query.set('scope', SCOPES)
 
   res.redirect(`https://accounts.spotify.com/authorize?${query}`)
 })
