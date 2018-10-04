@@ -1,4 +1,5 @@
 import React from 'react'
+import AppMain from './AppMain'
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -16,13 +17,6 @@ const Sidebar = styled.aside`
   background: #121212;
 `
 
-const Main = styled.main`
-  grid-area: main;
-  background: #181818;
-  color: #fff;
-  padding: 2rem;
-`
-
 const Footer = styled.footer`
   grid-area: footer;
   background: #282828;
@@ -31,7 +25,7 @@ const Footer = styled.footer`
 const AppLayout = ({ children }) => (
   <Container>
     <Sidebar />
-    <Main>{children}</Main>
+    <AppMain>{children}</AppMain>
     <Footer />
   </Container>
 )
