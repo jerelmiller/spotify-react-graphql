@@ -64,6 +64,11 @@ const resolvers = {
     addedAt: prop('added_at'),
     node: prop('album')
   },
+  SavedTrack: {
+    discNumber: prop('disc_number'),
+    duration: prop('duration_ms'),
+    trackNumber: prop('track_number')
+  },
   SavedTrackConnection: createConnectionResolver(),
   SavedTrackEdge: {
     addedAt: prop('added_at'),
@@ -78,7 +83,9 @@ const resolvers = {
       }
 
       return 'SimpleTrack'
-    },
+    }
+  },
+  SimpleTrack: {
     discNumber: prop('disc_number'),
     duration: prop('duration_ms'),
     trackNumber: prop('track_number')
