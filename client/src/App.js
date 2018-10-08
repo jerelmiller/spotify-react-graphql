@@ -20,6 +20,7 @@ class App extends Component {
           <AppLayout>
             <Router>
               <Redirect noThrow from="/" to="browse/featured" />
+              <Login path="login" />
               <SetToken path="set-token" />
               <Browse path="browse">
                 <BrowseDiscover path="discover" />
