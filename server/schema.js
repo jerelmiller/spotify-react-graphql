@@ -94,8 +94,39 @@ export default gql`
     images: [Image!]!
   }
 
+  type Track {
+    id: ID!
+
+    """
+    The disc number (usually 1 unless the album consists of more than one disc).
+    """
+    discNumber: Int!
+
+    "The track length in milliseconds"
+    duration: Int!
+
+    """
+    Whether or not the track has explicit lyrics (true = yes it does;
+    false = no it does not OR unknown)
+    """
+    explicit: Boolean!
+
+    "The name of the track"
+    name: String!
+
+    """
+    The number of the track. If an album has several discs, the track number is
+    the number on the specified disc.
+    """
+    trackNumber: Int
+  }
+
   "Info about the current logged-in user"
   type Viewer {
+    "Info about the user"
     user: User
+
+    "The collection of saved songs in the current user's Spotify library."
+    tracks(limit: Int, offset: Int): [Track]
   }
 `
