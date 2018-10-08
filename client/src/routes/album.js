@@ -53,7 +53,6 @@ const Album = ({ albumId }) => (
         album(id: $albumId) {
           id
           name
-          label
 
           releaseDate {
             ...ReleaseYear_releaseDate
@@ -110,12 +109,6 @@ const Album = ({ albumId }) => (
             {album.tracks.edges.map(({ node }) => (
               <Track key={node.id} track={node} />
             ))}
-            <div>
-              <Typography>
-                &copy; <ReleaseYear releaseDate={album.releaseDate} />{' '}
-                {album.label}
-              </Typography>
-            </div>
           </div>
         </Container>
       )
