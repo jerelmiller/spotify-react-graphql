@@ -12,6 +12,14 @@ class SpotifyAPI extends RESTDataSource {
     return this.get('/me')
   }
 
+  async getPlaylistTracks(id, { limit, offset }) {
+    const params = new URLSearchParams()
+    params.set('limit', limit)
+    params.set('offset', offset)
+
+    return this.get(`/playlists/${id}/tracks?${params}`)
+  }
+
   async getViewerAlbums({ limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
@@ -31,6 +39,14 @@ class SpotifyAPI extends RESTDataSource {
     }
 
     return this.get(`/me/following?${params}`)
+  }
+
+  async getViewerPlaylists({ limit, offset }) {
+    const params = new URLSearchParams()
+    params.set('limit', limit)
+    params.set('offset', offset)
+
+    return this.get(`/me/playlists?${params}`)
   }
 
   async getViewerTracks({ limit, offset }) {
