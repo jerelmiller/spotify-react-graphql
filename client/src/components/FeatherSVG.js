@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { prop } from 'utils/fp'
+import { compose, defaultTo, prop } from 'utils/fp'
 
 const FeatherSVG = styled.svg.attrs({
   viewBox: '0 0 24 24',
@@ -7,7 +7,10 @@ const FeatherSVG = styled.svg.attrs({
 })`
   fill: none;
   stroke: currentColor;
-  stroke-width: 2;
+  stroke-width: ${compose(
+    defaultTo(2),
+    prop('strokeWidth')
+  )};
   stroke-linecap: round;
   stroke-linejoin: round;
   width: ${prop('size')};
