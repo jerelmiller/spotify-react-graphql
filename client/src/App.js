@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import client from './config/apollo'
 import Albums from './routes/collection/albums'
+import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
 import Auth from './components/Auth'
 import Login from './routes/login'
@@ -31,6 +32,7 @@ class App extends Component {
                   <BrowseFeatured path="featured" />
                 </Browse>
                 <Albums path="collection/albums" />
+                <Artists path="collection/artists" />
                 <Tracks path="collection/tracks" />
               </Router>
             </AppLayout>
