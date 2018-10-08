@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { branch, compose, defaultTo, prop, noop, value } from 'utils/fp'
 
 const Img = styled.img`
+  display: ${branch(prop('block'), value('block'), noop)};
   width: ${compose(
     defaultTo('100%'),
     prop('width')
