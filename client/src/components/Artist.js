@@ -2,6 +2,7 @@ import React from 'react'
 import gql from 'graphql-tag'
 import LazyImage from 'components/LazyImage'
 import styled from 'styled-components'
+import { Link } from '@reach/router'
 
 const Container = styled.div`
   text-align: center;
@@ -9,7 +10,6 @@ const Container = styled.div`
 
 const ArtistImage = styled(LazyImage)`
   display: block;
-  margin-bottom: 0.5rem;
   height: 100%;
   position: absolute;
   top: 0;
@@ -21,17 +21,23 @@ const ImageContainer = styled.div`
   height: 0;
   position: relative;
   padding-top: 100%;
+  margin-bottom: 0.5rem;
+`
+
+const ArtistLink = styled(Link)`
+  font-size: 0.9rem;
 `
 
 const Artist = ({ artist }) => {
-  const image = artist.images[0]
+  // try to use medium size image first
+  const image = artist.images[1] || artist.images[0]
 
   return (
     <Container>
       <ImageContainer>
         <ArtistImage src={image.url} />
       </ImageContainer>
-      {artist.name}
+      <ArtistLink to={`/artists/${artist.id}`}>{artist.name}</ArtistLink>
     </Container>
   )
 }
