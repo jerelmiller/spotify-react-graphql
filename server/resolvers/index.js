@@ -27,11 +27,15 @@ const resolvers = {
   },
   AlbumConnection: createConnectionResolver(),
   AlbumEdge: {
-    addedAt: prop('added_at'),
-    node: prop('album')
+    node: item => item
   },
   User: {
     displayName: prop('display_name')
+  },
+  SavedAlbumConnection: createConnectionResolver(),
+  SavedAlbumEdge: {
+    addedAt: prop('added_at'),
+    node: prop('album')
   },
   SavedTrackConnection: createConnectionResolver(),
   SavedTrackEdge: {
