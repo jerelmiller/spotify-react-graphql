@@ -20,6 +20,7 @@ const Main = styled.main`
   color: #fff;
   padding: 2rem;
   position: relative;
+  overflow: auto;
 `
 
 const Backdrop = styled.div`
