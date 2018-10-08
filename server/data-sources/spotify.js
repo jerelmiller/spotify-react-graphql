@@ -19,6 +19,10 @@ class SpotifyAPI extends RESTDataSource {
 
     return this.get(`/me/tracks?${params}`)
   }
+
+  async getAlbumTracks(id) {
+    return this.get(`/albums/${id}/tracks`)
+  }
 }
 
 export default SpotifyAPI
