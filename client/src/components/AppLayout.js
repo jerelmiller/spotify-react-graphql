@@ -1,7 +1,6 @@
 import React from 'react'
 import AppMain from './AppMain'
 import AppSidebar from './AppSidebar'
-import UserAvatar from './UserAvatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
