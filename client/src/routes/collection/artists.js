@@ -1,5 +1,5 @@
 import React from 'react'
-import Artist from 'components/Artist'
+import ArtistTile from 'components/ArtistTile'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
@@ -21,7 +21,7 @@ const Artists = () => (
         }
       }
 
-      ${Artist.fragments.artist}
+      ${ArtistTile.fragments.artist}
     `}
     variables={{ limit: 50 }}
   >
@@ -31,7 +31,7 @@ const Artists = () => (
         <TileGrid minWidth="160px">
           {loading ||
             viewer.followedArtists.edges.map(({ node }) => (
-              <Artist key={node.id} artist={node} />
+              <ArtistTile key={node.id} artist={node} />
             ))}
         </TileGrid>
       </>
