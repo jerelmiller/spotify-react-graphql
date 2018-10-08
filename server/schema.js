@@ -9,6 +9,9 @@ export default gql`
   type Query {
     artist(id: ID!): Artist
 
+    "Get information about an album"
+    album(id: ID!): Album
+
     "Get information for the current logged-in user"
     viewer: Viewer
   }

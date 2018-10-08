@@ -8,6 +8,10 @@ class SpotifyAPI extends RESTDataSource {
     request.headers.set('Authorization', this.context.accessToken)
   }
 
+  getAlbum(id) {
+    return this.get(`/albums/${id}`)
+  }
+
   async getCurrentUser() {
     return this.get('/me')
   }
