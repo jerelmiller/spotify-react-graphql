@@ -9,6 +9,11 @@ const Container = styled.div`
 
 const CoverPhoto = styled(LazyImage)`
   display: block;
+  margin-bottom: 0.5rem;
+`
+
+const Title = styled.span`
+  font-size: 0.9rem;
 `
 
 const Album = ({ album }) => {
@@ -18,7 +23,7 @@ const Album = ({ album }) => {
   return (
     <Container>
       <CoverPhoto src={coverPhoto.url} width="100%" placeholderHeight="200px" />
-      <span>{album.name}</span>
+      <Title>{album.name}</Title>
     </Container>
   )
 }
