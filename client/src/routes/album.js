@@ -10,7 +10,7 @@ import { textColor } from 'styles/utils'
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 300px 1fr;
   grid-gap: 1rem;
 `
 
@@ -105,17 +105,17 @@ const Album = ({ albumId }) => (
                 {album.tracks.pageInfo.total} Songs
               </Typography>
             </div>
+          </Info>
+          <div>
+            {album.tracks.edges.map(({ node }) => (
+              <Track key={node.id} track={node} />
+            ))}
             <div>
               <Typography>
                 &copy; <ReleaseYear releaseDate={album.releaseDate} />{' '}
                 {album.label}
               </Typography>
             </div>
-          </Info>
-          <div>
-            {album.tracks.edges.map(({ node }) => (
-              <Track key={node.id} track={node} />
-            ))}
           </div>
         </Container>
       )
