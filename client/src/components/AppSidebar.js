@@ -83,28 +83,25 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
-const AppSidebar = ({ loading, viewer }) => (
+const AppSidebar = ({ loading, viewer = {} }) => (
   <Sidebar>
-    {loading || (
-      <>
-        <AvatarContainer>
-          <UserAvatar user={viewer.user} />
-        </AvatarContainer>
-        <NavSection>
-          <Link to="browse">Browse</Link>
-        </NavSection>
-        <NavSection title="Your Library">
-          <Link to="collection/tracks">Songs</Link>
-          <Link to="collection/albums">Albums</Link>
-          <Link to="collection/artists">Artists</Link>
-        </NavSection>
-        <NavSection title="Playlists">
-          {viewer.playlists.edges.map(({ node }) => (
-            <Link to={`/playlists/${node.id}`}>{node.name}</Link>
-          ))}
-        </NavSection>
-      </>
-    )}
+    <AvatarContainer>
+      <UserAvatar user={viewer.user} />
+    </AvatarContainer>
+    <NavSection>
+      <Link to="browse">Browse</Link>
+    </NavSection>
+    <NavSection title="Your Library">
+      <Link to="collection/tracks">Songs</Link>
+      <Link to="collection/albums">Albums</Link>
+      <Link to="collection/artists">Artists</Link>
+    </NavSection>
+    <NavSection title="Playlists">
+      {loading ||
+        viewer.playlists.edges.map(({ node }) => (
+          <Link to={`/playlists/${node.id}`}>{node.name}</Link>
+        ))}
+    </NavSection>
   </Sidebar>
 )
 
