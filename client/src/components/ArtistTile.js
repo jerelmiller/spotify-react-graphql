@@ -28,7 +28,7 @@ const ArtistLink = styled(Link)`
   font-size: 0.9rem;
 `
 
-const Artist = ({ artist }) => {
+const ArtistTile = ({ artist }) => {
   // try to use medium size image first
   const image = artist.images[1] || artist.images[0]
 
@@ -42,7 +42,7 @@ const Artist = ({ artist }) => {
   )
 }
 
-Artist.fragments = {
+ArtistTile.fragments = {
   artist: gql`
     fragment Artist_artist on Artist {
       id
@@ -55,4 +55,4 @@ Artist.fragments = {
   `
 }
 
-export default Artist
+export default ArtistTile
