@@ -121,8 +121,8 @@ export default gql`
   type Track {
     id: ID!
 
-    "Simplified representation of the artist"
-    artist: SimpleArtist
+    "An array of simplified artist objects."
+    artists: [SimpleArtist!]!
 
     """
     The disc number (usually 1 unless the album consists of more than one disc).
