@@ -57,16 +57,20 @@ const Track = ({ track }) => (
     <TrackName>{track.name}</TrackName>
     <MoreIcon size="1.25rem" />
     <TrackDuration duration={track.duration} />
-    {track.__typename === 'SavedTrack' && (
-      <Info>
-        {track.explicit && <ExplicitBadge />}{' '}
-        <ItemLink to={`/artists/${track.artists[0].id}`}>
-          {track.artists[0].name}
-        </ItemLink>{' '}
-        &middot;{' '}
-        <ItemLink to={`/albums/${track.album.id}`}>{track.album.name}</ItemLink>
-      </Info>
-    )}
+    <Info>
+      {track.explicit && <ExplicitBadge />}{' '}
+      {track.__typename === 'SavedTrack' && (
+        <>
+          <ItemLink to={`/artists/${track.artists[0].id}`}>
+            {track.artists[0].name}
+          </ItemLink>{' '}
+          &middot;{' '}
+          <ItemLink to={`/albums/${track.album.id}`}>
+            {track.album.name}
+          </ItemLink>
+        </>
+      )}
+    </Info>
   </Container>
 )
 
