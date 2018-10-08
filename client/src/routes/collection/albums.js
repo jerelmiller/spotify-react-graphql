@@ -1,5 +1,5 @@
 import React from 'react'
-import Album from 'components/Album'
+import AlbumTile from 'components/AlbumTile'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
@@ -21,7 +21,7 @@ const Albums = () => (
         }
       }
 
-      ${Album.fragments.album}
+      ${AlbumTile.fragments.album}
     `}
     variables={{ limit: 50, offset: 0 }}
   >
@@ -31,7 +31,7 @@ const Albums = () => (
         <TileGrid minWidth="180px">
           {loading ||
             viewer.savedAlbums.edges.map(({ node }) => (
-              <Album key={node.id} album={node} />
+              <AlbumTile key={node.id} album={node} />
             ))}
         </TileGrid>
       </>

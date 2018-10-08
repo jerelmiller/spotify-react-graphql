@@ -31,7 +31,7 @@ const ArtistLink = styled(Link)`
   }
 `
 
-const Album = ({ album }) => {
+const AlbumTile = ({ album }) => {
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
 
@@ -46,7 +46,7 @@ const Album = ({ album }) => {
   )
 }
 
-Album.fragments = {
+AlbumTile.fragments = {
   album: gql`
     fragment Album_album on Album {
       id
@@ -62,4 +62,4 @@ Album.fragments = {
   `
 }
 
-export default Album
+export default AlbumTile
