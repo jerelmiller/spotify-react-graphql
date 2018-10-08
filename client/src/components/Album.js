@@ -7,13 +7,17 @@ const Container = styled.div`
   text-align: center;
 `
 
+const CoverPhoto = styled(LazyImage)`
+  display: block;
+`
+
 const Album = ({ album }) => {
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
 
   return (
     <Container>
-      <LazyImage src={coverPhoto.url} width={180} height={180} />
+      <CoverPhoto src={coverPhoto.url} width="100%" placeholderHeight="200px" />
       <span>{album.name}</span>
     </Container>
   )
@@ -28,7 +32,7 @@ Album.fragments = {
         url
       }
     }
-    `
+  `
 }
 
 export default Album
