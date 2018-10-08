@@ -11,6 +11,8 @@ const Sidebar = styled.aside`
   grid-area: sidebar;
   background: ${rgba('#121212', 0.5)};
   color: #fff;
+  overflow: auto;
+  padding: 1rem 0;
 `
 
 const Section = styled.section`
@@ -45,6 +47,9 @@ const SidebarLink = styled(NavLink)`
   padding: 0 1.5rem;
   transition: color 0.15s ease-in-out, border-left 0.3s ease-in-out;
   border-left: 0.375rem solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:not(:last-child) {
     margin-bottom: 0.25rem;
@@ -93,6 +98,11 @@ const AppSidebar = ({ loading, viewer }) => (
           <Link to="collection/albums">Albums</Link>
           <Link to="collection/artists">Artists</Link>
         </NavSection>
+        <NavSection title="Playlists">
+          {viewer.playlists.edges.map(({ node }) => (
+            <Link to={`/playlists/${node.id}`}>{node.name}</Link>
+          ))}
+        </NavSection>
       </>
     )}
   </Sidebar>
@@ -104,6 +114,15 @@ AppSidebar.fragments = {
       user {
         id
         ...UserAvatar_user
+      }
+
+      playlists {
+        edges {
+          node {
+            id
+            name
+          }
+        }
       }
     }
 
