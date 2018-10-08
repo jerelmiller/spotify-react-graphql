@@ -1,6 +1,7 @@
 import React from 'react'
 import NavLink from 'components/NavLink'
 import styled from 'styled-components'
+import { color } from 'styles/utils'
 
 const NavContainer = styled.ul`
   display: flex;
@@ -31,7 +32,7 @@ const Link = styled(NavLink)`
   &::after,
   .active::after {
     content: '';
-    background: #2ab759;
+    background: ${color('green')};
     position: absolute;
     width: 30px;
     top: 80%;
