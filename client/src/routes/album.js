@@ -4,11 +4,33 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
+import { Link } from '@reach/router'
+import { textColor } from 'styles/utils'
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
   grid-gap: 1rem;
+`
+
+const CoverPhoto = styled(LazyImage)`
+  margin-bottom: 1rem;
+`
+
+const Info = styled.div`
+  text-align: center;
+`
+
+const ArtistLink = styled(Link)`
+  font-size: 0.9rem;
+  color: ${textColor('muted')};
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: ${textColor('primary')};
+    border-bottom-color: ${textColor('primary')};
+  }
 `
 
 const imageFor = album =>
@@ -21,6 +43,11 @@ const Album = ({ albumId }) => (
         album(id: $albumId) {
           id
           name
+
+          primaryArtist {
+            id
+            name
+          }
 
           images {
             url
@@ -45,7 +72,13 @@ const Album = ({ albumId }) => (
     {({ loading, data: { album } }) =>
       loading || (
         <Container>
-          <LazyImage src={imageFor(album).url} width="300px" />
+          <Info>
+            <CoverPhoto block src={imageFor(album).url} width="300px" />
+            <h2>{album.name}</h2>
+            <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
+              {album.primaryArtist.name}
+            </ArtistLink>
+          </Info>
           <div>
             {album.tracks.edges.map(({ node }) => (
               <Track key={node.id} track={node} />
