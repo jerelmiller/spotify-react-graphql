@@ -10,6 +10,7 @@ const resolvers = {
   },
   Track: {
     discNumber: prop('disc_number'),
+    duration: prop('duration_ms'),
     trackNumber: prop('track_number')
   },
   TrackEdge: {
