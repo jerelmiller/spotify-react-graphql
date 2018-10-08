@@ -57,14 +57,16 @@ const Track = ({ track }) => (
     <TrackName>{track.name}</TrackName>
     <MoreIcon size="1.25rem" />
     <TrackDuration duration={track.duration} />
-    <Info>
-      {track.explicit && <ExplicitBadge />}{' '}
-      <ItemLink to={`/artists/${track.artists[0].id}`}>
-        {track.artists[0].name}
-      </ItemLink>{' '}
-      &middot;{' '}
-      <ItemLink to={`/albums/${track.album.id}`}>{track.album.name}</ItemLink>
-    </Info>
+    {track.__typename === 'SavedTrack' && (
+      <Info>
+        {track.explicit && <ExplicitBadge />}{' '}
+        <ItemLink to={`/artists/${track.artists[0].id}`}>
+          {track.artists[0].name}
+        </ItemLink>{' '}
+        &middot;{' '}
+        <ItemLink to={`/albums/${track.album.id}`}>{track.album.name}</ItemLink>
+      </Info>
+    )}
   </Container>
 )
 
@@ -75,13 +77,18 @@ Track.fragments = {
       name
       duration
       explicit
-      album {
-        id
-        name
-      }
+      __typename
+
       artists {
         id
         name
+      }
+
+      ... on SavedTrack {
+        album {
+          id
+          name
+        }
       }
     }
   `
