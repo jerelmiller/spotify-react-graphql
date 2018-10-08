@@ -121,6 +121,9 @@ export default gql`
   type Track {
     id: ID!
 
+    "Simplified representation of the artist"
+    artist: SimpleArtist
+
     """
     The disc number (usually 1 unless the album consists of more than one disc).
     """
@@ -156,6 +159,13 @@ export default gql`
 
     "The track object."
     node: Track!
+  }
+
+  "Simplified representation of an artist."
+  type SimpleArtist {
+    id: ID!
+
+    name: String!
   }
 
   "Info about the current logged-in user"
