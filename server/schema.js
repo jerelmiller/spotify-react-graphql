@@ -349,7 +349,7 @@ export default gql`
     addedAt: String
 
     "The track object."
-    node: Track!
+    node: SavedTrack!
   }
 
   "Simplified representation of an album."
