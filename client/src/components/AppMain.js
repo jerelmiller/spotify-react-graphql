@@ -24,7 +24,7 @@ const Main = styled.main`
 
 const Backdrop = styled.div`
   background: ${({ path }) => BACKGROUND_COLORS[path] || DEFAULT_BACKGROUND};
-  position: absolute;
+  position: fixed;
   transition: background 0.3s ease-in;
   top: 0;
   bottom: 0;
