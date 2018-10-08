@@ -99,7 +99,9 @@ const AppSidebar = ({ loading, viewer = {} }) => (
     <NavSection title="Playlists">
       {loading ||
         viewer.playlists.edges.map(({ node }) => (
-          <Link to={`/playlists/${node.id}`}>{node.name}</Link>
+          <Link key={node.id} to={`/playlists/${node.id}`}>
+            {node.name}
+          </Link>
         ))}
     </NavSection>
   </Sidebar>
