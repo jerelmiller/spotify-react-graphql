@@ -23,6 +23,7 @@ class App extends Component {
               <Login path="login" />
               <SetToken path="set-token" />
               <Browse path="browse">
+                <Redirect noThrow from="/" to="featured" />
                 <BrowseDiscover path="discover" />
                 <BrowseFeatured path="featured" />
               </Browse>
