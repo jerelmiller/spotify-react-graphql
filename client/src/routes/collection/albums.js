@@ -16,7 +16,7 @@ const Albums = () => (
     query={gql`
       query AlbumsQuery($limit: Int!, $offset: Int!) {
         viewer {
-          albums(limit: $limit, offset: $offset) {
+          savedAlbums(limit: $limit, offset: $offset) {
             edges {
               node {
                 id
@@ -36,7 +36,7 @@ const Albums = () => (
         <PageTitle>Albums</PageTitle>
         <AlbumContainer>
           {loading ||
-            viewer.albums.edges.map(({ node }) => (
+            viewer.savedAlbums.edges.map(({ node }) => (
               <Album key={node.id} album={node} />
             ))}
         </AlbumContainer>

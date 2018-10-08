@@ -9,7 +9,7 @@ const Tracks = () => (
     query={gql`
       query TracksQuery($limit: Int!, $offset: Int!) {
         viewer {
-          tracks(limit: $limit, offset: $offset) {
+          savedTracks(limit: $limit, offset: $offset) {
             edges {
               node {
                 id
@@ -29,7 +29,7 @@ const Tracks = () => (
       <>
         <PageTitle>Songs</PageTitle>
         {loading ||
-          viewer.tracks.edges.map(({ node }) => (
+          viewer.savedTracks.edges.map(({ node }) => (
             <Track track={node} key={node.id} />
           ))}
       </>
