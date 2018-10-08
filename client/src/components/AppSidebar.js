@@ -5,10 +5,11 @@ import NavLink from './NavLink'
 import UnstyledList from './UnstyledList'
 import styled from 'styled-components'
 import { color } from 'styles/utils'
+import { rgba } from 'polished'
 
 const Sidebar = styled.aside`
   grid-area: sidebar;
-  background: #121212;
+  background: ${rgba('#121212', 0.5)};
   color: #fff;
 `
 
