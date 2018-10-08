@@ -1,7 +1,15 @@
 import React from 'react'
+import Album from 'components/Album'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
+import styled from 'styled-components'
 import { Query } from 'react-apollo'
+
+const AlbumContainer = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+`
 
 const Albums = () => (
   <Query
@@ -12,22 +20,26 @@ const Albums = () => (
             edges {
               node {
                 id
-                name
+                ...Album_album
               }
             }
           }
         }
       }
+
+      ${Album.fragments.album}
     `}
     variables={{ limit: 50, offset: 0 }}
   >
     {({ loading, data: { viewer } }) => (
       <>
         <PageTitle>Albums</PageTitle>
-        {loading ||
-          viewer.albums.edges.map(({ node }) => (
-            <div key={node.id}>{node.name}</div>
-          ))}
+        <AlbumContainer>
+          {loading ||
+            viewer.albums.edges.map(({ node }) => (
+              <Album key={node.id} album={node} />
+            ))}
+        </AlbumContainer>
       </>
     )}
   </Query>
