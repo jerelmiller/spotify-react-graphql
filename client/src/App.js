@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import client from './config/apollo'
+import Albums from './routes/collection/albums'
 import AppLayout from './components/AppLayout'
 import Auth from './components/Auth'
 import Login from './routes/login'
@@ -20,7 +21,7 @@ class App extends Component {
         <ApolloProvider client={client}>
           <Auth>
             <AppLayout>
-              <Router>
+              <Router primary={false}>
                 <Redirect noThrow from="/" to="browse/featured" />
                 <Login path="login" />
                 <SetToken path="set-token" />
@@ -29,6 +30,7 @@ class App extends Component {
                   <BrowseDiscover path="discover" />
                   <BrowseFeatured path="featured" />
                 </Browse>
+                <Albums path="collection/albums" />
                 <Tracks path="collection/tracks" />
               </Router>
             </AppLayout>
