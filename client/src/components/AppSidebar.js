@@ -88,9 +88,9 @@ const AppSidebar = ({ loading, viewer }) => (
           <Link to="browse">Browse</Link>
         </NavSection>
         <NavSection title="Your Library">
-          <Link to="collections/songs">Songs</Link>
-          <Link to="collections/albums">Albums</Link>
-          <Link to="collections/artists">Artists</Link>
+          <Link to="collection/tracks">Songs</Link>
+          <Link to="collection/albums">Albums</Link>
+          <Link to="collection/artists">Artists</Link>
         </NavSection>
       </>
     )}
