@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import { branch, prop, noop, value } from 'utils/fp'
+import { branch, compose, defaultTo, prop, noop, value } from 'utils/fp'
 
 const Img = styled.img`
-  width: ${prop('width')};
+  width: ${compose(
+    defaultTo('100%'),
+    prop('width')
+  )};
   height: ${branch(prop('loaded'), value('auto'), value(0))};
   opacity: ${branch(prop('loaded'), value(1), value(0))};
   padding-bottom: ${branch(prop('loaded'), noop, value('100%'))};
