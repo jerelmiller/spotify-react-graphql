@@ -7,6 +7,7 @@ import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
 import SetToken from './routes/set-token'
+import Tracks from './routes/collection/tracks'
 import theme from './styles/theme'
 import { ApolloProvider } from 'react-apollo'
 import { ThemeProvider } from 'styled-components'
@@ -28,6 +29,7 @@ class App extends Component {
                   <BrowseDiscover path="discover" />
                   <BrowseFeatured path="featured" />
                 </Browse>
+                <Tracks path="collection/tracks" />
               </Router>
             </AppLayout>
           </Auth>
