@@ -21,7 +21,7 @@ const resolvers = {
       date: release_date,
       precision: release_date_precision
     }),
-    tracks: ({ id }, _args, { dataSources }) =>
+    tracks: async ({ id }, _args, { dataSources }) =>
       dataSources.spotifyAPI.getAlbumTracks(id),
     type: prop('album_type')
   },
@@ -33,16 +33,20 @@ const resolvers = {
   User: {
     displayName: prop('display_name')
   },
+  SavedTrackConnection: createConnectionResolver(),
+  SavedTrackEdge: {
+    addedAt: prop('added_at'),
+    node: prop('track')
+  },
   Track: {
     discNumber: prop('disc_number'),
     duration: prop('duration_ms'),
     trackNumber: prop('track_number')
   },
-  TrackEdge: {
-    addedAt: prop('added_at'),
-    node: prop('track')
-  },
   TrackConnection: createConnectionResolver(),
+  TrackEdge: {
+    node: item => item
+  },
   Viewer: {
     albums: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI.getViewerAlbums({ limit, offset }),
