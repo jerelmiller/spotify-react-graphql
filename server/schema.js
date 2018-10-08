@@ -223,11 +223,8 @@ export default gql`
     images: [Image!]!
   }
 
-  type Track {
+  interface Track {
     id: ID!
-
-    "A simplified album object."
-    album: SimpleAlbum!
 
     "An array of simplified artist objects."
     artists: [SimpleArtist!]!
@@ -264,6 +261,69 @@ export default gql`
   type TrackEdge {
     "The track object."
     node: Track!
+  }
+
+  type SavedTrack implements Track {
+    id: ID!
+
+    "A simplified album object."
+    album: SimpleAlbum!
+
+    "An array of simplified artist objects."
+    artists: [SimpleArtist!]!
+
+    """
+    The disc number (usually 1 unless the album consists of more than one disc).
+    """
+    discNumber: Int!
+
+    "The track length in milliseconds"
+    duration: Int!
+
+    """
+    Whether or not the track has explicit lyrics (true = yes it does;
+    false = no it does not OR unknown)
+    """
+    explicit: Boolean!
+
+    "The name of the track"
+    name: String!
+
+    """
+    The number of the track. If an album has several discs, the track number is
+    the number on the specified disc.
+    """
+    trackNumber: Int
+  }
+
+  type SimpleTrack implements Track {
+    id: ID!
+
+    "An array of simplified artist objects."
+    artists: [SimpleArtist!]!
+
+    """
+    The disc number (usually 1 unless the album consists of more than one disc).
+    """
+    discNumber: Int!
+
+    "The track length in milliseconds"
+    duration: Int!
+
+    """
+    Whether or not the track has explicit lyrics (true = yes it does;
+    false = no it does not OR unknown)
+    """
+    explicit: Boolean!
+
+    "The name of the track"
+    name: String!
+
+    """
+    The number of the track. If an album has several discs, the track number is
+    the number on the specified disc.
+    """
+    trackNumber: Int
   }
 
   type SavedAlbumConnection {
