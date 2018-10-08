@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { branch, compose, noop, prop, value } from 'utils/fp'
 import { addUnits } from 'styles/utils'
@@ -18,43 +17,21 @@ const Img = styled.img`
   object-fit: cover;
 `
 
-class Image extends Component {
-  static fragments = {
-    image: gql`
-      fragment Image_image on Image {
-        url
-        width
-        height
-      }
-    `
-  }
-
+class LazyImage extends Component {
   state = {
     loaded: false
   }
 
   componentDidMount() {
-    const { image } = this.props
     const img = new window.Image()
 
     img.onload = () => this.setState({ loaded: true })
-    img.src = image.url
+    img.src = this.props.src
   }
 
   render() {
-    const { loaded } = this.state
-    const { className, image, width, height } = this.props
-
-    return (
-      <Img
-        className={className}
-        loaded={loaded}
-        src={image.url}
-        width={width || image.width}
-        height={height || image.height}
-      />
-    )
+    return <Img loaded={this.state.loaded} {...this.props} />
   }
 }
 
-export default Image
+export default LazyImage
