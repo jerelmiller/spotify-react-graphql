@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import client from './config/apollo'
+import Album from './routes/album'
 import Albums from './routes/collection/albums'
 import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
@@ -26,6 +27,7 @@ class App extends Component {
                 <Redirect noThrow from="/" to="browse/featured" />
                 <Login path="login" />
                 <SetToken path="set-token" />
+                <Album path="albums/:albumId" />
                 <Browse path="browse">
                   <Redirect noThrow from="/" to="browse/featured" />
                   <BrowseDiscover path="discover" />
