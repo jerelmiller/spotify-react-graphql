@@ -12,13 +12,25 @@ const resolvers = {
     discNumber: prop('disc_number'),
     trackNumber: prop('track_number')
   },
+  TrackEdge: {
+    addedAt: prop('added_at'),
+    node: prop('track')
+  },
+  TrackConnection: {
+    edges: ({ items }) => items,
+    pageInfo: ({ limit, next, offset, previous, total }) => ({
+      hasNext: Boolean(next),
+      hasPrevious: Boolean(previous),
+      offset,
+      limit,
+      total
+    })
+  },
   Viewer: {
     user: async (_source, _args, { dataSources }) =>
       dataSources.spotifyAPI.getCurrentUser(),
     tracks: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
-      dataSources.spotifyAPI
-        .getViewerTracks({ limit, offset })
-        .then(({ items }) => items.map(prop('track')))
+      dataSources.spotifyAPI.getViewerTracks({ limit, offset })
   }
 }
 

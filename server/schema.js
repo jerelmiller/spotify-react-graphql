@@ -1,5 +1,10 @@
 import { gql } from 'apollo-server'
 
+/**
+ * The term `Collection` used in this schema is heavily-inspired by Relay
+ * connections, but does not use cursor based pagination as defined by the spec.
+ */
+
 export default gql`
   type Query {
     artist(id: ID!): Artist
@@ -80,6 +85,25 @@ export default gql`
     SPOTIFY
   }
 
+  type PageInfo {
+    "Whether there is a next page of items."
+    hasNext: Boolean!
+
+    "Whether there is a previous page of items."
+    hasPrevious: Boolean!
+
+    """
+    The maximum number of items in the response (as set in the query or default)
+    """
+    limit: Int!
+
+    "The offset of the items returned (as set in the query or default)"
+    offset: Int!
+
+    "The total number of items returned for the page."
+    total: Int!
+  }
+
   type User {
     """
     The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -121,12 +145,25 @@ export default gql`
     trackNumber: Int
   }
 
+  type TrackConnection {
+    edges: [TrackEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type TrackEdge {
+    "The date and time the track was saved."
+    addedAt: String
+
+    "The track object."
+    node: Track!
+  }
+
   "Info about the current logged-in user"
   type Viewer {
     "Info about the user"
     user: User
 
     "The collection of saved songs in the current user's Spotify library."
-    tracks(limit: Int, offset: Int): [Track]
+    tracks(limit: Int, offset: Int): TrackConnection
   }
 `
