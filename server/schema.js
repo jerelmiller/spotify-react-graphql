@@ -48,9 +48,6 @@ export default gql`
   }
 
   type AlbumEdge {
-    "The date and time the album was saved."
-    addedAt: String
-
     node: Album!
   }
 
@@ -231,6 +228,19 @@ export default gql`
     node: Track!
   }
 
+  type SavedAlbumConnection {
+    edges: [SavedAlbumEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type SavedAlbumEdge {
+    "The date and time the album was saved."
+    addedAt: String
+
+    "The album object."
+    node: Album!
+  }
+
   type SavedTrackConnection {
     edges: [SavedTrackEdge!]!
     pageInfo: PageInfo!
@@ -261,7 +271,7 @@ export default gql`
   "Info about the current logged-in user"
   type Viewer {
     "The collection of saved albums in the current user's Spotify library."
-    albums(limit: Int, offset: Int): AlbumConnection
+    albums(limit: Int, offset: Int): SavedAlbumConnection
 
     "Info about the user"
     user: User
