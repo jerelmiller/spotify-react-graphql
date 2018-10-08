@@ -18,7 +18,7 @@ const BACKGROUND_COLORS = {
 const Main = styled.main`
   grid-area: main;
   color: #fff;
-  padding: 1rem 2rem;
+  padding: 2rem;
   position: relative;
   overflow: auto;
 `
