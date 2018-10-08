@@ -2,14 +2,8 @@ import React from 'react'
 import Album from 'components/Album'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
-import styled from 'styled-components'
+import TileGrid from 'components/TileGrid'
 import { Query } from 'react-apollo'
-
-const AlbumContainer = styled.div`
-  display: grid;
-  grid-gap: 2.5rem 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-`
 
 const Albums = () => (
   <Query
@@ -34,12 +28,12 @@ const Albums = () => (
     {({ loading, data: { viewer } }) => (
       <>
         <PageTitle>Albums</PageTitle>
-        <AlbumContainer>
+        <TileGrid minWidth="180px">
           {loading ||
             viewer.savedAlbums.edges.map(({ node }) => (
               <Album key={node.id} album={node} />
             ))}
-        </AlbumContainer>
+        </TileGrid>
       </>
     )}
   </Query>
