@@ -20,6 +20,25 @@ class LazyImage extends Component {
   }
 
   componentDidMount() {
+    this.loadImage()
+  }
+
+  componentDidUpdate({ src: prevSrc }) {
+    const { src } = this.props
+
+    if (prevSrc !== src) {
+      this.setState({ loaded: false })
+      this.loadImage()
+    }
+  }
+
+  loadImage = () => {
+    const { src } = this.props
+
+    if (!src) {
+      return
+    }
+
     const img = new window.Image()
 
     img.onload = () => this.setState({ loaded: true })
