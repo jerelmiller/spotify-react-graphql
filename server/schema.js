@@ -271,12 +271,12 @@ export default gql`
   "Info about the current logged-in user"
   type Viewer {
     "The collection of saved albums in the current user's Spotify library."
-    albums(limit: Int, offset: Int): SavedAlbumConnection
+    savedAlbums(limit: Int, offset: Int): SavedAlbumConnection
 
     "Info about the user"
     user: User
 
     "The collection of saved songs in the current user's Spotify library."
-    tracks(limit: Int, offset: Int): SavedTrackConnection
+    savedTracks(limit: Int, offset: Int): SavedTrackConnection
   }
 `
