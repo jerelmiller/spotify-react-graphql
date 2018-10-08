@@ -70,6 +70,10 @@ const resolvers = {
     node: item => item
   },
   Viewer: {
+    followedArtists: async (_source, { limit = 50, after }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getViewerArtists({ limit, after })
+        .then(prop('artists')),
     savedAlbums: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI.getViewerAlbums({ limit, offset }),
     user: async (_source, _args, { dataSources }) =>
