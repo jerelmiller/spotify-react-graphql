@@ -7,7 +7,7 @@ import { Query } from 'react-apollo'
 
 const AlbumContainer = styled.div`
   display: grid;
-  grid-gap: 1rem;
+  grid-gap: 2.5rem 1rem;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 `
 
