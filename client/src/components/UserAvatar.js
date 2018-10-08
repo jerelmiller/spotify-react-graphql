@@ -11,7 +11,7 @@ const Container = styled.div`
     margin-right: 0.5rem;
   }
 `
-const UserAvatar = ({ user }) => (
+const UserAvatar = ({ user = { images: [{ url: '' }] } }) => (
   <Container>
     <Avatar image={user.images[0]} />
     <span>{user.displayName}</span>
