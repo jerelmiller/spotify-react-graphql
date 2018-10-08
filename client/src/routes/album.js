@@ -2,6 +2,7 @@ import React from 'react'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import ReleaseYear from 'components/ReleaseYear'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
@@ -44,6 +45,12 @@ const Album = ({ albumId }) => (
           id
           name
 
+          label
+
+          releaseDate {
+            ...ReleaseYear_releaseDate
+          }
+
           primaryArtist {
             id
             name
@@ -66,6 +73,7 @@ const Album = ({ albumId }) => (
       }
 
       ${Track.fragments.track}
+      ${ReleaseYear.fragments.releaseDate}
     `}
     variables={{ albumId }}
   >
@@ -78,6 +86,7 @@ const Album = ({ albumId }) => (
             <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
               {album.primaryArtist.name}
             </ArtistLink>
+            <ReleaseYear releaseDate={album.releaseDate} />
           </Info>
           <div>
             {album.tracks.edges.map(({ node }) => (
