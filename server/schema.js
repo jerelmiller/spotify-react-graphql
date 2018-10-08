@@ -227,6 +227,16 @@ export default gql`
   }
 
   type TrackEdge {
+    "The track object."
+    node: Track!
+  }
+
+  type SavedTrackConnection {
+    edges: [SavedTrackEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type SavedTrackEdge {
     "The date and time the track was saved."
     addedAt: String
 
@@ -257,6 +267,6 @@ export default gql`
     user: User
 
     "The collection of saved songs in the current user's Spotify library."
-    tracks(limit: Int, offset: Int): TrackConnection
+    tracks(limit: Int, offset: Int): SavedTrackConnection
   }
 `
