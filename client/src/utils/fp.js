@@ -9,3 +9,5 @@ export const curry = fn => {
 
   return curried
 }
+
+export const prop = curry((name, obj) => obj[name])
