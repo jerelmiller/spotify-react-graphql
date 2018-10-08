@@ -121,6 +121,9 @@ export default gql`
   type Track {
     id: ID!
 
+    "A simplified album object."
+    album: SimpleAlbum!
+
     "An array of simplified artist objects."
     artists: [SimpleArtist!]!
 
@@ -159,6 +162,13 @@ export default gql`
 
     "The track object."
     node: Track!
+  }
+
+  "Simplified representation of an album."
+  type SimpleAlbum {
+    id: ID!
+
+    name: String!
   }
 
   "Simplified representation of an artist."
