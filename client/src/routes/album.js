@@ -19,6 +19,8 @@ const CoverPhoto = styled(LazyImage)`
 `
 
 const Info = styled.div`
+  display: flex;
+  flex-direction: column;
   text-align: center;
 `
 
@@ -34,6 +36,13 @@ const ArtistLink = styled(Link)`
   }
 `
 
+const Typography = styled.span`
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: ${textColor('muted')};
+  text-transform: uppercase;
+`
+
 const imageFor = album =>
   album.images.find(({ width }) => width === 300) || album.images[0]
 
@@ -44,7 +53,6 @@ const Album = ({ albumId }) => (
         album(id: $albumId) {
           id
           name
-
           label
 
           releaseDate {
@@ -68,6 +76,9 @@ const Album = ({ albumId }) => (
                 ...Track_track
               }
             }
+            pageInfo {
+              total
+            }
           }
         }
       }
@@ -83,10 +94,23 @@ const Album = ({ albumId }) => (
           <Info>
             <CoverPhoto block src={imageFor(album).url} width="300px" />
             <h2>{album.name}</h2>
-            <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
-              {album.primaryArtist.name}
-            </ArtistLink>
-            <ReleaseYear releaseDate={album.releaseDate} />
+            <div>
+              <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
+                {album.primaryArtist.name}
+              </ArtistLink>
+            </div>
+            <div>
+              <Typography>
+                <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
+                {album.tracks.pageInfo.total} Songs
+              </Typography>
+            </div>
+            <div>
+              <Typography>
+                &copy; <ReleaseYear releaseDate={album.releaseDate} />{' '}
+                {album.label}
+              </Typography>
+            </div>
           </Info>
           <div>
             {album.tracks.edges.map(({ node }) => (
