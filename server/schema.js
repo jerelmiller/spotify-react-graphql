@@ -13,6 +13,59 @@ export default gql`
     viewer: Viewer
   }
 
+  type Album {
+    id: ID!
+
+    "The artists of the album."
+    artists: [SimpleArtist!]!
+
+    """
+    A list of the genres used to classify the album. For example: "Prog Rock",
+    "Post-Grunge". (If not yet classified, the array is empty.)
+    """
+    genres: [String!]!
+
+    "The cover art for the album in various sizes, widest first."
+    images: [Image!]!
+
+    "The label for the album."
+    label: String
+
+    """
+    The name of the album. In case of an album takedown, the value may be an
+    empty string
+    """
+    name: String!
+
+    "Information about the release date of the album."
+    releaseDate: ReleaseDate
+
+    "The tracks of the album"
+    tracks: TrackConnection
+
+    "The type of album"
+    type: AlbumType!
+  }
+
+  type AlbumEdge {
+    "The date and time the album was saved."
+    addedAt: String
+
+    node: Album!
+  }
+
+  type AlbumConnection {
+    edges: [AlbumEdge!]!
+
+    pageInfo: PageInfo!
+  }
+
+  enum AlbumType {
+    ALBUM
+    SINGLE
+    COMPILATION
+  }
+
   type Artist {
     """
     The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -104,6 +157,23 @@ export default gql`
     total: Int!
   }
 
+  type ReleaseDate {
+    """
+    The date the album was first released, for example 1981. Depending on the
+    precision, it might be shown as 1981-12, or 1981-12-15.
+    """
+    date: String
+
+    "The precision with which the release date value is known."
+    precision: ReleaseDatePrecision
+  }
+
+  enum ReleaseDatePrecision {
+    YEAR
+    MONTH
+    DAY
+  }
+
   type User {
     """
     The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -180,6 +250,8 @@ export default gql`
 
   "Info about the current logged-in user"
   type Viewer {
+    albums(limit: Int, offset: Int): AlbumConnection
+
     "Info about the user"
     user: User
 
