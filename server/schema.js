@@ -102,6 +102,31 @@ export default gql`
     uri: String
   }
 
+  type ArtistConnection {
+    edges: [ArtistEdge!]!
+    pageInfo: CursorInfo!
+  }
+
+  type ArtistEdge {
+    node: Artist!
+  }
+
+  type CursorInfo {
+    "The cursor used to find the next set of items."
+    cursor: String
+
+    hasNextPage: Boolean!
+
+    """
+    The maximum number of items in the response (as set in the query or by
+    default)
+    """
+    limit: Int!
+
+    "The total number of items available to return."
+    total: Int!
+  }
+
   type ExternalUrl {
     """
     The type of the URL, for example:
@@ -137,10 +162,10 @@ export default gql`
 
   type PageInfo {
     "Whether there is a next page of items."
-    hasNext: Boolean!
+    hasNextPage: Boolean!
 
     "Whether there is a previous page of items."
-    hasPrevious: Boolean!
+    hasPreviousPage: Boolean!
 
     """
     The maximum number of items in the response (as set in the query or default)
@@ -270,6 +295,9 @@ export default gql`
 
   "Info about the current logged-in user"
   type Viewer {
+    "The list of the current user's followed artists."
+    followedArtists(limit: Int, after: String): ArtistConnection
+
     "The collection of saved albums in the current user's Spotify library."
     savedAlbums(limit: Int, offset: Int): SavedAlbumConnection
 
