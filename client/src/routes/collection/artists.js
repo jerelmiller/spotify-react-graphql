@@ -28,7 +28,7 @@ const Artists = () => (
     {({ loading, data: { viewer } }) => (
       <>
         <PageTitle>Artists</PageTitle>
-        <TileGrid minWidth="200px">
+        <TileGrid minWidth="160px">
           {loading ||
             viewer.followedArtists.edges.map(({ node }) => (
               <Artist key={node.id} artist={node} />
