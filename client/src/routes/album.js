@@ -43,8 +43,7 @@ const Typography = styled.span`
   text-transform: uppercase;
 `
 
-const imageFor = album =>
-  album.images.find(({ width }) => width === 300) || album.images[0]
+const imageFor = album => album.images[0]
 
 const Album = ({ albumId }) => (
   <Query
