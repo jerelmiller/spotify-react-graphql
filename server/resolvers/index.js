@@ -47,6 +47,14 @@ const resolvers = {
     cursor: ({ cursors }) => cursors.after,
     hasNextPage: ({ next }) => Boolean(next)
   },
+  Playlist: {
+    tracks: async ({ id }, { limit = 100, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI.getPlaylistTracks(id, { limit, offset })
+  },
+  PlaylistConnection: createConnectionResolver(),
+  PlaylistEdge: {
+    node: item => item
+  },
   User: {
     displayName: prop('display_name')
   },
@@ -73,7 +81,10 @@ const resolvers = {
     followedArtists: async (_source, { limit = 50, after }, { dataSources }) =>
       dataSources.spotifyAPI
         .getViewerArtists({ limit, after })
+
         .then(prop('artists')),
+    playlists: async (_source, { limit = 50, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI.getViewerPlaylists({ limit, offset }),
     savedAlbums: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI.getViewerAlbums({ limit, offset }),
     user: async (_source, _args, { dataSources }) =>

@@ -179,6 +179,16 @@ export default gql`
     total: Int!
   }
 
+  type Playlist {
+    id: ID!
+    collaborative: Boolean!
+    images: [Image!]!
+    name: String!
+    owner: User!
+    public: Boolean!
+    tracks: TrackConnection!
+  }
+
   type ReleaseDate {
     """
     The date the album was first released, for example 1981. Depending on the
@@ -293,10 +303,22 @@ export default gql`
     name: String!
   }
 
+  type PlaylistConnection {
+    edges: [PlaylistEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type PlaylistEdge {
+    node: Playlist!
+  }
+
   "Info about the current logged-in user"
   type Viewer {
     "The list of the current user's followed artists."
     followedArtists(limit: Int, after: String): ArtistConnection
+
+    "The list of the current user's owned or followed playlists"
+    playlists(limit: Int, offset: Int): PlaylistConnection
 
     "The collection of saved albums in the current user's Spotify library."
     savedAlbums(limit: Int, offset: Int): SavedAlbumConnection
