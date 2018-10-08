@@ -6,6 +6,7 @@ import MusicIcon from './MusicIcon'
 import MoreIcon from './MoreIcon'
 import ExplicitBadge from './ExplicitBadge'
 import { Link } from '@reach/router'
+import { textColor } from 'styles/utils'
 
 const Container = styled.div`
   display: grid;
@@ -33,7 +34,7 @@ const TrackDuration = styled(Duration)`
 
 const Info = styled.div`
   grid-column: 2 / -1;
-  color: hsla(0, 0%, 100%, 0.6);
+  color: ${textColor('muted')};
 `
 
 const ItemLink = styled(Link)`
