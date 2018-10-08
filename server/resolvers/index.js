@@ -31,7 +31,7 @@ const resolvers = {
     primaryArtist: ({ artists }) => artists[0],
     releaseDate: ({ release_date, release_date_precision }) => ({
       date: release_date,
-      precision: release_date_precision
+      precision: release_date_precision.toUpperCase()
     }),
     tracks: async ({ id }, _args, { dataSources }) =>
       dataSources.spotifyAPI.getAlbumTracks(id),
