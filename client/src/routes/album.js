@@ -2,11 +2,13 @@ import React from 'react'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import Track from 'components/Track'
 import { Query } from 'react-apollo'
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
+  grid-gap: 1rem;
 `
 
 const imageFor = album =>
@@ -29,12 +31,14 @@ const Album = ({ albumId }) => (
             edges {
               node {
                 id
-                name
+                ...Track_track
               }
             }
           }
         }
       }
+
+      ${Track.fragments.track}
     `}
     variables={{ albumId }}
   >
@@ -42,6 +46,11 @@ const Album = ({ albumId }) => (
       loading || (
         <Container>
           <LazyImage src={imageFor(album).url} width="300px" />
+          <div>
+            {album.tracks.edges.map(({ node }) => (
+              <Track key={node.id} track={node} />
+            ))}
+          </div>
         </Container>
       )
     }
