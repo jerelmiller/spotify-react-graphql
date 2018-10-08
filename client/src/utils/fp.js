@@ -21,3 +21,4 @@ export const branch = curry(
 export const defaultTo = curry((def, obj) => (obj == null ? def : obj))
 export const noop = () => {}
 export const prop = curry((name, obj) => obj[name])
+export const value = val => () => val
