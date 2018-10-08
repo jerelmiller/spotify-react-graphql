@@ -1,5 +1,6 @@
 import React from 'react'
 import AppMain from './AppMain'
+import AppSidebar from './AppSidebar'
 import UserAvatar from './UserAvatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -15,12 +16,6 @@ const Container = styled.div`
   grid-template-rows: 1fr auto;
 `
 
-const Sidebar = styled.aside`
-  grid-area: sidebar;
-  background: #121212;
-  color: #fff;
-`
-
 const Footer = styled.footer`
   grid-area: footer;
   background: #282828;
@@ -31,19 +26,16 @@ const AppLayout = ({ children }) => (
     query={gql`
       query AppLayoutQuery {
         viewer {
-          user {
-            id
-            ...UserAvatar_user
-          }
+          ...AppSidebar_viewer
         }
       }
 
-      ${UserAvatar.fragments.user}
+      ${AppSidebar.fragments.viewer}
     `}
   >
     {({ loading, data: { viewer } }) => (
       <Container>
-        <Sidebar>{loading || <UserAvatar user={viewer.user} />}</Sidebar>
+        <AppSidebar loading={loading} viewer={viewer} />
         <AppMain>{children}</AppMain>
         <Footer />
       </Container>
