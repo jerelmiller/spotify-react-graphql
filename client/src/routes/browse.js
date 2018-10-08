@@ -2,8 +2,6 @@ import React from 'react'
 import NavLink from 'components/NavLink'
 import styled from 'styled-components'
 
-const Header = styled.header``
-
 const NavContainer = styled.ul`
   display: flex;
   align-items: center;
@@ -65,7 +63,7 @@ const NavItem = ({ children, to }) => (
 
 const RouteBrowse = ({ children }) => (
   <>
-    <Header>
+    <header>
       <nav>
         <NavContainer>
           <NavItem to="featured">Featured</NavItem>
@@ -76,7 +74,7 @@ const RouteBrowse = ({ children }) => (
           <NavItem to="discover">Discover</NavItem>
         </NavContainer>
       </nav>
-    </Header>
+    </header>
     {children}
   </>
 )
