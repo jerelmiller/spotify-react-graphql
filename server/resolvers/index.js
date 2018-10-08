@@ -28,6 +28,7 @@ const resolvers = {
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
   Album: {
+    primaryArtist: ({ artists }) => artists[0],
     releaseDate: ({ release_date, release_date_precision }) => ({
       date: release_date,
       precision: release_date_precision
