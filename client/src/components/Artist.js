@@ -10,6 +10,17 @@ const Container = styled.div`
 const ArtistImage = styled(LazyImage)`
   display: block;
   margin-bottom: 0.5rem;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+`
+
+const ImageContainer = styled.div`
+  height: 0;
+  position: relative;
+  padding-top: 100%;
 `
 
 const Artist = ({ artist }) => {
@@ -17,7 +28,9 @@ const Artist = ({ artist }) => {
 
   return (
     <Container>
-      <ArtistImage src={image.url} />
+      <ImageContainer>
+        <ArtistImage src={image.url} />
+      </ImageContainer>
       {artist.name}
     </Container>
   )
