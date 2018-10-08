@@ -22,6 +22,8 @@ export default gql`
     "The artists of the album."
     artists: [SimpleArtist!]!
 
+    primaryArtist: SimpleArtist
+
     """
     A list of the genres used to classify the album. For example: "Prog Rock",
     "Post-Grunge". (If not yet classified, the array is empty.)
