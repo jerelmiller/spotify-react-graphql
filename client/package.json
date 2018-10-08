@@ -12,6 +12,7 @@
     "apollo-link-http": "^1.5.5",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
+    "polished": "^2.2.0",
     "react": "16.5.2",
     "react-apollo": "^2.2.4",
     "react-dom": "16.5.2",
