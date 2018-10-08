@@ -9,7 +9,10 @@ const BACKGROUND_COLORS = {
   '/browse/podcasts': '#673239',
   '/browse/charts': '#224F6A',
   '/browse/genres': '#272527',
-  '/browse/new-releases': '#283A6A'
+  '/browse/new-releases': '#283A6A',
+  '/collection/tracks': '#1F3363',
+  '/collection/artists': '#4E361C',
+  '/collection/albums': '#090B0F'
 }
 
 const Main = styled.main`
