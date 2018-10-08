@@ -3,7 +3,6 @@ import client from './config/apollo'
 import AppLayout from './components/AppLayout'
 import Auth from './components/Auth'
 import Login from './routes/login'
-import GlobalStyle from './styles/global'
 import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
@@ -18,7 +17,6 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <GlobalStyle />
           <Auth>
             <AppLayout>
               <Router>
