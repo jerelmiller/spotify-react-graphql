@@ -2,6 +2,7 @@ import React from 'react'
 import gql from 'graphql-tag'
 import UserAvatar from './UserAvatar'
 import NavLink from './NavLink'
+import UnstyledList from './UnstyledList'
 import styled from 'styled-components'
 
 const Sidebar = styled.aside`
@@ -16,22 +17,30 @@ const Section = styled.section`
   }
 `
 
-const Title = styled.h6`
+const Title = styled.h5`
   text-transform: uppercase;
+  padding: 0 2rem;
+  font-weight: 300;
+  margin: 0;
+  margin-bottom: 0.25rem;
+  letter-spacing: 1px;
 `
 
 const NavSection = ({ children, title }) => (
   <Section>
     {title && <Title>{title}</Title>}
     <nav>
-      <ul>{children}</ul>
+      <UnstyledList>{children}</UnstyledList>
     </nav>
   </Section>
 )
 
 const SidebarLink = styled(NavLink)`
-  font-size: 0.85rem;
-  color: #666;
+  display: block;
+  font-size: 0.95rem;
+  color: #858585;
+  padding: 0.25rem 2rem;
+  transition: color 0.15s ease-in-out;
 
   &:hover,
   &.active {
