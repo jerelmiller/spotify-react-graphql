@@ -8,9 +8,17 @@ const resolvers = {
   User: {
     displayName: prop('display_name')
   },
+  Track: {
+    discNumber: prop('disc_number'),
+    trackNumber: prop('track_number')
+  },
   Viewer: {
     user: async (_source, _args, { dataSources }) =>
-      dataSources.spotifyAPI.getCurrentUser()
+      dataSources.spotifyAPI.getCurrentUser(),
+    tracks: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getViewerTracks({ limit, offset })
+        .then(({ items }) => items.map(prop('track')))
   }
 }
 
