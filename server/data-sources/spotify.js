@@ -16,6 +16,7 @@ class SpotifyAPI extends RESTDataSource {
     const params = new URLSearchParams()
     params.set('limit', limit)
     params.set('offset', offset)
+    params.set('aggregate_tracks', true)
 
     return this.get(`/me/albums?${params}`)
   }
