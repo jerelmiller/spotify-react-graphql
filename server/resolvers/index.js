@@ -44,6 +44,8 @@ const resolvers = {
   },
   TrackConnection: createConnectionResolver(),
   Viewer: {
+    albums: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI.getViewerAlbums({ limit, offset }),
     user: async (_source, _args, { dataSources }) =>
       dataSources.spotifyAPI.getCurrentUser(),
     tracks: async (_source, { limit = 20, offset = 0 }, { dataSources }) =>

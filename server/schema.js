@@ -250,6 +250,7 @@ export default gql`
 
   "Info about the current logged-in user"
   type Viewer {
+    "The collection of saved albums in the current user's Spotify library."
     albums(limit: Int, offset: Int): AlbumConnection
 
     "Info about the user"
