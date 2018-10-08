@@ -30,6 +30,8 @@ const TrackDuration = styled(Duration)`
   font-weight: 300;
   width: 3rem;
   text-align: right;
+  color: ${textColor('muted')};
+  font-size: 0.9rem;
 `
 
 const Info = styled.div`
