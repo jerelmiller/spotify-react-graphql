@@ -37,7 +37,7 @@ const Album = ({ album }) => {
 
   return (
     <Container>
-      <CoverPhoto src={coverPhoto.url} width="100%" placeholderHeight="200px" />
+      <CoverPhoto src={coverPhoto.url} width="100%" />
       <Title to={`/albums/${album.id}`}>{album.name}</Title>
       <ArtistLink to={`/artists/${album.artists[0].id}`}>
         {album.artists[0].name}
