@@ -10,4 +10,8 @@ export const curry = fn => {
   return curried
 }
 
+export const compose = (...fns) =>
+  fns.reduce((f, g) => (...args) => f(g(...args)))
+
+export const defaultTo = curry((def, obj) => (obj == null ? def : obj))
 export const prop = curry((name, obj) => obj[name])
