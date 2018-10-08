@@ -21,6 +21,18 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/albums?${params}`)
   }
 
+  async getViewerArtists({ limit, after }) {
+    const params = new URLSearchParams()
+    params.set('type', 'artist')
+    params.set('limit', limit)
+
+    if (after) {
+      params.set('after', after)
+    }
+
+    return this.get(`/me/following?${params}`)
+  }
+
   async getViewerTracks({ limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
