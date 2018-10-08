@@ -1,6 +1,7 @@
 import React from 'react'
 import Track from 'components/Track'
 import gql from 'graphql-tag'
+import PageTitle from 'components/PageTitle'
 import { Query } from 'react-apollo'
 
 const Tracks = () => (
@@ -26,9 +27,11 @@ const Tracks = () => (
   >
     {({ loading, data: { viewer } }) => (
       <>
-        <h1>Songs</h1>
+        <PageTitle>Songs</PageTitle>
         {loading ||
-          viewer.tracks.edges.map(({ node }) => <Track track={node} />)}
+          viewer.tracks.edges.map(({ node }) => (
+            <Track track={node} key={node.id} />
+          ))}
       </>
     )}
   </Query>
