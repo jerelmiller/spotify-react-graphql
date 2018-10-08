@@ -3,9 +3,19 @@ import { prop } from '../utils/fp'
 const createConnectionResolver = () => ({
   edges: prop('items'),
   pageInfo: ({ limit, next, offset, previous, total }) => ({
-    hasNext: Boolean(next),
-    hasPrevious: Boolean(previous),
+    hasNextPage: Boolean(next),
+    hasPreviousPage: Boolean(previous),
     offset,
+    limit,
+    total
+  })
+})
+
+const createCursorConnectionResolver = () => ({
+  edges: prop('items'),
+  pageInfo: ({ cursors, limit, next, total }) => ({
+    cursor: cursors.after,
+    next: Boolean(next),
     limit,
     total
   })
@@ -28,6 +38,14 @@ const resolvers = {
   AlbumConnection: createConnectionResolver(),
   AlbumEdge: {
     node: item => item
+  },
+  ArtistConnection: createCursorConnectionResolver(),
+  ArtistEdge: {
+    node: item => item
+  },
+  CursorInfo: {
+    cursor: ({ cursors }) => cursors.after,
+    hasNextPage: ({ next }) => Boolean(next)
   },
   User: {
     displayName: prop('display_name')
