@@ -23,7 +23,8 @@ const createCursorConnectionResolver = () => ({
 
 const resolvers = {
   Query: {
-    artist: () => ({ id: 1 }),
+    artist: (_, { id }, { dataSources }) =>
+      dataSources.spotifyAPI.getArtist(id),
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
