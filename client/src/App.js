@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import client from './config/apollo'
 import Album from './routes/album'
 import Albums from './routes/collection/albums'
+import Artist from './routes/artist'
 import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
 import Auth from './components/Auth'
@@ -28,6 +29,7 @@ class App extends Component {
                 <Login path="login" />
                 <SetToken path="set-token" />
                 <Album path="albums/:albumId" />
+                <Artist path="artists/:artistId" />
                 <Browse path="browse">
                   <Redirect noThrow from="/" to="browse/featured" />
                   <BrowseDiscover path="discover" />
