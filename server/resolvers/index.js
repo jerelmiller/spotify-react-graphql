@@ -42,6 +42,9 @@ const resolvers = {
   AlbumEdge: {
     node: item => item
   },
+  Artist: {
+    externalUrls: prop('external_urls')
+  },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
     node: item => item
