@@ -12,6 +12,10 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/albums/${id}`)
   }
 
+  getArtist(id) {
+    return this.get(`/artists/${id}`)
+  }
+
   async getCurrentUser() {
     return this.get('/me')
   }
