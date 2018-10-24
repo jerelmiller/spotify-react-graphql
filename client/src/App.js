@@ -22,24 +22,25 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <Auth />
-          <AppLayout>
-            <Router primary={false}>
-              <Redirect noThrow from="/" to="browse/featured" />
-              <Login path="login" />
-              <SetToken path="set-token" />
-              <Album path="albums/:albumId" />
-              <Artist path="artists/:artistId" />
-              <Browse path="browse">
+          <Auth>
+            <AppLayout>
+              <Router primary={false}>
                 <Redirect noThrow from="/" to="browse/featured" />
-                <BrowseDiscover path="discover" />
-                <BrowseFeatured path="featured" />
-              </Browse>
-              <Albums path="collection/albums" />
-              <Artists path="collection/artists" />
-              <Tracks path="collection/tracks" />
-            </Router>
-          </AppLayout>
+                <Login path="login" />
+                <SetToken path="set-token" />
+                <Album path="albums/:albumId" />
+                <Artist path="artists/:artistId" />
+                <Browse path="browse">
+                  <Redirect noThrow from="/" to="browse/featured" />
+                  <BrowseDiscover path="discover" />
+                  <BrowseFeatured path="featured" />
+                </Browse>
+                <Albums path="collection/albums" />
+                <Artists path="collection/artists" />
+                <Tracks path="collection/tracks" />
+              </Router>
+            </AppLayout>
+          </Auth>
         </ApolloProvider>
       </ThemeProvider>
     )
