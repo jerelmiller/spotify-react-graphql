@@ -8192,6 +8192,11 @@ reduce-css-calc@^2.0.0:
     css-unit-converter "^1.1.1"
     postcss-value-parser "^3.3.0"
 
+redux-devtools-extension@^2.13.5:
+  version "2.13.5"
+  resolved "https://registry.yarnpkg.com/redux-devtools-extension/-/redux-devtools-extension-2.13.5.tgz#3ff34f7227acfeef3964194f5f7fc2765e5c5a39"
+  integrity sha512-QQ9BRy77oURHMdGys9rfQcCQDzXZ1T4oW+eUyE5Cg7DNVau69HJzc4YNDMOmpi0Dzpi1zOQgQ2rUpgJta4Lfqg==
+
 redux-simple-auth@^0.6.6:
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/redux-simple-auth/-/redux-simple-auth-0.6.6.tgz#38729aa5eedb5ba6443cf684fb53c481d1e3e33c"
