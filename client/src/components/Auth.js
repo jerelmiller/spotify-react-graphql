@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from '@reach/router'
+import Login from 'routes/login'
 
 class Auth extends Component {
   state = {
@@ -7,9 +7,10 @@ class Auth extends Component {
   }
 
   render() {
+    const { children } = this.props
     const { isAuthenticated } = this.state
 
-    return isAuthenticated ? null : <Redirect noThrow to="/login" />
+    return isAuthenticated ? children : <Login />
   }
 }
 
