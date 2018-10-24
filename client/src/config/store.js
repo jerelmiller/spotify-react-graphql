@@ -5,7 +5,7 @@ import spotify from 'authenticators/spotify'
 import rootReducer from 'reducers'
 
 const authMiddleware = createAuthMiddleware({
-  authenticator: spotify,
+  authenticators: [spotify],
   authorizer: ({ token }, header) => {
     if (token) {
       header('Authorization', `Bearer ${token}`)
