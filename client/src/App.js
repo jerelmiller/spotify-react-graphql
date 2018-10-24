@@ -5,11 +5,12 @@ import Albums from './routes/collection/albums'
 import Artist from './routes/artist'
 import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
-import Auth from './components/Auth'
 import Login from './routes/login'
 import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
+import LoggedOut from './routes/logged-out'
+import Session from './components/Session'
 import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
 import store from './config/store'
@@ -25,25 +26,33 @@ class App extends Component {
       <Provider store={store}>
         <ThemeProvider theme={theme}>
           <ApolloProvider client={client}>
-            <Auth>
-              <AppLayout>
-                <Router primary={false}>
-                  <Redirect noThrow from="/" to="browse/featured" />
-                  <Login path="login" />
-                  <SetToken path="set-token" />
-                  <Album path="albums/:albumId" />
-                  <Artist path="artists/:artistId" />
-                  <Browse path="browse">
-                    <Redirect noThrow from="/" to="browse/featured" />
-                    <BrowseDiscover path="discover" />
-                    <BrowseFeatured path="featured" />
-                  </Browse>
-                  <Albums path="collection/albums" />
-                  <Artists path="collection/artists" />
-                  <Tracks path="collection/tracks" />
-                </Router>
-              </AppLayout>
-            </Auth>
+            <Session>
+              {({ isAuthenticated }) =>
+                isAuthenticated ? (
+                  <AppLayout>
+                    <Router primary={false}>
+                      <Redirect noThrow from="/" to="browse/featured" />
+                      <Album path="albums/:albumId" />
+                      <Artist path="artists/:artistId" />
+                      <Browse path="browse">
+                        <Redirect noThrow from="/" to="browse/featured" />
+                        <BrowseDiscover path="discover" />
+                        <BrowseFeatured path="featured" />
+                      </Browse>
+                      <Albums path="collection/albums" />
+                      <Artists path="collection/artists" />
+                      <Tracks path="collection/tracks" />
+                    </Router>
+                  </AppLayout>
+                ) : (
+                  <Router primary={false}>
+                    <Login path="login" />
+                    <SetToken path="set-token" />
+                    <LoggedOut default />
+                  </Router>
+                )
+              }
+            </Session>
           </ApolloProvider>
         </ThemeProvider>
       </Provider>
