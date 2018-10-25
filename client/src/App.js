@@ -27,8 +27,8 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <ApolloProvider client={client}>
             <Session>
-              {({ isAuthenticated }) =>
-                isAuthenticated ? (
+              {({ authenticated }) =>
+                authenticated ? (
                   <AppLayout>
                     <Router primary={false}>
                       <Redirect noThrow from="/" to="browse/featured" />
