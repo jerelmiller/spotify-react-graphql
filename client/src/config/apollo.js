@@ -3,7 +3,8 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { setContext } from 'apollo-link-context'
+import { fetch } from 'redux-simple-auth'
+import store from './store'
 
 const TOKEN_KEY = 'token'
 
@@ -20,7 +21,6 @@ const retryAuthLink = onError(
       switch (err.extensions.code) {
         case 'UNAUTHENTICATED':
           // TODO refresh the token
-          localStorage.removeItem(TOKEN_KEY)
           return forward(operation)
         default:
           return
@@ -30,22 +30,13 @@ const retryAuthLink = onError(
 )
 
 const httpLink = new HttpLink({
-  uri: `${process.env.REACT_APP_API_HOST}/graphql`
-})
-
-const setAuthorizationLink = setContext(() => {
-  const token = localStorage.getItem(TOKEN_KEY)
-
-  return {
-    headers: {
-      Authorization: token ? `Bearer ${token}` : null
-    }
-  }
+  uri: `${process.env.REACT_APP_API_HOST}/graphql`,
+  fetch: (...args) => store.dispatch(fetch(...args))
 })
 
 const client = new ApolloClient({
   cache,
-  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, httpLink])
+  link: ApolloLink.from([retryAuthLink, httpLink])
 })
 
 export default client
