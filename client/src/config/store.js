@@ -6,7 +6,7 @@ import rootReducer from 'reducers'
 
 const authMiddleware = createAuthMiddleware({
   authenticators: [spotify],
-  authorizer: ({ token }, header) => {
+  authorize: ({ token }, header) => {
     if (token) {
       header('Authorization', `Bearer ${token}`)
     }
