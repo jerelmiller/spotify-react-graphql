@@ -1,13 +1,18 @@
 import { useContext } from 'react'
 import { ReactReduxContext } from 'react-redux'
-import { getIsAuthenticated, getIsRestored } from 'redux-simple-auth'
+import {
+  getIsAuthenticated,
+  getIsRestored,
+  invalidateSession
+} from 'redux-simple-auth'
 
 const useSession = () => {
-  const { storeState: state } = useContext(ReactReduxContext)
+  const { storeState: state, store } = useContext(ReactReduxContext)
 
   return {
     isAuthenticated: getIsAuthenticated(state),
-    isRestored: getIsRestored(state)
+    isRestored: getIsRestored(state),
+    invalidateSession: () => store.dispatch(invalidateSession())
   }
 }
 
