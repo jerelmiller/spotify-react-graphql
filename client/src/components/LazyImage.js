@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { branch, compose, defaultTo, prop, noop, value } from 'utils/fp'
 import useLazyImage from 'hooks/useLazyImage'
