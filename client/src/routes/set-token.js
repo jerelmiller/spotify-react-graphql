@@ -1,12 +1,10 @@
 import { useEffect } from 'react'
 import useQueryParams from 'hooks/useQueryParams'
 import useSession from 'hooks/useSession'
-import { authenticate } from 'redux-simple-auth'
-import { connect } from 'react-redux'
 
-const SetToken = ({ authenticate, navigate }) => {
+const SetToken = ({ navigate }) => {
   const query = useQueryParams()
-  const { isAuthenticated } = useSession()
+  const { authenticate, isAuthenticated } = useSession()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -21,7 +19,4 @@ const SetToken = ({ authenticate, navigate }) => {
   return null
 }
 
-export default connect(
-  null,
-  { authenticate }
-)(SetToken)
+export default SetToken
