@@ -1,8 +1,7 @@
-import { useContext } from 'react'
-import { LocationContext } from '@reach/router'
+import useLocation from './useLocation'
 
 const useQueryParams = () => {
-  const { location } = useContext(LocationContext)
+  const location = useLocation()
 
   return new URLSearchParams(location.search)
 }
