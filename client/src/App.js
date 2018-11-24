@@ -6,6 +6,7 @@ import Artist from './routes/artist'
 import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
 import Login from './routes/login'
+import Logout from './routes/logout'
 import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
@@ -40,6 +41,7 @@ const App = () => (
                   <Albums path="collection/albums" />
                   <Artists path="collection/artists" />
                   <Tracks path="collection/tracks" />
+                  <Logout path="logout" />
                 </Router>
               </AppLayout>
             ) : (
