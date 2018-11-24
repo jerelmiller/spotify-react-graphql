@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import client from './config/apollo'
 import Album from './routes/album'
 import Albums from './routes/collection/albums'
@@ -20,44 +20,40 @@ import { ThemeProvider } from 'styled-components'
 import { Provider } from 'react-redux'
 import { Redirect, Router } from '@reach/router'
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <ApolloProvider client={client}>
-            <Session>
-              {({ authenticated }) =>
-                authenticated ? (
-                  <AppLayout>
-                    <Router primary={false}>
-                      <Redirect noThrow from="/" to="browse/featured" />
-                      <Album path="albums/:albumId" />
-                      <Artist path="artists/:artistId" />
-                      <Browse path="browse">
-                        <Redirect noThrow from="/" to="browse/featured" />
-                        <BrowseDiscover path="discover" />
-                        <BrowseFeatured path="featured" />
-                      </Browse>
-                      <Albums path="collection/albums" />
-                      <Artists path="collection/artists" />
-                      <Tracks path="collection/tracks" />
-                    </Router>
-                  </AppLayout>
-                ) : (
-                  <Router primary={false}>
-                    <Login path="login" />
-                    <SetToken path="set-token" />
-                    <LoggedOut default />
-                  </Router>
-                )
-              }
-            </Session>
-          </ApolloProvider>
-        </ThemeProvider>
-      </Provider>
-    )
-  }
-}
+const App = () => (
+  <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <ApolloProvider client={client}>
+        <Session>
+          {({ authenticated }) =>
+            authenticated ? (
+              <AppLayout>
+                <Router primary={false}>
+                  <Redirect noThrow from="/" to="browse/featured" />
+                  <Album path="albums/:albumId" />
+                  <Artist path="artists/:artistId" />
+                  <Browse path="browse">
+                    <Redirect noThrow from="/" to="browse/featured" />
+                    <BrowseDiscover path="discover" />
+                    <BrowseFeatured path="featured" />
+                  </Browse>
+                  <Albums path="collection/albums" />
+                  <Artists path="collection/artists" />
+                  <Tracks path="collection/tracks" />
+                </Router>
+              </AppLayout>
+            ) : (
+              <Router primary={false}>
+                <Login path="login" />
+                <SetToken path="set-token" />
+                <LoggedOut default />
+              </Router>
+            )
+          }
+        </Session>
+      </ApolloProvider>
+    </ThemeProvider>
+  </Provider>
+)
 
 export default App
