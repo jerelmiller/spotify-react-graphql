@@ -1,28 +1,22 @@
-import React from 'react'
-import Component from '@reactions/component'
-import QueryParams from 'components/QueryParams'
-import Session from 'components/Session'
-import { authenticate } from 'redux-simple-auth'
-import { Redirect } from '@reach/router'
-import { connect } from 'react-redux'
+import { useEffect } from 'react'
+import useQueryParams from 'hooks/useQueryParams'
+import useSession from 'hooks/useSession'
 
-const SetToken = ({ authenticate }) => (
-  <QueryParams>
-    {query => (
-      <Component didMount={() => authenticate('spotify', query.get('token'))}>
-        {() => (
-          <Session>
-            {({ authenticated }) =>
-              authenticated ? <Redirect noThrow to="/browse/featured" /> : null
-            }
-          </Session>
-        )}
-      </Component>
-    )}
-  </QueryParams>
-)
+const SetToken = ({ navigate }) => {
+  const query = useQueryParams()
+  const { authenticate, isAuthenticated } = useSession()
 
-export default connect(
-  null,
-  { authenticate }
-)(SetToken)
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/browse/featured')
+    } else {
+      authenticate('spotify', query.get('token')).then(() =>
+        navigate('/browse/featured')
+      )
+    }
+  }, [])
+
+  return null
+}
+
+export default SetToken
