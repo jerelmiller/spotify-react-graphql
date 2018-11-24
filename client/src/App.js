@@ -42,6 +42,8 @@ const App = () => (
                   <Artists path="collection/artists" />
                   <Tracks path="collection/tracks" />
                   <Logout path="logout" />
+
+                  <SetToken path="set-token" />
                 </Router>
               </AppLayout>
             ) : (
