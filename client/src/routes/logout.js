@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { connect } from 'react-redux'
-import { invalidateSession } from 'redux-simple-auth'
+import useSession from 'hooks/useSession'
 
-const Logout = ({ invalidateSession, navigate }) => {
+const Logout = ({ navigate }) => {
+  const { invalidateSession } = useSession()
   useEffect(() => {
     invalidateSession().then(() => navigate('/login'))
   }, [])
@@ -10,7 +10,4 @@ const Logout = ({ invalidateSession, navigate }) => {
   return null
 }
 
-export default connect(
-  null,
-  { invalidateSession }
-)(Logout)
+export default Logout
