@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
 import useQueryParams from 'hooks/useQueryParams'
 import useSession from 'hooks/useSession'
+import useOnMount from 'hooks/useOnMount'
 
 const SetToken = ({ navigate }) => {
   const query = useQueryParams()
   const { authenticate, isAuthenticated } = useSession()
 
-  useEffect(() => {
+  useOnMount(() => {
     if (isAuthenticated) {
       navigate('/browse/featured')
     } else {
@@ -14,7 +14,7 @@ const SetToken = ({ navigate }) => {
         navigate('/browse/featured')
       )
     }
-  }, [])
+  })
 
   return null
 }
