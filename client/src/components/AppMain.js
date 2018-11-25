@@ -4,18 +4,12 @@ import useBackgroundColor from 'hooks/useBackgroundColor'
 import { prop } from 'utils/fp'
 import { Location } from '@reach/router'
 
-const DEFAULT_BACKGROUND = '#181818'
-const BACKGROUND_COLORS = {
-  '/browse/featured': '#1A101C',
-  '/browse/discover': '#474E52',
-  '/browse/podcasts': '#673239',
-  '/browse/charts': '#224F6A',
-  '/browse/genres': '#272527',
-  '/browse/new-releases': '#283A6A',
-  '/collection/tracks': '#1F3363',
-  '/collection/artists': '#4E361C',
-  '/collection/albums': '#090B0F'
-}
+// const BACKGROUND_COLORS = {
+//   '/browse/podcasts': '#673239',
+//   '/browse/charts': '#224F6A',
+//   '/browse/genres': '#272527',
+//   '/browse/new-releases': '#283A6A'
+// }
 
 const Main = styled.main`
   grid-area: main;
