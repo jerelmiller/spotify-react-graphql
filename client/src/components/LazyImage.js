@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components'
 import { branch, compose, defaultTo, prop, noop, value } from 'utils/fp'
 import useLazyImage from 'hooks/useLazyImage'
@@ -16,10 +16,10 @@ const Img = styled.img`
   object-fit: cover;
 `
 
-const LazyImage = ({ src, ...props }) => {
+const LazyImage = ({ src, ...props }, ref) => {
   const loaded = useLazyImage(src)
 
-  return <Img loaded={loaded} src={src} {...props} />
+  return <Img loaded={loaded} src={src} ref={ref} {...props} />
 }
 
-export default LazyImage
+export default forwardRef(LazyImage)

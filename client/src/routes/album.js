@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -48,7 +48,8 @@ const imageFor = album => album.images[0]
 
 const Album = ({ albumId }) => {
   const [src, setSrc] = useState()
-  useBackgroundFromImage(src)
+  const ref = useRef(null)
+  useBackgroundFromImage(ref)
 
   return (
     <Query
@@ -102,7 +103,12 @@ const Album = ({ albumId }) => {
         loading || (
           <Container>
             <Info>
-              <CoverPhoto block src={imageFor(album).url} width="300px" />
+              <CoverPhoto
+                ref={ref}
+                block
+                src={imageFor(album).url}
+                width="300px"
+              />
               <h2>{album.name}</h2>
               <div>
                 <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
