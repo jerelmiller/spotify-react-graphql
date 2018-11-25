@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import useBackgroundColor from 'hooks/useBackgroundColor'
+import useCurrentBackgroundColor from 'hooks/useCurrentBackgroundColor'
 import { prop } from 'utils/fp'
 import { Location } from '@reach/router'
 
@@ -41,7 +41,7 @@ const Backdrop = styled.div`
 `
 
 const AppMain = ({ children }) => {
-  const color = useBackgroundColor()
+  const color = useCurrentBackgroundColor()
 
   return (
     <Location>
