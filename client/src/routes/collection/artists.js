@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import ArtistTile from 'components/ArtistTile'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
-import useBackgroundColor from 'hooks/useBackgroundColor'
+import useBackgroundFromImage from 'hooks/useBackgroundFromImage'
 import { Query } from 'react-apollo'
 
 const Artists = () => {
-  useBackgroundColor('#4E361C')
+  const ref = useRef(null)
+  useBackgroundFromImage(ref)
 
   return (
     <Query
@@ -34,8 +35,12 @@ const Artists = () => {
           <PageTitle>Artists</PageTitle>
           <TileGrid minWidth="160px">
             {loading ||
-              viewer.followedArtists.edges.map(({ node }) => (
-                <ArtistTile key={node.id} artist={node} />
+              viewer.followedArtists.edges.map(({ node }, idx) => (
+                <ArtistTile
+                  key={node.id}
+                  artist={node}
+                  imageRef={idx === 0 ? ref : null}
+                />
               ))}
           </TileGrid>
         </>
