@@ -3,17 +3,16 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { fetch, invalidateSession } from 'redux-simple-auth'
+import { fetch, getSessionData, invalidateSession } from 'redux-simple-auth'
 import store from './store'
-
-const TOKEN_KEY = 'token'
 
 const cache = new InMemoryCache()
 
 const retryAuthLink = onError(
   ({ graphQLErrors, networkErrors, operation, forward }) => {
+    const { token } = getSessionData(store.getState())
     // don't handle unauthenticated when there is no token or a network error
-    if (Boolean(networkErrors) || !localStorage.getItem(TOKEN_KEY)) {
+    if (Boolean(networkErrors) || !token) {
       return
     }
 
