@@ -4,7 +4,7 @@ import BackgroundColorContext from 'components/BackgroundColorContext'
 const DEFAULT_COLOR = '#181818'
 
 const useBackgroundColor = color => {
-  const { color: currentColor, setColor } = useContext(BackgroundColorContext)
+  const { setColor } = useContext(BackgroundColorContext)
 
   useEffect(
     () => {
@@ -14,8 +14,6 @@ const useBackgroundColor = color => {
     },
     [color]
   )
-
-  return currentColor
 }
 
 export default useBackgroundColor
