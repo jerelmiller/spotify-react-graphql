@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import useCurrentBackgroundColor from 'hooks/useCurrentBackgroundColor'
 import { prop } from 'utils/fp'
-import { Location } from '@reach/router'
 
 // const BACKGROUND_COLORS = {
 //   '/browse/podcasts': '#673239',
@@ -44,14 +43,10 @@ const AppMain = ({ children }) => {
   const color = useCurrentBackgroundColor()
 
   return (
-    <Location>
-      {({ location }) => (
-        <Main>
-          <Backdrop path={location.pathname} backgroundColor={color} />
-          {children}
-        </Main>
-      )}
-    </Location>
+    <Main>
+      <Backdrop backgroundColor={color} />
+      {children}
+    </Main>
   )
 }
 
