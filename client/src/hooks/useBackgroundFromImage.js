@@ -8,19 +8,21 @@ const useBackgroundFromImage = ref => {
   useBackgroundColor(color)
 
   useEffect(() => {
-    const image = new Image()
+    const img = new Image()
 
     if (ref.current) {
-      image.crossOrigin = true
-      image.onload = () => {
+      img.crossOrigin = true
+      img.onload = () => {
         const colorThief = new ColorThief()
-        const color = rgb(...colorThief.getColor(image))
-        setColor(shade(0.2, color))
+        const color = rgb(...colorThief.getColor(img))
+        setColor(shade(0.3, color))
       }
-      image.src = ref.current.src
+      img.src = ref.current.src
     }
 
-    return () => (image.onload = null)
+    return () => {
+      img.onload = null
+    }
   })
 }
 
