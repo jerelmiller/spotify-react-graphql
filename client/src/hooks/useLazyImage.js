@@ -14,6 +14,10 @@ const useLazyImage = src => {
       const img = new window.Image()
       img.onload = () => setLoaded(true)
       img.src = src
+
+      return () => {
+        img.onload = null
+      }
     },
     [src]
   )
