@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useRef } from 'react'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -47,7 +47,6 @@ const Typography = styled.span`
 const imageFor = album => album.images[0]
 
 const Album = ({ albumId }) => {
-  const [src, setSrc] = useState()
   const ref = useRef(null)
   useBackgroundFromImage(ref)
 
@@ -91,13 +90,6 @@ const Album = ({ albumId }) => {
         ${ReleaseYear.fragments.releaseDate}
       `}
       variables={{ albumId }}
-      onCompleted={({ album }) => {
-        const image = imageFor(album).url
-
-        if (image !== src) {
-          setSrc(image)
-        }
-      }}
     >
       {({ loading, data: { album } }) =>
         loading || (
