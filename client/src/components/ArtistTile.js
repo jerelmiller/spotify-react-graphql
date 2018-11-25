@@ -28,14 +28,14 @@ const ArtistLink = styled(Link)`
   font-size: 0.9rem;
 `
 
-const ArtistTile = ({ artist }) => {
+const ArtistTile = ({ artist, imageRef }) => {
   // try to use medium size image first
   const image = artist.images[1] || artist.images[0]
 
   return (
     <Container>
       <ImageContainer>
-        <ArtistImage src={image.url} />
+        <ArtistImage src={image.url} ref={imageRef} />
       </ImageContainer>
       <ArtistLink to={`/artists/${artist.id}`}>{artist.name}</ArtistLink>
     </Container>
