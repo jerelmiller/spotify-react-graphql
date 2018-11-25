@@ -28,6 +28,7 @@ const Tracks = () => {
         ${Track.fragments.track}
       `}
       variables={{ limit: 50, offset: 0 }}
+      fetchPolicy="network-only"
     >
       {({ loading, data: { viewer } }) => (
         <>
