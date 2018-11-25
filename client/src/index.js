@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import BackgroundColorProvider from './components/BackgroundColorProvider'
 import client from './config/apollo'
 import store from './config/store'
 import theme from './styles/theme'
@@ -14,7 +15,9 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <App />
+        <BackgroundColorProvider>
+          <App />
+        </BackgroundColorProvider>
       </ApolloProvider>
     </ThemeProvider>
   </Provider>,

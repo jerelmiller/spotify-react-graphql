@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import useBackgroundColor from 'hooks/useBackgroundColor'
+import { prop } from 'utils/fp'
 import { Location } from '@reach/router'
 
 const DEFAULT_BACKGROUND = '#181818'
@@ -24,7 +26,7 @@ const Main = styled.main`
 `
 
 const Backdrop = styled.div`
-  background: ${({ path }) => BACKGROUND_COLORS[path] || DEFAULT_BACKGROUND};
+  background: ${prop('backgroundColor')};
   position: fixed;
   transition: background 0.3s ease-in;
   top: 0;
@@ -40,19 +42,23 @@ const Backdrop = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(rgba(255, 255, 255, 0), #04060B);
+    background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
   }
 `
 
-const AppMain = ({ children }) => (
-  <Location>
-    {({ location }) => (
-      <Main>
-        <Backdrop path={location.pathname} />
-        {children}
-      </Main>
-    )}
-  </Location>
-)
+const AppMain = ({ children }) => {
+  const color = useBackgroundColor()
+
+  return (
+    <Location>
+      {({ location }) => (
+        <Main>
+          <Backdrop path={location.pathname} backgroundColor={color} />
+          {children}
+        </Main>
+      )}
+    </Location>
+  )
+}
 
 export default AppMain
