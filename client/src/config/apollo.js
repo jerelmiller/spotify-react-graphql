@@ -3,7 +3,7 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { fetch } from 'redux-simple-auth'
+import { fetch, invalidateSession } from 'redux-simple-auth'
 import store from './store'
 
 const TOKEN_KEY = 'token'
@@ -21,7 +21,7 @@ const retryAuthLink = onError(
       switch (err.extensions.code) {
         case 'UNAUTHENTICATED':
           // TODO refresh the token
-          return forward(operation)
+          return store.dispatch(invalidateSession())
         default:
           return
       }
