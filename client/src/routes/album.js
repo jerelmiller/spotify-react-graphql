@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
 import Track from 'components/Track'
+import useBackgroundFromImage from 'hooks/useBackgroundFromImage'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -45,74 +46,86 @@ const Typography = styled.span`
 
 const imageFor = album => album.images[0]
 
-const Album = ({ albumId }) => (
-  <Query
-    query={gql`
-      query AlbumQuery($albumId: ID!) {
-        album(id: $albumId) {
-          id
-          name
+const Album = ({ albumId }) => {
+  const [src, setSrc] = useState()
+  useBackgroundFromImage(src)
 
-          releaseDate {
-            ...ReleaseYear_releaseDate
-          }
-
-          primaryArtist {
+  return (
+    <Query
+      query={gql`
+        query AlbumQuery($albumId: ID!) {
+          album(id: $albumId) {
             id
             name
-          }
 
-          images {
-            url
-            width
-          }
-
-          tracks {
-            edges {
-              node {
-                id
-                ...Track_track
-              }
+            releaseDate {
+              ...ReleaseYear_releaseDate
             }
-            pageInfo {
-              total
+
+            primaryArtist {
+              id
+              name
+            }
+
+            images {
+              url
+              width
+            }
+
+            tracks {
+              edges {
+                node {
+                  id
+                  ...Track_track
+                }
+              }
+              pageInfo {
+                total
+              }
             }
           }
         }
-      }
 
-      ${Track.fragments.track}
-      ${ReleaseYear.fragments.releaseDate}
-    `}
-    variables={{ albumId }}
-  >
-    {({ loading, data: { album } }) =>
-      loading || (
-        <Container>
-          <Info>
-            <CoverPhoto block src={imageFor(album).url} width="300px" />
-            <h2>{album.name}</h2>
+        ${Track.fragments.track}
+        ${ReleaseYear.fragments.releaseDate}
+      `}
+      variables={{ albumId }}
+      onCompleted={({ album }) => {
+        const image = imageFor(album).url
+
+        if (image !== src) {
+          setSrc(image)
+        }
+      }}
+    >
+      {({ loading, data: { album } }) =>
+        loading || (
+          <Container>
+            <Info>
+              <CoverPhoto block src={imageFor(album).url} width="300px" />
+              <h2>{album.name}</h2>
+              <div>
+                <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
+                  {album.primaryArtist.name}
+                </ArtistLink>
+              </div>
+              <div>
+                <Typography>
+                  <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
+                  {album.tracks.pageInfo.total} Songs
+                </Typography>
+              </div>
+            </Info>
             <div>
-              <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
-                {album.primaryArtist.name}
-              </ArtistLink>
+              {album.tracks.edges.map(({ node }) => (
+                <Track key={node.id} track={node} />
+              ))}
             </div>
-            <div>
-              <Typography>
-                <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
-                {album.tracks.pageInfo.total} Songs
-              </Typography>
-            </div>
-          </Info>
-          <div>
-            {album.tracks.edges.map(({ node }) => (
-              <Track key={node.id} track={node} />
-            ))}
-          </div>
-        </Container>
-      )
-    }
-  </Query>
-)
+          </Container>
+        )
+      }
+    </Query>
+  )
+}
 
 export default Album
