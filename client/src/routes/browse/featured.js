@@ -1,5 +1,10 @@
 import React from 'react'
+import useBackgroundColor from 'hooks/useBackgroundColor'
 
-const RouteBrowseFeatured = () => <div>Featured</div>
+const RouteBrowseFeatured = () => {
+  useBackgroundColor('#1A101C')
+
+  return <div>Featured</div>
+}
 
 export default RouteBrowseFeatured
