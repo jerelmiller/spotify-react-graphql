@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import useCurrentBackgroundColor from 'hooks/useCurrentBackgroundColor'
+import useBackgroundColor from 'hooks/useBackgroundColor'
 import { prop } from 'utils/fp'
 
 // const BACKGROUND_COLORS = {
@@ -40,7 +40,7 @@ const Backdrop = styled.div`
 `
 
 const AppMain = ({ children }) => {
-  const color = useCurrentBackgroundColor()
+  const { color } = useBackgroundColor()
 
   return (
     <Main>
