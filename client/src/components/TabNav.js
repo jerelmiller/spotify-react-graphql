@@ -63,8 +63,8 @@ const NavItem = ({ children, exact, to }) => (
     </Link>
   </li>
 )
-const TabNav = ({ children }) => (
-  <nav>
+const TabNav = ({ className, children }) => (
+  <nav className={className}>
     <NavContainer>{children}</NavContainer>
   </nav>
 )

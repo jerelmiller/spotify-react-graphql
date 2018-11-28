@@ -25,12 +25,15 @@ const More = styled(MoreIcon)`
   margin-left: 1rem;
   cursor: pointer;
 `
+const Nav = styled(TabNav)`
+  margin-top: 2rem;
+`
 
 const Header = styled(LazyImage)`
   margin: -2rem -2rem 0;
-  padding: 2rem;
+  padding: 2rem 2rem 0;
   background-image: url(${prop('src')});
-  background-position: 50%;
+  background-position: 50% 33%;
   background-size: cover;
   position: relative;
   color: ${color('white')}
@@ -52,6 +55,10 @@ const Header = styled(LazyImage)`
     right: 0;
     background: linear-gradient(rgba(0, 0, 0, 0) -30%, #181818);
   }
+`
+
+const Content = styled.section`
+  padding: 2rem 0;
 `
 
 const Album = ({ artistId, children }) => {
@@ -96,7 +103,7 @@ const Album = ({ artistId, children }) => {
                 </Button>
                 <More size="2rem" />
               </FlexContainer>
-              <TabNav>
+              <Nav>
                 <TabNav.NavItem to="./" exact>
                   Overview
                 </TabNav.NavItem>
@@ -104,9 +111,9 @@ const Album = ({ artistId, children }) => {
                   Related artists
                 </TabNav.NavItem>
                 <TabNav.NavItem to="about">About</TabNav.NavItem>
-              </TabNav>
+              </Nav>
             </Header>
-            {children}
+            <Content>{children}</Content>
           </>
         )
       }
