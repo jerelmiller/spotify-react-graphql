@@ -1,5 +1,6 @@
 import { curry } from 'utils/fp'
 import { css } from 'styled-components'
+import { lighten as lighter } from 'polished'
 
 export const addUnits = curry(
   (unit, value) => (typeof value === 'number' ? value + unit : value)
@@ -20,3 +21,7 @@ export const typography = curry((name, { theme }) => {
     font-weight: ${weight};
   `
 })
+
+export const lighten = curry((amount, name, { theme }) =>
+  lighter(amount, color(name, { theme }) || '')
+)
