@@ -35,7 +35,6 @@ const Backdrop = styled.div`
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
   }
 `
 
