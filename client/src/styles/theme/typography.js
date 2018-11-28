@@ -2,7 +2,8 @@ import colors from './colors'
 
 const size = {
   xs: '0.8rem',
-  sm: '0.9rem'
+  sm: '0.9rem',
+  normal: '1rem'
 }
 
 const weight = {
@@ -26,6 +27,10 @@ export default {
     sm: {
       weight: weight.light,
       size: size.sm
+    },
+    md: {
+      weight: weight.normal,
+      size: size.normal
     }
   }
 }
