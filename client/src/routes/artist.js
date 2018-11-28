@@ -10,18 +10,27 @@ const Container = styled.div`
   position: relative;
 `
 
-const CoverPhoto = styled(LazyImage)`
-  position: absolute;
-  top: -2rem;
-  left: -2rem;
-  width: calc(100% + 4rem);
-  z-index: -1;
+const Header = styled(LazyImage)`
+  margin: -2rem -2rem 0;
+  padding: 2rem;
   background-image: url(${prop('src')});
+  background-position: 50%;
   background-size: cover;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0) -30%, #181818);
+  }
 `
 
 const Album = ({ artistId }) => {
-  useBackgroundColor('#4E361C')
+  useBackgroundColor('#181818')
 
   return (
     <Query
@@ -44,8 +53,10 @@ const Album = ({ artistId }) => {
       {({ loading, data: { artist } }) =>
         loading || (
           <Container>
-            <CoverPhoto src={artist.images[0].url} as="div" />
-            {artist.name}
+            <Header src={artist.images[0].url} as="header">
+              <div>1200 monthly listeners</div>
+              {artist.name}
+            </Header>
           </Container>
         )
       }
