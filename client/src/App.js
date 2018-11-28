@@ -2,6 +2,7 @@ import React from 'react'
 import Album from './routes/album'
 import Albums from './routes/collection/albums'
 import Artist from './routes/artist'
+import ArtistOverview from './routes/artist/overview'
 import Artists from './routes/collection/artists'
 import AppLayout from './components/AppLayout'
 import Login from './routes/login'
@@ -23,7 +24,9 @@ const App = () => {
       <Router primary={false}>
         <Redirect noThrow from="/" to="browse/featured" />
         <Album path="albums/:albumId" />
-        <Artist path="artists/:artistId" />
+        <Artist path="artists/:artistId">
+          <ArtistOverview path="/" />
+        </Artist>
         <Browse path="browse">
           <Redirect noThrow from="/" to="browse/featured" />
           <BrowseDiscover path="discover" />
