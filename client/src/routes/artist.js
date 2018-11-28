@@ -7,6 +7,7 @@ import MoreIcon from 'components/MoreIcon'
 import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import styled from 'styled-components'
+import TabNav from 'components/TabNav'
 import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
@@ -53,7 +54,7 @@ const Header = styled(LazyImage)`
   }
 `
 
-const Album = ({ artistId }) => {
+const Album = ({ artistId, children }) => {
   useBackgroundColor('#181818')
 
   return (
@@ -80,19 +81,33 @@ const Album = ({ artistId }) => {
     >
       {({ loading, data: { artist } }) =>
         loading || (
-          <Header src={artist.images[0].url} as="header">
-            <Listeners>{toNumeral(artist.followers.total)} Followers</Listeners>
-            <PageTitle>{artist.name}</PageTitle>
-            <FlexContainer alignItems="center">
-              <Button size="sm" kind="primary">
-                Play
-              </Button>
-              <Button size="sm" kind="ghost">
-                Save to your library
-              </Button>
-              <More size="2rem" />
-            </FlexContainer>
-          </Header>
+          <>
+            <Header src={artist.images[0].url} as="header">
+              <Listeners>
+                {toNumeral(artist.followers.total)} Followers
+              </Listeners>
+              <PageTitle>{artist.name}</PageTitle>
+              <FlexContainer alignItems="center">
+                <Button size="sm" kind="primary">
+                  Play
+                </Button>
+                <Button size="sm" kind="ghost">
+                  Save to your library
+                </Button>
+                <More size="2rem" />
+              </FlexContainer>
+              <TabNav>
+                <TabNav.NavItem to="./" exact>
+                  Overview
+                </TabNav.NavItem>
+                <TabNav.NavItem to="related-artists">
+                  Related artists
+                </TabNav.NavItem>
+                <TabNav.NavItem to="about">About</TabNav.NavItem>
+              </TabNav>
+            </Header>
+            {children}
+          </>
         )
       }
     </Query>
