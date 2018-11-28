@@ -78,6 +78,9 @@ export default gql`
     "Known external URLs for this artist."
     externalUrls: ExternalUrl
 
+    "Information about the followers of the artist."
+    followers: Followers
+
     """
     A list of the genres the artist is associated with. For example
     "Prog Rock", "Post-Grunge". (If not yet classified, the array is empty.)
