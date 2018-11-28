@@ -20,7 +20,11 @@ const Login = () => (
   <Container>
     <FlexContainer alignItems="center" direction="column">
       <Logo size="medium" />
-      <Button as="a" href={`${process.env.REACT_APP_API_HOST}/oauth/init`}>
+      <Button
+        as="a"
+        kind="primary"
+        href={`${process.env.REACT_APP_API_HOST}/oauth/init`}
+      >
         Login with Spotify
       </Button>
     </FlexContainer>
