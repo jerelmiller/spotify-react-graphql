@@ -1,7 +1,9 @@
 import React from 'react'
 import Button from 'components/Button'
 import LazyImage from 'components/LazyImage'
+import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
+import MoreIcon from 'components/MoreIcon'
 import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import styled from 'styled-components'
@@ -16,6 +18,11 @@ const Listeners = styled.span`
   letter-spacing: 1px;
 
   ${typography('xs')};
+`
+
+const More = styled(MoreIcon)`
+  margin-left: 1rem;
+  cursor: pointer;
 `
 
 const Header = styled(LazyImage)`
@@ -76,11 +83,15 @@ const Album = ({ artistId }) => {
           <Header src={artist.images[0].url} as="header">
             <Listeners>{toNumeral(artist.followers.total)} Followers</Listeners>
             <PageTitle>{artist.name}</PageTitle>
-            <div>
-              <Button size="sm" kind="ghost">
+            <FlexContainer alignItems="center">
+              <Button size="sm" kind="primary">
                 Play
               </Button>
-            </div>
+              <Button size="sm" kind="ghost">
+                Save to your library
+              </Button>
+              <More size="2rem" />
+            </FlexContainer>
           </Header>
         )
       }
