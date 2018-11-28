@@ -11,7 +11,10 @@ const SIZES = {
     letter-spacing: 1.2px;
     padding: 0.75rem 3rem;
   `,
-  md: css``
+  md: css`
+    ${typography('md')};
+    padding: 0.75rem 3rem;
+  `
 }
 
 const KINDS = {
@@ -63,5 +66,9 @@ const Button = styled.button.attrs({
     margin-left: 1rem;
   }
 `
+
+Button.defaultProps = {
+  size: 'md'
+}
 
 export default Button
