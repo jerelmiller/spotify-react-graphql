@@ -62,11 +62,9 @@ const NavItem = ({ children, to }) => (
   </li>
 )
 const TabNav = ({ children }) => (
-  <header>
-    <nav>
-      <NavContainer>{children}</NavContainer>
-    </nav>
-  </header>
+  <nav>
+    <NavContainer>{children}</NavContainer>
+  </nav>
 )
 
 TabNav.NavItem = NavItem
