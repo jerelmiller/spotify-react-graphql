@@ -1,13 +1,21 @@
 import React from 'react'
+import Button from 'components/Button'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
+import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import styled from 'styled-components'
+import { toNumeral } from 'utils/number'
+import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
 import { prop } from 'utils/fp'
 
-const Container = styled.div`
-  position: relative;
+const Listeners = styled.span`
+  color: ${textColor('muted')};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  ${typography('xs')};
 `
 
 const Header = styled(LazyImage)`
@@ -17,6 +25,15 @@ const Header = styled(LazyImage)`
   background-position: 50%;
   background-size: cover;
   position: relative;
+  color: ${color('white')}
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  > * {
+    position: relative;
+  }
 
   &::before {
     content: '';
@@ -40,6 +57,10 @@ const Album = ({ artistId }) => {
             id
             name
 
+            followers {
+              total
+            }
+
             images {
               url
               width
@@ -52,12 +73,15 @@ const Album = ({ artistId }) => {
     >
       {({ loading, data: { artist } }) =>
         loading || (
-          <Container>
-            <Header src={artist.images[0].url} as="header">
-              <div>1200 monthly listeners</div>
-              {artist.name}
-            </Header>
-          </Container>
+          <Header src={artist.images[0].url} as="header">
+            <Listeners>{toNumeral(artist.followers.total)} Followers</Listeners>
+            <PageTitle>{artist.name}</PageTitle>
+            <div>
+              <Button size="sm" kind="ghost">
+                Play
+              </Button>
+            </div>
+          </Header>
         )
       }
     </Query>
