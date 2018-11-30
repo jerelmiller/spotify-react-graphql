@@ -104,6 +104,11 @@ export default gql`
     popularity: Int!
 
     """
+    Top tracks for the artist.
+    """
+    topTracks: [FullTrack!]!
+
+    """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the artist.
     """
@@ -268,6 +273,55 @@ export default gql`
     node: Track!
   }
 
+  type FullTrack {
+    id: ID!
+
+    "A simplified album object."
+    album: SimpleAlbum!
+
+    "An array of simplified artist objects."
+    artists: [SimpleArtist!]!
+
+    """
+    The disc number (usually 1 unless the album consists of more than one disc).
+    """
+    discNumber: Int!
+
+    "The track length in milliseconds"
+    duration: Int!
+
+    """
+    Whether or not the track has explicit lyrics (true = yes it does;
+    false = no it does not OR unknown)
+    """
+    explicit: Boolean!
+
+    "The name of the track"
+    name: String!
+
+    "A link to a 30 second preview (MP3 format) of the track."
+    previewUrl: String
+
+    """
+    The popularity of a track is a value between 0 and 100, with 100 being the
+    most popular. The popularity is calculated by algorithm and is based, in
+    the most part, on the total number of plays the track has had and how
+    recent those plays are. Generally speaking, songs that are being played a
+    lot now will have a higher popularity than songs that were played a lot in
+    the past. Duplicate tracks (e.g. the same track from a single and an album)
+    are rated independently. Artist and album popularity is derived
+    mathematically from track popularity. Note that the popularity value may
+    lag actual popularity by a few days: the value is not updated in real time.
+    """
+    popularity: Int!
+
+    """
+    The number of the track. If an album has several discs, the track number is
+    the number on the specified disc.
+    """
+    trackNumber: Int
+  }
+
   type SavedTrack implements Track {
     id: ID!
 
@@ -361,6 +415,16 @@ export default gql`
   type SimpleAlbum {
     id: ID!
 
+    "The type of album"
+    type: AlbumType!
+
+    "The cover art for the album in various sizes, widest first."
+    images: [Image!]!
+
+    """
+    The name of the album. In case of an album takedown, the value may be an
+    empty string.
+    """
     name: String!
   }
 
