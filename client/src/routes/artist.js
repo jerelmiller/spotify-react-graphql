@@ -31,7 +31,7 @@ const Nav = styled(TabNav)`
 
 const Header = styled(LazyImage)`
   margin: -2rem -2rem 0;
-  padding: 2rem 2rem 0;
+  padding: 5rem 2rem 0;
   background-image: url(${prop('src')});
   background-position: 50% 33%;
   background-size: cover;
