@@ -68,6 +68,13 @@ class SpotifyAPI extends RESTDataSource {
   async getAlbumTracks(id) {
     return this.get(`/albums/${id}/tracks`)
   }
+
+  async getTopTracksByArtist(id) {
+    const params = new URLSearchParams()
+    params.set('market', 'from_token')
+
+    return this.get(`/artists/${id}/top-tracks?${params}`)
+  }
 }
 
 export default SpotifyAPI

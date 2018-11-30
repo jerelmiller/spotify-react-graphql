@@ -43,7 +43,9 @@ const resolvers = {
     node: item => item
   },
   Artist: {
-    externalUrls: prop('external_urls')
+    externalUrls: prop('external_urls'),
+    topTracks: ({ id }, _args, { dataSources }) =>
+      dataSources.spotifyAPI.getTopTracksByArtist(id).then(prop('tracks'))
   },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
@@ -52,6 +54,11 @@ const resolvers = {
   CursorInfo: {
     cursor: ({ cursors }) => cursors.after,
     hasNextPage: ({ next }) => Boolean(next)
+  },
+  FullTrack: {
+    discNumber: prop('disc_number'),
+    previewUrl: prop('preview_url'),
+    trackNumber: prop('track_number')
   },
   Playlist: {
     tracks: async ({ id }, { limit = 100, offset = 0 }, { dataSources }) =>
