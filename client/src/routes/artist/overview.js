@@ -1,6 +1,5 @@
 import React from 'react'
-import AlbumTile from 'components/AlbumTile'
-import TileGrid from 'components/TileGrid'
+import AlbumGroup from 'components/AlbumGroup'
 import gql from 'graphql-tag'
 import Track, { TRACK_VARIANTS } from 'components/Track'
 import { Query } from 'react-apollo'
@@ -17,7 +16,7 @@ const Overview = ({ artistId }) => (
               node {
                 id
                 type
-                ...Album_album
+                ...AlbumGroup_album
               }
             }
           }
@@ -31,12 +30,12 @@ const Overview = ({ artistId }) => (
       }
 
       ${Track.fragments.track}
-      ${AlbumTile.fragments.album}
+      ${AlbumGroup.fragments.album}
     `}
     variables={{ artistId, limit: 5 }}
   >
     {({ loading, data: { artist } }) => {
-      const { ALBUM, SINGLE, COMPILATION } = loading
+      const albumsByType = loading
         ? {}
         : artist.albums.edges.reduce(
             (types, { node: album }) => ({
@@ -58,15 +57,20 @@ const Overview = ({ artistId }) => (
                   variant={TRACK_VARIANTS.POPULAR}
                 />
               ))}
-              {ALBUM && (
-                <>
-                  <h1>Albums</h1>
-                  <TileGrid fill={false} minWidth="180px">
-                    {ALBUM.map(album => (
-                      <AlbumTile key={album.id} album={album} />
-                    ))}
-                  </TileGrid>
-                </>
+              {albumsByType.ALBUM && (
+                <AlbumGroup title="Albums" albums={albumsByType.ALBUM} />
+              )}
+              {albumsByType.SINGLE && (
+                <AlbumGroup
+                  title="Singles and EPs"
+                  albums={albumsByType.SINGLE}
+                />
+              )}
+              {albumsByType.APPEARS_ON && (
+                <AlbumGroup
+                  title="Appears On"
+                  albums={albumsByType.APPEARS_ON}
+                />
               )}
             </>
           )}
