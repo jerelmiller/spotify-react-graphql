@@ -16,6 +16,14 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/artists/${id}`)
   }
 
+  getArtistAlbums(id, { limit, offset }) {
+    const params = new URLSearchParams()
+    params.set('limit', limit)
+    params.set('offset', offset)
+
+    return this.get(`/artists/${id}/albums?${params}`)
+  }
+
   async getCurrentUser() {
     return this.get('/me')
   }
