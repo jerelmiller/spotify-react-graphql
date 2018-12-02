@@ -4,7 +4,6 @@ import LazyImage from 'components/LazyImage'
 import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
 import MoreIcon from 'components/MoreIcon'
-import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import styled from 'styled-components'
 import TabNav from 'components/TabNav'
@@ -12,6 +11,12 @@ import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
 import { prop } from 'utils/fp'
+
+const ArtistName = styled.h1`
+  font-size: 4.5rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+`
 
 const Listeners = styled.span`
   color: ${textColor('muted')};
@@ -93,7 +98,7 @@ const Artist = ({ artistId, children }) => {
               <Listeners>
                 {toNumeral(artist.followers.total)} Followers
               </Listeners>
-              <PageTitle>{artist.name}</PageTitle>
+              <ArtistName>{artist.name}</ArtistName>
               <FlexContainer alignItems="center">
                 <Button size="sm" kind="primary">
                   Play
