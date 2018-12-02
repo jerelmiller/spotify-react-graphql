@@ -61,7 +61,7 @@ const Content = styled.section`
   padding: 2rem 0;
 `
 
-const Album = ({ artistId, children }) => {
+const Artist = ({ artistId, children }) => {
   useBackgroundColor('#181818')
 
   return (
@@ -121,4 +121,4 @@ const Album = ({ artistId, children }) => {
   )
 }
 
-export default Album
+export default Artist
