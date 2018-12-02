@@ -51,26 +51,57 @@ const ItemLink = styled(Link)`
   }
 `
 
-const Track = ({ track }) => (
+export const TRACK_VARIANTS = {
+  FULL: 'full',
+  POPULAR: 'popular',
+  SIMPLE: 'simple'
+}
+
+const renderVariant = (variant, track) => {
+  switch (variant) {
+    case TRACK_VARIANTS.FULL:
+      return (
+        <>
+          <TrackName>{track.name}</TrackName>
+          <MoreIcon size="1.25rem" />
+          <TrackDuration duration={track.duration} />
+          <Info>
+            {track.explicit && <ExplicitBadge />}{' '}
+            <ItemLink to={`/artists/${track.artists[0].id}`}>
+              {track.artists[0].name}
+            </ItemLink>{' '}
+            &middot;{' '}
+            <ItemLink to={`/albums/${track.album.id}`}>
+              {track.album.name}
+            </ItemLink>
+          </Info>
+        </>
+      )
+    case TRACK_VARIANTS.SIMPLE:
+      return (
+        <>
+          <TrackName>{track.name}</TrackName>
+          <MoreIcon size="1.25rem" />
+          <TrackDuration duration={track.duration} />
+        </>
+      )
+    case TRACK_VARIANTS.POPULAR:
+      return (
+        <>
+          <TrackName>{track.name}</TrackName>
+          <MoreIcon size="1.25rem" />
+          <TrackDuration duration={track.duration} />
+        </>
+      )
+    default:
+      throw new Error(`Track: ${variant} is not a valid variant`)
+  }
+}
+
+const Track = ({ track, variant }) => (
   <Container>
     <MusicIcon size="1.25rem" strokeWidth={1} />
-    <TrackName>{track.name}</TrackName>
-    <MoreIcon size="1.25rem" />
-    <TrackDuration duration={track.duration} />
-    <Info>
-      {track.explicit && <ExplicitBadge />}{' '}
-      {track.__typename === 'SavedTrack' && (
-        <>
-          <ItemLink to={`/artists/${track.artists[0].id}`}>
-            {track.artists[0].name}
-          </ItemLink>{' '}
-          &middot;{' '}
-          <ItemLink to={`/albums/${track.album.id}`}>
-            {track.album.name}
-          </ItemLink>
-        </>
-      )}
-    </Info>
+    {renderVariant(variant, track)}
   </Container>
 )
 
@@ -92,6 +123,16 @@ Track.fragments = {
         album {
           id
           name
+        }
+      }
+
+      ... on FullTrack {
+        album {
+          id
+          name
+          images {
+            url
+          }
         }
       }
     }
