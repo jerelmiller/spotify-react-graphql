@@ -64,8 +64,9 @@ export default gql`
 
   enum AlbumType {
     ALBUM
-    SINGLE
+    APPEARS_ON
     COMPILATION
+    SINGLE
   }
 
   type Artist {
