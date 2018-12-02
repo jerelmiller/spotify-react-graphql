@@ -6,6 +6,9 @@
         "name": "Track",
         "possibleTypes": [
           {
+            "name": "FullTrack"
+          },
+          {
             "name": "SavedTrack"
           },
           {

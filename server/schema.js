@@ -273,7 +273,7 @@ export default gql`
     node: Track!
   }
 
-  type FullTrack {
+  type FullTrack implements Track {
     id: ID!
 
     "A simplified album object."
