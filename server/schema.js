@@ -75,6 +75,9 @@ export default gql`
     """
     id: ID!
 
+    "A list of albums created by the artist."
+    albums(limit: Int, offset: Int): AlbumConnection!
+
     "Known external URLs for this artist."
     externalUrls: ExternalUrl
 

@@ -43,6 +43,8 @@ const resolvers = {
     node: item => item
   },
   Artist: {
+    albums: ({ id }, { limit = 50, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI.getArtistAlbums(id, { limit, offset }),
     externalUrls: prop('external_urls'),
     topTracks: ({ id }, { limit = 10 }, { dataSources }) =>
       dataSources.spotifyAPI
@@ -113,7 +115,6 @@ const resolvers = {
     followedArtists: async (_source, { limit = 50, after }, { dataSources }) =>
       dataSources.spotifyAPI
         .getViewerArtists({ limit, after })
-
         .then(prop('artists')),
     playlists: async (_source, { limit = 50, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI.getViewerPlaylists({ limit, offset }),
