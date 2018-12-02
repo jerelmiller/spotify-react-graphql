@@ -11,7 +11,7 @@ const Container = styled.div`
 `
 
 const Title = styled.h1`
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 `
 
 const AlbumGroup = ({ title, albums }) => (
