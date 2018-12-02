@@ -1,5 +1,6 @@
 import React from 'react'
 import Duration from './Duration'
+import FlexContainer from './FlexContainer'
 import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -64,6 +65,10 @@ const ItemLink = styled(Link)`
   }
 `
 
+const InlineExplicitBadge = styled(ExplicitBadge)`
+  align-self: flex-start;
+`
+
 const renderVariant = (variant, track) => {
   switch (variant) {
     case TRACK_VARIANTS.FULL:
@@ -99,7 +104,10 @@ const renderVariant = (variant, track) => {
       return (
         <>
           <LazyImage src={url} width="50px" height="50px" />
-          <TrackName>{track.name}</TrackName>
+          <FlexContainer direction="column">
+            <TrackName>{track.name}</TrackName>
+            {track.explicit && <InlineExplicitBadge />}
+          </FlexContainer>
           <MoreIcon size="1.25rem" />
           <TrackDuration duration={track.duration} />
         </>
