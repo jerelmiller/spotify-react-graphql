@@ -53,6 +53,7 @@ const Album = ({ albumId }) => (
         album(id: $albumId) {
           id
           name
+          type
 
           releaseDate {
             ...ReleaseYear_releaseDate
@@ -111,7 +112,11 @@ const Album = ({ albumId }) => (
               <Track
                 key={node.id}
                 track={node}
-                variant={TRACK_VARIANTS.SIMPLE}
+                variant={
+                  album.type === 'COMPILATION'
+                    ? TRACK_VARIANTS.VARIOUS_ARTIST
+                    : TRACK_VARIANTS.SIMPLE
+                }
               />
             ))}
           </div>

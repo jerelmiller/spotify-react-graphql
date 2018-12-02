@@ -13,18 +13,19 @@ import { textColor } from 'styles/utils'
 export const TRACK_VARIANTS = {
   FULL: 'full',
   POPULAR: 'popular',
-  SIMPLE: 'simple'
+  SIMPLE: 'simple',
+  VARIOUS_ARTIST: 'various'
 }
 
 const GRID_COLUMNS = {
-  [TRACK_VARIANTS.FULL]: 'auto 1fr auto auto',
   [TRACK_VARIANTS.POPULAR]: 'auto auto 1fr auto auto',
-  [TRACK_VARIANTS.SIMPLE]: 'auto 1fr auto auto'
+  default: 'auto 1fr auto auto'
 }
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: ${({ variant }) => GRID_COLUMNS[variant]};
+  grid-template-columns: ${({ variant }) =>
+    GRID_COLUMNS[variant] || GRID_COLUMNS.default};
   grid-column-gap: 1rem;
   align-items: center;
   border-radius: 2px;
@@ -112,6 +113,21 @@ const renderVariant = (variant, track) => {
           <TrackDuration duration={track.duration} />
         </>
       )
+    case TRACK_VARIANTS.VARIOUS_ARTIST:
+      return (
+        <>
+          <TrackName>{track.name}</TrackName>
+          <MoreIcon size="1.25rem" />
+          <TrackDuration duration={track.duration} />
+          <Info>
+            {track.explicit && <ExplicitBadge />}{' '}
+            <ItemLink to={`/artists/${track.artists[0].id}`}>
+              {track.artists[0].name}
+            </ItemLink>{' '}
+          </Info>
+        </>
+      )
+
     default:
       throw new Error(`Track: ${variant} is not a valid variant`)
   }
