@@ -13,7 +13,7 @@ const Container = styled.div`
 const AlbumGroup = ({ title, albums }) => (
   <Container>
     <h1>{title}</h1>
-    <TileGrid fill={false} minWidth="180px">
+    <TileGrid fill={false} minWidth="175px">
       {albums.map(album => (
         <AlbumTile key={album.id} album={album} />
       ))}
