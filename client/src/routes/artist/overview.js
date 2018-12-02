@@ -5,10 +5,13 @@ import Track, { TRACK_VARIANTS } from 'components/Track'
 import { Query } from 'react-apollo'
 
 const groupAlbumsByType = ({ edges }) =>
-  edges.reduce((types, { node: album }) => ({
-    ...types,
-    [album.type]: [...(types[album.type] || []), album]
-  }))
+  edges.reduce(
+    (types, { node: album }) => ({
+      ...types,
+      [album.type]: [...(types[album.type] || []), album]
+    }),
+    {}
+  )
 
 const Overview = ({ artistId }) => (
   <Query
