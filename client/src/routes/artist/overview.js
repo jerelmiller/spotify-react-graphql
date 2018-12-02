@@ -8,7 +8,7 @@ const groupAlbumsByType = ({ edges }) =>
   edges.reduce(
     (types, { node: album }) => ({
       ...types,
-      [album.type]: [...(types[album.type] || []), album]
+      [album.group]: [...(types[album.group] || []), album]
     }),
     {}
   )
@@ -24,7 +24,7 @@ const Overview = ({ artistId }) => (
             edges {
               node {
                 id
-                type
+                group
                 ...AlbumGroup_album
               }
             }
