@@ -4,7 +4,7 @@ import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
-import Track from 'components/Track'
+import Track, { TRACK_VARIANTS } from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -108,7 +108,11 @@ const Album = ({ albumId }) => (
           </Info>
           <div>
             {album.tracks.edges.map(({ node }) => (
-              <Track key={node.id} track={node} />
+              <Track
+                key={node.id}
+                track={node}
+                variant={TRACK_VARIANTS.SIMPLE}
+              />
             ))}
           </div>
         </Container>

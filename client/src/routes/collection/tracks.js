@@ -1,5 +1,5 @@
 import React from 'react'
-import Track from 'components/Track'
+import Track, { TRACK_VARIANTS } from 'components/Track'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
@@ -35,7 +35,7 @@ const Tracks = () => {
           <PageTitle>Songs</PageTitle>
           {loading ||
             viewer.savedTracks.edges.map(({ node }) => (
-              <Track track={node} key={node.id} />
+              <Track track={node} key={node.id} variant={TRACK_VARIANTS.FULL} />
             ))}
         </>
       )}
