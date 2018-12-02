@@ -2,6 +2,7 @@ import React from 'react'
 import AlbumGroup from 'components/AlbumGroup'
 import gql from 'graphql-tag'
 import Track, { TRACK_VARIANTS } from 'components/Track'
+import styled from 'styled-components'
 import { Query } from 'react-apollo'
 
 const groupAlbumsByType = ({ edges }) =>
@@ -12,6 +13,10 @@ const groupAlbumsByType = ({ edges }) =>
     }),
     {}
   )
+
+const TopTracksContainer = styled.div`
+  margin-bottom: 2rem;
+`
 
 const Overview = ({ artistId }) => (
   <Query
@@ -51,13 +56,15 @@ const Overview = ({ artistId }) => (
           <h1>Popular</h1>
           {loading || (
             <>
-              {artist.topTracks.map(track => (
-                <Track
-                  key={track.id}
-                  track={track}
-                  variant={TRACK_VARIANTS.POPULAR}
-                />
-              ))}
+              <TopTracksContainer>
+                {artist.topTracks.map(track => (
+                  <Track
+                    key={track.id}
+                    track={track}
+                    variant={TRACK_VARIANTS.POPULAR}
+                  />
+                ))}
+              </TopTracksContainer>
               {albumsByType.ALBUM && (
                 <AlbumGroup title="Albums" albums={albumsByType.ALBUM} />
               )}
