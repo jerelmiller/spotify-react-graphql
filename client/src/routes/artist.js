@@ -62,7 +62,7 @@ const Content = styled.section`
 `
 
 const Artist = ({ artistId, children }) => {
-  useBackgroundColor('#181818')
+  useBackgroundColor('#181818', { useGradient: false })
 
   return (
     <Query
