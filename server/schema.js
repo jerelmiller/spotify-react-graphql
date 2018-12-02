@@ -30,6 +30,12 @@ export default gql`
     """
     genres: [String!]!
 
+    """
+    The field is present when getting an artist’s albums. Compare to type
+    this field represents relationship between the artist and the album.
+    """
+    group: AlbumGroup
+
     "The cover art for the album in various sizes, widest first."
     images: [Image!]!
 
@@ -63,6 +69,12 @@ export default gql`
   }
 
   enum AlbumType {
+    ALBUM
+    COMPILATION
+    SINGLE
+  }
+
+  enum AlbumGroup {
     ALBUM
     APPEARS_ON
     COMPILATION
