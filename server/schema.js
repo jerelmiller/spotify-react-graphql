@@ -106,7 +106,7 @@ export default gql`
     """
     Top tracks for the artist.
     """
-    topTracks: [FullTrack!]!
+    topTracks(limit: Int): [FullTrack!]!
 
     """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
