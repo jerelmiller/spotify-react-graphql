@@ -31,6 +31,17 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: spotify-circular;
+  src:
+    url(https://open.scdn.co/fonts/CircularSpUIv3T-Black.woff2) format("woff2"),
+    url(https://open.scdn.co/fonts/CircularSpUIv3T-Black.woff) format("woff"),
+    url(https://open.scdn.co/fonts/CircularSpUIv3T-Black.ttf) format("ttf");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   margin: 0;
   padding: 0;
