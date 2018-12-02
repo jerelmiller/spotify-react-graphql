@@ -4,6 +4,12 @@ import gql from 'graphql-tag'
 import Track, { TRACK_VARIANTS } from 'components/Track'
 import { Query } from 'react-apollo'
 
+const groupAlbumsByType = ({ edges }) =>
+  edges.reduce((types, { node: album }) => ({
+    ...types,
+    [album.type]: [...(types[album.type] || []), album]
+  }))
+
 const Overview = ({ artistId }) => (
   <Query
     query={gql`
@@ -35,15 +41,7 @@ const Overview = ({ artistId }) => (
     variables={{ artistId, limit: 5 }}
   >
     {({ loading, data: { artist } }) => {
-      const albumsByType = loading
-        ? {}
-        : artist.albums.edges.reduce(
-            (types, { node: album }) => ({
-              ...types,
-              [album.type]: [...(types[album.type] || []), album]
-            }),
-            {}
-          )
+      const albumsByType = loading ? {} : groupAlbumsByType(artist.albums)
 
       return (
         <>
