@@ -6,13 +6,17 @@ import styled from 'styled-components'
 
 const Container = styled.div`
   &:not(:last-child) {
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
+`
+
+const Title = styled.h2`
+  margin-bottom: 2rem;
 `
 
 const AlbumGroup = ({ title, albums }) => (
   <Container>
-    <h1>{title}</h1>
+    <Title>{title}</Title>
     <TileGrid fill={false} minWidth="175px">
       {albums.map(album => (
         <AlbumTile key={album.id} album={album} />
