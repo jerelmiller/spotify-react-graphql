@@ -3,19 +3,28 @@ import BackgroundColorContext from 'components/BackgroundColorContext'
 
 const DEFAULT_COLOR = '#181818'
 
-const useBackgroundColor = color => {
-  const { color: currentColor, setColor } = useContext(BackgroundColorContext)
+const useBackgroundColor = (color, { useGradient } = {}) => {
+  const {
+    color: currentColor,
+    setColor,
+    setUsingGradient,
+    usingGradient
+  } = useContext(BackgroundColorContext)
 
   useEffect(
     () => {
       color && setColor(color)
+      useGradient != null && setUsingGradient(useGradient)
 
-      return () => setColor(DEFAULT_COLOR)
+      return () => {
+        setColor(DEFAULT_COLOR)
+        setUsingGradient(true)
+      }
     },
-    [color]
+    [color, useGradient]
   )
 
-  return { color: currentColor, setColor }
+  return { color: currentColor, usingGradient }
 }
 
 export default useBackgroundColor
