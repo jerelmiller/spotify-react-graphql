@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import { prop } from 'utils/fp'
 
@@ -28,23 +28,27 @@ const Backdrop = styled.div`
   right: 0;
   z-index: -1;
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
-  }
+  ${({ usingGradient }) =>
+    usingGradient &&
+    css`
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
+      }
+    `}
 `
 
 const AppMain = ({ children }) => {
-  const { color } = useBackgroundColor()
+  const { color, usingGradient } = useBackgroundColor()
 
   return (
     <Main>
-      <Backdrop backgroundColor={color} />
+      <Backdrop backgroundColor={color} usingGradient={usingGradient} />
       {children}
     </Main>
   )
