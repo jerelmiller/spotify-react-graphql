@@ -1,5 +1,6 @@
 import React from 'react'
 import Duration from './Duration'
+import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import MusicIcon from './MusicIcon'
@@ -8,9 +9,21 @@ import ExplicitBadge from './ExplicitBadge'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 
+export const TRACK_VARIANTS = {
+  FULL: 'full',
+  POPULAR: 'popular',
+  SIMPLE: 'simple'
+}
+
+const GRID_COLUMNS = {
+  [TRACK_VARIANTS.FULL]: 'auto 1fr auto auto',
+  [TRACK_VARIANTS.POPULAR]: 'auto auto 1fr auto auto',
+  [TRACK_VARIANTS.SIMPLE]: 'auto 1fr auto auto'
+}
+
 const Container = styled.div`
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: ${({ variant }) => GRID_COLUMNS[variant]};
   grid-column-gap: 1rem;
   align-items: center;
   border-radius: 2px;
@@ -51,12 +64,6 @@ const ItemLink = styled(Link)`
   }
 `
 
-export const TRACK_VARIANTS = {
-  FULL: 'full',
-  POPULAR: 'popular',
-  SIMPLE: 'simple'
-}
-
 const renderVariant = (variant, track) => {
   switch (variant) {
     case TRACK_VARIANTS.FULL:
@@ -86,8 +93,12 @@ const renderVariant = (variant, track) => {
         </>
       )
     case TRACK_VARIANTS.POPULAR:
+      const { album } = track
+      const { url } = album.images[1]
+
       return (
         <>
+          <LazyImage src={url} width="50px" height="50px" />
           <TrackName>{track.name}</TrackName>
           <MoreIcon size="1.25rem" />
           <TrackDuration duration={track.duration} />
@@ -99,7 +110,7 @@ const renderVariant = (variant, track) => {
 }
 
 const Track = ({ track, variant }) => (
-  <Container>
+  <Container variant={variant}>
     <MusicIcon size="1.25rem" strokeWidth={1} />
     {renderVariant(variant, track)}
   </Container>
