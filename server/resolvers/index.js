@@ -36,7 +36,8 @@ const resolvers = {
     }),
     tracks: async ({ id }, _args, { dataSources }) =>
       dataSources.spotifyAPI.getAlbumTracks(id),
-    type: ({ album_type: type }) => type.toUpperCase()
+    type: ({ album_group: group, album_type: type }) =>
+      group ? group.toUpperCase() : type.toUpperCase()
   },
   AlbumConnection: createConnectionResolver(),
   AlbumEdge: {
