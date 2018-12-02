@@ -44,8 +44,10 @@ const resolvers = {
   },
   Artist: {
     externalUrls: prop('external_urls'),
-    topTracks: ({ id }, _args, { dataSources }) =>
-      dataSources.spotifyAPI.getTopTracksByArtist(id).then(prop('tracks'))
+    topTracks: ({ id }, { limit = 10 }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getTopTracksByArtist(id)
+        .then(({ tracks }) => tracks.slice(0, limit))
   },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
