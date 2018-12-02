@@ -47,9 +47,7 @@ const resolvers = {
     topTracks: ({ id }, { limit = 10 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getTopTracksByArtist(id)
-        .then(({ tracks }) =>
-          tracks.slice(0, limit).map(track => ({ ...track, type: 'FullTrack' }))
-        )
+        .then(({ tracks }) => tracks.slice(0, limit))
   },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
@@ -89,15 +87,17 @@ const resolvers = {
   SavedTrackConnection: createConnectionResolver(),
   SavedTrackEdge: {
     addedAt: prop('added_at'),
-    node: ({ track }) => ({ ...track, type: 'SavedTrack' })
+    node: ({ addedAt, track }) => ({ ...track, addedAt })
   },
   Track: {
-    __resolveType: ({ album, type }) => {
-      if (type === undefined) {
-        return null
+    __resolveType: ({ addedAt, album }) => {
+      if (addedAt) {
+        return 'SavedTrack'
+      } else if (album) {
+        return 'FullTrack'
       }
 
-      return type
+      return 'SimpleTrack'
     }
   },
   SimpleTrack: {
