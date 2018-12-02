@@ -29,6 +29,7 @@ const resolvers = {
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
   Album: {
+    group: ({ album_group: group }) => group.toUpperCase(),
     primaryArtist: ({ artists }) => artists[0],
     releaseDate: ({ release_date, release_date_precision }) => ({
       date: release_date,
@@ -36,8 +37,7 @@ const resolvers = {
     }),
     tracks: async ({ id }, _args, { dataSources }) =>
       dataSources.spotifyAPI.getAlbumTracks(id),
-    type: ({ album_group: group, album_type: type }) =>
-      group ? group.toUpperCase() : type.toUpperCase()
+    type: ({ album_type: type }) => type.toUpperCase()
   },
   AlbumConnection: createConnectionResolver(),
   AlbumEdge: {
