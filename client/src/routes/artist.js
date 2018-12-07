@@ -115,9 +115,6 @@ const Artist = ({ artistId, children }) => {
                 <TabNav.NavItem to="related-artists" replace>
                   Related artists
                 </TabNav.NavItem>
-                <TabNav.NavItem to="about" replace>
-                  About
-                </TabNav.NavItem>
               </Nav>
             </Header>
             <Content>{children}</Content>
