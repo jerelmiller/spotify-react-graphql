@@ -50,7 +50,9 @@ const resolvers = {
     topTracks: ({ id }, { limit = 10 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getTopTracksByArtist(id)
-        .then(({ tracks }) => tracks.slice(0, limit))
+        .then(({ tracks }) => tracks.slice(0, limit)),
+    relatedArtists: ({ id }, _args, { dataSources }) =>
+      dataSources.spotifyApi.getRelatedArtists(id)
   },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
