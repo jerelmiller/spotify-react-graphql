@@ -8,8 +8,7 @@ import { Query } from 'react-apollo'
 
 const TrackContainer = posed.div({
   enter: {
-    opacity: 1,
-    transition: ({ idx }) => ({ delay: idx * 10 })
+    opacity: 1
   },
   exit: {
     opacity: 0
@@ -47,7 +46,7 @@ const Tracks = () => {
           <PoseGroup>
             {loading ||
               viewer.savedTracks.edges.map(({ node }, idx) => (
-                <TrackContainer key={node.id} idx={idx}>
+                <TrackContainer key={node.id}>
                   <Track track={node} variant={TRACK_VARIANTS.FULL} />
                 </TrackContainer>
               ))}
