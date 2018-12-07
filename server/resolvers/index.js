@@ -78,6 +78,12 @@ const resolvers = {
   PlaylistEdge: {
     node: item => item
   },
+  PlaylistTrackConnection: createConnectionResolver(),
+  PlaylistTrackEdge: {
+    addedAt: prop('added_at'),
+    addedBy: prop('added_by'),
+    node: prop('track')
+  },
   User: {
     displayName: prop('display_name')
   },

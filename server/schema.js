@@ -221,7 +221,20 @@ export default gql`
     name: String!
     owner: User!
     public: Boolean!
-    tracks: TrackConnection!
+    tracks: PlaylistTrackConnection!
+  }
+
+  type PlaylistTrackConnection {
+    edges: [PlaylistTrackEdge!]!
+    pageInfo: PageInfo!
+  }
+
+  type PlaylistTrackEdge {
+    addedAt: String
+    addedBy: User
+
+    "The track object."
+    node: Track!
   }
 
   type ReleaseDate {
