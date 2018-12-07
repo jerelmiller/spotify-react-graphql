@@ -109,13 +109,15 @@ const Artist = ({ artistId, children }) => {
                 <More size="2rem" />
               </FlexContainer>
               <Nav>
-                <TabNav.NavItem to="./" exact>
+                <TabNav.NavItem to="./" exact replace>
                   Overview
                 </TabNav.NavItem>
-                <TabNav.NavItem to="related-artists">
+                <TabNav.NavItem to="related-artists" replace>
                   Related artists
                 </TabNav.NavItem>
-                <TabNav.NavItem to="about">About</TabNav.NavItem>
+                <TabNav.NavItem to="about" replace>
+                  About
+                </TabNav.NavItem>
               </Nav>
             </Header>
             <Content>{children}</Content>
