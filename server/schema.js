@@ -129,6 +129,9 @@ export default gql`
     for the artist.
     """
     uri: String
+
+    "Artists similar to the artist."
+    relatedArtists: [Artist!]!
   }
 
   type ArtistConnection {
