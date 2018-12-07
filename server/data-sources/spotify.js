@@ -24,11 +24,11 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/artists/${id}/albums?${params}`)
   }
 
-  async getCurrentUser() {
+  getCurrentUser() {
     return this.get('/me')
   }
 
-  async getPlaylistTracks(id, { limit, offset }) {
+  getPlaylistTracks(id, { limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
     params.set('offset', offset)
@@ -36,7 +36,7 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/playlists/${id}/tracks?${params}`)
   }
 
-  async getViewerAlbums({ limit, offset }) {
+  getViewerAlbums({ limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
     params.set('offset', offset)
@@ -45,7 +45,7 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/albums?${params}`)
   }
 
-  async getViewerArtists({ limit, after }) {
+  getViewerArtists({ limit, after }) {
     const params = new URLSearchParams()
     params.set('type', 'artist')
     params.set('limit', limit)
@@ -57,7 +57,7 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/following?${params}`)
   }
 
-  async getViewerPlaylists({ limit, offset }) {
+  getViewerPlaylists({ limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
     params.set('offset', offset)
@@ -65,7 +65,7 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/playlists?${params}`)
   }
 
-  async getViewerTracks({ limit, offset }) {
+  getViewerTracks({ limit, offset }) {
     const params = new URLSearchParams()
     params.set('limit', limit)
     params.set('offset', offset)
@@ -73,11 +73,11 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/tracks?${params}`)
   }
 
-  async getAlbumTracks(id) {
+  getAlbumTracks(id) {
     return this.get(`/albums/${id}/tracks`)
   }
 
-  async getTopTracksByArtist(id) {
+  getTopTracksByArtist(id) {
     const params = new URLSearchParams()
     params.set('market', 'from_token')
 
