@@ -56,11 +56,9 @@ const Link = styled(NavLink)`
   }
 `
 
-const NavItem = ({ children, exact, to }) => (
+const NavItem = props => (
   <li>
-    <Link to={to} exact={exact}>
-      {children}
-    </Link>
+    <Link {...props} />
   </li>
 )
 const TabNav = ({ className, children }) => (
