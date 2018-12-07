@@ -14,6 +14,9 @@ export default gql`
 
     "Get information for the current logged-in user"
     viewer: Viewer
+
+    "Get information about a playlist"
+    playlist(id: ID!): Playlist
   }
 
   type Album {
