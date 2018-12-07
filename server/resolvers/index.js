@@ -26,6 +26,8 @@ const resolvers = {
     artist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getArtist(id),
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
+    playlist: (_, { id }, { dataSources }) =>
+      dataSources.spotifyAPI.getPlaylist(id),
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
   Album: {

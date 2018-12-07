@@ -87,6 +87,10 @@ class SpotifyAPI extends RESTDataSource {
   getRelatedArtists(id) {
     return this.get(`/artists/${id}/related-artists`)
   }
+
+  getPlaylist(id) {
+    return this.get(`/playlists/${id}`)
+  }
 }
 
 export default SpotifyAPI
