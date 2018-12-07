@@ -13,6 +13,7 @@ import BrowseFeatured from './routes/browse/featured'
 import LoggedOut from './routes/logged-out'
 import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
+import RelatedArtists from './routes/artist/related-artists'
 import useSession from './hooks/useSession'
 import { Redirect, Router } from '@reach/router'
 
@@ -26,6 +27,7 @@ const App = () => {
         <Album path="albums/:albumId" />
         <Artist path="artists/:artistId">
           <ArtistOverview path="/" />
+          <RelatedArtists path="related-artists" />
         </Artist>
         <Browse path="browse">
           <Redirect noThrow from="/" to="browse/featured" />
