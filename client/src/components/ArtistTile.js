@@ -28,7 +28,7 @@ const ArtistLink = styled(Link)`
   font-size: 0.9rem;
 `
 
-const ArtistTile = ({ artist, useImageBackground }) => {
+const ArtistTile = ({ artist }) => {
   // try to use medium size image first
   const image = artist.images[1] || artist.images[0]
 
