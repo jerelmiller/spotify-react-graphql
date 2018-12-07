@@ -14,6 +14,7 @@ import LoggedOut from './routes/logged-out'
 import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
 import RelatedArtists from './routes/artist/related-artists'
+import Playlist from './routes/playlist'
 import useSession from './hooks/useSession'
 import { Redirect, Router } from '@reach/router'
 
@@ -37,6 +38,7 @@ const App = () => {
         <Albums path="collection/albums" />
         <Artists path="collection/artists" />
         <Tracks path="collection/tracks" />
+        <Playlist path="playlists/:playlistId" />
         <Logout path="logout" />
       </Router>
     </AppLayout>
