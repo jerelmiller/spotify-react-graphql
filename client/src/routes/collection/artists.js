@@ -38,11 +38,7 @@ const Artists = () => (
                     src={(node.images[1] || node.images[0]).url}
                   />
                 )}
-                <ArtistTile
-                  key={node.id}
-                  artist={node}
-                  useBackgroundFromImage={idx === 0}
-                />
+                <ArtistTile key={node.id} artist={node} />
               </>
             ))}
         </TileGrid>
