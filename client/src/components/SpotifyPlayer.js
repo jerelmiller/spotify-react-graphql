@@ -6,7 +6,7 @@ const SpotifyPlayer = ({ token }) => {
     () => {
       window.onSpotifyWebPlaybackSDKReady = () => {
         const player = new window.Spotify.Player({
-          name: 'spotify player',
+          name: 'React Spotify Player',
           getOAuthToken: fn => fn(token)
         })
 
