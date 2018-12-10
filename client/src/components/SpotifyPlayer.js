@@ -1,4 +1,5 @@
 import React from 'react'
+import LazyImage from 'components/LazyImage'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
 import NextTrackIcon from 'components/NextTrackIcon'
@@ -12,6 +13,15 @@ import { color } from 'styles/utils'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
+
+const Info = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: auto 1fr;
+  height: 64px;
+  color: ${color('offWhite')};
+  align-items: center;
+`
 
 const Controls = styled.div`
   display: flex;
@@ -89,19 +99,31 @@ const Container = styled(
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
   background: #282828;
-  padding: 1.25rem 0;
+  padding: 1.25rem;
 `
 
 const SpotifyPlayer = ({ token }) => {
-  const { isPlayingThroughPlayer, currentTime, paused, duration } = useSpotify(
-    token
-  )
+  const {
+    isPlayingThroughPlayer,
+    currentTrack,
+    currentTime,
+    paused,
+    duration
+  } = useSpotify(token)
+
+  const { album, name: trackName, artists } = currentTrack || {}
 
   return (
     <PoseGroup>
       {isPlayingThroughPlayer && (
         <Container key="player">
-          <div />
+          <Info>
+            <LazyImage width="64px" height="64px" src={album.images[0].url} />
+            <div>
+              <div>{trackName}</div>
+              <div>{artists[0].name}</div>
+            </div>
+          </Info>
           <Controls>
             <ControlButtons>
               <ControlButton icon={ShuffleIcon} />

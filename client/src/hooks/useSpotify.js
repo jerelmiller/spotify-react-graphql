@@ -26,7 +26,8 @@ const useSpotify = token => {
           isPlayingThroughPlayer: true,
           paused: state.paused,
           position: state.position,
-          duration: state.duration
+          duration: state.duration,
+          currentTrack: state.track_window.current_track
         }
       : DEFAULT_STATE
 
