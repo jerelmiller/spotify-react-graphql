@@ -3,6 +3,8 @@ import AppMain from './AppMain'
 import AppSidebar from './AppSidebar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import SpotifyPlayer from './SpotifyPlayer'
+import useSession from 'hooks/useSession'
 import { Query } from 'react-apollo'
 
 const Container = styled.div`
@@ -15,31 +17,30 @@ const Container = styled.div`
   grid-template-rows: 1fr auto;
 `
 
-const Footer = styled.footer`
-  grid-area: footer;
-  background: #282828;
-`
+const AppLayout = ({ children }) => {
+  const { data } = useSession()
 
-const AppLayout = ({ children }) => (
-  <Query
-    query={gql`
-      query AppLayoutQuery {
-        viewer {
-          ...AppSidebar_viewer
+  return (
+    <Query
+      query={gql`
+        query AppLayoutQuery {
+          viewer {
+            ...AppSidebar_viewer
+          }
         }
-      }
 
-      ${AppSidebar.fragments.viewer}
-    `}
-  >
-    {({ loading, data: { viewer } }) => (
-      <Container>
-        <AppSidebar loading={loading} viewer={viewer} />
-        <AppMain>{children}</AppMain>
-        <Footer />
-      </Container>
-    )}
-  </Query>
-)
+        ${AppSidebar.fragments.viewer}
+      `}
+    >
+      {({ loading, data: { viewer } }) => (
+        <Container>
+          <AppSidebar loading={loading} viewer={viewer} />
+          <AppMain>{children}</AppMain>
+          <SpotifyPlayer token={data.token} />
+        </Container>
+      )}
+    </Query>
+  )
+}
 
 export default AppLayout
