@@ -1,5 +1,5 @@
 export default {
   green: '#2ab759',
-  offWhite: 'hsla(0, 0%, 100%, 0.6)',
+  offWhite: '#B3B3B3',
   white: '#fff'
 }
