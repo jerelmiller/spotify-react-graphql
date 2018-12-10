@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
 import NextTrackIcon from 'components/NextTrackIcon'
 import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotify from 'hooks/useSpotify'
-import useTimer from 'hooks/useTimer'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
 import posed, { PoseGroup } from 'react-pose'
@@ -94,15 +93,9 @@ const Container = styled(
 `
 
 const SpotifyPlayer = ({ token }) => {
-  const {
-    isPlayingThroughPlayer,
-    position = 0,
-    duration = 1,
-    paused = true
-  } = useSpotify(token)
-
-  const [currentTime, setCurrentTime] = useState(position)
-  useTimer({ on: !paused, callback: () => setCurrentTime(currentTime + 1000) })
+  const { isPlayingThroughPlayer, currentTime, paused, duration } = useSpotify(
+    token
+  )
 
   return (
     <PoseGroup>
