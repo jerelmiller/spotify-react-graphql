@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 
-const useTimer = ({ on, callback }) => {
+const useTimer = (fn, { on } = {}, vars = []) => {
   useEffect(
     () => {
       let intervalId
       if (on) {
-        intervalId = setInterval(callback, 1000)
+        intervalId = setInterval(() => fn(), 1000)
       }
 
       return () => {
         clearInterval(intervalId)
       }
     },
-    [on]
+    [on, ...vars]
   )
 }
 
