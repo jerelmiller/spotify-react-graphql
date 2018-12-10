@@ -1,17 +1,17 @@
 import React from 'react'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
+import NextTrackIcon from 'components/NextTrackIcon'
+import PrevTrackIcon from 'components/PrevTrackIcon'
+import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotify from 'hooks/useSpotify'
-import styled, { css } from 'styled-components'
+import RepeatIcon from 'components/RepeatIcon'
+import styled from 'styled-components/macro'
 import posed, { PoseGroup } from 'react-pose'
 import { color } from 'styles/utils'
 
 const PLAYBAR_SIZE = '4px'
-
-const controlButton = css`
-  background: none;
-  padding: 0;
-`
+const ICON_SIZE = '1.1rem'
 
 const Controls = styled.div`
   display: flex;
@@ -19,21 +19,22 @@ const Controls = styled.div`
   justify-content: center;
 `
 
-const buttonProps = {
-  size: '1.1rem',
-  strokeWidth: 0,
-  fill: 'offWhite'
-}
+const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
+  children: <Icon size={ICON_SIZE} fill={fill ? 'offWhite' : null} />
+}))`
+  color: ${color('offWhite')};
+  background: none;
+  padding: 0;
+  border: none;
+`
 
-const PlayButton = styled.button.attrs(({ paused }) => ({
+const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
   children: paused ? (
-    <PauseIcon {...buttonProps} />
+    <PauseIcon size={ICON_SIZE} fill="offWhite" />
   ) : (
-    <PlayIcon {...buttonProps} />
+    <PlayIcon size={ICON_SIZE} fill="offWhite" />
   )
 }))`
-  ${controlButton};
-  color: ${color('offWhite')};
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
@@ -50,9 +51,10 @@ const PlayButton = styled.button.attrs(({ paused }) => ({
 const ControlButtons = styled.div`
   display: grid;
   grid-auto-flow: column;
-  grid-auto-column: auto;
+  grid-auto-columns: auto;
   grid-gap: 1rem;
   justify-content: center;
+  align-items: center;
   margin-bottom: 1.5rem;
 `
 
@@ -100,7 +102,11 @@ const SpotifyPlayer = ({ token }) => {
           <div />
           <Controls>
             <ControlButtons>
+              <ControlButton icon={ShuffleIcon} />
+              <ControlButton icon={PrevTrackIcon} fill />
               <PlayButton />
+              <ControlButton icon={NextTrackIcon} fill />
+              <ControlButton icon={RepeatIcon} />
             </ControlButtons>
             <Playbar progress={0.5} />
           </Controls>
