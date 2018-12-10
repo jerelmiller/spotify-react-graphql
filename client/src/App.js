@@ -19,7 +19,7 @@ import useSession from './hooks/useSession'
 import { Redirect, Router } from '@reach/router'
 
 const App = () => {
-  const { data, isAuthenticated } = useSession()
+  const { isAuthenticated } = useSession()
 
   return isAuthenticated ? (
     <AppLayout>
