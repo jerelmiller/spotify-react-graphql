@@ -1,5 +1,6 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
+import MusicIcon from 'components/MusicIcon'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -17,6 +18,22 @@ const Container = styled.div`
 
 const CoverPhoto = styled(LazyImage)`
   margin-bottom: 1rem;
+`
+
+const PlaceholderPhoto = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #282828;
+  width: 300px;
+  height: 300px;
+  margin-bottom: 1rem;
+
+  svg {
+    height: 30%;
+    width: 30%;
+    stroke-width: 1;
+  }
 `
 
 const Info = styled.div`
@@ -84,10 +101,13 @@ const Playlist = ({ playlistId }) => (
             <BackgroundFromImage src={playlist.images[0].url} />
           )}
           <Info>
-            <CoverPhoto
-              block
-              src={playlist.images.length > 0 ? playlist.images[0].url : null}
-            />
+            {playlist.images.length > 0 ? (
+              <CoverPhoto block src={playlist.images[0].url} />
+            ) : (
+              <PlaceholderPhoto>
+                <MusicIcon />
+              </PlaceholderPhoto>
+            )}
             <h2>{playlist.name}</h2>
             <div>
               <UserLink to={`/users/${playlist.owner.id}`}>
