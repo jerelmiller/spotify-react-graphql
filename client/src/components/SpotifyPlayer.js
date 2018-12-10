@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
 import NextTrackIcon from 'components/NextTrackIcon'
@@ -96,13 +96,13 @@ const Container = styled(
 const SpotifyPlayer = ({ token }) => {
   const {
     isPlayingThroughPlayer,
-    position,
+    position = 0,
     duration = 1,
     paused = true
   } = useSpotify(token)
 
-  const time = useTimer({ on: !paused })
-  const currentTime = paused ? position : time + (position || 0)
+  const [currentTime, setCurrentTime] = useState(position)
+  useTimer({ on: !paused, callback: () => setCurrentTime(currentTime + 1000) })
 
   return (
     <PoseGroup>

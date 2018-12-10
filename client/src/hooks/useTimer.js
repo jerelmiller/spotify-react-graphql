@@ -1,16 +1,12 @@
 import { useEffect, useState } from 'react'
 
-const useTimer = ({ on }) => {
+const useTimer = ({ on, callback }) => {
   const [intervalId, setIntervalId] = useState(null)
-  const [currentTime, setCurrentTime] = useState(0)
 
   useEffect(
     () => {
       if (on) {
-        const intervalId = setInterval(
-          () => setCurrentTime(currentTime + 1000),
-          1000
-        )
+        const intervalId = setInterval(callback, 1000)
         setIntervalId(intervalId)
       }
 
@@ -21,10 +17,8 @@ const useTimer = ({ on }) => {
         }
       }
     },
-    [on, currentTime]
+    [on]
   )
-
-  return currentTime
 }
 
 export default useTimer
