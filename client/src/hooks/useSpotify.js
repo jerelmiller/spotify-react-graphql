@@ -11,6 +11,18 @@ const useSpotify = token => {
     prop('message')
   )
 
+  const parseState = state =>
+    state && {
+      paused: state.paused,
+      position: state.position,
+      duration: state.duration
+    }
+
+  const setPlayerState = compose(
+    setState,
+    parseState
+  )
+
   useEffect(
     () => {
       window.onSpotifyWebPlaybackSDKReady = () => {
@@ -35,11 +47,11 @@ const useSpotify = token => {
       player.addListener('authentication_error', setSpotifyError)
       player.addListener('account_error', setSpotifyError)
       player.addListener('playback_error', setSpotifyError)
-      player.addListener('player_state_changed', setState)
+      player.addListener('player_state_changed', setPlayerState)
       player
         .connect()
         .then(() => player.getCurrentState())
-        .then(setState)
+        .then(setPlayerState)
       return () => player && player.disconnect()
     },
     [player]
