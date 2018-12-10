@@ -1,7 +1,7 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
-import MusicIcon from 'components/MusicIcon'
 import LazyImage from 'components/LazyImage'
+import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Track, { TRACK_VARIANTS } from 'components/Track'
@@ -18,22 +18,6 @@ const Container = styled.div`
 
 const CoverPhoto = styled(LazyImage)`
   margin-bottom: 1rem;
-`
-
-const PlaceholderPhoto = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #282828;
-  width: 300px;
-  height: 300px;
-  margin-bottom: 1rem;
-
-  svg {
-    height: 30%;
-    width: 30%;
-    stroke-width: 1;
-  }
 `
 
 const Info = styled.div`
@@ -104,9 +88,7 @@ const Playlist = ({ playlistId }) => (
             {playlist.images.length > 0 ? (
               <CoverPhoto block src={playlist.images[0].url} />
             ) : (
-              <PlaceholderPhoto>
-                <MusicIcon />
-              </PlaceholderPhoto>
+              <PlaceholderPhoto marginBottom="1rem" />
             )}
             <h2>{playlist.name}</h2>
             <div>
