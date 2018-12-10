@@ -17,6 +17,8 @@ const SCOPES = [
   'playlist-read-collaborative',
   'playlist-modify-public',
   'user-modify-playback-state',
+  'user-read-private',
+  'user-read-birthdate',
   'user-read-playback-state',
   'user-read-currently-playing',
   'user-read-email',
