@@ -4,6 +4,7 @@ import {
   authenticate,
   getIsAuthenticated,
   getIsRestored,
+  getSessionData,
   invalidateSession
 } from 'redux-simple-auth'
 
@@ -14,7 +15,8 @@ const useSession = () => {
     authenticate: (...args) => store.dispatch(authenticate(...args)),
     isAuthenticated: getIsAuthenticated(state),
     isRestored: getIsRestored(state),
-    invalidateSession: () => store.dispatch(invalidateSession())
+    invalidateSession: () => store.dispatch(invalidateSession()),
+    data: getSessionData(state)
   }
 }
 
