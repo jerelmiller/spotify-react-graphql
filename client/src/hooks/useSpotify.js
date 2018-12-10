@@ -58,7 +58,7 @@ const useSpotify = token => {
   )
   useScript('https://sdk.scdn.co/spotify-player.js')
 
-  return { error, state }
+  return { error, isPlayingThroughPlayer: Boolean(state), ...state }
 }
 
 export default useSpotify

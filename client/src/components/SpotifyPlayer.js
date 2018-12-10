@@ -91,16 +91,16 @@ const Container = styled(
 `
 
 const SpotifyPlayer = ({ token }) => {
-  const { state } = useSpotify(token)
+  const { isPlayingThoughPlayer } = useSpotify(token)
 
   return (
     <PoseGroup>
-      {state || (
+      {isPlayingThoughPlayer || (
         <Container key="player">
           <div />
           <Controls>
             <ControlButtons>
-              <PlayButton paused />
+              <PlayButton />
             </ControlButtons>
             <Playbar progress={0.5} />
           </Controls>
