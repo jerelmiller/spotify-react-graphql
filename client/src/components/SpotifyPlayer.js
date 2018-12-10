@@ -9,6 +9,7 @@ import useSpotify from 'hooks/useSpotify'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
 import Timestamp from 'components/Timestamp'
+import Typography from 'components/Typography'
 import posed, { PoseGroup } from 'react-pose'
 import { color, typography } from 'styles/utils'
 
@@ -17,6 +18,11 @@ const ICON_SIZE = '1.1rem'
 
 const TimeInfo = styled(Timestamp)`
   ${typography('xs')};
+`
+
+const SongInfo = styled.div`
+  display: flex;
+  flex-direction: column;
 `
 
 const Info = styled.div`
@@ -133,10 +139,12 @@ const SpotifyPlayer = ({ token }) => {
         <Container key="player">
           <Info>
             <LazyImage width="64px" height="64px" src={album.images[0].url} />
-            <div>
-              <div>{trackName}</div>
-              <div>{artists[0].name}</div>
-            </div>
+            <SongInfo>
+              <Typography kind="sm" color="white">
+                {trackName}
+              </Typography>
+              <Typography kind="xs">{artists[0].name}</Typography>
+            </SongInfo>
           </Info>
           <Controls>
             <ControlButtons>
