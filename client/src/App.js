@@ -15,11 +15,12 @@ import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
 import RelatedArtists from './routes/artist/related-artists'
 import Playlist from './routes/playlist'
+import SpotifyPlayer from './components/SpotifyPlayer'
 import useSession from './hooks/useSession'
 import { Redirect, Router } from '@reach/router'
 
 const App = () => {
-  const { isAuthenticated } = useSession()
+  const { data, isAuthenticated } = useSession()
 
   return isAuthenticated ? (
     <AppLayout>
@@ -41,6 +42,7 @@ const App = () => {
         <Playlist path="playlists/:playlistId" />
         <Logout path="logout" />
       </Router>
+      <SpotifyPlayer token={data.token} />
     </AppLayout>
   ) : (
     <Router primary={false}>
