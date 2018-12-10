@@ -5,6 +5,7 @@ import NextTrackIcon from 'components/NextTrackIcon'
 import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotify from 'hooks/useSpotify'
+import useTimer from 'hooks/useTimer'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
 import posed, { PoseGroup } from 'react-pose'
@@ -20,7 +21,7 @@ const Controls = styled.div`
 `
 
 const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
-  children: <Icon size={ICON_SIZE} fill={fill ? 'offWhite' : null} />
+  children: Icon && <Icon size={ICON_SIZE} fill={fill ? 'offWhite' : null} />
 }))`
   color: ${color('offWhite')};
   background: none;
@@ -30,9 +31,9 @@ const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
 
 const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
   children: paused ? (
-    <PauseIcon size={ICON_SIZE} fill="offWhite" />
-  ) : (
     <PlayIcon size={ICON_SIZE} fill="offWhite" />
+  ) : (
+    <PauseIcon size={ICON_SIZE} fill="offWhite" />
   )
 }))`
   height: 2rem;
@@ -44,7 +45,7 @@ const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
   justify-content: center;
 
   svg {
-    margin-left: ${({ paused }) => (paused ? null : '3px')};
+    margin-left: ${({ paused }) => (paused ? '3px' : null)};
   }
 `
 
@@ -93,22 +94,30 @@ const Container = styled(
 `
 
 const SpotifyPlayer = ({ token }) => {
-  const { isPlayingThoughPlayer } = useSpotify(token)
+  const {
+    isPlayingThroughPlayer,
+    position,
+    duration = 1,
+    paused = true
+  } = useSpotify(token)
+
+  const time = useTimer({ on: !paused })
+  const currentTime = paused ? position : time + (position || 0)
 
   return (
     <PoseGroup>
-      {isPlayingThoughPlayer || (
+      {isPlayingThroughPlayer && (
         <Container key="player">
           <div />
           <Controls>
             <ControlButtons>
               <ControlButton icon={ShuffleIcon} />
               <ControlButton icon={PrevTrackIcon} fill />
-              <PlayButton />
+              <PlayButton paused={paused} />
               <ControlButton icon={NextTrackIcon} fill />
               <ControlButton icon={RepeatIcon} />
             </ControlButtons>
-            <Playbar progress={0.5} />
+            <Playbar progress={currentTime / duration} />
           </Controls>
           <div />
         </Container>
