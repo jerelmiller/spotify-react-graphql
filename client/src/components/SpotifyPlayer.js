@@ -8,11 +8,16 @@ import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotify from 'hooks/useSpotify'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
+import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
-import { color } from 'styles/utils'
+import { color, typography } from 'styles/utils'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
+
+const TimeInfo = styled(Timestamp)`
+  ${typography('xs')};
+`
 
 const Info = styled.div`
   display: grid;
@@ -27,6 +32,14 @@ const Controls = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`
+
+const TimeControls = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  color: ${color('offWhite')};
 `
 
 const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
@@ -100,6 +113,7 @@ const Container = styled(
   grid-template-columns: 1fr 1.5fr 1fr;
   background: #282828;
   padding: 1.25rem;
+  color: ${color('offWhite')};
 `
 
 const SpotifyPlayer = ({ token }) => {
@@ -132,7 +146,11 @@ const SpotifyPlayer = ({ token }) => {
               <ControlButton icon={NextTrackIcon} fill />
               <ControlButton icon={RepeatIcon} />
             </ControlButtons>
-            <Playbar progress={currentTime / duration} />
+            <TimeControls>
+              <TimeInfo milliseconds={currentTime}>{currentTime}</TimeInfo>
+              <Playbar progress={currentTime / duration} />
+              <TimeInfo milliseconds={duration}>{duration}</TimeInfo>
+            </TimeControls>
           </Controls>
           <div />
         </Container>
