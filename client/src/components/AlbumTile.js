@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import LazyImage from 'components/LazyImage'
-import MusicIcon from 'components/MusicIcon'
+import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -13,22 +13,6 @@ const Container = styled.div`
 const CoverPhoto = styled(LazyImage)`
   display: block;
   margin-bottom: 0.5rem;
-`
-
-const PlaceholderPhoto = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 50% 0;
-  background: #282828;
-  margin-bottom: 0.5rem;
-  position: relative;
-
-  svg {
-    position: absolute;
-    stroke-width: 1;
-  }
 `
 
 const Title = styled(Link)`
@@ -59,9 +43,7 @@ const AlbumTile = ({ album }) => {
       {coverPhoto ? (
         <CoverPhoto src={coverPhoto.url} width="100%" />
       ) : (
-        <PlaceholderPhoto>
-          <MusicIcon size="30%" />
-        </PlaceholderPhoto>
+        <PlaceholderPhoto marginBottom="0.5rem" />
       )}
       <Title to={`/albums/${album.id}`}>{album.name}</Title>
       <ArtistLink to={`/artists/${album.artists[0].id}`}>
