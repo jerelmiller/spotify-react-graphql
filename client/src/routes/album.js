@@ -4,6 +4,7 @@ import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
+import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import Track, { TRACK_VARIANTS } from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
@@ -88,41 +89,49 @@ const Album = ({ albumId }) => (
     `}
     variables={{ albumId }}
   >
-    {({ loading, data: { album } }) =>
-      loading || (
-        <Container>
-          <BackgroundFromImage src={imageFor(album).url} />
-          <Info>
-            <CoverPhoto block src={imageFor(album).url} width="300px" />
-            <h2>{album.name}</h2>
+    {({ loading, data: { album } }) => {
+      const image = loading ? {} : album.images[0]
+
+      return (
+        loading || (
+          <Container>
+            {image && <BackgroundFromImage src={imageFor(album).url} />}
+            <Info>
+              {image ? (
+                <CoverPhoto block src={imageFor(album).url} width="300px" />
+              ) : (
+                <PlaceholderPhoto marginBottom="1rem" />
+              )}
+              <h2>{album.name}</h2>
+              <div>
+                <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
+                  {album.primaryArtist.name}
+                </ArtistLink>
+              </div>
+              <div>
+                <Typography>
+                  <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
+                  {album.tracks.pageInfo.total} Songs
+                </Typography>
+              </div>
+            </Info>
             <div>
-              <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
-                {album.primaryArtist.name}
-              </ArtistLink>
+              {album.tracks.edges.map(({ node }) => (
+                <Track
+                  key={node.id}
+                  track={node}
+                  variant={
+                    album.type === 'COMPILATION'
+                      ? TRACK_VARIANTS.VARIOUS_ARTIST
+                      : TRACK_VARIANTS.SIMPLE
+                  }
+                />
+              ))}
             </div>
-            <div>
-              <Typography>
-                <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
-                {album.tracks.pageInfo.total} Songs
-              </Typography>
-            </div>
-          </Info>
-          <div>
-            {album.tracks.edges.map(({ node }) => (
-              <Track
-                key={node.id}
-                track={node}
-                variant={
-                  album.type === 'COMPILATION'
-                    ? TRACK_VARIANTS.VARIOUS_ARTIST
-                    : TRACK_VARIANTS.SIMPLE
-                }
-              />
-            ))}
-          </div>
-        </Container>
+          </Container>
+        )
       )
-    }
+    }}
   </Query>
 )
 
