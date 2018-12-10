@@ -36,8 +36,6 @@ const AlbumTile = ({ album }) => {
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
 
-  console.log({ album: album.name, coverPhoto })
-
   return (
     <Container>
       {coverPhoto ? (
