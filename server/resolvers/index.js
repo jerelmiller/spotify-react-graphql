@@ -26,6 +26,8 @@ const resolvers = {
     artist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getArtist(id),
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
+    category: (_, { id }, { dataSources }) =>
+      dataSources.spotifyAPI.getCategory(id),
     categories: (_, { limit = 50, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getCategories({ limit, offset })
