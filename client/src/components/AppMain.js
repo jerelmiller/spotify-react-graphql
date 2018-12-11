@@ -36,7 +36,7 @@ const Backdrop = styled.div`
     left: 0;
     right: 0;
     background: linear-gradient(rgba(255, 255, 255, 0), #04060b);
-    transition: opacity 0.15s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     opacity: ${({ usingGradient }) => (usingGradient ? 1 : 0)};
   }
 `
