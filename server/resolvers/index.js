@@ -28,6 +28,10 @@ const resolvers = {
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
     playlist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getPlaylist(id),
+    newReleases: (_, { limit = 50, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getNewReleases({ limit, offset })
+        .then(prop('albums')),
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
   Album: {

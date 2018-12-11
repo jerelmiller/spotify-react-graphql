@@ -91,6 +91,14 @@ class SpotifyAPI extends RESTDataSource {
   getPlaylist(id) {
     return this.get(`/playlists/${id}`)
   }
+
+  getNewReleases({ limit, offset }) {
+    const params = new URLSearchParams()
+    params.set('limit', limit)
+    params.set('offset', offset)
+
+    return this.get(`/browse/new-releases?${params}`)
+  }
 }
 
 export default SpotifyAPI
