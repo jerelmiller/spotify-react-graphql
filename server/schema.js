@@ -9,6 +9,9 @@ export default gql`
   type Query {
     artist(id: ID!): Artist
 
+    "Get a category by its ID"
+    category(id: ID!): Category
+
     "Get information about an album"
     album(id: ID!): Album
 
