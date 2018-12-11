@@ -9,7 +9,7 @@ const FeatherSVG = styled.svg.attrs({
   fill: ${branch(
     prop('fill'),
     compose(
-      color,
+      fill => color(fill) || fill,
       prop('fill')
     ),
     () => 'none'

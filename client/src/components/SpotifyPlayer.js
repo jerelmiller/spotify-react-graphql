@@ -49,19 +49,30 @@ const TimeControls = styled.div`
 `
 
 const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
-  children: Icon && <Icon size={ICON_SIZE} fill={fill ? 'offWhite' : null} />
+  children: Icon && (
+    <Icon size={ICON_SIZE} fill={fill ? 'currentColor' : 'none'} />
+  )
 }))`
   color: ${color('offWhite')};
   background: none;
   padding: 0;
   border: none;
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+
+  &:hover {
+    color: ${color('white')};
+  }
+  &:focus {
+    outline: none;
+  }
 `
 
 const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
   children: paused ? (
-    <PlayIcon size={ICON_SIZE} fill="offWhite" />
+    <PlayIcon size={ICON_SIZE} fill="currentColor" />
   ) : (
-    <PauseIcon size={ICON_SIZE} fill="offWhite" />
+    <PauseIcon size={ICON_SIZE} fill="currentColor" />
   )
 }))`
   height: 2rem;
@@ -71,6 +82,10 @@ const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 
   svg {
     margin-left: ${({ paused }) => (paused ? '3px' : null)};
