@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import LazyImage from 'components/LazyImage'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
@@ -36,6 +36,15 @@ const AlbumLink = styled(Link)`
 
 const TimeInfo = styled(Timestamp)`
   ${typography('xs')};
+  width: 2rem;
+
+  &:first-child {
+    justify-self: end;
+  }
+
+  &:last-child {
+    justify-self: start;
+  }
 `
 
 const SongInfo = styled.div`
@@ -62,7 +71,7 @@ const Controls = styled.div`
 const TimeControls = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 500px auto;
   align-items: center;
   color: ${color('offWhite')};
 `
@@ -175,7 +184,8 @@ const SpotifyPlayer = ({ token }) => {
     duration,
     playNextTrack,
     playPreviousTrack,
-    togglePlayback
+    togglePlayback,
+    seek
   } = useSpotify(token)
 
   const { album, name: trackName, artists } = currentTrack || {}
@@ -192,12 +202,12 @@ const SpotifyPlayer = ({ token }) => {
               <AlbumLink to={`/albums/${album.id}`}>{trackName}</AlbumLink>
               <div>
                 {artists.map((artist, idx) => (
-                  <>
-                    <ArtistLink key={artist.id} to={`/artists/${artist.id}`}>
+                  <Fragment key={artist.id}>
+                    <ArtistLink to={`/artists/${artist.id}`}>
                       {artist.name}
                     </ArtistLink>
                     {idx !== artists.length - 1 && ', '}
-                  </>
+                  </Fragment>
                 ))}
               </div>
             </SongInfo>
@@ -222,7 +232,16 @@ const SpotifyPlayer = ({ token }) => {
             </ControlButtons>
             <TimeControls>
               <TimeInfo milliseconds={currentTime}>{currentTime}</TimeInfo>
-              <Playbar progress={currentTime / duration} />
+              <Playbar
+                progress={currentTime / duration}
+                onClick={({ clientX, target: { offsetLeft, clientWidth } }) =>
+                  seek(
+                    Math.floor(
+                      ((clientX - offsetLeft) / clientWidth) * duration
+                    )
+                  )
+                }
+              />
               <TimeInfo milliseconds={duration}>{duration}</TimeInfo>
             </TimeControls>
           </Controls>
