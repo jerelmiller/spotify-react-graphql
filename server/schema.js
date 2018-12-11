@@ -20,6 +20,9 @@ export default gql`
 
     "Get new releases"
     newReleases(limit: Int, offset: Int): AlbumConnection
+
+    "Get a list of Spotify featured playlists"
+    featuredPlaylists(limit: Int, offset: Int): PlaylistConnection
   }
 
   type Album {
