@@ -6,8 +6,6 @@ import { prop } from 'utils/fp'
 // const BACKGROUND_COLORS = {
 //   '/browse/podcasts': '#673239',
 //   '/browse/charts': '#224F6A',
-//   '/browse/genres': '#272527',
-//   '/browse/new-releases': '#283A6A'
 // }
 
 const Main = styled.main`
