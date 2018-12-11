@@ -60,11 +60,17 @@ const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
   cursor: pointer;
   transition: 0.15s ease-in-out;
 
-  &:hover {
+  &:hover:not(:disabled) {
     color: ${color('white')};
   }
+
   &:focus {
     outline: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
   }
 `
 
@@ -139,13 +145,15 @@ const Container = styled(
 
 const SpotifyPlayer = ({ token }) => {
   const {
+    allowedActions,
     isPlayingThroughPlayer,
     currentTrack,
     currentTime,
     paused,
     duration,
-    pause,
-    play
+    playNextTrack,
+    playPreviousTrack,
+    togglePlayback
   } = useSpotify(token)
 
   const { album, name: trackName, artists } = currentTrack || {}
@@ -166,9 +174,19 @@ const SpotifyPlayer = ({ token }) => {
           <Controls>
             <ControlButtons>
               <ControlButton icon={ShuffleIcon} />
-              <ControlButton icon={PrevTrackIcon} fill />
-              <PlayButton paused={paused} onClick={paused ? play : pause} />
-              <ControlButton icon={NextTrackIcon} fill />
+              <ControlButton
+                icon={PrevTrackIcon}
+                fill
+                disabled={!allowedActions.playPrevTrack}
+                onClick={playPreviousTrack}
+              />
+              <PlayButton paused={paused} onClick={togglePlayback} />
+              <ControlButton
+                icon={NextTrackIcon}
+                fill
+                disabled={!allowedActions.playNextTrack}
+                onClick={playNextTrack}
+              />
               <ControlButton icon={RepeatIcon} />
             </ControlButtons>
             <TimeControls>

@@ -29,6 +29,8 @@ const useSpotify = token => {
         }
       : DEFAULT_STATE
 
+  const isAllowed = action => Boolean(state) && !state.disallows[action]
+
   useEffect(
     () => {
       window.onSpotifyWebPlaybackSDKReady = () => {
@@ -87,6 +89,15 @@ const useSpotify = token => {
     isPlayingThroughPlayer: Boolean(state),
     pause: () => player.pause(),
     play: () => player.resume(),
+    playNextTrack: () => player.nextTrack(),
+    playPreviousTrack: () => player.previousTrack(),
+    togglePlayback: () => player.togglePlay(),
+    allowedActions: {
+      play: !isAllowed('pausing'),
+      pause: isAllowed('pausing'),
+      playPrevTrack: isAllowed('skipping_prev'),
+      playNextTrack: isAllowed('skipping_next')
+    },
     ...parseState(state)
   }
 }
