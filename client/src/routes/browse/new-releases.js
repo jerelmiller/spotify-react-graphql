@@ -21,15 +21,6 @@ const NewReleases = () => {
               }
             }
           }
-
-          featuredPlaylists {
-            edges {
-              node {
-                id
-                name
-              }
-            }
-          }
         }
 
         ${AlbumTile.fragments.album}
