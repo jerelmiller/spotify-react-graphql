@@ -11,6 +11,7 @@ const DEFAULT_STATE = {
 }
 
 const useSpotify = token => {
+  const [timestamp, setTimestamp] = useState(null)
   const [player, setPlayer] = useState(null)
   const [state, setState] = useState(null)
   const [error, setError] = useState(null)
@@ -84,10 +85,12 @@ const useSpotify = token => {
 
   useTimer(
     () => {
-      setCurrentTime(currentTime + 1000)
+      if (state && timestamp) {
+        setCurrentTime(state.position + (Date.now() - timestamp))
+      }
     },
     { on: Boolean(state) && !state.paused },
-    [currentTime]
+    [timestamp, state && state.position]
   )
 
   useEffect(
@@ -97,6 +100,15 @@ const useSpotify = token => {
       }
     },
     [state && state.position]
+  )
+
+  useEffect(
+    () => {
+      if (state && state.timestamp) {
+        setTimestamp(state.timestamp)
+      }
+    },
+    [state && state.timestamp]
   )
 
   return {
