@@ -30,14 +30,8 @@ const ArtistLink = styled(Link)`
 `
 
 const AlbumLink = styled(Link)`
-  ${typography('sm')};
+  font-size: 0.9rem;
   color: ${color('white')};
-  transition: all 0.2s ease-in-out;
-  border-bottom: 1px solid transparent;
-
-  &:hover {
-    border-bottom-color: ${color('white')};
-  }
 `
 
 const TimeInfo = styled(Timestamp)`
@@ -164,6 +158,7 @@ const Container = styled(
   grid-area: footer;
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
+  align-items: center;
   background: #282828;
   padding: 1.25rem;
   color: ${color('offWhite')};
@@ -195,9 +190,16 @@ const SpotifyPlayer = ({ token }) => {
             </Link>
             <SongInfo>
               <AlbumLink to={`/albums/${album.id}`}>{trackName}</AlbumLink>
-              <ArtistLink to={`/artists/${artists[0].id}`}>
-                {artists[0].name}
-              </ArtistLink>
+              <div>
+                {artists.map((artist, idx) => (
+                  <>
+                    <ArtistLink key={artist.id} to={`/artists/${artist.id}`}>
+                      {artist.name}
+                    </ArtistLink>
+                    {idx !== artists.length - 1 && ', '}
+                  </>
+                ))}
+              </div>
             </SongInfo>
           </Info>
           <Controls>
