@@ -143,7 +143,9 @@ const SpotifyPlayer = ({ token }) => {
     currentTrack,
     currentTime,
     paused,
-    duration
+    duration,
+    pause,
+    play
   } = useSpotify(token)
 
   const { album, name: trackName, artists } = currentTrack || {}
@@ -165,7 +167,7 @@ const SpotifyPlayer = ({ token }) => {
             <ControlButtons>
               <ControlButton icon={ShuffleIcon} />
               <ControlButton icon={PrevTrackIcon} fill />
-              <PlayButton paused={paused} />
+              <PlayButton paused={paused} onClick={paused ? play : pause} />
               <ControlButton icon={NextTrackIcon} fill />
               <ControlButton icon={RepeatIcon} />
             </ControlButtons>
