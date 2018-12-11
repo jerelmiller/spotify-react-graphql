@@ -25,6 +25,13 @@ export default gql`
     featuredPlaylists(limit: Int, offset: Int): PlaylistConnection
 
     categories(limit: Int, offset: Int): CategoryConnection
+
+    "Get a set of playlists for a category"
+    playlistsByCategory(
+      categoryId: ID!
+      limit: Int
+      offset: Int
+    ): PlaylistConnection
   }
 
   type Album {
