@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from 'components/Button'
-import LazyImage from 'components/LazyImage'
+import LazyBackgroundImage from 'components/LazyBackgroundImage'
 import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
 import MoreIcon from 'components/MoreIcon'
@@ -10,7 +10,6 @@ import TabNav from 'components/TabNav'
 import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
-import { prop } from 'utils/fp'
 
 const ArtistName = styled.h1`
   font-size: 4.5rem;
@@ -34,10 +33,9 @@ const Nav = styled(TabNav)`
   margin-top: 2rem;
 `
 
-const Header = styled(LazyImage)`
+const Header = styled(LazyBackgroundImage)`
   margin: -2rem -2rem 0;
   padding: 5rem 2rem 0;
-  background-image: url(${prop('src')});
   background-position: 50% 33%;
   background-size: cover;
   position: relative;
@@ -94,7 +92,7 @@ const Artist = ({ artistId, children }) => {
       {({ loading, data: { artist } }) =>
         loading || (
           <>
-            <Header src={artist.images[0].url} as="header">
+            <Header src={artist.images[0].url} component="header">
               <Listeners>
                 {toNumeral(artist.followers.total)} Followers
               </Listeners>
