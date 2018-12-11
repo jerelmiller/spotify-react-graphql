@@ -86,6 +86,8 @@ const useSpotify = token => {
   useTimer(
     () => {
       if (state && timestamp) {
+        // Ensure a more accurate `currentTime` in case the timer doesn't fire
+        // exactly 1 second later.
         setCurrentTime(state.position + (Date.now() - timestamp))
       }
     },
