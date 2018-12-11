@@ -107,6 +107,14 @@ class SpotifyAPI extends RESTDataSource {
 
     return this.get(`/browse/featured-playlists?${params}`)
   }
+
+  getCategories({ limit, offset }) {
+    const params = new URLSearchParams()
+    params.set('limit', limit)
+    params.set('offset', offset)
+
+    return this.get(`/browse/categories?${params}`)
+  }
 }
 
 export default SpotifyAPI

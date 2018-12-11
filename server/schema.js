@@ -23,6 +23,8 @@ export default gql`
 
     "Get a list of Spotify featured playlists"
     featuredPlaylists(limit: Int, offset: Int): PlaylistConnection
+
+    categories(limit: Int, offset: Int): CategoryConnection
   }
 
   type Album {
@@ -150,6 +152,21 @@ export default gql`
 
   type ArtistEdge {
     node: Artist!
+  }
+
+  type Category {
+    id: ID!
+    icons: [Image!]!
+    name: String!
+  }
+
+  type CategoryConnection {
+    edges: [CategoryEdge!]!
+    pageInfo: CursorInfo!
+  }
+
+  type CategoryEdge {
+    node: Category!
   }
 
   type CursorInfo {
