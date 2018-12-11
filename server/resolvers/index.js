@@ -26,6 +26,10 @@ const resolvers = {
     artist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getArtist(id),
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
+    featuredPlaylists: (_, { limit = 50, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getFeaturedPlaylists({ limit, offset })
+        .then(data => console.log(data.message) || prop('playlists')(data)),
     playlist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getPlaylist(id),
     newReleases: (_, { limit = 50, offset = 0 }, { dataSources }) =>
