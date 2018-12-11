@@ -26,6 +26,10 @@ const resolvers = {
     artist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getArtist(id),
     album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
+    categories: (_, { limit = 50, offset = 0 }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .getCategories({ limit, offset })
+        .then(prop('categories')),
     featuredPlaylists: (_, { limit = 50, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getFeaturedPlaylists({ limit, offset })
@@ -66,6 +70,10 @@ const resolvers = {
   },
   ArtistConnection: createCursorConnectionResolver(),
   ArtistEdge: {
+    node: item => item
+  },
+  CategoryConnection: createConnectionResolver(),
+  CategoryEdge: {
     node: item => item
   },
   CursorInfo: {
