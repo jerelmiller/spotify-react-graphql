@@ -17,6 +17,9 @@ export default gql`
 
     "Get information about a playlist"
     playlist(id: ID!): Playlist
+
+    "Get new releases"
+    newReleases(limit: Int, offset: Int): AlbumConnection
   }
 
   type Album {

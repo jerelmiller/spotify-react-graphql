@@ -10,6 +10,7 @@ import Logout from './routes/logout'
 import Browse from './routes/browse'
 import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
+import BrowseNewReleases from './routes/browse/new-releases'
 import LoggedOut from './routes/logged-out'
 import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
@@ -34,6 +35,7 @@ const App = () => {
           <Redirect noThrow from="/" to="browse/featured" />
           <BrowseDiscover path="discover" />
           <BrowseFeatured path="featured" />
+          <BrowseNewReleases path="new-releases" />
         </Browse>
         <Albums path="collection/albums" />
         <Artists path="collection/artists" />
