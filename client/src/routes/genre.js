@@ -21,23 +21,29 @@ const Genre = ({ genreId }) => (
             }
           }
         }
+
+        category(id: $categoryId) {
+          id
+          name
+        }
       }
 
       ${PlaylistTile.fragments.playlist}
     `}
     variables={{ categoryId: genreId, limit: 50, offset: 0 }}
   >
-    {({ loading, data: { playlistsByCategory } }) => (
-      <>
-        <PageTitle>Ya</PageTitle>
-        <TileGrid minWidth="180px">
-          {loading ||
-            playlistsByCategory.edges.map(({ node }) => (
+    {({ loading, data: { category, playlistsByCategory } }) =>
+      loading || (
+        <>
+          <PageTitle>{category.name}</PageTitle>
+          <TileGrid minWidth="180px">
+            {playlistsByCategory.edges.map(({ node }) => (
               <PlaylistTile key={node.id} playlist={node} />
             ))}
-        </TileGrid>
-      </>
-    )}
+          </TileGrid>
+        </>
+      )
+    }
   </Query>
 )
 
