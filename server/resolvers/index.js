@@ -36,6 +36,14 @@ const resolvers = {
         .then(data => console.log(data.message) || prop('playlists')(data)),
     playlist: (_, { id }, { dataSources }) =>
       dataSources.spotifyAPI.getPlaylist(id),
+    playlistsByCategory: (
+      _,
+      { categoryId, limit = 50, offset = 0 },
+      { dataSources }
+    ) =>
+      dataSources.spotifyAPI
+        .getPlaylistsByCategory(categoryId, { limit, offset })
+        .then(prop('playlists')),
     newReleases: (_, { limit = 50, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getNewReleases({ limit, offset })
