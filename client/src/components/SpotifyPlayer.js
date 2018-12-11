@@ -12,7 +12,6 @@ import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
 import { color, textColor, typography } from 'styles/utils'
 import { Link } from '@reach/router'
-import parseSpotifyId from 'utils/parseSpotifyId'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
@@ -172,6 +171,7 @@ const Container = styled(
 
 const SpotifyPlayer = ({ token }) => {
   const {
+    context,
     allowedActions,
     isPlayingThroughPlayer,
     currentTrack,
@@ -190,12 +190,12 @@ const SpotifyPlayer = ({ token }) => {
       {isPlayingThroughPlayer && (
         <Container key="player">
           <Info>
-            <LazyImage width="64px" height="64px" src={album.images[0].url} />
+            <Link to={`/${context.type}s/${context.id}`}>
+              <LazyImage width="64px" height="64px" src={album.images[0].url} />
+            </Link>
             <SongInfo>
-              <AlbumLink to={`/albums/${parseSpotifyId(album.uri)}`}>
-                {trackName}
-              </AlbumLink>
-              <ArtistLink to={`/artists/${parseSpotifyId(artists[0].uri)}`}>
+              <AlbumLink to={`/albums/${album.id}`}>{trackName}</AlbumLink>
+              <ArtistLink to={`/artists/${artists[0].id}`}>
                 {artists[0].name}
               </ArtistLink>
             </SongInfo>
