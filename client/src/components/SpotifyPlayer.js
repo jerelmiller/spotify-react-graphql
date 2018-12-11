@@ -9,12 +9,37 @@ import useSpotify from 'hooks/useSpotify'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
 import Timestamp from 'components/Timestamp'
-import Typography from 'components/Typography'
 import posed, { PoseGroup } from 'react-pose'
-import { color, typography } from 'styles/utils'
+import { color, textColor, typography } from 'styles/utils'
+import { Link } from '@reach/router'
+import parseSpotifyId from 'utils/parseSpotifyId'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
+
+const ArtistLink = styled(Link)`
+  font-size: 0.8rem;
+  color: ${textColor('muted')};
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid transparent;
+  align-self: flex-start;
+
+  &:hover {
+    color: ${textColor('primary')};
+    border-bottom-color: ${textColor('primary')};
+  }
+`
+
+const AlbumLink = styled(Link)`
+  ${typography('sm')};
+  color: ${color('white')};
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid transparent;
+
+  &:hover {
+    border-bottom-color: ${color('white')};
+  }
+`
 
 const TimeInfo = styled(Timestamp)`
   ${typography('xs')};
@@ -28,7 +53,8 @@ const SongInfo = styled.div`
 const Info = styled.div`
   display: grid;
   grid-gap: 1rem;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
   height: 64px;
   color: ${color('offWhite')};
   align-items: center;
@@ -113,6 +139,7 @@ const Playbar = styled.div`
   background: #393939;
   border-radius: ${PLAYBAR_SIZE};
   position: relative;
+  cursor: pointer;
 
   &:after {
     content: '';
@@ -165,10 +192,12 @@ const SpotifyPlayer = ({ token }) => {
           <Info>
             <LazyImage width="64px" height="64px" src={album.images[0].url} />
             <SongInfo>
-              <Typography kind="sm" color="white">
+              <AlbumLink to={`/albums/${parseSpotifyId(album.uri)}`}>
                 {trackName}
-              </Typography>
-              <Typography kind="xs">{artists[0].name}</Typography>
+              </AlbumLink>
+              <ArtistLink to={`/artists/${parseSpotifyId(artists[0].uri)}`}>
+                {artists[0].name}
+              </ArtistLink>
             </SongInfo>
           </Info>
           <Controls>
