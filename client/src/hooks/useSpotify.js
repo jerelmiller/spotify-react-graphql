@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { compose, prop } from 'utils/fp'
 import useScript from './useScript'
 import useTimer from './useTimer'
+import parseSpotifyId from 'utils/parseSpotifyId'
 
 const DEFAULT_STATE = {
   paused: true,
@@ -19,15 +20,30 @@ const useSpotify = token => {
   )
   const [currentTime, setCurrentTime] = useState(0)
 
-  const parseState = state =>
-    state
-      ? {
-          paused: state.paused,
-          position: state.position,
-          duration: state.duration,
-          currentTrack: state.track_window.current_track
-        }
-      : DEFAULT_STATE
+  const parseState = state => {
+    if (!state) {
+      return DEFAULT_STATE
+    }
+
+    const { current_track: currentTrack } = state.track_window
+
+    return {
+      paused: state.paused,
+      position: state.position,
+      duration: state.duration,
+      currentTrack: {
+        ...currentTrack,
+        album: {
+          ...currentTrack.album,
+          id: parseSpotifyId(currentTrack.album.uri).id
+        },
+        artists: currentTrack.artists.map(artist => ({
+          ...artist,
+          id: parseSpotifyId(artist.uri).id
+        }))
+      }
+    }
+  }
 
   const isAllowed = action => Boolean(state) && !state.disallows[action]
 
@@ -86,6 +102,7 @@ const useSpotify = token => {
   return {
     error,
     currentTime,
+    context: state ? parseSpotifyId(state.context.uri) : null,
     isPlayingThroughPlayer: Boolean(state),
     pause: () => player.pause(),
     play: () => player.resume(),
