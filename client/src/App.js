@@ -17,6 +17,7 @@ import SetToken from './routes/set-token'
 import Tracks from './routes/collection/tracks'
 import RelatedArtists from './routes/artist/related-artists'
 import Playlist from './routes/playlist'
+import Genre from './routes/genre'
 import useSession from './hooks/useSession'
 import { Redirect, Router } from '@reach/router'
 
@@ -43,6 +44,7 @@ const App = () => {
         <Artists path="collection/artists" />
         <Tracks path="collection/tracks" />
         <Playlist path="playlists/:playlistId" />
+        <Genre path="genres/:genreId" />
         <Logout path="logout" />
       </Router>
     </AppLayout>
