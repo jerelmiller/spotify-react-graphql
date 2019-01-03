@@ -3,6 +3,7 @@ import Duration from './Duration'
 import FlexContainer from './FlexContainer'
 import LazyImage from './LazyImage'
 import PlayIcon from './PlayIcon'
+import PlayTrackMutation from './PlayTrackMutation'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import MusicIcon from './MusicIcon'
@@ -138,25 +139,29 @@ const Track = ({ track, variant }) => {
   const [hovered, setHovered] = useState(false)
 
   return (
-    <Container
-      variant={variant}
-      onMouseOver={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onDoubleClick={() => console.log('play')}
-    >
-      {hovered ? (
-        <PlayIcon
-          size="1.25rem"
-          strokeWidth={1}
-          fill="white"
-          cursor="pointer"
-          onClick={() => console.log('play')}
-        />
-      ) : (
-        <MusicIcon size="1.25rem" strokeWidth={1} />
+    <PlayTrackMutation>
+      {({ playTrack }) => (
+        <Container
+          variant={variant}
+          onMouseOver={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onDoubleClick={() => playTrack(track.uri)}
+        >
+          {hovered ? (
+            <PlayIcon
+              size="1.25rem"
+              strokeWidth={1}
+              fill="white"
+              cursor="pointer"
+              onClick={() => playTrack(track.uri)}
+            />
+          ) : (
+            <MusicIcon size="1.25rem" strokeWidth={1} />
+          )}
+          {renderVariant(variant, track)}
+        </Container>
       )}
-      {renderVariant(variant, track)}
-    </Container>
+    </PlayTrackMutation>
   )
 }
 
@@ -167,6 +172,7 @@ Track.fragments = {
       name
       duration
       explicit
+      uri
       __typename
 
       artists {
