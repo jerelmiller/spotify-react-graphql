@@ -116,7 +116,6 @@ const useSpotify = token => {
   return {
     error,
     currentTime,
-    context: state ? parseSpotifyId(state.context.uri) : null,
     isPlayingThroughPlayer: Boolean(state),
     pause: () => player.pause(),
     play: () => player.resume(),

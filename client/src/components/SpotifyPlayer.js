@@ -175,7 +175,6 @@ const Container = styled(
 
 const SpotifyPlayer = ({ token }) => {
   const {
-    context,
     allowedActions,
     isPlayingThroughPlayer,
     currentTrack,
@@ -195,7 +194,7 @@ const SpotifyPlayer = ({ token }) => {
       {isPlayingThroughPlayer && (
         <Container key="player">
           <Info>
-            <Link to={`/${context.type}s/${context.id}`}>
+            <Link to={`/albums/${album.id}`}>
               <LazyImage width="64px" height="64px" src={album.images[0].url} />
             </Link>
             <SongInfo>
