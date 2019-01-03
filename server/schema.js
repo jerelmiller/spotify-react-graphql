@@ -293,6 +293,12 @@ export default gql`
 
     "The user’s profile image."
     images: [Image!]!
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the user.
+    """
+    uri: String
   }
 
   interface Track {
@@ -326,7 +332,7 @@ export default gql`
 
     """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the artist.
+    for the track.
     """
     uri: String
   }
