@@ -55,7 +55,7 @@ const resolvers = {
   Mutation: {
     playTrack: (_, { input }, { dataSources }) =>
       dataSources.spotifyAPI
-        .playTrack(input.track)
+        .playTrack(input.track, { deviceId: input.deviceId })
         .then(() => ({ success: true }))
   },
   Album: {

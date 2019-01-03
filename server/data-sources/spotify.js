@@ -128,8 +128,11 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/browse/categories/${categoryId}/playlists?${params}`)
   }
 
-  playTrack(uri) {
-    return this.put(`/me/player/play`, {
+  playTrack(uri, { deviceId }) {
+    const params = new URLSearchParams()
+    deviceId && params.set('device_id', deviceId)
+
+    return this.put(`/me/player/play?${params}`, {
       uris: [uri]
     })
   }
