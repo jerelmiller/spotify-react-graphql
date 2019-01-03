@@ -52,6 +52,12 @@ const resolvers = {
         .then(prop('albums')),
     viewer: () => ({}) // dummy to allow Viewer type to work below
   },
+  Mutation: {
+    playTrack: (_, { input }, { dataSources }) =>
+      dataSources.spotifyAPI
+        .playTrack(input.track)
+        .then(() => ({ success: true }))
+  },
   Album: {
     group: ({ album_group: group }) => group.toUpperCase(),
     primaryArtist: ({ artists }) => artists[0],
@@ -70,7 +76,6 @@ const resolvers = {
   Artist: {
     albums: ({ id }, { limit = 50, offset = 0 }, { dataSources }) =>
       dataSources.spotifyAPI.getArtistAlbums(id, { limit, offset }),
-    externalUrls: prop('external_urls'),
     topTracks: ({ id }, { limit = 10 }, { dataSources }) =>
       dataSources.spotifyAPI
         .getTopTracksByArtist(id)

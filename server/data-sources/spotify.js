@@ -127,6 +127,12 @@ class SpotifyAPI extends RESTDataSource {
 
     return this.get(`/browse/categories/${categoryId}/playlists?${params}`)
   }
+
+  playTrack(uri) {
+    return this.put(`/me/player/play`, {
+      uris: [uri]
+    })
+  }
 }
 
 export default SpotifyAPI
