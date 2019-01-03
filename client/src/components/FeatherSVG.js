@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { branch, compose, defaultTo, prop } from 'utils/fp'
+import { branch, compose, defaultTo, prop, value } from 'utils/fp'
 import { color } from 'styles/utils'
+
+const withColor = colorValue => color(colorValue) || colorValue
 
 const FeatherSVG = styled.svg.attrs({
   viewBox: '0 0 24 24',
@@ -9,12 +11,19 @@ const FeatherSVG = styled.svg.attrs({
   fill: ${branch(
     prop('fill'),
     compose(
-      fill => color(fill) || fill,
+      withColor,
       prop('fill')
     ),
     () => 'none'
   )};
-  stroke: currentColor;
+  stroke: ${branch(
+    prop('stroke'),
+    compose(
+      withColor,
+      prop('stroke')
+    ),
+    value('currentColor')
+  )};
   stroke-width: ${compose(
     defaultTo(2),
     prop('strokeWidth')
