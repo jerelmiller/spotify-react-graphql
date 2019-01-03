@@ -9,6 +9,9 @@ import styled from 'styled-components'
 import MusicIcon from './MusicIcon'
 import MoreIcon from './MoreIcon'
 import ExplicitBadge from './ExplicitBadge'
+import useSpotifyContext from 'hooks/useSpotifyContext'
+import PauseIcon from './PauseIcon'
+import SpeakerIcon from './SpeakerIcon'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 
@@ -137,6 +140,9 @@ const renderVariant = (variant, track) => {
 
 const Track = ({ track, variant }) => {
   const [hovered, setHovered] = useState(false)
+  const { currentTrack, pause, play, paused } = useSpotifyContext()
+  const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
+  const iconProps = { size: '1.25rem', strokeWidth: 1 }
 
   return (
     <PlayTrackMutation>
@@ -147,16 +153,31 @@ const Track = ({ track, variant }) => {
           onMouseLeave={() => setHovered(false)}
           onDoubleClick={() => playTrack(track.uri)}
         >
-          {hovered ? (
+          {isCurrent && hovered && paused ? (
             <PlayIcon
-              size="1.25rem"
-              strokeWidth={1}
-              fill="white"
+              {...iconProps}
+              fill="currentColor"
+              cursor="pointer"
+              onClick={play}
+            />
+          ) : isCurrent && hovered && !paused ? (
+            <PauseIcon
+              {...iconProps}
+              fill="currentColor"
+              cursor="pointer"
+              onClick={pause}
+            />
+          ) : hovered ? (
+            <PlayIcon
+              {...iconProps}
+              fill="currentColor"
               cursor="pointer"
               onClick={() => playTrack(track.uri)}
             />
+          ) : isCurrent ? (
+            <SpeakerIcon stroke="green" {...iconProps} />
           ) : (
-            <MusicIcon size="1.25rem" strokeWidth={1} />
+            <MusicIcon {...iconProps} />
           )}
           {renderVariant(variant, track)}
         </Container>
