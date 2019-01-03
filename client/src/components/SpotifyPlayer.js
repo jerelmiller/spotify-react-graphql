@@ -5,7 +5,7 @@ import PauseIcon from 'components/PauseIcon'
 import NextTrackIcon from 'components/NextTrackIcon'
 import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
-import useSpotify from 'hooks/useSpotify'
+import useSpotifyContext from 'hooks/useSpotifyContext'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from 'styled-components/macro'
 import Timestamp from 'components/Timestamp'
@@ -186,7 +186,7 @@ const SpotifyPlayer = ({ token }) => {
     playPreviousTrack,
     togglePlayback,
     seek
-  } = useSpotify(token)
+  } = useSpotifyContext()
 
   const { album, name: trackName, artists } = currentTrack || {}
 

@@ -19,35 +19,38 @@ import RelatedArtists from './routes/artist/related-artists'
 import Playlist from './routes/playlist'
 import Genre from './routes/genre'
 import useSession from './hooks/useSession'
+import SpotifyProvider from './components/SpotifyProvider'
 import { Redirect, Router } from '@reach/router'
 
 const App = () => {
-  const { isAuthenticated } = useSession()
+  const { data, isAuthenticated } = useSession()
 
   return isAuthenticated ? (
-    <AppLayout>
-      <Router primary={false}>
-        <Redirect noThrow from="/" to="browse/featured" />
-        <Album path="albums/:albumId" />
-        <Artist path="artists/:artistId">
-          <ArtistOverview path="/" />
-          <RelatedArtists path="related-artists" />
-        </Artist>
-        <Browse path="browse">
+    <SpotifyProvider token={data.token}>
+      <AppLayout>
+        <Router primary={false}>
           <Redirect noThrow from="/" to="browse/featured" />
-          <BrowseDiscover path="discover" />
-          <BrowseFeatured path="featured" />
-          <BrowseGenres path="genres" />
-          <BrowseNewReleases path="new-releases" />
-        </Browse>
-        <Albums path="collection/albums" />
-        <Artists path="collection/artists" />
-        <Tracks path="collection/tracks" />
-        <Playlist path="playlists/:playlistId" />
-        <Genre path="genres/:genreId" />
-        <Logout path="logout" />
-      </Router>
-    </AppLayout>
+          <Album path="albums/:albumId" />
+          <Artist path="artists/:artistId">
+            <ArtistOverview path="/" />
+            <RelatedArtists path="related-artists" />
+          </Artist>
+          <Browse path="browse">
+            <Redirect noThrow from="/" to="browse/featured" />
+            <BrowseDiscover path="discover" />
+            <BrowseFeatured path="featured" />
+            <BrowseGenres path="genres" />
+            <BrowseNewReleases path="new-releases" />
+          </Browse>
+          <Albums path="collection/albums" />
+          <Artists path="collection/artists" />
+          <Tracks path="collection/tracks" />
+          <Playlist path="playlists/:playlistId" />
+          <Genre path="genres/:genreId" />
+          <Logout path="logout" />
+        </Router>
+      </AppLayout>
+    </SpotifyProvider>
   ) : (
     <Router primary={false}>
       <Login path="login" />
