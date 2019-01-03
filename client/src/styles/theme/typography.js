@@ -12,7 +12,8 @@ const weight = {
 
 const textColors = {
   primary: colors.white,
-  muted: colors.offWhite
+  muted: colors.offWhite,
+  highlight: colors.green
 }
 
 export default {

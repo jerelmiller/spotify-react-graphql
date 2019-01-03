@@ -36,6 +36,7 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 0.75rem;
   transition: background 0.2s ease-in-out;
+  color: ${({ isCurrent }) => isCurrent && textColor('highlight')};
 
   &:hover {
     background: rgba(0, 0, 0, 0.3);
@@ -152,6 +153,7 @@ const Track = ({ track, variant }) => {
           onMouseOver={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           onDoubleClick={() => playTrack(track.uri)}
+          isCurrent={isCurrent}
         >
           {isCurrent && hovered && paused ? (
             <PlayIcon
