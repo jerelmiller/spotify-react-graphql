@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Duration from './Duration'
 import FlexContainer from './FlexContainer'
 import LazyImage from './LazyImage'
+import PlayIcon from './PlayIcon'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import MusicIcon from './MusicIcon'
@@ -133,12 +134,31 @@ const renderVariant = (variant, track) => {
   }
 }
 
-const Track = ({ track, variant }) => (
-  <Container variant={variant}>
-    <MusicIcon size="1.25rem" strokeWidth={1} />
-    {renderVariant(variant, track)}
-  </Container>
-)
+const Track = ({ track, variant }) => {
+  const [hovered, setHovered] = useState(false)
+
+  return (
+    <Container
+      variant={variant}
+      onMouseOver={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onDoubleClick={() => console.log('play')}
+    >
+      {hovered ? (
+        <PlayIcon
+          size="1.25rem"
+          strokeWidth={1}
+          fill="white"
+          cursor="pointer"
+          onClick={() => console.log('play')}
+        />
+      ) : (
+        <MusicIcon size="1.25rem" strokeWidth={1} />
+      )}
+      {renderVariant(variant, track)}
+    </Container>
+  )
+}
 
 Track.fragments = {
   track: gql`
