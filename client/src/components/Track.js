@@ -82,7 +82,7 @@ const renderVariant = (variant, track) => {
       return (
         <>
           <TrackName>{track.name}</TrackName>
-          <MoreIcon size="1.25rem" />
+          <MoreIcon size="1.25rem" stroke="white" />
           <TrackDuration duration={track.duration} />
           <Info>
             {track.explicit && <ExplicitBadge />}{' '}
@@ -100,7 +100,7 @@ const renderVariant = (variant, track) => {
       return (
         <>
           <TrackName>{track.name}</TrackName>
-          <MoreIcon size="1.25rem" />
+          <MoreIcon size="1.25rem" stroke="white" />
           <TrackDuration duration={track.duration} />
         </>
       )
@@ -115,7 +115,7 @@ const renderVariant = (variant, track) => {
             <TrackName>{track.name}</TrackName>
             {track.explicit && <InlineExplicitBadge />}
           </FlexContainer>
-          <MoreIcon size="1.25rem" />
+          <MoreIcon size="1.25rem" stroke="white" />
           <TrackDuration duration={track.duration} />
         </>
       )
@@ -158,14 +158,16 @@ const Track = ({ track, variant }) => {
           {isCurrent && hovered && paused ? (
             <PlayIcon
               {...iconProps}
-              fill="currentColor"
+              fill="white"
+              stroke="white"
               cursor="pointer"
               onClick={play}
             />
           ) : isCurrent && hovered && !paused ? (
             <PauseIcon
               {...iconProps}
-              fill="currentColor"
+              fill="white"
+              stroke="white"
               cursor="pointer"
               onClick={pause}
             />
