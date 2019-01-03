@@ -37,6 +37,20 @@ export default gql`
     ): PlaylistConnection
   }
 
+  type Mutation {
+    "Play a track or set of tracks"
+    playTrack(input: PlayTrackInput!): PlayTrackPayload
+  }
+
+  type PlayTrackPayload {
+    success: Boolean
+  }
+
+  input PlayTrackInput {
+    "Track URI to play"
+    track: String!
+  }
+
   type Album {
     id: ID!
 
@@ -111,9 +125,6 @@ export default gql`
 
     "A list of albums created by the artist."
     albums(limit: Int, offset: Int): AlbumConnection!
-
-    "Known external URLs for this artist."
-    externalUrls: ExternalUrl
 
     "Information about the followers of the artist."
     followers: Followers
@@ -195,19 +206,6 @@ export default gql`
     total: Int!
   }
 
-  type ExternalUrl {
-    """
-    The type of the URL, for example:
-
-    SPOTIFY - The [Spotify URL](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
-    for the object.
-    """
-    kind: ExternalUrlType!
-
-    "An external, public URL to the object."
-    url: String!
-  }
-
   type Followers {
     "The total number of followers."
     total: Int!
@@ -222,10 +220,6 @@ export default gql`
 
     "The image width in pixels. If unknown, null is returned."
     width: Int
-  }
-
-  enum ExternalUrlType {
-    SPOTIFY
   }
 
   type PageInfo {
@@ -329,6 +323,12 @@ export default gql`
     the number on the specified disc.
     """
     trackNumber: Int
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    uri: String
   }
 
   type TrackConnection {
@@ -388,6 +388,12 @@ export default gql`
     the number on the specified disc.
     """
     trackNumber: Int
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    uri: String
   }
 
   type SavedTrack implements Track {
@@ -421,6 +427,12 @@ export default gql`
     the number on the specified disc.
     """
     trackNumber: Int
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    uri: String
   }
 
   type SimpleTrack implements Track {
@@ -451,6 +463,12 @@ export default gql`
     the number on the specified disc.
     """
     trackNumber: Int
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    uri: String
   }
 
   type SavedAlbumConnection {
