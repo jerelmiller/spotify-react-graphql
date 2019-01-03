@@ -49,6 +49,9 @@ export default gql`
   input PlayTrackInput {
     "Track URI to play"
     track: String!
+
+    "The device in which to play the track"
+    deviceId: ID
   }
 
   type Album {

@@ -13,6 +13,7 @@ const DEFAULT_STATE = {
 const useSpotify = token => {
   const [timestamp, setTimestamp] = useState(null)
   const [player, setPlayer] = useState(null)
+  const [deviceId, setDeviceId] = useState(null)
   const [state, setState] = useState(null)
   const [error, setError] = useState(null)
   const setSpotifyError = compose(
@@ -73,6 +74,9 @@ const useSpotify = token => {
       player.addListener('account_error', setSpotifyError)
       player.addListener('playback_error', setSpotifyError)
       player.addListener('player_state_changed', setState)
+      player.addListener('ready', ({ device_id: deviceId }) =>
+        setDeviceId(deviceId)
+      )
       player
         .connect()
         .then(() => player.getCurrentState())
@@ -114,6 +118,7 @@ const useSpotify = token => {
   )
 
   return {
+    deviceId,
     error,
     currentTime,
     isPlayingThroughPlayer: Boolean(state),
