@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, memo } from 'react'
 import Duration from './Duration'
 import FlexContainer from './FlexContainer'
 import LazyImage from './LazyImage'
@@ -139,7 +139,7 @@ const renderVariant = (variant, track) => {
   }
 }
 
-const Track = ({ track, variant }) => {
+const Track = memo(({ track, variant }) => {
   const [hovered, setHovered] = useState(false)
   const { currentTrack, pause, play, paused } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
@@ -188,7 +188,7 @@ const Track = ({ track, variant }) => {
       )}
     </PlayTrackMutation>
   )
-}
+})
 
 Track.fragments = {
   track: gql`
