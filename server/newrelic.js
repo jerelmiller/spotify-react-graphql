@@ -12,7 +12,7 @@ exports.config = {
    *
    * @env NEW_RELIC_APP_NAME
    */
-  app_name: ['Jerel Spotify Clone'],
+  app_name: ["Jerel's Spotify Clone"],
   /**
    * The user's license key. Must be set by per-app configuration file.
    *
