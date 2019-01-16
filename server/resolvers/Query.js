@@ -1,3 +1,5 @@
+import { prop } from '../utils/fp'
+
 export default {
   artist: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getArtist(id),
   album: (_, { id }, { dataSources }) => dataSources.spotifyAPI.getAlbum(id),
