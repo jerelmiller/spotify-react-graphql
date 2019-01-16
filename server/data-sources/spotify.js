@@ -1,5 +1,6 @@
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { URLSearchParams } from 'url'
+import { filterNullValues } from '../utils/fp'
 
 class SpotifyAPI extends RESTDataSource {
   baseURL = 'https://api.spotify.com/v1'
@@ -128,13 +129,17 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/browse/categories/${categoryId}/playlists?${params}`)
   }
 
-  playTrack(uri, { deviceId }) {
+  playTrack(uri, { deviceId, contextUri }) {
     const params = new URLSearchParams()
     deviceId && params.set('device_id', deviceId)
 
-    return this.put(`/me/player/play?${params}`, {
-      uris: [uri]
-    })
+    return this.put(
+      `/me/player/play?${params}`,
+      filterNullValues({
+        uris: [uri],
+        context_uri: contextUri
+      })
+    )
   }
 
   refreshSession() {
