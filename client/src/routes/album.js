@@ -55,6 +55,7 @@ const Album = ({ albumId }) => (
           id
           name
           type
+          uri
 
           releaseDate {
             ...ReleaseYear_releaseDate
@@ -120,6 +121,7 @@ const Album = ({ albumId }) => (
                 <Track
                   key={node.id}
                   track={node}
+                  playContext={album.uri}
                   variant={
                     album.type === 'COMPILATION'
                       ? TRACK_VARIANTS.VARIOUS_ARTIST
