@@ -8,6 +8,7 @@ import resolvers from './resolvers'
 import { URLSearchParams } from 'url'
 import { ApolloServer } from 'apollo-server-express'
 import { SpotifyAPI } from './data-sources'
+import { session } from './models'
 
 const SCOPES = [
   'streaming',
@@ -62,7 +63,7 @@ app.get('/oauth/finalize', async (req, res) => {
   body.append('client_id', process.env.CLIENT_ID)
   body.append('client_secret', process.env.CLIENT_SECRET)
 
-  const { access_token, refresh_token } = await fetch(
+  const { access_token, refresh_token, scope, expires_in } = await fetch(
     'https://accounts.spotify.com/api/token',
     {
       method: 'POST',
@@ -76,7 +77,15 @@ app.get('/oauth/finalize', async (req, res) => {
   const params = new URLSearchParams()
   params.set('token', access_token)
 
-  res.redirect(`${process.env.CLIENT_URI}/set-token?${params}`)
+  session
+    .create({
+      accessToken: access_token,
+      refreshToken: refresh_token,
+      scopes: scope,
+      expiresAt: new Date(Date.now() + expires_in * 1000)
+    })
+    .then(() => res.redirect(`${process.env.CLIENT_URI}/set-token?${params}`))
+    .catch(() => res.send(500))
 })
 
 server.applyMiddleware({ app })
