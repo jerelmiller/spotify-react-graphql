@@ -6,13 +6,13 @@
  * described in here, there's been a terrible mistake.
  */
 
-exports.config = () => ({
+exports.config = {
   /**
    * Array of application names.
    *
    * @env NEW_RELIC_APP_NAME
    */
-  app_name: ["Jerel's Spotify Clone"],
+  app_name: ['Jerel Spotify Clone'],
   /**
    * The user's license key. Must be set by per-app configuration file.
    *
@@ -818,4 +818,4 @@ exports.config = () => ({
      */
     native_metrics: { enabled: true }
   }
-})
+}
