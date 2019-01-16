@@ -1,5 +1,5 @@
-import 'newrelic'
 import 'dotenv/config'
+import 'newrelic'
 import cors from 'cors'
 import express from 'express'
 import fetch from 'node-fetch'
