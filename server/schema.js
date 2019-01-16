@@ -42,7 +42,7 @@ export default gql`
     playTrack(input: PlayTrackInput!): PlayTrackPayload
 
     "Refresh the current session"
-    refreshSession: RefreshSessionPayload
+    refreshSession(input: RefreshSessionInput!): RefreshSessionPayload
   }
 
   type PlayTrackPayload {
@@ -61,6 +61,11 @@ export default gql`
     playlists. Example: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT'
     """
     contextUri: String
+  }
+
+  input RefreshSessionInput {
+    "The token used to previously authenticate the request"
+    token: String!
   }
 
   type RefreshSessionPayload {

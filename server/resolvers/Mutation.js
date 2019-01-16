@@ -1,6 +1,6 @@
 export default {
-  refreshSession: (_, { token }, { dataSources }) =>
-    dataSources.spotifyAPI.refreshSession(),
+  refreshSession: (_, { input }, { dataSources }) =>
+    dataSources.spotifyAPI.refreshSession(input.token),
   playTrack: (_, { input }, { dataSources }) =>
     dataSources.spotifyAPI
       .playTrack(input.track, {
