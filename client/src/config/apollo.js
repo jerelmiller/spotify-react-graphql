@@ -1,4 +1,4 @@
-import { ApolloLink } from 'apollo-link'
+import { ApolloLink, Observable } from 'apollo-link'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import {
@@ -11,6 +11,8 @@ import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
 import { compose, prop } from 'utils/fp'
+
+let isRefreshingToken = false
 
 const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
 
@@ -27,18 +29,63 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 const cache = new InMemoryCache({ fragmentMatcher })
 
 const retryAuthLink = onError(
-  ({ graphQLErrors, networkErrors, operation, forward }) => {
-    const { token } = getSessionData(store.getState())
-    // don't handle unauthenticated when there is no token or a network error
-    if (Boolean(networkErrors) || !token) {
+  ({ graphQLErrors, networkErrors, operation, forward, ...rest }) => {
+    if (Boolean(networkErrors)) {
       return
     }
 
     for (let err of graphQLErrors) {
       switch (err.extensions.code) {
         case 'UNAUTHENTICATED':
-          // TODO refresh the token
-          return store.dispatch(invalidateSession())
+          // eslint-disable-next-line no-loop-func
+          return new Observable(observer => {
+            if (isRefreshingToken) {
+              return
+            }
+
+            isRefreshingToken = true
+
+            fetch(API_URI, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                operationName: 'RefreshSessionMutation',
+                query: `
+                  mutation RefreshSessionMutation($input: RefreshSessionInput!) {
+                    refreshSession(input: $input) {
+                      token
+                    }
+                  }
+                `.trim(),
+                variables: { input: { token: getToken() } }
+              })
+            })
+              .then(res => res.json())
+              .then(({ data }) => {
+                operation.setContext(({ headers = {} }) => ({
+                  headers: {
+                    ...headers,
+                    Authorization: `Bearer ${data.refreshSession.token}`
+                  }
+                }))
+
+                forward(operation).subscribe({
+                  next: observer.next.bind(observer),
+                  error: observer.next.bind(observer),
+                  complete: observer.next.bind(observer)
+                })
+
+                isRefreshingToken = false
+              })
+              .catch(error => {
+                isRefreshingToken = false
+                store.dispatch(invalidateSession())
+                observer.error(error)
+              })
+          })
+
         default:
           return
       }
