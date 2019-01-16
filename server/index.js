@@ -74,18 +74,17 @@ app.get('/oauth/finalize', async (req, res) => {
     }
   ).then(res => res.json())
 
+  await session.create({
+    accessToken: access_token,
+    refreshToken: refresh_token,
+    scopes: scope,
+    expiresAt: new Date(Date.now() + expires_in * 1000)
+  })
+
   const params = new URLSearchParams()
   params.set('token', access_token)
 
-  session
-    .create({
-      accessToken: access_token,
-      refreshToken: refresh_token,
-      scopes: scope,
-      expiresAt: new Date(Date.now() + expires_in * 1000)
-    })
-    .then(() => res.redirect(`${process.env.CLIENT_URI}/set-token?${params}`))
-    .catch(() => res.send(500))
+  res.redirect(`${process.env.CLIENT_URI}/set-token?${params}`)
 })
 
 server.applyMiddleware({ app })
