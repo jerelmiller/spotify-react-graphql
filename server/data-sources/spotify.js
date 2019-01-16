@@ -136,6 +136,10 @@ class SpotifyAPI extends RESTDataSource {
       uris: [uri]
     })
   }
+
+  refreshSession() {
+    return { token: this.context.accessToken }
+  }
 }
 
 export default SpotifyAPI
