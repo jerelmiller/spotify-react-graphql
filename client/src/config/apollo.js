@@ -6,9 +6,19 @@ import {
   IntrospectionFragmentMatcher
 } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { fetch, getSessionData, invalidateSession } from 'redux-simple-auth'
+import { getSessionData, invalidateSession } from 'redux-simple-auth'
+import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
+import { compose, prop } from 'utils/fp'
+
+const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
+
+const getToken = compose(
+  prop('token'),
+  getSessionData,
+  store.getState
+)
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
@@ -36,14 +46,17 @@ const retryAuthLink = onError(
   }
 )
 
+const setAuthorizationLink = setContext(() => ({
+  headers: { Authorization: `Bearer ${getToken()}` }
+}))
+
 const httpLink = new HttpLink({
-  uri: `${process.env.REACT_APP_API_HOST}/graphql`,
-  fetch: (...args) => store.dispatch(fetch(...args))
+  uri: API_URI
 })
 
 const client = new ApolloClient({
   cache,
-  link: ApolloLink.from([retryAuthLink, httpLink])
+  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, httpLink])
 })
 
 export default client
