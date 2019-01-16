@@ -136,8 +136,11 @@ class SpotifyAPI extends RESTDataSource {
     return this.put(
       `/me/player/play?${params}`,
       filterNullValues({
-        uris: [uri],
-        context_uri: contextUri
+        uris: !contextUri && [uri],
+        context_uri: contextUri,
+        offset: contextUri && {
+          uri
+        }
       })
     )
   }
