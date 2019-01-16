@@ -30,7 +30,7 @@ const cache = new InMemoryCache({ fragmentMatcher })
 
 const retryAuthLink = onError(
   ({ graphQLErrors, networkErrors, operation, forward, ...rest }) => {
-    if (Boolean(networkErrors)) {
+    if (!graphQLErrors) {
       return
     }
 
