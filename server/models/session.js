@@ -3,7 +3,10 @@ module.exports = (sequelize, DataTypes) => {
   const Session = sequelize.define(
     'session',
     {
-      refreshToken: DataTypes.STRING
+      accessToken: DataTypes.TEXT,
+      refreshToken: DataTypes.TEXT,
+      scopes: DataTypes.TEXT,
+      expiresAt: DataTypes.DATE
     },
     {}
   )
