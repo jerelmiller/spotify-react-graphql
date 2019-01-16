@@ -139,7 +139,7 @@ const renderVariant = (variant, track) => {
   }
 }
 
-const Track = memo(({ track, variant }) => {
+const Track = memo(({ track, variant, playContext }) => {
   const [hovered, setHovered] = useState(false)
   const { currentTrack, pause, play, paused } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
@@ -152,7 +152,7 @@ const Track = memo(({ track, variant }) => {
           variant={variant}
           onMouseOver={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          onDoubleClick={() => playTrack(track.uri)}
+          onDoubleClick={() => playTrack(track.uri, { context: playContext })}
           isCurrent={isCurrent}
         >
           {isCurrent && hovered && paused ? (
