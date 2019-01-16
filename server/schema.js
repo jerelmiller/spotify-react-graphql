@@ -40,6 +40,9 @@ export default gql`
   type Mutation {
     "Play a track or set of tracks"
     playTrack(input: PlayTrackInput!): PlayTrackPayload
+
+    "Refresh the current session"
+    refreshSession: RefreshSessionPayload
   }
 
   type PlayTrackPayload {
@@ -52,6 +55,11 @@ export default gql`
 
     "The device in which to play the track"
     deviceId: ID
+  }
+
+  type RefreshSessionPayload {
+    "The new access token"
+    token: String
   }
 
   type Album {
