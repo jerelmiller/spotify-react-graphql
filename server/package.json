@@ -12,6 +12,7 @@
     "express": "^4.16.4",
     "form-data": "^2.3.2",
     "graphql": "^14.0.2",
+    "newrelic": "^5.0.0",
     "node-fetch": "^2.3.0",
     "pg": "^7.7.1",
     "sequelize": "^4.41.2"
