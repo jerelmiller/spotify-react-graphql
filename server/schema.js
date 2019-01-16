@@ -55,6 +55,12 @@ export default gql`
 
     "The device in which to play the track"
     deviceId: ID
+
+    """
+    Spotify URI of the context to play. Valid contexts are albums, artists,
+    playlists. Example: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT'
+    """
+    contextUri: String
   }
 
   type RefreshSessionPayload {
