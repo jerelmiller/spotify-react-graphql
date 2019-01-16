@@ -1,3 +1,4 @@
+import { AuthorizationError } from 'apollo-server'
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { URLSearchParams } from 'url'
 import { filterNullValues } from '../utils/fp'
@@ -146,7 +147,8 @@ class SpotifyAPI extends RESTDataSource {
   }
 
   refreshSession(token) {
-    return { token }
+    throw new AuthorizationError('Could not refresh token')
+    // return { token }
   }
 }
 
