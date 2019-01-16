@@ -18,8 +18,12 @@ const PlayTrackMutation = ({ children }) => {
     >
       {mutation =>
         children({
-          playTrack: uri =>
-            mutation({ variables: { input: { track: uri, deviceId } } })
+          playTrack: (uri, { context } = {}) =>
+            mutation({
+              variables: {
+                input: { track: uri, deviceId, contextUri: context }
+              }
+            })
         })
       }
     </Mutation>
