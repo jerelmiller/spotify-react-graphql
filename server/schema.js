@@ -108,6 +108,12 @@ export default gql`
 
     "The type of album"
     type: AlbumType!
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the album.
+    """
+    uri: String
   }
 
   type AlbumEdge {
