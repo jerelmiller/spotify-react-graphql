@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import ArtistTile from 'components/ArtistTile'
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
@@ -32,14 +32,14 @@ const Artists = () => (
         <TileGrid minWidth="160px">
           {loading ||
             viewer.followedArtists.edges.map(({ node }, idx) => (
-              <>
+              <Fragment key={node.id}>
                 {idx === 0 && (
                   <BackgroundFromImage
                     src={(node.images[1] || node.images[0]).url}
                   />
                 )}
-                <ArtistTile key={node.id} artist={node} />
-              </>
+                <ArtistTile artist={node} />
+              </Fragment>
             ))}
         </TileGrid>
       </>
