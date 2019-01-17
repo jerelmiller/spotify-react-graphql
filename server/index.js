@@ -10,6 +10,7 @@ import { URLSearchParams } from 'url'
 import { ApolloServer } from 'apollo-server-express'
 import { SpotifyAPI } from './data-sources'
 import { session } from './models'
+import { omit } from './utils/fp'
 
 const SCOPES = [
   'streaming',
@@ -44,7 +45,7 @@ const server = new ApolloServer({
       locations: error.locations
     })
 
-    return error
+    return omit(['stack'], error)
   },
   dataSources: () => ({
     spotifyAPI: new SpotifyAPI()
