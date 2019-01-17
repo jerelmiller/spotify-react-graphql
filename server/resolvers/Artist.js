@@ -1,3 +1,5 @@
+import { prop } from '../utils/fp'
+
 export default {
   albums: ({ id }, { limit = 50, offset = 0 }, { dataSources }) =>
     dataSources.spotifyAPI.getArtistAlbums(id, { limit, offset }),
