@@ -24,6 +24,7 @@ const Overview = ({ artistId }) => (
       query ArtistOverviewQuery($artistId: ID!, $limit: Int!) {
         artist(id: $artistId) {
           id
+          uri
 
           albums {
             edges {
@@ -62,6 +63,7 @@ const Overview = ({ artistId }) => (
                     key={track.id}
                     track={track}
                     variant={TRACK_VARIANTS.POPULAR}
+                    playContext={artist.uri}
                   />
                 ))}
               </TopTracksContainer>
