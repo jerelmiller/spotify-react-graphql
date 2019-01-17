@@ -36,22 +36,13 @@ const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
   formatError: error => {
-    switch (error.extensions.code) {
-      case 'INTERNAL_SERVER_ERROR':
-        nr.noticeError(
-          {
-            message: error.message,
-            stack: error.extensions.exception.stacktrace.join('\n')
-          },
-          {
-            code: error.extensions.code,
-            path: error.path,
-            locations: error.locations
-          }
-        )
-      default:
-      // TODO: Add custom metric for bad queries
-    }
+    error.stack = error.extensions.exception.stacktrace.join('\n')
+
+    nr.noticeError(error, {
+      code: error.extensions.code,
+      path: error.path,
+      locations: error.locations
+    })
 
     return error
   },
