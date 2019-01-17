@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import 'newrelic'
+import nr from 'newrelic'
 import cors from 'cors'
 import express from 'express'
 import fetch from 'node-fetch'
@@ -34,6 +35,26 @@ const app = express()
 const server = new ApolloServer({
   typeDefs: schema,
   resolvers,
+  formatError: error => {
+    switch (error.extensions.code) {
+      case 'INTERNAL_SERVER_ERROR':
+        nr.noticeError(
+          {
+            message: error.message,
+            stack: error.extensions.exception.stacktrace.join('\n')
+          },
+          {
+            code: error.extensions.code,
+            path: error.path,
+            locations: error.locations
+          }
+        )
+      default:
+      // TODO: Add custom metric for bad queries
+    }
+
+    return error
+  },
   dataSources: () => ({
     spotifyAPI: new SpotifyAPI()
   }),
