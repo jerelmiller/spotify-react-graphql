@@ -52,6 +52,7 @@ const Playlist = ({ playlistId }) => (
         playlist(id: $playlistId) {
           id
           name
+          uri
           images {
             url
           }
@@ -102,7 +103,12 @@ const Playlist = ({ playlistId }) => (
           </Info>
           <div>
             {playlist.tracks.edges.map(({ node }) => (
-              <Track key={node.id} track={node} variant={TRACK_VARIANTS.FULL} />
+              <Track
+                key={node.id}
+                track={node}
+                variant={TRACK_VARIANTS.FULL}
+                playContext={playlist.uri}
+              />
             ))}
           </div>
         </Container>
