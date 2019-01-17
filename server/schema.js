@@ -277,6 +277,12 @@ export default gql`
     owner: User!
     public: Boolean!
     tracks: PlaylistTrackConnection!
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the playlist.
+    """
+    uri: String
   }
 
   type PlaylistTrackConnection {
