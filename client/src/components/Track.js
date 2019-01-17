@@ -176,7 +176,7 @@ const Track = memo(({ track, variant, playContext }) => {
               {...iconProps}
               fill="currentColor"
               cursor="pointer"
-              onClick={() => playTrack(track.uri)}
+              onClick={() => playTrack(track.uri, { context: playContext })}
             />
           ) : isCurrent ? (
             <SpeakerIcon stroke="green" {...iconProps} />
