@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from './styled-components'
 
 const ExplicitBadge = styled.span.attrs({
   children: 'Explicit'
