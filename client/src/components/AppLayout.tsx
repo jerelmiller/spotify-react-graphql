@@ -9,10 +9,7 @@ import styled from 'styled-components'
 import SpotifyPlayer from './SpotifyPlayer'
 import useSession from '../hooks/useSession'
 import { Query } from 'react-apollo'
-import {
-  AppLayoutQuery as AppLayoutQueryDefinition,
-  AppLayoutQuery_viewer
-} from './types/AppLayoutQuery'
+import { AppLayoutQuery as AppLayoutQueryDefinition } from './types/AppLayoutQuery'
 import { filter } from 'graphql-anywhere'
 
 interface Props {}
@@ -52,7 +49,9 @@ const AppLayout: React.SFC<Props> = ({ children }) => {
           <AppSidebar
             loading={loading}
             viewer={
-              data ? filter(AppSidebarFragments.viewer, data.viewer) : null
+              data && data.viewer
+                ? filter(AppSidebarFragments.viewer, data.viewer)
+                : null
             }
           />
           <AppMain>{children}</AppMain>
