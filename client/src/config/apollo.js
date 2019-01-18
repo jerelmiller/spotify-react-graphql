@@ -6,7 +6,11 @@ import {
   IntrospectionFragmentMatcher
 } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
-import { getSessionData, invalidateSession } from 'redux-simple-auth'
+import {
+  authenticate,
+  getSessionData,
+  invalidateSession
+} from 'redux-simple-auth'
 import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
@@ -63,11 +67,19 @@ const retryAuthLink = onError(
               })
             })
               .then(res => res.json())
-              .then(({ data }) => {
+              .then(async ({ errors, data }) => {
+                if (errors) {
+                  throw new Error(errors[0].message)
+                }
+
+                const { token } = data.refreshSession
+
+                await store.dispatch(authenticate('spotify', token))
+
                 operation.setContext(({ headers = {} }) => ({
                   headers: {
                     ...headers,
-                    Authorization: `Bearer ${data.refreshSession.token}`
+                    Authorization: `Bearer ${token}`
                   }
                 }))
 
