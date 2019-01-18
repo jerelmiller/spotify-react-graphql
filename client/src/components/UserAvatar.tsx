@@ -1,7 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 import Avatar from './Avatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
+import { UserAvatar_user } from './types/UserAvatar_user'
+
+export interface Props {
+  user: UserAvatar_user
+}
 
 const Container = styled.div`
   display: flex;
@@ -11,14 +16,14 @@ const Container = styled.div`
     margin-right: 0.5rem;
   }
 `
-const UserAvatar = ({ user = { images: [{ url: '' }] } }) => (
+const UserAvatar: React.SFC<Props> = ({ user }) => (
   <Container>
     <Avatar image={user.images[0]} />
     <span>{user.displayName}</span>
   </Container>
 )
 
-UserAvatar.fragments = {
+export const fragments = {
   user: gql`
     fragment UserAvatar_user on User {
       id

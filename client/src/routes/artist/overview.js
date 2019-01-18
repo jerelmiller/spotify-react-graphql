@@ -1,5 +1,7 @@
 import React from 'react'
-import AlbumGroup from 'components/AlbumGroup'
+import AlbumGroup, {
+  fragments as AlbumGroupFragments
+} from 'components/AlbumGroup'
 import gql from 'graphql-tag'
 import Track, { TRACK_VARIANTS } from 'components/Track'
 import styled from 'styled-components'
@@ -45,7 +47,7 @@ const Overview = ({ artistId }) => (
       }
 
       ${Track.fragments.track}
-      ${AlbumGroup.fragments.album}
+      ${AlbumGroupFragments.album}
     `}
     variables={{ artistId, limit: 5 }}
   >
