@@ -6,7 +6,10 @@ export interface Theme {
   typography: Typography
 }
 
-export const theme = {
+export * from './colors'
+export * from './typography'
+
+export const theme: Theme = {
   colors,
   typography
 }

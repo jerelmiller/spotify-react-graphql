@@ -1,4 +1,4 @@
-import colors, { Hex } from './colors'
+import { colors, Hex } from './colors'
 
 enum WeightValue {
   light = 300,
@@ -20,6 +20,7 @@ interface TextColors {
   primary: Hex
   muted: Hex
   highlight: Hex
+  [key: string]: Hex
 }
 
 interface TypographyPreset {
@@ -31,6 +32,7 @@ interface TypographyStyle {
   xs: TypographyPreset
   sm: TypographyPreset
   md: TypographyPreset
+  [key: string]: TypographyPreset
 }
 
 export interface Typography {
