@@ -14,8 +14,8 @@
     "graphql": "^14.0.2",
     "newrelic": "^5.0.0",
     "node-fetch": "^2.3.0",
-    "pg": "^7.7.1",
-    "sequelize": "^4.41.2"
+    "pg": "^7.8.0",
+    "sequelize": "^4.42.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
