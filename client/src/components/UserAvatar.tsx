@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Avatar from './Avatar'
+import Avatar, { fragments as AvatarFragments } from './Avatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { UserAvatar_user } from './types/UserAvatar_user'
@@ -33,7 +33,7 @@ export const fragments = {
       }
     }
 
-    ${Avatar.fragments.image}
+    ${AvatarFragments.image}
   `
 }
 
