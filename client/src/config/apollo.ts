@@ -10,7 +10,7 @@ import { getSessionData, invalidateSession } from 'redux-simple-auth'
 import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
-import { compose, prop } from 'utils/fp'
+import { compose, prop } from '../utils/fp'
 
 let isRefreshingToken = false
 
@@ -29,7 +29,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 const cache = new InMemoryCache({ fragmentMatcher })
 
 const retryAuthLink = onError(
-  ({ graphQLErrors, networkErrors, operation, forward, ...rest }) => {
+  ({ graphQLErrors, operation, forward, ...rest }) => {
     if (!graphQLErrors) {
       return
     }
@@ -63,7 +63,11 @@ const retryAuthLink = onError(
               })
             })
               .then(res => res.json())
-              .then(({ data }) => {
+              .then(({ errors, data }) => {
+                if (errors) {
+                  throw new Error(errors[0].message)
+                }
+
                 operation.setContext(({ headers = {} }) => ({
                   headers: {
                     ...headers,
@@ -71,11 +75,13 @@ const retryAuthLink = onError(
                   }
                 }))
 
-                forward(operation).subscribe({
+                const subscriber = {
                   next: observer.next.bind(observer),
-                  error: observer.next.bind(observer),
-                  complete: observer.next.bind(observer)
-                })
+                  error: observer.error.bind(observer),
+                  complete: observer.complete.bind(observer)
+                }
+
+                forward(operation).subscribe(subscriber)
 
                 isRefreshingToken = false
               })
