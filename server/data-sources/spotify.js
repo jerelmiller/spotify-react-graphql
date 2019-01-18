@@ -162,6 +162,9 @@ class SpotifyAPI extends RESTDataSource {
           method: 'POST',
           headers: {
             Accept: 'application/json',
+            Authorization: `Basic ${Buffer.from(
+              [process.env.CLIENT_ID, process.env.CLIENT_SECRET].join(':')
+            ).toString('base64')}`,
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body
