@@ -1,8 +1,14 @@
-import React from 'react'
-import AlbumTile from './AlbumTile'
+import * as React from 'react'
+import AlbumTile, { fragments as AlbumTileFragments } from './AlbumTile'
 import gql from 'graphql-tag'
 import TileGrid from './TileGrid'
 import styled from 'styled-components'
+import { Album_album } from './types/Album_album'
+
+export interface Props {
+  title: string
+  albums: Album_album[]
+}
 
 const Container = styled.div`
   &:not(:last-child) {
@@ -14,7 +20,7 @@ const Title = styled.h1`
   margin-bottom: 1rem;
 `
 
-const AlbumGroup = ({ title, albums }) => (
+const AlbumGroup: React.SFC<Props> = ({ title, albums }) => (
   <Container>
     <Title>{title}</Title>
     <TileGrid fill={false} minWidth="175px">
@@ -25,14 +31,14 @@ const AlbumGroup = ({ title, albums }) => (
   </Container>
 )
 
-AlbumGroup.fragments = {
+export const fragments = {
   album: gql`
     fragment AlbumGroup_album on Album {
       id
       ...Album_album
     }
 
-    ${AlbumTile.fragments.album}
+    ${AlbumTileFragments.album}
   `
 }
 

@@ -1,7 +1,13 @@
-import styled from 'styled-components'
-import { prop } from 'utils/fp'
+import styled from './styled-components'
+import { prop } from '../utils/fp'
 
-const TileGrid = styled.div`
+export interface Props {
+  fill?: boolean
+  gap?: string
+  minWidth: string
+}
+
+const TileGrid = styled.div<Props>`
   display: grid;
   grid-gap: ${prop('gap')};
   grid-template-columns: repeat(

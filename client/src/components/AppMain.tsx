@@ -1,12 +1,19 @@
-import React from 'react'
-import styled from 'styled-components'
-import useBackgroundColor from 'hooks/useBackgroundColor'
-import { prop } from 'utils/fp'
+import * as React from 'react'
+import styled from './styled-components'
+import useBackgroundColor from '../hooks/useBackgroundColor'
+import { prop } from '../utils/fp'
 
 // const BACKGROUND_COLORS = {
 //   '/browse/podcasts': '#673239',
 //   '/browse/charts': '#224F6A',
 // }
+
+interface Props {}
+
+interface BackdropProps {
+  backgroundColor: string
+  usingGradient?: boolean
+}
 
 const Main = styled.main`
   grid-area: main;
@@ -16,7 +23,7 @@ const Main = styled.main`
   overflow: auto;
 `
 
-const Backdrop = styled.div`
+const Backdrop = styled.div<BackdropProps>`
   background: ${prop('backgroundColor')};
   position: fixed;
   transition: background 0.3s ease-in;
@@ -39,7 +46,7 @@ const Backdrop = styled.div`
   }
 `
 
-const AppMain = ({ children }) => {
+const AppMain: React.SFC<Props> = ({ children }) => {
   const { color, usingGradient } = useBackgroundColor()
 
   return (

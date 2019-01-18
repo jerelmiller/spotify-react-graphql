@@ -1,10 +1,15 @@
-import React from 'react'
+import * as React from 'react'
 import gql from 'graphql-tag'
-import LazyImage from 'components/LazyImage'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
+import LazyImage from './LazyImage'
+import PlaceholderPhoto from './PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
-import { textColor } from 'styles/utils'
+import { textColor } from '../styles/utils'
+import { Album_album } from './types/Album_album'
+
+export interface Props {
+  album: Album_album
+}
 
 const Container = styled.div`
   text-align: center;
@@ -32,7 +37,7 @@ const ArtistLink = styled(Link)`
   }
 `
 
-const AlbumTile = ({ album }) => {
+const AlbumTile: React.SFC<Props> = ({ album }) => {
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
 
@@ -51,7 +56,7 @@ const AlbumTile = ({ album }) => {
   )
 }
 
-AlbumTile.fragments = {
+export const fragments = {
   album: gql`
     fragment Album_album on Album {
       id
