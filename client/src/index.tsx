@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import App from './App'
 import BackgroundColorProvider from './components/BackgroundColorProvider'
 import client from './config/apollo'
