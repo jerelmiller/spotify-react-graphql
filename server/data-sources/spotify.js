@@ -1,8 +1,9 @@
-import { AuthorizationError } from 'apollo-server'
+import { AuthenticationError } from 'apollo-server'
 import { RESTDataSource } from 'apollo-datasource-rest'
 import { URLSearchParams } from 'url'
 import { filterNullValues, prop } from '../utils/fp'
-import { session } from '../models'
+import { session as Session } from '../models'
+import fetch from 'node-fetch'
 
 class SpotifyAPI extends RESTDataSource {
   baseURL = 'https://api.spotify.com/v1'
@@ -149,22 +150,27 @@ class SpotifyAPI extends RESTDataSource {
 
   async refreshSession(accessToken) {
     try {
-      const session = await session.findOne({ where: { accessToken } })
+      const session = await Session.findOne({ where: { accessToken } })
       const body = new URLSearchParams()
 
       body.append('grant_type', 'refresh_token')
-      body.append('refresh_token', session.refreshToken)
+      body.append('refresh_token', session.get('refreshToken'))
 
-      const { access_token, scope, expires_in } = await fetch(
+      const { error, access_token, scope, expires_in } = await fetch(
         'https://accounts.spotify.com/api/token',
         {
           method: 'POST',
           headers: {
+            Accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded'
           },
           body
         }
       ).then(res => res.json())
+
+      if (error) {
+        throw new Error(error)
+      }
 
       await session.update({
         accessToken: access_token,
@@ -174,7 +180,7 @@ class SpotifyAPI extends RESTDataSource {
 
       return { token: access_token }
     } catch (e) {
-      throw new AuthorizationError('Could not refresh token')
+      throw new AuthenticationError(e.message)
     }
   }
 }
