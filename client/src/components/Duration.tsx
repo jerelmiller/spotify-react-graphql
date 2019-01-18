@@ -1,6 +1,11 @@
-import React from 'react'
+import * as React from 'react'
 
-const Duration = ({ className, duration }) => {
+export interface Props {
+  className?: string
+  duration: number
+}
+
+const Duration: React.SFC<Props> = ({ className, duration }) => {
   const seconds = duration / 1000
   const minutes = Math.floor(duration / 1000 / 60)
   const formattedSeconds = Math.floor(seconds % 60)
