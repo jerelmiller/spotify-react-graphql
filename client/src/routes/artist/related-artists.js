@@ -1,5 +1,7 @@
 import React from 'react'
-import ArtistTile from 'components/ArtistTile'
+import ArtistTile, {
+  fragments as ArtistTileFragments
+} from 'components/ArtistTile'
 import gql from 'graphql-tag'
 import TileGrid from 'components/TileGrid'
 import { Query } from 'react-apollo'
@@ -17,7 +19,7 @@ const RelatedArtists = ({ artistId, children }) => (
         }
       }
 
-      ${ArtistTile.fragments.artist}
+      ${ArtistTileFragments.artist}
     `}
     variables={{ artistId }}
   >

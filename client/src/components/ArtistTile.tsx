@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import LazyImage from 'components/LazyImage'
+import LazyImage from '../components/LazyImage'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { Artist_artist } from './types/Artist_artist'
+
+interface Props {
+  artist: Artist_artist
+}
 
 const Container = styled.div`
   text-align: center;
@@ -28,7 +33,7 @@ const ArtistLink = styled(Link)`
   font-size: 0.9rem;
 `
 
-const ArtistTile = ({ artist }) => {
+const ArtistTile: FC<Props> = ({ artist }) => {
   // try to use medium size image first
   const image = artist.images[1] || artist.images[0]
 
@@ -42,7 +47,7 @@ const ArtistTile = ({ artist }) => {
   )
 }
 
-ArtistTile.fragments = {
+export const fragments = {
   artist: gql`
     fragment Artist_artist on Artist {
       id

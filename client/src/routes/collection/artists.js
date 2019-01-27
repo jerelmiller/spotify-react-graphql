@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
-import ArtistTile from 'components/ArtistTile'
+import ArtistTile, {
+  fragments as ArtistTileFragments
+} from 'components/ArtistTile'
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
@@ -22,7 +24,7 @@ const Artists = () => (
         }
       }
 
-      ${ArtistTile.fragments.artist}
+      ${ArtistTileFragments.artist}
     `}
     variables={{ limit: 50 }}
   >
