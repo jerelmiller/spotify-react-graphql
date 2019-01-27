@@ -4,7 +4,10 @@ import LazyImage from '../components/LazyImage'
 import PlaceholderPhoto from '../components/PlaceholderPhoto'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Track, { TRACK_VARIANTS } from '../components/Track'
+import Track, {
+  TRACK_VARIANTS,
+  fragments as TrackFragments
+} from '../components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from '../styles/utils'
@@ -86,7 +89,7 @@ const Playlist: FC<Props> = ({ playlistId }) => (
         }
       }
 
-      ${Track.fragments.track}
+      ${TrackFragments.track}
     `}
     variables={{ playlistId }}
   >

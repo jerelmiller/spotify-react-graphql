@@ -190,7 +190,7 @@ const Track = memo(({ track, variant, playContext }) => {
   )
 })
 
-Track.fragments = {
+export const fragments = {
   track: gql`
     fragment Track_track on Track {
       id
