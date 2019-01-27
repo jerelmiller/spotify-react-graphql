@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import styled from './styled-components'
 import useBackgroundColor from '../hooks/useBackgroundColor'
 import { prop } from '../utils/fp'
@@ -46,7 +46,7 @@ const Backdrop = styled.div<BackdropProps>`
   }
 `
 
-const AppMain: React.SFC<Props> = ({ children }) => {
+const AppMain: FC<Props> = ({ children }) => {
   const { color, usingGradient } = useBackgroundColor()
 
   return (

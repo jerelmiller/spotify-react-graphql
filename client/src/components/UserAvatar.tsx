@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import Avatar, { fragments as AvatarFragments } from './Avatar'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -16,7 +16,7 @@ const Container = styled.div`
     margin-right: 0.5rem;
   }
 `
-const UserAvatar: React.SFC<Props> = ({ user }) => (
+const UserAvatar: FC<Props> = ({ user }) => (
   <Container>
     <Avatar image={user.images[0]} />
     <span>{user.displayName}</span>
