@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components'
-import { color, lighten, typography } from 'styles/utils'
+import { color, lighten, typography } from '../styles/utils'
+
+interface Props {
+  size: 'sm' | 'md'
+  kind: 'primary' | 'ghost'
+}
 
 const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
@@ -39,9 +44,7 @@ const KINDS = {
   `
 }
 
-const Button = styled.button.attrs({
-  className: 'sp-btn'
-})`
+const Button = styled.button.attrs({ className: 'sp-btn' })<Props>`
   border-radius: 10rem;
   font-size: 1.25rem;
   border: 2px solid;
