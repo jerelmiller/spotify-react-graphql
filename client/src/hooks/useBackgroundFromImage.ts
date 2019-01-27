@@ -3,15 +3,17 @@ import useBackgroundColor from './useBackgroundColor'
 import ColorThief from 'color-thief'
 import { rgb, shade } from 'polished'
 
-const useBackgroundFromImage = src => {
-  const [color, setColor] = useState()
+const DEFAULT_COLOR = '#181818'
+
+const useBackgroundFromImage = (src: string) => {
+  const [color, setColor] = useState(DEFAULT_COLOR)
   useBackgroundColor(color)
 
   useEffect(() => {
     const img = new Image()
 
     if (src) {
-      img.crossOrigin = true
+      img.crossOrigin = 'true'
       img.onload = () => {
         const colorThief = new ColorThief()
         const color = rgb(...colorThief.getColor(img))
