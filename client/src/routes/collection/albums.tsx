@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import AlbumTile, {
   fragments as AlbumTileFragments
 } from '../../components/AlbumTile'
@@ -18,7 +18,7 @@ interface Variables {
 
 class AlbumsQuery extends Query<AlbumsQueryType, Variables> {}
 
-const Albums: React.SFC<Props> = () => {
+const Albums: FC<Props> = () => {
   useBackgroundColor('#090B0F')
 
   return (
