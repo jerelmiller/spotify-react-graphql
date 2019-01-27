@@ -5,7 +5,10 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
 import PlaceholderPhoto from 'components/PlaceholderPhoto'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track, {
+  TRACK_VARIANTS,
+  fragments as TrackFragments
+} from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -85,7 +88,7 @@ const Album = ({ albumId }) => (
         }
       }
 
-      ${Track.fragments.track}
+      ${TrackFragments.track}
       ${ReleaseYear.fragments.releaseDate}
     `}
     variables={{ albumId }}

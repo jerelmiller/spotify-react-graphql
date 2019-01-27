@@ -1,5 +1,8 @@
 import React from 'react'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track, {
+  TRACK_VARIANTS,
+  fragments as TrackFragments
+} from 'components/Track'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
@@ -35,7 +38,7 @@ const Tracks = () => {
           }
         }
 
-        ${Track.fragments.track}
+        ${TrackFragments.track}
       `}
       variables={{ limit: 50, offset: 0 }}
       fetchPolicy="network-only"
