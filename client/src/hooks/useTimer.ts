@@ -1,9 +1,13 @@
 import { useEffect } from 'react'
 
-const useTimer = (fn, { on } = {}, vars = []) => {
+interface Options {
+  on?: boolean
+}
+
+function useTimer(fn: Function, { on }: Options = {}, vars = []) {
   useEffect(
     () => {
-      let intervalId
+      let intervalId: any
       if (on) {
         intervalId = setInterval(() => fn(), 1000)
       }
