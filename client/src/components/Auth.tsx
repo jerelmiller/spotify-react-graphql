@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
-import Login from 'routes/login'
+import Login from '../routes/login'
 
-class Auth extends Component {
+interface Props {}
+interface State {
+  isAuthenticated: boolean
+}
+
+class Auth extends Component<Props, State> {
   state = {
     isAuthenticated: Boolean(localStorage.getItem('token'))
   }
