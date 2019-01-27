@@ -1,5 +1,5 @@
 declare module 'color-thief' {
-  type Color = [string, string, string]
+  type Color = [number, number, number]
 
   export default class ColorThief {
     getColor(HTMLImageElement): Color
