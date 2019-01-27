@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components'
-import { prop } from 'utils/fp'
+import { prop } from '../utils/fp'
+
+interface Props {
+  className?: string
+  size: 'small' | 'medium' | 'large'
+}
 
 const RATIO = 171 / 577
 
-const calculateSize = width => ({
+const calculateSize = (width: number) => ({
   width: `${width}px`,
   height: `${Math.ceil(RATIO * width)}px`
 })
@@ -23,7 +28,7 @@ const SVG = styled.svg.attrs({
   height: ${prop('height')};
 `
 
-const SpotifyLogo = ({ className, size }) => (
+const SpotifyLogo: FC<Props> = ({ className, size }) => (
   <SVG
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 566.93 170.04"
