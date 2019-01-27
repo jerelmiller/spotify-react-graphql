@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
 import UserAvatar, { fragments as UserAvatarFragments } from './UserAvatar'
 import NavLink from './NavLink'
@@ -37,7 +37,7 @@ const Title = styled.h5`
   border-left: 0.375rem transparent;
 `
 
-const NavSection: React.SFC<{ title?: string }> = ({ children, title }) => (
+const NavSection: FC<{ title?: string }> = ({ children, title }) => (
   <Section>
     {title && <Title>{title}</Title>}
     <nav>
@@ -77,7 +77,7 @@ const Li = styled.li`
   }
 `
 
-const Link: React.SFC<{ to: string }> = ({ children, to }) => (
+const Link: FC<{ to: string }> = ({ children, to }) => (
   <Li>
     <SidebarLink to={to}>{children}</SidebarLink>
   </Li>
@@ -89,7 +89,7 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
-const AppSidebar: React.SFC<Props> = ({ loading, viewer }) => (
+const AppSidebar: FC<Props> = ({ loading, viewer }) => (
   <Sidebar>
     <AvatarContainer>
       {viewer && viewer.user && <UserAvatar user={viewer.user} />}

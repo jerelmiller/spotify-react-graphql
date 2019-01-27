@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import AppMain from './AppMain'
 import AppSidebar, {
   fragments as AppSidebarFragments,
@@ -28,7 +28,7 @@ interface Variables {}
 
 class AppLayoutQuery extends Query<AppLayoutQueryDefinition, Variables> {}
 
-const AppLayout: React.SFC<Props> = ({ children }) => {
+const AppLayout: FC<Props> = ({ children }) => {
   const { data } = useSession()
   const { token } = data
 
