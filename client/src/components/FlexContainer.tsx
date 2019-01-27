@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from './styled-components'
 import { prop } from '../utils/fp'
 
 const FlexContainer = styled('div')<{ inline: boolean }>`
