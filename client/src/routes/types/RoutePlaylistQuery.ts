@@ -2,10 +2,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: PlaylistQuery
+// GraphQL query operation: RoutePlaylistQuery
 // ====================================================
 
-export interface PlaylistQuery_playlist_images {
+export interface RoutePlaylistQuery_playlist_images {
   __typename: "Image";
   /**
    * The source URL of the image.
@@ -13,7 +13,7 @@ export interface PlaylistQuery_playlist_images {
   url: string;
 }
 
-export interface PlaylistQuery_playlist_owner {
+export interface RoutePlaylistQuery_playlist_owner {
   __typename: "User";
   /**
    * The [Spotify user ID](https: // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -26,13 +26,13 @@ export interface PlaylistQuery_playlist_owner {
   displayName: string | null;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_SimpleTrack_artists {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_SimpleTrack_artists {
   __typename: "SimpleArtist";
   id: string;
   name: string;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_SimpleTrack {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_SimpleTrack {
   __typename: "SimpleTrack";
   id: string;
   /**
@@ -56,16 +56,16 @@ export interface PlaylistQuery_playlist_tracks_edges_node_SimpleTrack {
   /**
    * An array of simplified artist objects.
    */
-  artists: PlaylistQuery_playlist_tracks_edges_node_SimpleTrack_artists[];
+  artists: RoutePlaylistQuery_playlist_tracks_edges_node_SimpleTrack_artists[];
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack_artists {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack_artists {
   __typename: "SimpleArtist";
   id: string;
   name: string;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack_album {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack_album {
   __typename: "SimpleAlbum";
   id: string;
   /**
@@ -75,7 +75,7 @@ export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack_album {
   name: string;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack {
   __typename: "SavedTrack";
   id: string;
   /**
@@ -99,20 +99,20 @@ export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack {
   /**
    * An array of simplified artist objects.
    */
-  artists: PlaylistQuery_playlist_tracks_edges_node_SavedTrack_artists[];
+  artists: RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack_artists[];
   /**
    * A simplified album object.
    */
-  album: PlaylistQuery_playlist_tracks_edges_node_SavedTrack_album;
+  album: RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack_album;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack_artists {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_artists {
   __typename: "SimpleArtist";
   id: string;
   name: string;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack_album_images {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_album_images {
   __typename: "Image";
   /**
    * The source URL of the image.
@@ -120,7 +120,7 @@ export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack_album_images
   url: string;
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack_album {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_album {
   __typename: "SimpleAlbum";
   id: string;
   /**
@@ -131,10 +131,10 @@ export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack_album {
   /**
    * The cover art for the album in various sizes, widest first.
    */
-  images: PlaylistQuery_playlist_tracks_edges_node_FullTrack_album_images[];
+  images: RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_album_images[];
 }
 
-export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack {
+export interface RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack {
   __typename: "FullTrack";
   id: string;
   /**
@@ -158,24 +158,24 @@ export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack {
   /**
    * An array of simplified artist objects.
    */
-  artists: PlaylistQuery_playlist_tracks_edges_node_FullTrack_artists[];
+  artists: RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_artists[];
   /**
    * A simplified album object.
    */
-  album: PlaylistQuery_playlist_tracks_edges_node_FullTrack_album;
+  album: RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack_album;
 }
 
-export type PlaylistQuery_playlist_tracks_edges_node = PlaylistQuery_playlist_tracks_edges_node_SimpleTrack | PlaylistQuery_playlist_tracks_edges_node_SavedTrack | PlaylistQuery_playlist_tracks_edges_node_FullTrack;
+export type RoutePlaylistQuery_playlist_tracks_edges_node = RoutePlaylistQuery_playlist_tracks_edges_node_SimpleTrack | RoutePlaylistQuery_playlist_tracks_edges_node_SavedTrack | RoutePlaylistQuery_playlist_tracks_edges_node_FullTrack;
 
-export interface PlaylistQuery_playlist_tracks_edges {
+export interface RoutePlaylistQuery_playlist_tracks_edges {
   __typename: "PlaylistTrackEdge";
   /**
    * The track object.
    */
-  node: PlaylistQuery_playlist_tracks_edges_node;
+  node: RoutePlaylistQuery_playlist_tracks_edges_node;
 }
 
-export interface PlaylistQuery_playlist_tracks_pageInfo {
+export interface RoutePlaylistQuery_playlist_tracks_pageInfo {
   __typename: "PageInfo";
   /**
    * The total number of items returned for the page.
@@ -183,13 +183,13 @@ export interface PlaylistQuery_playlist_tracks_pageInfo {
   total: number;
 }
 
-export interface PlaylistQuery_playlist_tracks {
+export interface RoutePlaylistQuery_playlist_tracks {
   __typename: "PlaylistTrackConnection";
-  edges: PlaylistQuery_playlist_tracks_edges[];
-  pageInfo: PlaylistQuery_playlist_tracks_pageInfo;
+  edges: RoutePlaylistQuery_playlist_tracks_edges[];
+  pageInfo: RoutePlaylistQuery_playlist_tracks_pageInfo;
 }
 
-export interface PlaylistQuery_playlist {
+export interface RoutePlaylistQuery_playlist {
   __typename: "Playlist";
   id: string;
   name: string;
@@ -198,18 +198,18 @@ export interface PlaylistQuery_playlist {
    * for the playlist.
    */
   uri: string | null;
-  images: PlaylistQuery_playlist_images[];
-  owner: PlaylistQuery_playlist_owner;
-  tracks: PlaylistQuery_playlist_tracks;
+  images: RoutePlaylistQuery_playlist_images[];
+  owner: RoutePlaylistQuery_playlist_owner;
+  tracks: RoutePlaylistQuery_playlist_tracks;
 }
 
-export interface PlaylistQuery {
+export interface RoutePlaylistQuery {
   /**
    * Get information about a playlist
    */
-  playlist: PlaylistQuery_playlist | null;
+  playlist: RoutePlaylistQuery_playlist | null;
 }
 
-export interface PlaylistQueryVariables {
+export interface RoutePlaylistQueryVariables {
   playlistId: string;
 }
