@@ -29,16 +29,26 @@ const App = () => {
     <SpotifyProvider token={data.token}>
       <AppLayout>
         <Router primary={false}>
-          <Redirect noThrow from="/" to="browse/featured" />
+          <Redirect
+            noThrow
+            from="/"
+            to={'browse/genres' /* "browse/featured" */}
+          />
           <Album path="albums/:albumId" />
           <Artist path="artists/:artistId">
             <ArtistOverview path="/" />
             <RelatedArtists path="related-artists" />
           </Artist>
           <Browse path="browse">
-            <Redirect noThrow from="/" to="browse/featured" />
+            <Redirect
+              noThrow
+              from="/"
+              to={'browse/genres' /* "browse/featured" */}
+            />
+            {/*
             <BrowseDiscover path="discover" />
             <BrowseFeatured path="featured" />
+            */}
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
           </Browse>

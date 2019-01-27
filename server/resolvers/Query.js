@@ -12,7 +12,7 @@ export default {
   featuredPlaylists: (_, { limit = 50, offset = 0 }, { dataSources }) =>
     dataSources.spotifyAPI
       .getFeaturedPlaylists({ limit, offset })
-      .then(data => console.log(data.message) || prop('playlists')(data)),
+      .then(prop('playlists')),
   playlist: (_, { id }, { dataSources }) =>
     dataSources.spotifyAPI.getPlaylist(id),
   playlistsByCategory: (
