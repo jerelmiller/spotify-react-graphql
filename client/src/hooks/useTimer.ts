@@ -4,12 +4,12 @@ interface Options {
   on?: boolean
 }
 
-function useTimer(fn: Function, { on }: Options = {}, vars = []) {
+function useTimer(fn: () => void, { on }: Options = {}, vars = []) {
   useEffect(
     () => {
       let intervalId: any
       if (on) {
-        intervalId = setInterval(() => fn(), 1000)
+        intervalId = setInterval(fn, 1000)
       }
 
       return () => {
