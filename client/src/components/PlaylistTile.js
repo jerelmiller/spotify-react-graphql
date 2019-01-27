@@ -1,6 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import LazyImage from 'components/LazyImage'
+import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 
@@ -15,7 +16,11 @@ const PlaylistTile = ({ playlist }) => {
   return (
     <Container>
       <Link to={href}>
-        <LazyImage src={photo.url} width="100%" />
+        {photo ? (
+          <LazyImage src={photo.url} width="100%" />
+        ) : (
+          <PlaceholderPhoto />
+        )}
       </Link>
       <Link to={href}>{playlist.name}</Link>
     </Container>
