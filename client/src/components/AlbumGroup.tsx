@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import AlbumTile, { fragments as AlbumTileFragments } from './AlbumTile'
 import gql from 'graphql-tag'
 import TileGrid from './TileGrid'
@@ -20,7 +20,7 @@ const Title = styled.h1`
   margin-bottom: 1rem;
 `
 
-const AlbumGroup: React.SFC<Props> = ({ title, albums }) => (
+const AlbumGroup: FC<Props> = ({ title, albums }) => (
   <Container>
     <Title>{title}</Title>
     <TileGrid fill={false} minWidth="175px">

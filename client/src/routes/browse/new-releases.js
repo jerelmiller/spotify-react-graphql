@@ -2,7 +2,9 @@ import React from 'react'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
-import AlbumTile from 'components/AlbumTile'
+import AlbumTile, {
+  fragments as AlbumTileFragments
+} from 'components/AlbumTile'
 import { Query } from 'react-apollo'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 
@@ -23,7 +25,7 @@ const NewReleases = () => {
           }
         }
 
-        ${AlbumTile.fragments.album}
+        ${AlbumTileFragments.album}
       `}
       variables={{ limit: 50, offset: 0 }}
     >
