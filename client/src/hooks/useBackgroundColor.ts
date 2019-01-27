@@ -1,9 +1,13 @@
 import { useContext, useEffect } from 'react'
-import BackgroundColorContext from 'components/BackgroundColorContext'
+import BackgroundColorContext from '../components/BackgroundColorContext'
 
 const DEFAULT_COLOR = '#181818'
 
-const useBackgroundColor = (color, { useGradient } = {}) => {
+interface Options {
+  useGradient?: boolean | null
+}
+
+const useBackgroundColor = (color: string, { useGradient }: Options = {}) => {
   const {
     color: currentColor,
     setColor,
