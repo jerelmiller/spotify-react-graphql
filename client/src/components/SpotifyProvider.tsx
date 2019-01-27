@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { FC } from 'react'
 import SpotifyContext from './SpotifyContext'
-import useSpotify from 'hooks/useSpotify'
+import useSpotify from '../hooks/useSpotify'
 
-const SpotifyProvider = ({ children, token }) => {
+interface Props {
+  token: string
+}
+
+const SpotifyProvider: FC<Props> = ({ children, token }) => {
   const spotify = useSpotify(token)
 
   return (
