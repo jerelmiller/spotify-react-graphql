@@ -1,13 +1,24 @@
-import React from 'react'
-import BackgroundFromImage from 'components/BackgroundFromImage'
-import LazyImage from 'components/LazyImage'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
+import React, { FC } from 'react'
+import BackgroundFromImage from '../components/BackgroundFromImage'
+import LazyImage from '../components/LazyImage'
+import PlaceholderPhoto from '../components/PlaceholderPhoto'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track, { TRACK_VARIANTS } from '../components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
-import { textColor } from 'styles/utils'
+import { textColor } from '../styles/utils'
+import { RoutePlaylistQuery } from './types/RoutePlaylistQuery'
+
+interface Props {
+  playlistId: string
+}
+
+interface Variables {
+  playlistId: Props['playlistId']
+}
+
+class PlaylistQuery extends Query<RoutePlaylistQuery, Variables> {}
 
 // TODO: Abstract all these components to share with album
 const Container = styled.div`
@@ -45,10 +56,10 @@ const Typography = styled.span`
   text-transform: uppercase;
 `
 
-const Playlist = ({ playlistId }) => (
-  <Query
+const Playlist: FC<Props> = ({ playlistId }) => (
+  <PlaylistQuery
     query={gql`
-      query PlaylistQuery($playlistId: ID!) {
+      query RoutePlaylistQuery($playlistId: ID!) {
         playlist(id: $playlistId) {
           id
           name
@@ -79,8 +90,14 @@ const Playlist = ({ playlistId }) => (
     `}
     variables={{ playlistId }}
   >
-    {({ loading, data: { playlist } }) =>
-      loading || (
+    {({ loading, data }) => {
+      if (loading || !data || !data.playlist) {
+        return null
+      }
+
+      const { playlist } = data
+
+      return (
         <Container>
           {playlist.images.length > 0 && (
             <BackgroundFromImage src={playlist.images[0].url} />
@@ -113,8 +130,8 @@ const Playlist = ({ playlistId }) => (
           </div>
         </Container>
       )
-    }
-  </Query>
+    }}
+  </PlaylistQuery>
 )
 
 export default Playlist
