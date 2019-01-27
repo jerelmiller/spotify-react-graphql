@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
@@ -15,9 +15,7 @@ const Img = styled(LazyImage)`
   padding-bottom: 0;
 `
 
-const Avatar: React.SFC<Props> = ({ image }) => (
-  <Img src={image.url} alt="avatar" />
-)
+const Avatar: FC<Props> = ({ image }) => <Img src={image.url} alt="avatar" />
 
 export const fragments = {
   image: gql`
