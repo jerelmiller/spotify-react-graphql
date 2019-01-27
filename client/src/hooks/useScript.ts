@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useScript = src => {
+const useScript = (src: string) => {
   useEffect(
     () => {
       const script = document.createElement('script')
