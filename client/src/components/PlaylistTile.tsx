@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import LazyImage from 'components/LazyImage'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
+import LazyImage from './LazyImage'
+import PlaceholderPhoto from './PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { PlaylistTile_playlist } from './types/PlaylistTile_playlist'
+
+interface Props {
+  playlist: PlaylistTile_playlist
+}
 
 const Container = styled.div`
   text-align: center;
 `
 
-const PlaylistTile = ({ playlist }) => {
+const PlaylistTile: FC<Props> = ({ playlist }) => {
   const photo = playlist.images[0]
   const href = `/playlists/${playlist.id}`
 
@@ -27,7 +32,7 @@ const PlaylistTile = ({ playlist }) => {
   )
 }
 
-PlaylistTile.fragments = {
+export const fragments = {
   playlist: gql`
     fragment PlaylistTile_playlist on Playlist {
       id
