@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import { compose, prop } from 'utils/fp'
+import { compose, prop } from '../utils/fp'
 import useScript from './useScript'
 import useTimer from './useTimer'
-import parseSpotifyId from 'utils/parseSpotifyId'
+import parseSpotifyId from '../utils/parseSpotifyId'
 
 const DEFAULT_STATE = {
   paused: true,
@@ -10,11 +10,13 @@ const DEFAULT_STATE = {
   duration: 0
 }
 
-const useSpotify = token => {
-  const [timestamp, setTimestamp] = useState(null)
-  const [player, setPlayer] = useState(null)
+const useSpotify = (token: string) => {
+  const [timestamp, setTimestamp] = useState<
+    Spotify.WebPlaybackState['timestamp'] | null
+  >(null)
+  const [player, setPlayer] = useState<Spotify.Player | null>(null)
   const [deviceId, setDeviceId] = useState(null)
-  const [state, setState] = useState(null)
+  const [state, setState] = useState<Spotify.WebPlaybackState | null>(null)
   const [error, setError] = useState(null)
   const setSpotifyError = compose(
     setError,
@@ -22,7 +24,7 @@ const useSpotify = token => {
   )
   const [currentTime, setCurrentTime] = useState(0)
 
-  const parseState = state => {
+  const parseState = (state: Spotify.WebPlaybackState | null) => {
     if (!state) {
       return DEFAULT_STATE
     }
@@ -47,19 +49,20 @@ const useSpotify = token => {
     }
   }
 
-  const isAllowed = action => Boolean(state) && !state.disallows[action]
+  const isAllowed = (action: keyof Spotify.WebPlaybackState['disallows']) =>
+    state ? !state.disallows[action] : false
 
   useEffect(
     () => {
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        const player = new window.Spotify.Player({
+      onSpotifyWebPlaybackSDKReady = () => {
+        const player = new Spotify.Player({
           name: 'React Spotify Player',
           getOAuthToken: fn => fn(token)
         })
         setPlayer(player)
       }
       return () => {
-        window.onSpotifyWebPlaybackSDKReady = null
+        onSpotifyWebPlaybackSDKReady = null
       }
     },
     [token]
@@ -95,7 +98,7 @@ const useSpotify = token => {
         setCurrentTime(state.position + (Date.now() - timestamp))
       }
     },
-    { on: Boolean(state) && !state.paused },
+    { on: state ? !state.paused : false },
     [timestamp, state && state.position]
   )
 
@@ -122,12 +125,12 @@ const useSpotify = token => {
     error,
     currentTime,
     isPlayingThroughPlayer: Boolean(state),
-    pause: () => player.pause(),
-    play: () => player.resume(),
-    playNextTrack: () => player.nextTrack(),
-    playPreviousTrack: () => player.previousTrack(),
-    togglePlayback: () => player.togglePlay(),
-    seek: milliseconds => player.seek(milliseconds),
+    pause: () => player && player.pause(),
+    play: () => player && player.resume(),
+    playNextTrack: () => player && player.nextTrack(),
+    playPreviousTrack: () => player && player.previousTrack(),
+    togglePlayback: () => player && player.togglePlay(),
+    seek: (milliseconds: number) => player && player.seek(milliseconds),
     allowedActions: {
       play: !isAllowed('pausing'),
       pause: isAllowed('pausing'),
