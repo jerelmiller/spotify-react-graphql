@@ -54,7 +54,7 @@ const useSpotify = (token: string) => {
 
   useEffect(
     () => {
-      onSpotifyWebPlaybackSDKReady = () => {
+      ;(window as any).onSpotifyWebPlaybackSDKReady = () => {
         const player = new Spotify.Player({
           name: 'React Spotify Player',
           getOAuthToken: fn => fn(token)
@@ -62,7 +62,7 @@ const useSpotify = (token: string) => {
         setPlayer(player)
       }
       return () => {
-        onSpotifyWebPlaybackSDKReady = null
+        ;(window as any).onSpotifyWebPlaybackSDKReady = null
       }
     },
     [token]
