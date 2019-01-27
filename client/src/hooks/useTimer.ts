@@ -4,7 +4,7 @@ interface Options {
   on?: boolean
 }
 
-function useTimer(fn: () => void, { on }: Options = {}, vars = []) {
+function useTimer(fn: () => void, { on }: Options = {}, vars: any[] = []) {
   useEffect(
     () => {
       let intervalId: any
