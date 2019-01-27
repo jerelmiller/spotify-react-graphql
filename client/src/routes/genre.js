@@ -2,7 +2,9 @@ import React from 'react'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
-import PlaylistTile from 'components/PlaylistTile'
+import PlaylistTile, {
+  fragments as PlaylistTileFragments
+} from 'components/PlaylistTile'
 import { Query } from 'react-apollo'
 
 const Genre = ({ genreId }) => (
@@ -28,7 +30,7 @@ const Genre = ({ genreId }) => (
         }
       }
 
-      ${PlaylistTile.fragments.playlist}
+      ${PlaylistTileFragments.playlist}
     `}
     variables={{ categoryId: genreId, limit: 50, offset: 0 }}
   >
