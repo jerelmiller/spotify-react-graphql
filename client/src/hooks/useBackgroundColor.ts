@@ -7,7 +7,10 @@ interface Options {
   useGradient?: boolean | null
 }
 
-const useBackgroundColor = (color: string, { useGradient }: Options = {}) => {
+const useBackgroundColor = (
+  color?: string | null,
+  { useGradient }: Options = {}
+) => {
   const {
     color: currentColor,
     setColor,
