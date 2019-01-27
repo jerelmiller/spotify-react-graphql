@@ -7,7 +7,7 @@ import PageTitle from '../../components/PageTitle'
 import TileGrid from '../../components/TileGrid'
 import useBackgroundColor from '../../hooks/useBackgroundColor'
 import { Query } from 'react-apollo'
-import { AlbumsQuery as AlbumsQueryType } from './types/AlbumsQuery'
+import { RouteAlbumsQuery } from './types/RouteAlbumsQuery'
 
 export interface Props {}
 
@@ -16,7 +16,7 @@ interface Variables {
   offset: number
 }
 
-class AlbumsQuery extends Query<AlbumsQueryType, Variables> {}
+class AlbumsQuery extends Query<RouteAlbumsQuery, Variables> {}
 
 const Albums: FC<Props> = () => {
   useBackgroundColor('#090B0F')
@@ -24,7 +24,7 @@ const Albums: FC<Props> = () => {
   return (
     <AlbumsQuery
       query={gql`
-        query AlbumsQuery($limit: Int!, $offset: Int!) {
+        query RouteAlbumsQuery($limit: Int!, $offset: Int!) {
           viewer {
             savedAlbums(limit: $limit, offset: $offset) {
               edges {
