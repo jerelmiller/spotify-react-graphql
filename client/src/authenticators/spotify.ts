@@ -1,6 +1,10 @@
 import { createAuthenticator } from 'redux-simple-auth'
 
-export default createAuthenticator({
+interface Data {
+  token: string
+}
+
+export default createAuthenticator<Data>({
   name: 'spotify',
   restore: data => Promise.resolve(data),
   authenticate: token => {

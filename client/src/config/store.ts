@@ -4,7 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import spotify from '../authenticators/spotify'
 import rootReducer from '../reducers'
 
-const authMiddleware = createAuthMiddleware<{ token: string }>({
+interface Data {
+  token: string
+}
+
+const authMiddleware = createAuthMiddleware<Data>({
   authenticators: [spotify],
   authorize: ({ token }, header) => {
     if (token) {
