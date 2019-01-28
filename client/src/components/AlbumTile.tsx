@@ -1,8 +1,8 @@
-import * as React from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
 import LazyImage from './LazyImage'
 import PlaceholderPhoto from './PlaceholderPhoto'
-import styled from 'styled-components'
+import styled from './styled-components'
 import { Link } from '@reach/router'
 import { textColor } from '../styles/utils'
 import { Album_album } from './types/Album_album'
@@ -37,7 +37,7 @@ const ArtistLink = styled(Link)`
   }
 `
 
-const AlbumTile: React.SFC<Props> = ({ album }) => {
+const AlbumTile: FC<Props> = ({ album }) => {
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
 
