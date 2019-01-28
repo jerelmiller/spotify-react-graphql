@@ -3,7 +3,9 @@ import BackgroundFromImage from 'components/BackgroundFromImage'
 import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import ReleaseYear from 'components/ReleaseYear'
+import ReleaseYear, {
+  fragments as ReleaseYearFragments
+} from 'components/ReleaseYear'
 import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import Track, {
   TRACK_VARIANTS,
@@ -89,7 +91,7 @@ const Album = ({ albumId }) => (
       }
 
       ${TrackFragments.track}
-      ${ReleaseYear.fragments.releaseDate}
+      ${ReleaseYearFragments.releaseDate}
     `}
     variables={{ albumId }}
   >
