@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Link } from '@reach/router'
 
-const NavLink = ({ activeClassName, className, exact, ...rest }) => (
+interface Props {
+  activeClassName?: string
+  className?: string
+  exact?: boolean
+}
+
+const NavLink: FC<Props> = ({ activeClassName, className, exact, ...rest }) => (
   <Link
     {...rest}
     getProps={({ isCurrent, isPartiallyCurrent }) => {
