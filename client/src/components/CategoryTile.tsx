@@ -1,14 +1,19 @@
-import React from 'react'
-import LazyImage from 'components/LazyImage'
+import React, { FC } from 'react'
+import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { CategoryTile_category } from './types/CategoryTile_category'
+
+interface Props {
+  category: CategoryTile_category
+}
 
 const Container = styled.div`
   text-align: center;
 `
 
-const CategoryTile = ({ category }) => {
+const CategoryTile: FC<Props> = ({ category }) => {
   const icon = category.icons[0]
   const href = `/genres/${category.id}`
 
@@ -22,7 +27,7 @@ const CategoryTile = ({ category }) => {
   )
 }
 
-CategoryTile.fragments = {
+export const fragments = {
   category: gql`
     fragment CategoryTile_category on Category {
       id
