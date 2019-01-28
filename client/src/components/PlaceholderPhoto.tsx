@@ -4,10 +4,10 @@ import styled from 'styled-components'
 import { prop } from '../utils/fp'
 
 interface Props {
-  marginBottom?: number
+  marginBottom?: string
 }
 
-const Container = styled.div<{ marginBottom?: number }>`
+const Container = styled.div<{ marginBottom?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
