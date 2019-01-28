@@ -1,7 +1,9 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import useBackgroundColor from 'hooks/useBackgroundColor'
-import CategoryTile from 'components/CategoryTile'
+import CategoryTile, {
+  fragments as CategoryTileFragments
+} from 'components/CategoryTile'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
 import { Query } from 'react-apollo'
@@ -23,7 +25,7 @@ const Genres = () => {
           }
         }
 
-        ${CategoryTile.fragments.category}
+        ${CategoryTileFragments.category}
       `}
       variables={{ limit: 50, offset: 0 }}
     >
