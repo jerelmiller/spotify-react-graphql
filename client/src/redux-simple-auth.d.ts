@@ -14,6 +14,13 @@ declare module 'redux-simple-auth' {
     restore(data: any): Promise<any>
   }
 
+  export interface SessionState {
+    isAuthenticated: boolean
+    isRestored: boolean
+  }
+
+  export function getIsAuthenticated(state: Object): boolean
+  export function getIsRestored(state: Object): boolean
   export function getSessionData(state: Object): any
   export function invalidateSession(): Promise<any>
   export function authenticate(name: string, data: object): Promise<any>
