@@ -22,8 +22,8 @@ declare module 'redux-simple-auth' {
   export function getIsAuthenticated(state: Object): boolean
   export function getIsRestored(state: Object): boolean
   export function getSessionData(state: Object): any
-  export function invalidateSession(): Promise<any>
-  export function authenticate(name: string, data: object): Promise<any>
+  export function invalidateSession(): Redux.AnyAction
+  export function authenticate(name: string, data: object): Redux.AnyAction
   export function createAuthMiddleware<Data>(
     options: MiddlewareOptions<Data>
   ): Redux.Middleware
