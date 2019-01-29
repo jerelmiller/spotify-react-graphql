@@ -9,11 +9,29 @@ import styled from 'styled-components'
 import MusicIcon from './MusicIcon'
 import MoreIcon from './MoreIcon'
 import ExplicitBadge from './ExplicitBadge'
-import useSpotifyContext from 'hooks/useSpotifyContext'
+import useSpotifyContext from '../hooks/useSpotifyContext'
 import PauseIcon from './PauseIcon'
 import SpeakerIcon from './SpeakerIcon'
 import { Link } from '@reach/router'
-import { textColor } from 'styles/utils'
+import { textColor } from '../styles/utils'
+import {
+  Track_track,
+  Track_track_FullTrack,
+  Track_track_SimpleTrack
+} from './types/Track_track'
+
+export enum TrackVariant {
+  FULL = 'full',
+  POPULAR = 'popular',
+  SIMPLE = 'simple',
+  VARIOUS_ARTIST = 'various'
+}
+
+interface Props {
+  track: Track_track
+  variant: TrackVariant
+  playContext?: string
+}
 
 export const TRACK_VARIANTS = {
   FULL: 'full',
@@ -22,15 +40,18 @@ export const TRACK_VARIANTS = {
   VARIOUS_ARTIST: 'various'
 }
 
-const GRID_COLUMNS = {
-  [TRACK_VARIANTS.POPULAR]: 'auto auto 1fr auto auto',
-  default: 'auto 1fr auto auto'
+type GridColumns = { [key in TrackVariant]: string }
+
+const GRID_COLUMNS: GridColumns = {
+  [TrackVariant.POPULAR]: 'auto auto 1fr auto auto',
+  [TrackVariant.FULL]: 'auto 1fr auto auto',
+  [TrackVariant.SIMPLE]: 'auto 1fr auto auto',
+  [TrackVariant.VARIOUS_ARTIST]: 'auto 1fr auto auto'
 }
 
-const Container = styled.div`
+const Container = styled.div<{ isCurrent: boolean; variant: TrackVariant }>`
   display: grid;
-  grid-template-columns: ${({ variant }) =>
-    GRID_COLUMNS[variant] || GRID_COLUMNS.default};
+  grid-template-columns: ${({ variant }) => GRID_COLUMNS[variant]};
   grid-column-gap: 1rem;
   align-items: center;
   border-radius: 2px;
@@ -76,27 +97,36 @@ const InlineExplicitBadge = styled(ExplicitBadge)`
   align-self: flex-start;
 `
 
-const renderVariant = (variant, track) => {
+const renderVariant = (variant: TrackVariant, track: Track_track) => {
   switch (variant) {
-    case TRACK_VARIANTS.FULL:
+    case TrackVariant.FULL: {
+      const {
+        album,
+        artists,
+        explicit,
+        duration
+      } = track as Track_track_FullTrack
       return (
         <>
           <TrackName>{track.name}</TrackName>
           <MoreIcon size="1.25rem" stroke="white" />
-          <TrackDuration duration={track.duration} />
+          <TrackDuration duration={duration} />
           <Info>
-            {track.explicit && <ExplicitBadge />}{' '}
+            {explicit && <ExplicitBadge />}{' '}
             <ItemLink to={`/artists/${track.artists[0].id}`}>
-              {track.artists[0].name}
+              {artists[0].name}
             </ItemLink>{' '}
             &middot;{' '}
-            <ItemLink to={`/albums/${track.album.id}`}>
-              {track.album.name}
+            <ItemLink
+              to={`/albums/${(track as Track_track_FullTrack).album.id}`}
+            >
+              {album.name}
             </ItemLink>
           </Info>
         </>
       )
-    case TRACK_VARIANTS.SIMPLE:
+    }
+    case TrackVariant.SIMPLE:
       return (
         <>
           <TrackName>{track.name}</TrackName>
@@ -104,8 +134,8 @@ const renderVariant = (variant, track) => {
           <TrackDuration duration={track.duration} />
         </>
       )
-    case TRACK_VARIANTS.POPULAR:
-      const { album } = track
+    case TrackVariant.POPULAR:
+      const { album } = track as Track_track_FullTrack
       const { url } = album.images[1]
 
       return (
@@ -119,7 +149,7 @@ const renderVariant = (variant, track) => {
           <TrackDuration duration={track.duration} />
         </>
       )
-    case TRACK_VARIANTS.VARIOUS_ARTIST:
+    case TrackVariant.VARIOUS_ARTIST:
       return (
         <>
           <TrackName>{track.name}</TrackName>
@@ -133,13 +163,10 @@ const renderVariant = (variant, track) => {
           </Info>
         </>
       )
-
-    default:
-      throw new Error(`Track: ${variant} is not a valid variant`)
   }
 }
 
-const Track = memo(({ track, variant, playContext }) => {
+const Track = memo<Props>(({ track, variant, playContext }) => {
   const [hovered, setHovered] = useState(false)
   const { currentTrack, pause, play, paused } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
@@ -152,7 +179,9 @@ const Track = memo(({ track, variant, playContext }) => {
           variant={variant}
           onMouseOver={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          onDoubleClick={() => playTrack(track.uri, { context: playContext })}
+          onDoubleClick={() =>
+            track.uri && playTrack(track.uri, { context: playContext })
+          }
           isCurrent={isCurrent}
         >
           {isCurrent && hovered && paused ? (
@@ -176,7 +205,9 @@ const Track = memo(({ track, variant, playContext }) => {
               {...iconProps}
               fill="currentColor"
               cursor="pointer"
-              onClick={() => playTrack(track.uri, { context: playContext })}
+              onClick={() =>
+                track.uri && playTrack(track.uri, { context: playContext })
+              }
             />
           ) : isCurrent ? (
             <SpeakerIcon stroke="green" {...iconProps} />
