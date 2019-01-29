@@ -7,8 +7,12 @@ import {
   PlayTrackMutationVariables
 } from './types/PlayTrackMutation'
 
+interface PlayTrackOptions {
+  context?: string | null
+}
+
 interface ChildrenProps {
-  playTrack(uri: string, options: { context?: string }): ReturnType<MutationFn>
+  playTrack(uri: string, options: PlayTrackOptions): ReturnType<MutationFn>
 }
 
 interface Props {
@@ -35,7 +39,7 @@ const PlayTrackMutation: FC<Props> = ({ children }) => {
     >
       {mutation =>
         children({
-          playTrack: (uri: string, { context }: { context?: string } = {}) =>
+          playTrack: (uri: string, { context }: PlayTrackOptions = {}) =>
             mutation({
               variables: {
                 input: { track: uri, deviceId, contextUri: context }
