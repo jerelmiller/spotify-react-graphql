@@ -9,6 +9,8 @@ export interface Props {
   stroke?: string
   strokeWidth?: number
   size?: string
+  // TODO: Figure out how to pull this off styled.svg
+  onClick?(e: MouseEvent): void
 }
 
 const withColor = (colorValue: string) => color(colorValue) || colorValue
