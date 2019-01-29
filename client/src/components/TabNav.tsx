@@ -1,7 +1,12 @@
-import React from 'react'
-import NavLink from 'components/NavLink'
-import styled from 'styled-components'
-import { color } from 'styles/utils'
+import React, { FC } from 'react'
+import NavLink from './NavLink'
+import styled from './styled-components'
+import { color } from '../styles/utils'
+import { LinkProps } from '@reach/router'
+
+interface Props {
+  className?: string
+}
 
 const NavContainer = styled.ul`
   display: flex;
@@ -56,12 +61,20 @@ const Link = styled(NavLink)`
   }
 `
 
-const NavItem = props => (
+interface NavItemProps {
+  to: string
+}
+
+const NavItem: FC<NavItemProps & LinkProps<{}>> = props => (
   <li>
     <Link {...props} />
   </li>
 )
-const TabNav = ({ className, children }) => (
+
+const TabNav: FC<Props> & { NavItem: typeof NavItem } = ({
+  className,
+  children
+}) => (
   <nav className={className}>
     <NavContainer>{children}</NavContainer>
   </nav>
