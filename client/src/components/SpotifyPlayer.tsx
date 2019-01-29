@@ -1,20 +1,27 @@
-import React, { Fragment } from 'react'
-import LazyImage from 'components/LazyImage'
-import PlayIcon from 'components/PlayIcon'
-import PauseIcon from 'components/PauseIcon'
-import NextTrackIcon from 'components/NextTrackIcon'
-import PrevTrackIcon from 'components/PrevTrackIcon'
-import ShuffleIcon from 'components/ShuffleIcon'
-import useSpotifyContext from 'hooks/useSpotifyContext'
-import RepeatIcon from 'components/RepeatIcon'
+import React, { Fragment, FC } from 'react'
+import LazyImage from './LazyImage'
+import PlayIcon from './PlayIcon'
+import PauseIcon from './PauseIcon'
+import NextTrackIcon from './NextTrackIcon'
+import PrevTrackIcon from './PrevTrackIcon'
+import ShuffleIcon from './ShuffleIcon'
+import useSpotifyContext from '../hooks/useSpotifyContext'
+import RepeatIcon from './RepeatIcon'
 import styled from 'styled-components/macro'
-import Timestamp from 'components/Timestamp'
+import Timestamp from './Timestamp'
 import posed, { PoseGroup } from 'react-pose'
-import { color, textColor, typography } from 'styles/utils'
+import { color, textColor, typography } from '../styles/utils'
 import { Link } from '@reach/router'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
+
+interface ClickEventTarget {
+  offsetLeft: number
+  clientWidth: number
+}
+
+type ClickEvent<T> = React.MouseEvent<T> & { target: ClickEventTarget }
 
 const ArtistLink = styled(Link)`
   font-size: 0.8rem;
@@ -76,11 +83,18 @@ const TimeControls = styled.div`
   color: ${color('offWhite')};
 `
 
-const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
-  children: Icon && (
-    <Icon size={ICON_SIZE} fill={fill ? 'currentColor' : 'none'} />
-  )
-}))`
+interface ControlButtonProps {
+  fill?: boolean
+  icon?: any
+}
+
+const ControlButton = styled.button.attrs(
+  ({ fill, icon: Icon }: ControlButtonProps) => ({
+    children: Icon && (
+      <Icon size={ICON_SIZE} fill={fill ? 'currentColor' : 'none'} />
+    )
+  })
+)<ControlButtonProps>`
   color: ${color('offWhite')};
   background: none;
   padding: 0;
@@ -102,13 +116,19 @@ const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
   }
 `
 
-const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
-  children: paused ? (
-    <PlayIcon size={ICON_SIZE} fill="currentColor" />
-  ) : (
-    <PauseIcon size={ICON_SIZE} fill="currentColor" />
-  )
-}))`
+interface PlayButtonProps {
+  paused: boolean
+}
+
+const PlayButton = styled(ControlButton).attrs(
+  ({ paused }: PlayButtonProps) => ({
+    children: paused ? (
+      <PlayIcon size={ICON_SIZE} fill="currentColor" />
+    ) : (
+      <PauseIcon size={ICON_SIZE} fill="currentColor" />
+    )
+  })
+)<PlayButtonProps>`
   height: 2rem;
   width: 2rem;
   border-radius: 50%;
@@ -136,7 +156,7 @@ const ControlButtons = styled.div`
   margin-bottom: 1.5rem;
 `
 
-const Playbar = styled.div`
+const Playbar = styled.div<{ progress: number }>`
   height: ${PLAYBAR_SIZE};
   background: #393939;
   border-radius: ${PLAYBAR_SIZE};
@@ -173,7 +193,11 @@ const Container = styled(
   color: ${color('offWhite')};
 `
 
-const SpotifyPlayer = ({ token }) => {
+interface Props {
+  token: string
+}
+
+const SpotifyPlayer: FC<Props> = ({ token }) => {
   const {
     allowedActions,
     isPlayingThroughPlayer,
@@ -187,7 +211,15 @@ const SpotifyPlayer = ({ token }) => {
     seek
   } = useSpotifyContext()
 
-  const { album, name: trackName, artists } = currentTrack || {}
+  const {
+    album,
+    name: trackName,
+    artists
+  } = (currentTrack as Spotify.WebPlaybackTrack) || {
+    album: {},
+    name: '',
+    artists: []
+  }
 
   return (
     <PoseGroup>
@@ -233,10 +265,12 @@ const SpotifyPlayer = ({ token }) => {
               <TimeInfo milliseconds={currentTime}>{currentTime}</TimeInfo>
               <Playbar
                 progress={currentTime / duration}
-                onClick={({ clientX, target: { offsetLeft, clientWidth } }) =>
+                onClick={(e: ClickEvent<HTMLDivElement>) =>
                   seek(
                     Math.floor(
-                      ((clientX - offsetLeft) / clientWidth) * duration
+                      ((e.clientX - e.target.offsetLeft) /
+                        e.target.clientWidth) *
+                        duration
                     )
                   )
                 }
