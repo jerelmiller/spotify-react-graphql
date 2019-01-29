@@ -11,11 +11,13 @@ declare namespace Spotify {
   export type TrackMediaType = 'audio' | 'video'
 
   export interface Artist {
+    id: string
     uri: string
     name: string
   }
 
   export interface Album {
+    id: string
     uri: string
     name: string
     images: Image[]
