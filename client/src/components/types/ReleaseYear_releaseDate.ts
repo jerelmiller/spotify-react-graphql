@@ -1,7 +1,7 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { ReleaseDatePrecision } from "./../../../types/globalTypes";
+import { ReleaseDatePrecision } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL fragment: ReleaseYear_releaseDate
