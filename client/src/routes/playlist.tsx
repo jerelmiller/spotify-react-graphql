@@ -6,7 +6,8 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Track, {
   TRACK_VARIANTS,
-  fragments as TrackFragments
+  fragments as TrackFragments,
+  TrackVariant
 } from '../components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
@@ -126,7 +127,7 @@ const Playlist: FC<Props> = ({ playlistId }) => (
               <Track
                 key={node.id}
                 track={node}
-                variant={TRACK_VARIANTS.FULL}
+                variant={TrackVariant.FULL}
                 playContext={playlist.uri}
               />
             ))}

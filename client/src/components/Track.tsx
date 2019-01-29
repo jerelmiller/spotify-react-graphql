@@ -14,11 +14,7 @@ import PauseIcon from './PauseIcon'
 import SpeakerIcon from './SpeakerIcon'
 import { Link } from '@reach/router'
 import { textColor } from '../styles/utils'
-import {
-  Track_track,
-  Track_track_FullTrack,
-  Track_track_SimpleTrack
-} from './types/Track_track'
+import { Track_track, Track_track_FullTrack } from './types/Track_track'
 
 export enum TrackVariant {
   FULL = 'full',
@@ -30,7 +26,7 @@ export enum TrackVariant {
 interface Props {
   track: Track_track
   variant: TrackVariant
-  playContext?: string
+  playContext?: string | null
 }
 
 export const TRACK_VARIANTS = {
