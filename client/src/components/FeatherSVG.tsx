@@ -6,7 +6,7 @@ export interface Props {
   fill?: string
   stroke?: string
   strokeWidth?: number
-  size?: number
+  size?: string
 }
 
 const withColor = (colorValue: string) => color(colorValue) || colorValue
