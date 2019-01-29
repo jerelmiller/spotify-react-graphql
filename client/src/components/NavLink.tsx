@@ -5,6 +5,8 @@ interface Props {
   activeClassName?: string
   className?: string
   exact?: boolean
+  // TODO: Figure out how to get this from LinkProps
+  to: string
 }
 
 const NavLink: FC<Props> = ({ activeClassName, className, exact, ...rest }) => (
