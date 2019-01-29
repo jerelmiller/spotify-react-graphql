@@ -10,6 +10,7 @@ interface Props {
   src: string
   block?: boolean
   width?: string
+  height?: string
 }
 
 type ImageProps = {
@@ -22,7 +23,14 @@ const Img = styled.img<ImageProps>`
     defaultTo('100%'),
     prop('width')
   )};
-  height: ${branch(prop('loaded'), value('auto'), value(0))};
+  height: ${branch(
+    prop('loaded'),
+    compose(
+      defaultTo('auto'),
+      prop('height')
+    ),
+    value(0)
+  )};
   opacity: ${branch(prop('loaded'), value(1), value(0))};
   padding-bottom: ${branch(prop('loaded'), noop, value('100%'))};
   transition: opacity 0.3s ease-out;
