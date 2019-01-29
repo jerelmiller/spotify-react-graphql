@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
 import { ReleaseYear_releaseDate } from './types/ReleaseYear_releaseDate'
 import { ReleaseDatePrecision } from '../types/globalTypes'
