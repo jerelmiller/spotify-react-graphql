@@ -1,7 +1,7 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { AlbumGroup } from "./../../../../types/globalTypes";
+import { AlbumGroup } from "./../../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: ArtistOverviewQuery

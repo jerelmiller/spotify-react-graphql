@@ -1,7 +1,7 @@
 /* tslint:disable */
 // This file was automatically generated and should not be edited.
 
-import { AlbumType, ReleaseDatePrecision } from "./../../../types/globalTypes";
+import { AlbumType, ReleaseDatePrecision } from "./../../types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: AlbumQuery
