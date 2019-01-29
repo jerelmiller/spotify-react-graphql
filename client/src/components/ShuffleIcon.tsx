@@ -1,7 +1,9 @@
-import React from 'react'
-import FeatherSVG from './FeatherSVG'
+import React, { FC } from 'react'
+import FeatherSVG, { Props as FeatherSVGProps } from './FeatherSVG'
 
-const ShuffleIcon = props => (
+interface Props {}
+
+const ShuffleIcon: FC<Props & FeatherSVGProps> = props => (
   <FeatherSVG {...props}>
     <title>shuffle</title>
     <polyline points="16 3 21 3 21 8" />

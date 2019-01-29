@@ -1,7 +1,9 @@
-import React from 'react'
-import FeatherSVG from './FeatherSVG'
+import React, { FC } from 'react'
+import FeatherSVG, { Props as FeatherSVGProps } from './FeatherSVG'
 
-const PauseIcon = props => (
+interface Props {}
+
+const PauseIcon: FC<Props & FeatherSVGProps> = props => (
   <FeatherSVG {...props}>
     <title>pause</title>
     <rect x="6" y="4" width="4" height="16" />

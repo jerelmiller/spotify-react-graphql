@@ -1,7 +1,9 @@
-import React from 'react'
-import FeatherSVG from './FeatherSVG'
+import React, { FC } from 'react'
+import FeatherSVG, { Props as FeatherSVGProps } from './FeatherSVG'
 
-const MoreIcon = props => (
+interface Props {}
+
+const MoreIcon: FC<Props & FeatherSVGProps> = props => (
   <FeatherSVG {...props}>
     <circle cx="12" cy="12" r="1" />
     <circle cx="19" cy="12" r="1" />

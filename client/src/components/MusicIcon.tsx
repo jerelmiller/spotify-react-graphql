@@ -1,7 +1,9 @@
-import React from 'react'
-import FeatherSVG from './FeatherSVG'
+import React, { FC } from 'react'
+import FeatherSVG, { Props as FeatherSVGProps } from './FeatherSVG'
 
-const MusicIcon = props => (
+interface Props {}
+
+const MusicIcon: FC<Props & FeatherSVGProps> = props => (
   <FeatherSVG {...props}>
     <path d="M9 17H5a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm12-2h-4a2 2 0 0 0-2 2 2 2 0 0 0 2 2h2a2 2 0 0 0 2-2z" />
     <polyline points="9 17 9 5 21 3 21 15" />
