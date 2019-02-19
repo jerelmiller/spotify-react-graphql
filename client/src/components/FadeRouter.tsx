@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { FC } from 'react'
 import posed, { PoseGroup } from 'react-pose'
-import useLocation from 'hooks/useLocation'
-import { Router } from '@reach/router'
+import useLocation from '../hooks/useLocation'
+import { Router, RouterProps } from '@reach/router'
+
+type Props = RouterProps
 
 const FadeContainer = posed.div({
   enter: { opacity: 1, transition: { ease: 'easeOut' } },
   exit: { opacity: 0, transition: { ease: 'easeOut' } }
 })
 
-const FadeRouter = props => {
+const FadeRouter: FC<Props> = props => {
   const location = useLocation()
 
   return (
