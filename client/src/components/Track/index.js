@@ -34,8 +34,10 @@ const GRID_COLUMNS = {
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: ${({ variant }) =>
-    GRID_COLUMNS[variant] || GRID_COLUMNS.default};
+  grid-template-columns: ${compose(
+    defaultTo('auto 1fr auto auto'),
+    prop('columns')
+  )};
   grid-column-gap: 1rem;
   align-items: center;
   border-radius: 2px;
@@ -83,24 +85,6 @@ const InlineExplicitBadge = styled(ExplicitBadge)`
 
 const renderVariant = (variant, track) => {
   switch (variant) {
-    case TRACK_VARIANTS.FULL:
-      return (
-        <>
-          <TrackName>{track.name}</TrackName>
-          <MoreIcon size="1.25rem" stroke="white" />
-          <TrackDuration duration={track.duration} />
-          <Info>
-            {track.explicit && <ExplicitBadge />}{' '}
-            <ItemLink to={`/artists/${track.artists[0].id}`}>
-              {track.artists[0].name}
-            </ItemLink>{' '}
-            &middot;{' '}
-            <ItemLink to={`/albums/${track.album.id}`}>
-              {track.album.name}
-            </ItemLink>
-          </Info>
-        </>
-      )
     case TRACK_VARIANTS.SIMPLE:
       return (
         <>
@@ -140,56 +124,32 @@ const renderVariant = (variant, track) => {
       )
 
     default:
-      throw new Error(`Track: ${variant} is not a valid variant`)
+      return null
   }
 }
 
-const Track = memo(({ track, variant, playContext }) => {
+const Track = memo(({ children, columns, track, variant, playContext }) => {
   const [hovered, setHovered] = useState(false)
-  const { currentTrack, pause, play, paused } = useSpotifyContext()
+  const { currentTrack } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
-  const iconProps = { size: '1.25rem', strokeWidth: 1 }
 
   return (
     <PlayTrackMutation>
       {({ playTrack }) => (
-        <Container
-          variant={variant}
-          onMouseOver={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          onDoubleClick={() => playTrack(track.uri, { context: playContext })}
-          isCurrent={isCurrent}
+        <TrackContext.Provider
+          value={{ track, hovered, playContext, playTrack }}
         >
-          {isCurrent && hovered && paused ? (
-            <PlayIcon
-              {...iconProps}
-              fill="white"
-              stroke="white"
-              cursor="pointer"
-              onClick={play}
-            />
-          ) : isCurrent && hovered && !paused ? (
-            <PauseIcon
-              {...iconProps}
-              fill="white"
-              stroke="white"
-              cursor="pointer"
-              onClick={pause}
-            />
-          ) : hovered ? (
-            <PlayIcon
-              {...iconProps}
-              fill="currentColor"
-              cursor="pointer"
-              onClick={() => playTrack(track.uri, { context: playContext })}
-            />
-          ) : isCurrent ? (
-            <SpeakerIcon stroke="green" {...iconProps} />
-          ) : (
-            <MusicIcon {...iconProps} />
-          )}
-          {renderVariant(variant, track)}
-        </Container>
+          <Container
+            columns={columns}
+            onMouseOver={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            onDoubleClick={() => playTrack(track.uri, { context: playContext })}
+            isCurrent={isCurrent}
+          >
+            {children}
+            {renderVariant(variant, track)}
+          </Container>
+        </TrackContext.Provider>
       )}
     </PlayTrackMutation>
   )
