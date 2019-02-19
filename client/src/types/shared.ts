@@ -1,4 +1,4 @@
-import { ComponentType, NamedExoticComponent } from 'react'
+import { FC } from 'react'
 import gql from 'graphql-tag'
 
 type GQLFragment = ReturnType<typeof gql>
@@ -7,7 +7,7 @@ interface FragmentDefinition {
   [key: string]: GQLFragment
 }
 
-type Component<Props> = ComponentType<Props> | NamedExoticComponent<Props>
+type Component<Props> = FC<Props>
 
 export type FragmentComponent<
   Props,
