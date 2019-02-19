@@ -1,7 +1,8 @@
 import React from 'react'
 import FeatherSVG from './FeatherSVG'
+import { IconComponent } from './types/IconComponent'
 
-const RepeatIcon = props => (
+const RepeatIcon: IconComponent = props => (
   <FeatherSVG {...props}>
     <title>repeat</title>
     <polyline points="17 1 21 5 17 9" />
