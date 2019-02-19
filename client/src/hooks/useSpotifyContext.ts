@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import SpotifyContext from 'components/SpotifyContext'
+import SpotifyContext from '../components/SpotifyContext'
 
 const useSpotifyContext = () => useContext(SpotifyContext)
 
