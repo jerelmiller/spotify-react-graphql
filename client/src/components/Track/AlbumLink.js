@@ -6,7 +6,7 @@ import { useTrackContext } from './Context'
 const AlbumLink = () => {
   const { track } = useTrackContext()
 
-  return <Link to={`/artists/${track.album.id}`}>{track.album.name}</Link>
+  return <Link to={`/albums/${track.album.id}`}>{track.album.name}</Link>
 }
 
 AlbumLink.fragments = {
