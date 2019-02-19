@@ -57,7 +57,7 @@ const Tracks = () => {
             {loading ||
               viewer.savedTracks.edges.map(({ node }, idx) => (
                 <TrackContainer key={node.id}>
-                  <Track track={node}>
+                  <Track track={node} columns="auto 1fr auto auto">
                     <Track.Name />
                     <Track.More />
                     <Track.Duration />
