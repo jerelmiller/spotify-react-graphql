@@ -1,5 +1,5 @@
 import React from 'react'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track from 'components/Track'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import useBackgroundColor from 'hooks/useBackgroundColor'
@@ -57,7 +57,7 @@ const Tracks = () => {
             {loading ||
               viewer.savedTracks.edges.map(({ node }, idx) => (
                 <TrackContainer key={node.id}>
-                  <Track track={node} variant={TRACK_VARIANTS.FULL}>
+                  <Track track={node}>
                     <Track.Name />
                     <Track.More />
                     <Track.Duration />
