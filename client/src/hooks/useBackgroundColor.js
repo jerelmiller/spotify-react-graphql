@@ -11,18 +11,15 @@ const useBackgroundColor = (color, { useGradient } = {}) => {
     usingGradient
   } = useContext(BackgroundColorContext)
 
-  useEffect(
-    () => {
-      color && setColor(color)
-      useGradient != null && setUsingGradient(useGradient)
+  useEffect(() => {
+    color && setColor(color)
+    useGradient != null && setUsingGradient(useGradient)
 
-      return () => {
-        setColor(DEFAULT_COLOR)
-        setUsingGradient(true)
-      }
-    },
-    [color, useGradient]
-  )
+    return () => {
+      setColor(DEFAULT_COLOR)
+      setUsingGradient(true)
+    }
+  }, [color, useGradient])
 
   return { color: currentColor, usingGradient }
 }

@@ -2,8 +2,8 @@ import { curry } from 'utils/fp'
 import { css } from 'styled-components'
 import { lighten as lighter } from 'polished'
 
-export const addUnits = curry(
-  (unit, value) => (typeof value === 'number' ? value + unit : value)
+export const addUnits = curry((unit, value) =>
+  typeof value === 'number' ? value + unit : value
 )
 
 export const color = curry((name, { theme }) => theme.colors[name])

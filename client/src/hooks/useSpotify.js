@@ -49,42 +49,36 @@ const useSpotify = token => {
 
   const isAllowed = action => Boolean(state) && !state.disallows[action]
 
-  useEffect(
-    () => {
-      window.onSpotifyWebPlaybackSDKReady = () => {
-        const player = new window.Spotify.Player({
-          name: 'React Spotify Player',
-          getOAuthToken: fn => fn(token)
-        })
-        setPlayer(player)
-      }
-      return () => {
-        window.onSpotifyWebPlaybackSDKReady = null
-      }
-    },
-    [token]
-  )
-  useEffect(
-    () => {
-      if (!player) {
-        return
-      }
-      player.addListener('initialization_error', setSpotifyError)
-      player.addListener('authentication_error', setSpotifyError)
-      player.addListener('account_error', setSpotifyError)
-      player.addListener('playback_error', setSpotifyError)
-      player.addListener('player_state_changed', setState)
-      player.addListener('ready', ({ device_id: deviceId }) =>
-        setDeviceId(deviceId)
-      )
-      player
-        .connect()
-        .then(() => player.getCurrentState())
-        .then(setState)
-      return () => player && player.disconnect()
-    },
-    [player]
-  )
+  useEffect(() => {
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const player = new window.Spotify.Player({
+        name: 'React Spotify Player',
+        getOAuthToken: fn => fn(token)
+      })
+      setPlayer(player)
+    }
+    return () => {
+      window.onSpotifyWebPlaybackSDKReady = null
+    }
+  }, [token])
+  useEffect(() => {
+    if (!player) {
+      return
+    }
+    player.addListener('initialization_error', setSpotifyError)
+    player.addListener('authentication_error', setSpotifyError)
+    player.addListener('account_error', setSpotifyError)
+    player.addListener('playback_error', setSpotifyError)
+    player.addListener('player_state_changed', setState)
+    player.addListener('ready', ({ device_id: deviceId }) =>
+      setDeviceId(deviceId)
+    )
+    player
+      .connect()
+      .then(() => player.getCurrentState())
+      .then(setState)
+    return () => player && player.disconnect()
+  }, [player])
   useScript('https://sdk.scdn.co/spotify-player.js')
 
   useTimer(
@@ -99,23 +93,17 @@ const useSpotify = token => {
     [timestamp, state && state.position]
   )
 
-  useEffect(
-    () => {
-      if (state && state.position != null) {
-        setCurrentTime(state.position)
-      }
-    },
-    [state && state.position]
-  )
+  useEffect(() => {
+    if (state && state.position != null) {
+      setCurrentTime(state.position)
+    }
+  }, [state && state.position])
 
-  useEffect(
-    () => {
-      if (state && state.timestamp) {
-        setTimestamp(state.timestamp)
-      }
-    },
-    [state && state.timestamp]
-  )
+  useEffect(() => {
+    if (state && state.timestamp) {
+      setTimestamp(state.timestamp)
+    }
+  }, [state && state.timestamp])
 
   return {
     deviceId,
