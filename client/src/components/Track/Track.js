@@ -103,33 +103,7 @@ Track.fragments = {
   track: gql`
     fragment Track_track on Track {
       id
-      name
-      duration
-      explicit
       uri
-      __typename
-
-      artists {
-        id
-        name
-      }
-
-      ... on SavedTrack {
-        album {
-          id
-          name
-        }
-      }
-
-      ... on FullTrack {
-        album {
-          id
-          name
-          images {
-            url
-          }
-        }
-      }
     }
   `
 }
