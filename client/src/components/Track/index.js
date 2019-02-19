@@ -85,14 +85,6 @@ const InlineExplicitBadge = styled(ExplicitBadge)`
 
 const renderVariant = (variant, track) => {
   switch (variant) {
-    case TRACK_VARIANTS.SIMPLE:
-      return (
-        <>
-          <TrackName>{track.name}</TrackName>
-          <MoreIcon size="1.25rem" stroke="white" />
-          <TrackDuration duration={track.duration} />
-        </>
-      )
     case TRACK_VARIANTS.POPULAR:
       const { album } = track
       const { url } = album.images[1]
@@ -108,21 +100,6 @@ const renderVariant = (variant, track) => {
           <TrackDuration duration={track.duration} />
         </>
       )
-    case TRACK_VARIANTS.VARIOUS_ARTIST:
-      return (
-        <>
-          <TrackName>{track.name}</TrackName>
-          <MoreIcon size="1.25rem" />
-          <TrackDuration duration={track.duration} />
-          <Info>
-            {track.explicit && <ExplicitBadge />}{' '}
-            <ItemLink to={`/artists/${track.artists[0].id}`}>
-              {track.artists[0].name}
-            </ItemLink>{' '}
-          </Info>
-        </>
-      )
-
     default:
       return null
   }
