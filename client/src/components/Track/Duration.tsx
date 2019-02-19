@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { textColor } from '../../styles/utils'
 import { useTrackContext } from './Context'
 import { TrackDuration_track } from './types/TrackDuration_track'
-import { FragmentComponent } from '../../types/shared'
+import { FragmentComponent, GQLFragment } from '../../types/shared'
 
 interface Props {}
 
@@ -17,7 +17,7 @@ const StyledDuration = styled(Duration)`
   font-size: 0.9rem;
 `
 
-const TrackDuration: FragmentComponent<Props> = () => {
+const TrackDuration: FragmentComponent<Props, { track: GQLFragment }> = () => {
   const { track }: { track: TrackDuration_track } = useTrackContext()
 
   return <StyledDuration duration={track.duration} />

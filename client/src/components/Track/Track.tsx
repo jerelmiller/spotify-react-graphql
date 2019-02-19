@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import useSpotifyContext from '../../hooks/useSpotifyContext'
 import { textColor } from '../../styles/utils'
 import { prop } from '../../utils/fp'
-import { FragmentComponent } from '../../types/shared'
+import { FragmentComponent, GQLFragment } from '../../types/shared'
 
 import AlbumLink from './AlbumLink'
 import ArtistLink from './ArtistLink'
@@ -32,7 +32,10 @@ interface Props {
   playContext?: string
 }
 
-type TrackComponent<Props> = FragmentComponent<Props> & {
+type TrackComponent<Props> = FragmentComponent<
+  Props,
+  { track: GQLFragment }
+> & {
   AlbumLink?: typeof AlbumLink
   ArtistLink?: typeof ArtistLink
   Details?: typeof Details
