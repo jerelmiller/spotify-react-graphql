@@ -3,6 +3,13 @@ import AlbumTile from './AlbumTile'
 import gql from 'graphql-tag'
 import TileGrid from './TileGrid'
 import styled from 'styled-components'
+import { FragmentComponent } from '../types/shared'
+import { AlbumGroup_album } from './types/AlbumGroup_album'
+
+interface Props {
+  title: string
+  albums: [AlbumGroup_album]
+}
 
 const Container = styled.div`
   &:not(:last-child) {
@@ -14,7 +21,7 @@ const Title = styled.h1`
   margin-bottom: 1rem;
 `
 
-const AlbumGroup = ({ title, albums }) => (
+const AlbumGroup: FragmentComponent<Props> = ({ title, albums }) => (
   <Container>
     <Title>{title}</Title>
     <TileGrid fill={false} minWidth="175px">
