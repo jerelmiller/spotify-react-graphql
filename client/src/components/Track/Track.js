@@ -35,7 +35,7 @@ const Container = styled.div`
   }
 `
 
-const Track = memo(({ children, columns, track, variant, playContext }) => {
+const Track = memo(({ children, columns, track, playContext }) => {
   const [hovered, setHovered] = useState(false)
   const { currentTrack, pause, paused, play } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
