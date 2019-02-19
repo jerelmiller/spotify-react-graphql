@@ -11,7 +11,7 @@ type Component<Props> = FC<Props>
 
 export type FragmentComponent<
   Props,
-  Fragments extends FragmentDefinition = {}
+  Fragments extends FragmentDefinition
 > = Component<Props> & {
   fragments?: Fragments
 }
