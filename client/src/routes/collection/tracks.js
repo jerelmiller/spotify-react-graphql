@@ -29,6 +29,12 @@ const Tracks = () => {
                   id
 
                   ...Track_track
+                  ...TrackAlbumLink_track
+                  ...TrackArtistLink_track
+                  ...TrackDuration_track
+                  ...TrackExplicitBadge_track
+                  ...TrackIcon_track
+                  ...TrackName_track
                 }
               }
             }
@@ -36,6 +42,12 @@ const Tracks = () => {
         }
 
         ${Track.fragments.track}
+        ${Track.AlbumLink.fragments.track}
+        ${Track.ArtistLink.fragments.track}
+        ${Track.Duration.fragments.track}
+        ${Track.ExplicitBadge.fragments.track}
+        ${Track.Icon.fragments.track}
+        ${Track.Name.fragments.track}
       `}
       variables={{ limit: 50, offset: 0 }}
       fetchPolicy="network-only"
@@ -47,7 +59,16 @@ const Tracks = () => {
             {loading ||
               viewer.savedTracks.edges.map(({ node }, idx) => (
                 <TrackContainer key={node.id}>
-                  <Track track={node} variant={TRACK_VARIANTS.FULL} />
+                  <Track track={node} variant={TRACK_VARIANTS.FULL}>
+                    <Track.Icon />
+                    <Track.Name />
+                    <Track.More />
+                    <Track.Duration />
+                    <Track.Details>
+                      <Track.ExplicitBadge /> <Track.ArtistLink /> &middot;{' '}
+                      <Track.AlbumLink />
+                    </Track.Details>
+                  </Track>
                 </TrackContainer>
               ))}
           </PoseGroup>
