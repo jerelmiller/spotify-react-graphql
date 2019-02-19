@@ -113,7 +113,12 @@ const Playlist = ({ playlistId }) => (
           </Info>
           <div>
             {playlist.tracks.edges.map(({ node }) => (
-              <Track key={node.id} track={node} playContext={playlist.uri}>
+              <Track
+                key={node.id}
+                columns="auto 1fr auto auto"
+                track={node}
+                playContext={playlist.uri}
+              >
                 <Track.Name />
                 <Track.More />
                 <Track.Duration />

@@ -124,7 +124,12 @@ const Album = ({ albumId }) => (
             </Info>
             <div>
               {album.tracks.edges.map(({ node }) => (
-                <Track key={node.id} track={node} playContext={album.uri}>
+                <Track
+                  key={node.id}
+                  columns="auto 1fr auto auto"
+                  track={node}
+                  playContext={album.uri}
+                >
                   <Track.Name />
                   <Track.More />
                   <Track.Duration />

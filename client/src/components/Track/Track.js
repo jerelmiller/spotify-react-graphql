@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import useSpotifyContext from 'hooks/useSpotifyContext'
 import { textColor } from 'styles/utils'
-import { compose, defaultTo, prop } from 'utils/fp'
+import { prop } from 'utils/fp'
 
 import AlbumLink from './AlbumLink'
 import ArtistLink from './ArtistLink'
@@ -22,10 +22,7 @@ import TrackContext from './Context'
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: ${compose(
-    defaultTo('auto 1fr auto auto'),
-    prop('columns')
-  )};
+  grid-template-columns: ${prop('columns')};
   grid-column-gap: 1rem;
   align-items: center;
   border-radius: 2px;
