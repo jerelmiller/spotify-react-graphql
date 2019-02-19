@@ -1,14 +1,17 @@
 import React from 'react'
-import LazyImage from 'components/LazyImage'
+import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { FragmentComponent, GQLFragment } from '../types/shared'
 
 const Container = styled.div`
   text-align: center;
 `
 
-const CategoryTile = ({ category }) => {
+const CategoryTile: FragmentComponent<Props, { category: GQLFragment }> = ({
+  category
+}) => {
   const icon = category.icons[0]
   const href = `/genres/${category.id}`
 
