@@ -1,15 +1,23 @@
 import React from 'react'
 import gql from 'graphql-tag'
-import LazyImage from 'components/LazyImage'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
+import LazyImage from './LazyImage'
+import PlaceholderPhoto from './PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
+import { FragmentComponent, GQLFragment } from '../types/shared'
+import { PlaylistTile_playlist } from './types/PlaylistTile_playlist'
+
+interface Props {
+  playlist: PlaylistTile_playlist
+}
 
 const Container = styled.div`
   text-align: center;
 `
 
-const PlaylistTile = ({ playlist }) => {
+const PlaylistTile: FragmentComponent<Props, { playlist: GQLFragment }> = ({
+  playlist
+}) => {
   const photo = playlist.images[0]
   const href = `/playlists/${playlist.id}`
 
