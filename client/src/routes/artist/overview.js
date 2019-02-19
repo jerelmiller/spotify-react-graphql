@@ -2,7 +2,7 @@ import React from 'react'
 import AlbumGroup from 'components/AlbumGroup'
 import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track from 'components/Track'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
 
@@ -75,7 +75,6 @@ const Overview = ({ artistId }) => (
                   <Track
                     key={track.id}
                     track={track}
-                    variant={TRACK_VARIANTS.POPULAR}
                     playContext={artist.uri}
                     columns="auto auto 1fr auto auto"
                   >

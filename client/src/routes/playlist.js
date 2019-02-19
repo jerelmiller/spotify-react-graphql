@@ -4,7 +4,7 @@ import LazyImage from 'components/LazyImage'
 import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -113,12 +113,7 @@ const Playlist = ({ playlistId }) => (
           </Info>
           <div>
             {playlist.tracks.edges.map(({ node }) => (
-              <Track
-                key={node.id}
-                track={node}
-                variant={TRACK_VARIANTS.FULL}
-                playContext={playlist.uri}
-              >
+              <Track key={node.id} track={node} playContext={playlist.uri}>
                 <Track.Name />
                 <Track.More />
                 <Track.Duration />

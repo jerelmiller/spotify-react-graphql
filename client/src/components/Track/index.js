@@ -1,11 +1,7 @@
 import React, { useState, memo } from 'react'
-import FlexContainer from '../FlexContainer'
-import LazyImage from '../LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import MoreIcon from '../MoreIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
-import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import { compose, defaultTo, prop } from 'utils/fp'
 
@@ -24,18 +20,6 @@ import PlayTrackMutation from '../PlayTrackMutation'
 import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
 
-export const TRACK_VARIANTS = {
-  FULL: 'full',
-  POPULAR: 'popular',
-  SIMPLE: 'simple',
-  VARIOUS_ARTIST: 'various'
-}
-
-const GRID_COLUMNS = {
-  [TRACK_VARIANTS.POPULAR]: 'auto auto 1fr auto auto',
-  default: 'auto 1fr auto auto'
-}
-
 const Container = styled.div`
   display: grid;
   grid-template-columns: ${compose(
@@ -53,61 +37,6 @@ const Container = styled.div`
     background: rgba(0, 0, 0, 0.3);
   }
 `
-
-const TrackName = styled.span`
-  font-weight: 300;
-`
-
-const TrackDuration = styled(Duration)`
-  font-weight: 300;
-  width: 3rem;
-  text-align: right;
-  color: ${textColor('muted')};
-  font-size: 0.9rem;
-`
-
-const Info = styled.div`
-  grid-column: 2 / -1;
-  color: ${textColor('muted')};
-`
-
-const ItemLink = styled(Link)`
-  border-bottom: 1px solid transparent;
-  transition: all 0.2s ease-in-out;
-  font-size: 0.85rem;
-  font-weight: 300;
-
-  &:hover {
-    color: #fff;
-    border-bottom-color: #fff;
-  }
-`
-
-const InlineExplicitBadge = styled(ExplicitBadge)`
-  align-self: flex-start;
-`
-
-const renderVariant = (variant, track) => {
-  switch (variant) {
-    case TRACK_VARIANTS.POPULAR:
-      const { album } = track
-      const { url } = album.images[1]
-
-      return (
-        <>
-          <LazyImage src={url} width="50px" height="50px" />
-          <FlexContainer direction="column">
-            <TrackName>{track.name}</TrackName>
-            {track.explicit && <InlineExplicitBadge />}
-          </FlexContainer>
-          <MoreIcon size="1.25rem" stroke="white" />
-          <TrackDuration duration={track.duration} />
-        </>
-      )
-    default:
-      return null
-  }
-}
 
 const Track = memo(({ children, columns, track, variant, playContext }) => {
   const [hovered, setHovered] = useState(false)
@@ -157,7 +86,6 @@ const Track = memo(({ children, columns, track, variant, playContext }) => {
               <MusicIcon {...iconProps} />
             )}
             {children}
-            {renderVariant(variant, track)}
           </Container>
         </TrackContext.Provider>
       )}

@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
 import PlaceholderPhoto from 'components/PlaceholderPhoto'
-import Track, { TRACK_VARIANTS } from 'components/Track'
+import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
@@ -124,16 +124,7 @@ const Album = ({ albumId }) => (
             </Info>
             <div>
               {album.tracks.edges.map(({ node }) => (
-                <Track
-                  key={node.id}
-                  track={node}
-                  playContext={album.uri}
-                  variant={
-                    album.type === 'COMPILATION'
-                      ? TRACK_VARIANTS.VARIOUS_ARTIST
-                      : TRACK_VARIANTS.SIMPLE
-                  }
-                >
+                <Track key={node.id} track={node} playContext={album.uri}>
                   <Track.Name />
                   <Track.More />
                   <Track.Duration />
