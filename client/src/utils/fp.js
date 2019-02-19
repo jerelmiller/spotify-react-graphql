@@ -13,9 +13,8 @@ export const curry = fn => {
 export const compose = (...fns) =>
   fns.reduce((f, g) => (...args) => f(g(...args)))
 
-export const branch = curry(
-  (predicate, ifTrue, ifFalse, obj) =>
-    predicate(obj) ? ifTrue(obj) : ifFalse()
+export const branch = curry((predicate, ifTrue, ifFalse, obj) =>
+  predicate(obj) ? ifTrue(obj) : ifFalse()
 )
 
 export const defaultTo = curry((def, obj) => (obj == null ? def : obj))
