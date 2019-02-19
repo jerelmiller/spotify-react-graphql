@@ -1,19 +1,24 @@
 import React, { useState, memo } from 'react'
-import Duration from './Duration'
-import FlexContainer from './FlexContainer'
-import LazyImage from './LazyImage'
-import PlayIcon from './PlayIcon'
-import PlayTrackMutation from './PlayTrackMutation'
+import FlexContainer from '../FlexContainer'
+import LazyImage from '../LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import MusicIcon from './MusicIcon'
-import MoreIcon from './MoreIcon'
-import ExplicitBadge from './ExplicitBadge'
+import MoreIcon from '../MoreIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
-import PauseIcon from './PauseIcon'
-import SpeakerIcon from './SpeakerIcon'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
+import { compose, defaultTo, prop } from 'utils/fp'
+
+import AlbumLink from './AlbumLink'
+import ArtistLink from './ArtistLink'
+import Details from './Details'
+import Duration from './Duration'
+import ExplicitBadge from './ExplicitBadge'
+import Icon from './Icon'
+import More from './More'
+import Name from './Name'
+import PlayTrackMutation from '../PlayTrackMutation'
+import TrackContext from './Context'
 
 export const TRACK_VARIANTS = {
   FULL: 'full',
@@ -189,6 +194,15 @@ const Track = memo(({ track, variant, playContext }) => {
     </PlayTrackMutation>
   )
 })
+
+Track.AlbumLink = AlbumLink
+Track.ArtistLink = ArtistLink
+Track.Details = Details
+Track.Duration = Duration
+Track.ExplicitBadge = ExplicitBadge
+Track.Icon = Icon
+Track.Name = Name
+Track.More = More
 
 Track.fragments = {
   track: gql`
