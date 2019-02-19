@@ -12,7 +12,8 @@ const useSession = () => {
   const { storeState: state, store } = useContext(ReactReduxContext)
 
   return {
-    authenticate: (...args) => store.dispatch(authenticate(...args)),
+    authenticate: <Data = any>(name: string, data: Data) =>
+      store.dispatch(authenticate(name, data)),
     isAuthenticated: getIsAuthenticated(state),
     isRestored: getIsRestored(state),
     invalidateSession: () => store.dispatch(invalidateSession()),
