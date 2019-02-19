@@ -3,11 +3,16 @@ import gql from 'graphql-tag'
 import Link from './Link'
 import { useTrackContext } from './Context'
 import { FragmentComponent } from '../../types/shared'
+import { TrackAlbumLink_track } from './types/TrackAlbumLink_track'
 
 interface Props {}
 
 const AlbumLink: FragmentComponent<Props> = () => {
-  const { track } = useTrackContext()
+  const { track }: { track: TrackAlbumLink_track } = useTrackContext()
+
+  if (track === null || track.__typename === 'SimpleTrack') {
+    return null
+  }
 
   return <Link to={`/albums/${track.album.id}`}>{track.album.name}</Link>
 }
