@@ -3,7 +3,7 @@ import AlbumTile from './AlbumTile'
 import gql from 'graphql-tag'
 import TileGrid from './TileGrid'
 import styled from 'styled-components'
-import { FragmentComponent } from '../types/shared'
+import { FragmentComponent, GQLFragment } from '../types/shared'
 import { AlbumGroup_album } from './types/AlbumGroup_album'
 
 interface Props {
@@ -21,7 +21,10 @@ const Title = styled.h1`
   margin-bottom: 1rem;
 `
 
-const AlbumGroup: FragmentComponent<Props> = ({ title, albums }) => (
+const AlbumGroup: FragmentComponent<Props, { album: GQLFragment }> = ({
+  title,
+  albums
+}) => (
   <Container>
     <Title>{title}</Title>
     <TileGrid fill={false} minWidth="175px">
@@ -39,7 +42,7 @@ AlbumGroup.fragments = {
       ...Album_album
     }
 
-    ${AlbumTile.fragments.album}
+    ${AlbumTile.fragments!.album}
   `
 }
 
