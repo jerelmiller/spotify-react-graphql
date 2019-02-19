@@ -71,11 +71,12 @@ const Track: TrackComponent<Props> = memo(
         {({
           playTrack
         }: {
-          playTrack: (uri: string, options: { context?: string }) => void
+          playTrack: (
+            uri: string,
+            options: { context?: string }
+          ) => Promise<any>
         }) => (
-          <TrackContext.Provider
-            value={{ track, hovered, playContext, playTrack }}
-          >
+          <TrackContext.Provider value={{ track, hovered, playTrack }}>
             <Container
               columns={columns}
               onMouseOver={() => setHovered(true)}
