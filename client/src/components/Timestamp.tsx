@@ -1,6 +1,11 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-const Timestamp = ({ className, milliseconds }) => {
+interface Props {
+  className?: string
+  milliseconds: number
+}
+
+const Timestamp: FC<Props> = ({ className, milliseconds }) => {
   const seconds = Math.floor((milliseconds / 1000) % 60)
   const minutes = Math.floor((milliseconds / 1000 / 60) % 60)
   const hours = Math.floor(milliseconds / 1000 / 60 / 60)
