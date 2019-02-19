@@ -1,5 +1,6 @@
 import React from 'react'
 import AlbumGroup from 'components/AlbumGroup'
+import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
 import Track, { TRACK_VARIANTS } from 'components/Track'
 import styled from 'styled-components'
@@ -16,6 +17,10 @@ const groupAlbumsByType = ({ edges }) =>
 
 const TopTracksContainer = styled.div`
   margin-bottom: 2rem;
+`
+
+const InlineExplicitBadge = styled(Track.ExplicitBadge)`
+  align-self: flex-start;
 `
 
 const Overview = ({ artistId }) => (
@@ -40,11 +45,19 @@ const Overview = ({ artistId }) => (
             id
 
             ...Track_track
+            ...TrackDuration_track
+            ...TrackExplicitBadge_track
+            ...TrackImage_track
+            ...TrackName_track
           }
         }
       }
 
       ${Track.fragments.track}
+      ${Track.Duration.fragments.track}
+      ${Track.ExplicitBadge.fragments.track}
+      ${Track.Image.fragments.track}
+      ${Track.Name.fragments.track}
       ${AlbumGroup.fragments.album}
     `}
     variables={{ artistId, limit: 5 }}
@@ -64,7 +77,16 @@ const Overview = ({ artistId }) => (
                     track={track}
                     variant={TRACK_VARIANTS.POPULAR}
                     playContext={artist.uri}
-                  />
+                    columns="auto auto 1fr auto auto"
+                  >
+                    <Track.Image size="50px" />
+                    <FlexContainer direction="column">
+                      <Track.Name />
+                      <InlineExplicitBadge />
+                    </FlexContainer>
+                    <Track.More />
+                    <Track.Duration />
+                  </Track>
                 ))}
               </TopTracksContainer>
               {albumsByType.ALBUM && (
