@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { FC } from 'react'
 import MusicIcon from './MusicIcon'
 import styled from 'styled-components'
-import { prop } from 'utils/fp'
+import { prop } from '../utils/fp'
 
-const Container = styled.div`
+interface Props {
+  marginBottom?: ContainerProps['marginBottom']
+}
+
+interface ContainerProps {
+  marginBottom?: string
+}
+
+const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,7 +27,7 @@ const Container = styled.div`
   }
 `
 
-const PlaceholderPhoto = ({ marginBottom }) => (
+const PlaceholderPhoto: FC<Props> = ({ marginBottom }) => (
   <Container marginBottom={marginBottom}>
     <MusicIcon size="30%" />
   </Container>
