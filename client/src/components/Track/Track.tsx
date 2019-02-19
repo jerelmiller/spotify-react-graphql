@@ -29,7 +29,7 @@ interface ContainerProps {
 interface Props {
   columns: string
   track: any
-  playContext?: any
+  playContext?: string
 }
 
 type TrackComponent<Props> = FragmentComponent<Props> & {
