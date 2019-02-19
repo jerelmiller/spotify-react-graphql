@@ -127,7 +127,17 @@ const Album = ({ albumId }) => (
                       ? TRACK_VARIANTS.VARIOUS_ARTIST
                       : TRACK_VARIANTS.SIMPLE
                   }
-                />
+                >
+                  <Track.Icon />
+                  <Track.Name />
+                  <Track.More />
+                  <Track.Duration />
+                  {album.type === 'COMPILATION' && (
+                    <Track.Details>
+                      <Track.ExplicitBadge /> <Track.ArtistLink />
+                    </Track.Details>
+                  )}
+                </Track>
               ))}
             </div>
           </Container>
