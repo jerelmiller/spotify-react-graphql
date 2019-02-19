@@ -14,6 +14,7 @@ import ArtistLink from './ArtistLink'
 import Details from './Details'
 import Duration from './Duration'
 import ExplicitBadge from './ExplicitBadge'
+import Image from './Image'
 import More from './More'
 import MusicIcon from '../MusicIcon'
 import Name from './Name'
@@ -169,6 +170,7 @@ Track.ArtistLink = ArtistLink
 Track.Details = Details
 Track.Duration = Duration
 Track.ExplicitBadge = ExplicitBadge
+Track.Image = Image
 Track.Name = Name
 Track.More = More
 
