@@ -11,7 +11,7 @@ const Image = ({ size }) => {
 }
 
 Image.fragments = {
-  album: gql`
+  track: gql`
     fragment TrackImage_track on Track {
       ... on FullTrack {
         album {
