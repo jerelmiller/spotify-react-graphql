@@ -20,6 +20,7 @@ import PlayIcon from '../PlayIcon'
 import PlayTrackMutation from '../PlayTrackMutation'
 import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
+import { Track_track } from './types/Track_track'
 
 interface ContainerProps {
   columns: string
@@ -28,7 +29,7 @@ interface ContainerProps {
 
 interface Props {
   columns: string
-  track: any
+  track: Track_track
   playContext?: any
 }
 
@@ -80,7 +81,7 @@ const Track: TrackComponent<Props> = memo(
               onMouseOver={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
               onDoubleClick={() =>
-                playTrack(track.uri, { context: playContext })
+                track.uri && playTrack(track.uri, { context: playContext })
               }
               isCurrent={isCurrent}
             >
@@ -105,7 +106,9 @@ const Track: TrackComponent<Props> = memo(
                   {...iconProps}
                   fill="currentColor"
                   cursor="pointer"
-                  onClick={() => playTrack(track.uri, { context: playContext })}
+                  onClick={() =>
+                    track.uri && playTrack(track.uri, { context: playContext })
+                  }
                 />
               ) : isCurrent ? (
                 <SpeakerIcon stroke="green" {...iconProps} />
