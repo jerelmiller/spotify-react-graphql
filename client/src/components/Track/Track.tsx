@@ -20,7 +20,6 @@ import PlayIcon from '../PlayIcon'
 import PlayTrackMutation from '../PlayTrackMutation'
 import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
-import { Track_track } from './types/Track_track'
 
 interface ContainerProps {
   columns: string
@@ -29,7 +28,7 @@ interface ContainerProps {
 
 interface Props {
   columns: string
-  track: Track_track
+  track: any
   playContext?: any
 }
 

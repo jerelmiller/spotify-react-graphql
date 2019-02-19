@@ -7,7 +7,7 @@ interface PlayTrackOptions {
 
 interface Context {
   hovered: boolean
-  track: Track_track | null
+  track: any
   playTrack(uri: string, options: PlayTrackOptions): Promise<any>
 }
 
