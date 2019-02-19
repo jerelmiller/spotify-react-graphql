@@ -1,11 +1,13 @@
 import styled from 'styled-components'
 import { ifElse, compose, defaultTo, prop, value } from '../utils/fp'
 import { color } from '../styles/utils'
+import { CSSProperties, HTMLAttributes } from 'react'
 
-export interface Props {
-  fill?: string
-  stroke?: string
-  strokeWidth?: number
+export interface Props extends HTMLAttributes<SVGElement> {
+  cursor?: CSSProperties['cursor']
+  fill?: CSSProperties['fill']
+  stroke?: CSSProperties['stroke']
+  strokeWidth?: CSSProperties['strokeWidth']
   size?: string
 }
 
