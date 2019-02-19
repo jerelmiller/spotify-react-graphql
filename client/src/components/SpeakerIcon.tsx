@@ -1,7 +1,8 @@
 import React from 'react'
 import FeatherSVG from './FeatherSVG'
+import { IconComponent } from './types/IconComponent'
 
-const SpeakerIcon = props => (
+const SpeakerIcon: IconComponent = props => (
   <FeatherSVG {...props}>
     <title>speaker</title>
     <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />

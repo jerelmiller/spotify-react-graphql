@@ -1,7 +1,8 @@
 import React from 'react'
 import FeatherSVG from './FeatherSVG'
+import { IconComponent } from './types/IconComponent'
 
-const PrevTrackIcon = props => (
+const PrevTrackIcon: IconComponent = props => (
   <FeatherSVG {...props}>
     <title>prev-track</title>
     <polygon points="19 20 9 12 19 4 19 20" />
