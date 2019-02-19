@@ -67,14 +67,7 @@ const Track: TrackComponent<Props> = memo(
 
     return (
       <PlayTrackMutation>
-        {({
-          playTrack
-        }: {
-          playTrack: (
-            uri: string,
-            options: { context?: string }
-          ) => Promise<any>
-        }) => (
+        {({ playTrack }) => (
           <TrackContext.Provider value={{ track, hovered, playTrack }}>
             <Container
               columns={columns}
