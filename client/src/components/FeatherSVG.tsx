@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { ifElse, compose, defaultTo, prop, value } from '../utils/fp'
 import { color } from '../styles/utils'
 
-interface Props {
+export interface Props {
   fill?: string
   stroke?: string
   strokeWidth?: number
