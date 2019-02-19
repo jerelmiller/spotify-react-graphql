@@ -66,6 +66,11 @@ const Playlist = ({ playlistId }) => (
               node {
                 id
                 ...Track_track
+                ...TrackAlbumLink_track
+                ...TrackArtistLink_track
+                ...TrackDuration_track
+                ...TrackExplicitBadge_track
+                ...TrackName_track
               }
             }
             pageInfo {
@@ -76,6 +81,11 @@ const Playlist = ({ playlistId }) => (
       }
 
       ${Track.fragments.track}
+      ${Track.AlbumLink.fragments.track}
+      ${Track.ArtistLink.fragments.track}
+      ${Track.Duration.fragments.track}
+      ${Track.ExplicitBadge.fragments.track}
+      ${Track.Name.fragments.track}
     `}
     variables={{ playlistId }}
   >
@@ -108,7 +118,15 @@ const Playlist = ({ playlistId }) => (
                 track={node}
                 variant={TRACK_VARIANTS.FULL}
                 playContext={playlist.uri}
-              />
+              >
+                <Track.Name />
+                <Track.More />
+                <Track.Duration />
+                <Track.Details>
+                  <Track.ExplicitBadge /> <Track.ArtistLink /> &middot;{' '}
+                  <Track.AlbumLink />
+                </Track.Details>
+              </Track>
             ))}
           </div>
         </Container>
