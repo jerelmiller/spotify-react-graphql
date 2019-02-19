@@ -23,7 +23,10 @@ declare module 'redux-simple-auth' {
   export function getIsRestored(state: Object): boolean
   export function getSessionData(state: Object): any
   export function invalidateSession(): Redux.AnyAction
-  export function authenticate(name: string, data: object): Redux.AnyAction
+  export function authenticate<Data = any>(
+    name: string,
+    data: Data
+  ): Redux.AnyAction
   export function createAuthMiddleware<Data>(
     options: MiddlewareOptions<Data>
   ): Redux.Middleware
@@ -31,4 +34,9 @@ declare module 'redux-simple-auth' {
   export function createAuthenticator<Data>(
     options: AuthenticatorOptions<Data>
   ): Authenticator
+
+  export function reducer<State = any>(
+    state: State,
+    action: Redux.AnyAction
+  ): Redux.Reducer<State>
 }
