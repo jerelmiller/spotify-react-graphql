@@ -15,6 +15,7 @@ const FeatherSVG = styled.svg.attrs({
   viewBox: '0 0 24 24',
   xmlns: 'http://www.w3.org/2000/svg'
 })<Props>`
+  cursor: ${prop('cursor')};
   fill: ${ifElse(
     prop('fill'),
     compose(
