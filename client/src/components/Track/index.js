@@ -14,10 +14,13 @@ import ArtistLink from './ArtistLink'
 import Details from './Details'
 import Duration from './Duration'
 import ExplicitBadge from './ExplicitBadge'
-import Icon from './Icon'
 import More from './More'
+import MusicIcon from '../MusicIcon'
 import Name from './Name'
+import PauseIcon from '../PauseIcon'
+import PlayIcon from '../PlayIcon'
 import PlayTrackMutation from '../PlayTrackMutation'
+import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
 
 export const TRACK_VARIANTS = {
@@ -107,8 +110,9 @@ const renderVariant = (variant, track) => {
 
 const Track = memo(({ children, columns, track, variant, playContext }) => {
   const [hovered, setHovered] = useState(false)
-  const { currentTrack } = useSpotifyContext()
+  const { currentTrack, pause, paused, play } = useSpotifyContext()
   const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
+  const iconProps = { size: '1.25rem', strokeWidth: 1 }
 
   return (
     <PlayTrackMutation>
@@ -123,6 +127,34 @@ const Track = memo(({ children, columns, track, variant, playContext }) => {
             onDoubleClick={() => playTrack(track.uri, { context: playContext })}
             isCurrent={isCurrent}
           >
+            {isCurrent && hovered && paused ? (
+              <PlayIcon
+                {...iconProps}
+                fill="white"
+                stroke="white"
+                cursor="pointer"
+                onClick={play}
+              />
+            ) : isCurrent && hovered && !paused ? (
+              <PauseIcon
+                {...iconProps}
+                fill="white"
+                stroke="white"
+                cursor="pointer"
+                onClick={pause}
+              />
+            ) : hovered ? (
+              <PlayIcon
+                {...iconProps}
+                fill="currentColor"
+                cursor="pointer"
+                onClick={() => playTrack(track.uri, { context: playContext })}
+              />
+            ) : isCurrent ? (
+              <SpeakerIcon stroke="green" {...iconProps} />
+            ) : (
+              <MusicIcon {...iconProps} />
+            )}
             {children}
             {renderVariant(variant, track)}
           </Container>
@@ -137,7 +169,6 @@ Track.ArtistLink = ArtistLink
 Track.Details = Details
 Track.Duration = Duration
 Track.ExplicitBadge = ExplicitBadge
-Track.Icon = Icon
 Track.Name = Name
 Track.More = More
 

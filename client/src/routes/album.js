@@ -76,6 +76,9 @@ const Album = ({ albumId }) => (
               node {
                 id
                 ...Track_track
+                ...TrackArtistLink_track
+                ...TrackDuration_track
+                ...TrackName_track
               }
             }
             pageInfo {
@@ -86,6 +89,9 @@ const Album = ({ albumId }) => (
       }
 
       ${Track.fragments.track}
+      ${Track.ArtistLink.fragments.track}
+      ${Track.Duration.fragments.track}
+      ${Track.Name.fragments.track}
       ${ReleaseYear.fragments.releaseDate}
     `}
     variables={{ albumId }}
@@ -128,7 +134,6 @@ const Album = ({ albumId }) => (
                       : TRACK_VARIANTS.SIMPLE
                   }
                 >
-                  <Track.Icon />
                   <Track.Name />
                   <Track.More />
                   <Track.Duration />

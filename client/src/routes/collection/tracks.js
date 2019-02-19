@@ -33,7 +33,6 @@ const Tracks = () => {
                   ...TrackArtistLink_track
                   ...TrackDuration_track
                   ...TrackExplicitBadge_track
-                  ...TrackIcon_track
                   ...TrackName_track
                 }
               }
@@ -46,7 +45,6 @@ const Tracks = () => {
         ${Track.ArtistLink.fragments.track}
         ${Track.Duration.fragments.track}
         ${Track.ExplicitBadge.fragments.track}
-        ${Track.Icon.fragments.track}
         ${Track.Name.fragments.track}
       `}
       variables={{ limit: 50, offset: 0 }}
@@ -60,7 +58,6 @@ const Tracks = () => {
               viewer.savedTracks.edges.map(({ node }, idx) => (
                 <TrackContainer key={node.id}>
                   <Track track={node} variant={TRACK_VARIANTS.FULL}>
-                    <Track.Icon />
                     <Track.Name />
                     <Track.More />
                     <Track.Duration />
