@@ -2,8 +2,13 @@ import React from 'react'
 import gql from 'graphql-tag'
 import LazyImage from '../LazyImage'
 import { useTrackContext } from './Context'
+import { FragmentComponent } from '../../types/shared'
 
-const Image = ({ size }) => {
+interface Props {
+  size: string
+}
+
+const Image: FragmentComponent<Props> = ({ size }) => {
   const { track } = useTrackContext()
   const album = track.album.images[1]
 

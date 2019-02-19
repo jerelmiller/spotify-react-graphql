@@ -10,7 +10,7 @@ interface Props {}
 const AlbumLink: FragmentComponent<Props> = () => {
   const { track }: { track: TrackAlbumLink_track } = useTrackContext()
 
-  if (track === null || track.__typename === 'SimpleTrack') {
+  if (track.__typename === 'SimpleTrack') {
     return null
   }
 
