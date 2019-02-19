@@ -1,9 +1,9 @@
 import { FC } from 'react'
 import gql from 'graphql-tag'
 
-type GQLFragment = ReturnType<typeof gql>
+export type GQLFragment = ReturnType<typeof gql>
 
-interface FragmentDefinition {
+export interface FragmentDefinition {
   [key: string]: GQLFragment
 }
 
