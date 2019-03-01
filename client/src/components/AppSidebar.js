@@ -6,8 +6,6 @@ import UnstyledList from './UnstyledList'
 import styled from 'styled-components'
 import { color } from '../styles/utils'
 import { rgba } from 'polished'
-import { FragmentComponent, GQLFragment } from '../types/shared'
-import { AppSidebar_viewer } from './types/AppSidebar_viewer'
 
 const Sidebar = styled.aside`
   grid-area: sidebar;
@@ -33,11 +31,7 @@ const Title = styled.h5`
   border-left: 0.375rem transparent;
 `
 
-interface NavSectionProps {
-  title?: string
-}
-
-const NavSection: FC<NavSectionProps> = ({ children, title }) => (
+const NavSection = ({ children, title }) => (
   <Section>
     {title && <Title>{title}</Title>}
     <nav>
@@ -77,11 +71,7 @@ const Li = styled.li`
   }
 `
 
-interface LinkProps {
-  to: string
-}
-
-const Link: FC<LinkProps> = ({ children, to }) => (
+const Link = ({ children, to }) => (
   <Li>
     <SidebarLink to={to}>{children}</SidebarLink>
   </Li>
@@ -93,15 +83,7 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
-interface Props {
-  loading: boolean
-  viewer: AppSidebar_viewer
-}
-
-const AppSidebar: FragmentComponent<Props, { viewer: GQLFragment }> = ({
-  loading,
-  viewer
-}) => (
+const AppSidebar = ({ loading, viewer = {} }) => (
   <Sidebar>
     <AvatarContainer>
       {viewer.user && <UserAvatar user={viewer.user} />}
@@ -144,7 +126,7 @@ AppSidebar.fragments = {
       }
     }
 
-    ${UserAvatar.fragments!.user}
+    ${UserAvatar.fragments.user}
   `
 }
 
