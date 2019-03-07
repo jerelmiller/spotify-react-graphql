@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const useLazyImage = src => {
+const useLazyImage = (src: string) => {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
@@ -10,7 +10,7 @@ const useLazyImage = src => {
       return
     }
 
-    const img = new window.Image()
+    const img = new Image()
     img.onload = () => setLoaded(true)
     img.src = src
 
