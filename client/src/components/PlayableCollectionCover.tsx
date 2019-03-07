@@ -6,7 +6,7 @@ import LazyImage from './LazyImage'
 import { ifElse, prop, value } from '../utils/fp'
 import { Match, Link as RRLink } from '@reach/router'
 import { FragmentComponent, GQLFragment } from '../types/shared'
-import PlayAlbumMutation from './PlayAlbumMutation'
+import PlayAlbumMutation from './PlayCollectionMutation'
 import PlayButton from './PlayButton'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 import PlaceholderPhoto from './PlaceholderPhoto'
@@ -77,7 +77,7 @@ const PlayableCollectionCover: FragmentComponent<
       />
       <Link to={href} visible={hovered || (isPlayingAlbum && playing)}>
         <PlayAlbumMutation>
-          {({ playAlbum }) => (
+          {({ playCollection }) => (
             <PlayButton
               playing={isPlayingAlbum && playing}
               onClick={e => {
@@ -86,7 +86,7 @@ const PlayableCollectionCover: FragmentComponent<
                 if (isPlayingAlbum) {
                   playing ? pause() : play()
                 } else {
-                  playAlbum(collection.uri!)
+                  playCollection(collection.uri!)
                 }
               }}
               size="30%"
