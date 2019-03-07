@@ -1,13 +1,11 @@
 import React from 'react'
 import gql from 'graphql-tag'
-import LazyImage from './LazyImage'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 import { textColor } from '../styles/utils'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import { Album_album } from './types/Album_album'
-import { ifElse, prop, value } from '../utils/fp'
-import AlbumCover from './AlbumCover'
+import PlayableCollectionCover from './PlayableCollectionCover'
 
 interface Props {
   album: Album_album
@@ -39,7 +37,11 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
 }) => {
   return (
     <Container>
-      <AlbumCover album={album} marginBottom="0.5rem" />
+      <PlayableCollectionCover
+        href={`/albums/${album.id}`}
+        collection={album}
+        marginBottom="0.5rem"
+      />
       <Title to={`/albums/${album.id}`}>{album.name}</Title>
       <ArtistLink to={`/artists/${album.artists[0].id}`}>
         {album.artists[0].name}
@@ -58,10 +60,10 @@ AlbumTile.fragments = {
         name
       }
 
-      ...AlbumCover_album
+      ...PlayableCollectionCover_collection
     }
 
-    ${AlbumCover.fragments!.album}
+    ${PlayableCollectionCover.fragments!.collection}
   `
 }
 
