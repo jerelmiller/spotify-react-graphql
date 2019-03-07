@@ -107,7 +107,7 @@ const Track: TrackComponent<Props> = memo(
                   }
                 />
               ) : isCurrent ? (
-                <SpeakerIcon stroke="green" {...iconProps} />
+                <SpeakerIcon stroke="lightGreen" {...iconProps} />
               ) : (
                 <MusicIcon {...iconProps} />
               )}
