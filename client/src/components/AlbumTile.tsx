@@ -88,7 +88,7 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
             fallback={<PlaceholderPhoto />}
           />
           <AlbumLink
-            visible={hovered || isPlayingAlbum}
+            visible={hovered || (isPlayingAlbum && playing)}
             to={`/albums/${album.id}`}
           >
             <PlayAlbumMutation>
