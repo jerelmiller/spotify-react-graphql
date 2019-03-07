@@ -1,23 +1,18 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
-import LazyImage from 'components/LazyImage'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
+import PlayableCollectionCover from '../components/PlayableCollectionCover'
 
 // TODO: Abstract all these components to share with album
 const Container = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 1rem;
-`
-
-const CoverPhoto = styled(LazyImage)`
-  margin-bottom: 1rem;
 `
 
 const Info = styled.div`
@@ -77,6 +72,8 @@ const Playlist = ({ playlistId }) => (
               total
             }
           }
+
+          ...PlayableCollectionCover_collection
         }
       }
 
@@ -86,6 +83,7 @@ const Playlist = ({ playlistId }) => (
       ${Track.Duration.fragments.track}
       ${Track.ExplicitBadge.fragments.track}
       ${Track.Name.fragments.track}
+      ${PlayableCollectionCover.fragments.collection}
     `}
     variables={{ playlistId }}
   >
@@ -96,11 +94,11 @@ const Playlist = ({ playlistId }) => (
             <BackgroundFromImage src={playlist.images[0].url} />
           )}
           <Info>
-            {playlist.images.length > 0 ? (
-              <CoverPhoto block src={playlist.images[0].url} />
-            ) : (
-              <PlaceholderPhoto marginBottom="1rem" />
-            )}
+            <PlayableCollectionCover
+              href={`/playlists/${playlist.id}`}
+              collection={playlist}
+              marginBottom="1rem"
+            />
             <h2>{playlist.name}</h2>
             <div>
               <UserLink to={`/users/${playlist.owner.id}`}>
