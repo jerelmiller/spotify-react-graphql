@@ -12,7 +12,7 @@ const Image: FragmentComponent<Props, { track: GQLFragment }> = ({ size }) => {
   const { track } = useTrackContext()
   const album = track.album.images[1]
 
-  return <LazyImage src={album.url} height={size} width={size} />
+  return <LazyImage src={album.url} width={size} />
 }
 
 Image.fragments = {
