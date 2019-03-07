@@ -6,6 +6,7 @@ import parseSpotifyId from 'utils/parseSpotifyId'
 
 const DEFAULT_STATE = {
   paused: true,
+  playing: false,
   position: 0,
   duration: 0
 }
@@ -30,8 +31,9 @@ const useSpotify = token => {
     const { current_track: currentTrack } = state.track_window
 
     return {
-      context: state.context,
+      contextUri: state.context ? state.context.uri : null,
       paused: state.paused,
+      playing: !state.paused,
       position: state.position,
       duration: state.duration,
       currentTrack: {
