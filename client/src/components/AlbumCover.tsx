@@ -15,15 +15,12 @@ import PlaceholderPhoto from './PlaceholderPhoto'
 interface Props {
   album: AlbumCover_album
   marginBottom?: string
+  width?: string
 }
 
-const Photo = styled(LazyImage)<{ marginBottom?: string }>`
-  display: block;
-  margin-bottom: ${prop('marginBottom')};
-`
-
-const Container = styled.div`
+const Container = styled.div<{ marginBottom?: string }>`
   position: relative;
+  margin-bottom: ${prop('marginBottom')};
 `
 
 interface AlbumLinkProps {
@@ -61,7 +58,8 @@ const HoverBackground = styled.div<{ visible: boolean; to?: string }>`
 
 const AlbumCover: FragmentComponent<Props, { album: GQLFragment }> = ({
   album,
-  marginBottom
+  marginBottom,
+  width
 }) => {
   const { hovered, bind } = useHover()
   const { playing, pause, play, contextUri } = useSpotifyContext()
@@ -70,11 +68,12 @@ const AlbumCover: FragmentComponent<Props, { album: GQLFragment }> = ({
   const isPlayingAlbum = contextUri === album.uri
 
   return coverPhoto ? (
-    <Container {...bind}>
-      <Photo
+    <Container marginBottom={marginBottom} {...bind}>
+      <LazyImage
+        block
         src={coverPhoto.url}
-        marginBottom={marginBottom}
         fallback={<PlaceholderPhoto />}
+        width={width}
       />
       <AlbumLink id={album.id} visible={hovered || (isPlayingAlbum && playing)}>
         <PlayAlbumMutation>
