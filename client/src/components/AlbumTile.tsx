@@ -47,7 +47,11 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
   return (
     <Container>
       {coverPhoto ? (
-        <CoverPhoto src={coverPhoto.url} width="100%" />
+        <CoverPhoto
+          src={coverPhoto.url}
+          width="100%"
+          fallback={<PlaceholderPhoto />}
+        />
       ) : (
         <PlaceholderPhoto marginBottom="0.5rem" />
       )}
