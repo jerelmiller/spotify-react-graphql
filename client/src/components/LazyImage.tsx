@@ -54,7 +54,7 @@ const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(
         {loaded ? (
           <Img key="img" src={src} width={width} ref={ref} {...props} />
         ) : (
-          <FallbackContainer key="fallback" {...props}>
+          <FallbackContainer key="fallback" width={width} {...props}>
             {fallback}
           </FallbackContainer>
         )}
