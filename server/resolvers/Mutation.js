@@ -11,7 +11,7 @@ export default {
       .catch(() => ({ success: false })),
   playAlbum: (_, { input }, { dataSources }) =>
     dataSources.spotifyAPI
-      .playAlbum(input.album, { deviceId })
+      .playAlbum(input.album, { deviceId: input.deviceId })
       .then(() => ({ success: true }))
       .catch(() => ({ success: false }))
 }
