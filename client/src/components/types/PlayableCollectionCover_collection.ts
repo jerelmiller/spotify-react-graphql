@@ -3,10 +3,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: PlayableCollectionCover_playableCollection
+// GraphQL fragment: PlayableCollectionCover_collection
 // ====================================================
 
-export interface PlayableCollectionCover_playableCollection_images {
+export interface PlayableCollectionCover_collection_images {
   __typename: "Image";
   /**
    * The source URL of the image.
@@ -14,7 +14,7 @@ export interface PlayableCollectionCover_playableCollection_images {
   url: string;
 }
 
-export interface PlayableCollectionCover_playableCollection {
+export interface PlayableCollectionCover_collection {
   __typename: "Artist" | "Album" | "Playlist";
   /**
    * The [Spotify URI](https: // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
@@ -24,5 +24,5 @@ export interface PlayableCollectionCover_playableCollection {
   /**
    * Images associated with the playable collection
    */
-  images: PlayableCollectionCover_playableCollection_images[];
+  images: PlayableCollectionCover_collection_images[];
 }

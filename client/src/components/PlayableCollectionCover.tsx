@@ -10,10 +10,10 @@ import PlayAlbumMutation from './PlayAlbumMutation'
 import PlayButton from './PlayButton'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 import PlaceholderPhoto from './PlaceholderPhoto'
-import { PlayableCollectionCover_playableCollection } from './types/PlayableCollectionCover_playableCollection'
+import { PlayableCollectionCover_collection } from './types/PlayableCollectionCover_collection'
 
 interface Props {
-  playableCollection: PlayableCollectionCover_playableCollection
+  collection: PlayableCollectionCover_collection
   marginBottom?: string
   width?: string
   href: string
@@ -59,14 +59,13 @@ const HoverBackground = styled.div<{ visible: boolean; to?: string }>`
 
 const PlayableCollectionCover: FragmentComponent<
   Props,
-  { playableCollection: GQLFragment }
-> = ({ href, playableCollection, marginBottom, width }) => {
+  { collection: GQLFragment }
+> = ({ href, collection, marginBottom, width }) => {
   const { hovered, bind } = useHover()
   const { playing, pause, play, contextUri } = useSpotifyContext()
 
-  const coverPhoto =
-    playableCollection.images[1] || playableCollection.images[0]
-  const isPlayingAlbum = contextUri === playableCollection.uri
+  const coverPhoto = collection.images[1] || collection.images[0]
+  const isPlayingAlbum = contextUri === collection.uri
 
   return coverPhoto ? (
     <Container marginBottom={marginBottom} {...bind}>
@@ -87,7 +86,7 @@ const PlayableCollectionCover: FragmentComponent<
                 if (isPlayingAlbum) {
                   playing ? pause() : play()
                 } else {
-                  playAlbum(playableCollection.uri!)
+                  playAlbum(collection.uri!)
                 }
               }}
               size="30%"
@@ -102,8 +101,8 @@ const PlayableCollectionCover: FragmentComponent<
 }
 
 PlayableCollectionCover.fragments = {
-  playableCollection: gql`
-    fragment PlayableCollectionCover_playableCollection on PlayableCollection {
+  collection: gql`
+    fragment PlayableCollectionCover_collection on PlayableCollection {
       uri
       images {
         url
