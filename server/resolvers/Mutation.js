@@ -9,9 +9,9 @@ export default {
       })
       .then(() => ({ success: true }))
       .catch(() => ({ success: false })),
-  playAlbum: (_, { input }, { dataSources }) =>
+  playCollection: (_, { input }, { dataSources }) =>
     dataSources.spotifyAPI
-      .playAlbum(input.album, { deviceId: input.deviceId })
+      .playCollection(input.collectionUri, { deviceId: input.deviceId })
       .then(() => ({ success: true }))
       .catch(() => ({ success: false }))
 }
