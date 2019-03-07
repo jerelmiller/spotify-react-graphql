@@ -20,6 +20,7 @@ import PlayIcon from '../PlayIcon'
 import PlayTrackMutation from '../PlayTrackMutation'
 import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
+import useHover from '../../hooks/useHover'
 
 interface ContainerProps {
   columns: string
@@ -63,7 +64,7 @@ const Container = styled.div<ContainerProps>`
 
 const Track: TrackComponent<Props> = memo(
   ({ children, columns, track, playContext }) => {
-    const [hovered, setHovered] = useState(false)
+    const { hovered, bind } = useHover()
     const { currentTrack, pause, paused, play } = useSpotifyContext()
     const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
     const iconProps = { size: '1.25rem', strokeWidth: 1 }
@@ -74,12 +75,11 @@ const Track: TrackComponent<Props> = memo(
           <TrackContext.Provider value={{ track, hovered, playTrack }}>
             <Container
               columns={columns}
-              onMouseOver={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
               onDoubleClick={() =>
                 track.uri && playTrack(track.uri, { context: playContext })
               }
               isCurrent={isCurrent}
+              {...bind}
             >
               {isCurrent && hovered && paused ? (
                 <PlayIcon
