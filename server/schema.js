@@ -88,7 +88,7 @@ export default gql`
     token: String
   }
 
-  type Album {
+  type Album implements PlayableCollection {
     id: ID!
 
     "The artists of the album."
@@ -159,7 +159,7 @@ export default gql`
     SINGLE
   }
 
-  type Artist {
+  type Artist implements PlayableCollection {
     """
     The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the artist.
@@ -284,7 +284,7 @@ export default gql`
     total: Int!
   }
 
-  type Playlist {
+  type Playlist implements PlayableCollection {
     id: ID!
     collaborative: Boolean!
     images: [Image!]!
@@ -346,6 +346,17 @@ export default gql`
     """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the user.
+    """
+    uri: String
+  }
+
+  interface PlayableCollection {
+    "Images associated with the playable collection"
+    images: [Image!]!
+
+    """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    of the playable collection.
     """
     uri: String
   }
