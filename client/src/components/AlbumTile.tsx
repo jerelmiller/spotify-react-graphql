@@ -1,17 +1,13 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import LazyImage from './LazyImage'
-import PlaceholderPhoto from './PlaceholderPhoto'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
 import { textColor } from '../styles/utils'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import { Album_album } from './types/Album_album'
-import PlayButton from './PlayButton'
-import useHover from '../hooks/useHover'
 import { ifElse, prop, value } from '../utils/fp'
-import PlayAlbumMutation from './PlayAlbumMutation'
-import useSpotifyContext from '../hooks/useSpotifyContext'
+import AlbumCover from './AlbumCover'
 
 interface Props {
   album: Album_album
@@ -19,12 +15,6 @@ interface Props {
 
 const Container = styled.div`
   text-align: center;
-`
-
-const CoverPhoto = styled(LazyImage)`
-  display: block;
-  margin-bottom: 0.5rem;
-  position: relative;
 `
 
 const Title = styled(Link)`
@@ -44,75 +34,12 @@ const ArtistLink = styled(Link)`
   }
 `
 
-const CoverPhotoContainer = styled.div`
-  position: relative;
-`
-
-const AlbumLink = styled(Link)<{ visible: boolean }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.75);
-  opacity: ${ifElse(prop('visible'), value(1), value(0))};
-  transition: opacity 0.15s ease-in-out;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-`
-
 const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
   album
 }) => {
-  // Try to get medium-sized photo first
-  const coverPhoto = album.images[1] || album.images[0]
-  const { hovered, bind } = useHover()
-  const {
-    contextUri,
-    playing,
-    isPlayingThroughPlayer,
-    play,
-    pause
-  } = useSpotifyContext()
-
-  const isPlayingAlbum = album.uri === contextUri
-
   return (
     <Container>
-      {coverPhoto ? (
-        <CoverPhotoContainer {...bind}>
-          <CoverPhoto
-            src={coverPhoto.url}
-            width="100%"
-            fallback={<PlaceholderPhoto />}
-          />
-          <AlbumLink
-            visible={hovered || (isPlayingAlbum && playing)}
-            to={`/albums/${album.id}`}
-          >
-            <PlayAlbumMutation>
-              {({ playAlbum }) => (
-                <PlayButton
-                  playing={isPlayingAlbum && playing}
-                  size="30%"
-                  onClick={e => {
-                    e.preventDefault()
-
-                    if (isPlayingAlbum) {
-                      playing ? pause() : play()
-                    } else {
-                      playAlbum(album.uri!)
-                    }
-                  }}
-                />
-              )}
-            </PlayAlbumMutation>
-          </AlbumLink>
-        </CoverPhotoContainer>
-      ) : (
-        <PlaceholderPhoto marginBottom="0.5rem" />
-      )}
+      <AlbumCover album={album} marginBottom="0.5rem" />
       <Title to={`/albums/${album.id}`}>{album.name}</Title>
       <ArtistLink to={`/artists/${album.artists[0].id}`}>
         {album.artists[0].name}
@@ -126,15 +53,15 @@ AlbumTile.fragments = {
     fragment Album_album on Album {
       id
       name
-      uri
       artists {
         id
         name
       }
-      images {
-        url
-      }
+
+      ...AlbumCover_album
     }
+
+    ${AlbumCover.fragments!.album}
   `
 }
 
