@@ -3,6 +3,6 @@ import MoreIcon from '../MoreIcon'
 
 interface Props {}
 
-const More: FC<Props> = () => <MoreIcon size="1.25rem" />
+const More: FC<Props> = () => <MoreIcon size="1.25rem" color="white" />
 
 export default More
