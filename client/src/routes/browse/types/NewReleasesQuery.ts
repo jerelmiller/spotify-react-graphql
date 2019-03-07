@@ -29,6 +29,11 @@ export interface NewReleasesQuery_newReleases_edges_node {
    */
   name: string;
   /**
+   * The [Spotify URI](https: // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the album.
+   */
+  uri: string | null;
+  /**
    * The artists of the album.
    */
   artists: NewReleasesQuery_newReleases_edges_node_artists[];
