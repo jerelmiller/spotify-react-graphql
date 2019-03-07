@@ -8,4 +8,10 @@ export default {
         contextUri: input.contextUri
       })
       .then(() => ({ success: true }))
+      .catch(() => ({ success: false })),
+  playAlbum: (_, { input }, { dataSources }) =>
+    dataSources.spotifyAPI
+      .playAlbum(input.album, { deviceId })
+      .then(() => ({ success: true }))
+      .catch(() => ({ success: false }))
 }
