@@ -10,7 +10,7 @@ interface Props {
 }
 
 interface ChildrenProps {
-  playTrack: (
+  playAlbum: (
     uri: string
   ) => ReturnType<MutationFn<PlayAlbumMutationDef, Variables>>
 }
@@ -36,7 +36,7 @@ const PlayAlbumMutation: FC<Props> = ({ children }) => {
     >
       {mutation =>
         children({
-          playTrack: uri =>
+          playAlbum: uri =>
             mutation({
               variables: {
                 input: { album: uri, deviceId }
