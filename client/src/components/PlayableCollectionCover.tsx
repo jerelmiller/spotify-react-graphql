@@ -4,18 +4,19 @@ import styled from 'styled-components'
 import useHover from '../hooks/useHover'
 import LazyImage from './LazyImage'
 import { ifElse, prop, value } from '../utils/fp'
-import { Match, Link } from '@reach/router'
+import { Match, Link as RRLink } from '@reach/router'
 import { FragmentComponent, GQLFragment } from '../types/shared'
-import { AlbumCover_album } from './types/AlbumCover_album'
 import PlayAlbumMutation from './PlayAlbumMutation'
 import PlayButton from './PlayButton'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 import PlaceholderPhoto from './PlaceholderPhoto'
+import { PlayableCollectionCover_playableCollection } from './types/PlayableCollectionCover_playableCollection'
 
 interface Props {
-  album: AlbumCover_album
+  playableCollection: PlayableCollectionCover_playableCollection
   marginBottom?: string
   width?: string
+  href: string
 }
 
 const Container = styled.div<{ marginBottom?: string }>`
@@ -24,17 +25,17 @@ const Container = styled.div<{ marginBottom?: string }>`
 `
 
 interface AlbumLinkProps {
-  id: AlbumCover_album['id']
   visible: boolean
+  to: string
 }
 
-const AlbumLink: FC<AlbumLinkProps> = ({ children, id, visible }) => (
-  <Match path="/albums/:id">
+const Link: FC<AlbumLinkProps> = ({ children, to, visible }) => (
+  <Match path={to}>
     {({ match }) =>
       match ? (
         <HoverBackground visible={visible}>{children}</HoverBackground>
       ) : (
-        <HoverBackground as={Link} to={`/albums/${id}`} visible={visible}>
+        <HoverBackground as={RRLink} to={to} visible={visible}>
           {children}
         </HoverBackground>
       )
@@ -56,16 +57,16 @@ const HoverBackground = styled.div<{ visible: boolean; to?: string }>`
   left: 0;
 `
 
-const AlbumCover: FragmentComponent<Props, { album: GQLFragment }> = ({
-  album,
-  marginBottom,
-  width
-}) => {
+const PlayableCollectionCover: FragmentComponent<
+  Props,
+  { playableCollection: GQLFragment }
+> = ({ href, playableCollection, marginBottom, width }) => {
   const { hovered, bind } = useHover()
   const { playing, pause, play, contextUri } = useSpotifyContext()
 
-  const coverPhoto = album.images[1] || album.images[0]
-  const isPlayingAlbum = contextUri === album.uri
+  const coverPhoto =
+    playableCollection.images[1] || playableCollection.images[0]
+  const isPlayingAlbum = contextUri === playableCollection.uri
 
   return coverPhoto ? (
     <Container marginBottom={marginBottom} {...bind}>
@@ -75,7 +76,7 @@ const AlbumCover: FragmentComponent<Props, { album: GQLFragment }> = ({
         fallback={<PlaceholderPhoto />}
         width={width}
       />
-      <AlbumLink id={album.id} visible={hovered || (isPlayingAlbum && playing)}>
+      <Link to={href} visible={hovered || (isPlayingAlbum && playing)}>
         <PlayAlbumMutation>
           {({ playAlbum }) => (
             <PlayButton
@@ -86,24 +87,23 @@ const AlbumCover: FragmentComponent<Props, { album: GQLFragment }> = ({
                 if (isPlayingAlbum) {
                   playing ? pause() : play()
                 } else {
-                  playAlbum(album.uri!)
+                  playAlbum(playableCollection.uri!)
                 }
               }}
               size="30%"
             />
           )}
         </PlayAlbumMutation>
-      </AlbumLink>
+      </Link>
     </Container>
   ) : (
     <PlaceholderPhoto marginBottom={marginBottom} />
   )
 }
 
-AlbumCover.fragments = {
-  album: gql`
-    fragment AlbumCover_album on Album {
-      id
+PlayableCollectionCover.fragments = {
+  playableCollection: gql`
+    fragment PlayableCollectionCover_playableCollection on PlayableCollection {
       uri
       images {
         url
@@ -112,4 +112,4 @@ AlbumCover.fragments = {
   `
 }
 
-export default AlbumCover
+export default PlayableCollectionCover
