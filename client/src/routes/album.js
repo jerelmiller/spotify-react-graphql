@@ -3,12 +3,11 @@ import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
-import PlaceholderPhoto from 'components/PlaceholderPhoto'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
-import AlbumCover from '../components/AlbumCover'
+import PlayableCollectionCover from '../components/PlayableCollectionCover'
 
 const Container = styled.div`
   display: grid;
@@ -82,7 +81,7 @@ const Album = ({ albumId }) => (
             }
           }
 
-          ...AlbumCover_album
+          ...PlayableCollectionCover_collection
         }
       }
 
@@ -91,7 +90,7 @@ const Album = ({ albumId }) => (
       ${Track.Duration.fragments.track}
       ${Track.Name.fragments.track}
       ${ReleaseYear.fragments.releaseDate}
-      ${AlbumCover.fragments.album}
+      ${PlayableCollectionCover.fragments.collection}
     `}
     variables={{ albumId }}
   >
@@ -103,7 +102,12 @@ const Album = ({ albumId }) => (
           <Container>
             {image && <BackgroundFromImage src={imageFor(album).url} />}
             <Info>
-              <AlbumCover album={album} marginBottom="1rem" width="300px" />
+              <PlayableCollectionCover
+                href={`/albums/${album.id}`}
+                collection={album}
+                marginBottom="1rem"
+                width="300px"
+              />
               <h2>{album.name}</h2>
               <div>
                 <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
