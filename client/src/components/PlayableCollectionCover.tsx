@@ -65,7 +65,7 @@ const PlayableCollectionCover: FragmentComponent<
   const { playing, pause, play, contextUri } = useSpotifyContext()
 
   const coverPhoto = collection.images[1] || collection.images[0]
-  const isPlayingAlbum = contextUri === collection.uri
+  const isPlayingCollection = contextUri === collection.uri
 
   return coverPhoto ? (
     <Container marginBottom={marginBottom} {...bind}>
@@ -75,15 +75,15 @@ const PlayableCollectionCover: FragmentComponent<
         fallback={<PlaceholderPhoto />}
         width={width}
       />
-      <Link to={href} visible={hovered || (isPlayingAlbum && playing)}>
+      <Link to={href} visible={hovered || (isPlayingCollection && playing)}>
         <PlayAlbumMutation>
           {({ playCollection }) => (
             <PlayButton
-              playing={isPlayingAlbum && playing}
+              playing={isPlayingCollection && playing}
               onClick={e => {
                 e.preventDefault()
 
-                if (isPlayingAlbum) {
+                if (isPlayingCollection) {
                   playing ? pause() : play()
                 } else {
                   playCollection(collection.uri!)
