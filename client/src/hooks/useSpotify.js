@@ -30,6 +30,7 @@ const useSpotify = token => {
     const { current_track: currentTrack } = state.track_window
 
     return {
+      context: state.context,
       paused: state.paused,
       position: state.position,
       duration: state.duration,
