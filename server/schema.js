@@ -43,6 +43,21 @@ export default gql`
 
     "Refresh the current session"
     refreshSession(input: RefreshSessionInput!): RefreshSessionPayload
+
+    "Play an album"
+    playAlbum(input: PlayAlbumInput!): PlayAlbumPayload
+  }
+
+  input PlayAlbumInput {
+    "Album URI to play"
+    album: String!
+
+    "The device in which to play the track"
+    deviceId: ID
+  }
+
+  type PlayAlbumPayload {
+    success: Boolean
   }
 
   type PlayTrackPayload {

@@ -148,6 +148,13 @@ class SpotifyAPI extends RESTDataSource {
     )
   }
 
+  playAlbum(uri, { deviceId }) {
+    const params = new URLSearchParams()
+    deviceId && params.set('device_id', deviceId)
+
+    return this.put(`/me/player/play?${params}`, { context_uri: uri })
+  }
+
   async refreshSession(accessToken) {
     try {
       const session = await Session.findOne({ where: { accessToken } })
