@@ -25,6 +25,11 @@ export enum ReleaseDatePrecision {
   YEAR = "YEAR",
 }
 
+export interface PlayAlbumInput {
+  album: string;
+  deviceId?: string | null;
+}
+
 export interface PlayTrackInput {
   track: string;
   deviceId?: string | null;

@@ -52,7 +52,7 @@ export default gql`
     "Album URI to play"
     album: String!
 
-    "The device in which to play the track"
+    "The device in which to play the album"
     deviceId: ID
   }
 
