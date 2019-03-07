@@ -3,6 +3,21 @@
     "types": [
       {
         "kind": "INTERFACE",
+        "name": "PlayableCollection",
+        "possibleTypes": [
+          {
+            "name": "Artist"
+          },
+          {
+            "name": "Album"
+          },
+          {
+            "name": "Playlist"
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
         "name": "Track",
         "possibleTypes": [
           {
