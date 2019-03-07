@@ -10,6 +10,7 @@ import { Album_album } from './types/Album_album'
 import PlayButton from './PlayButton'
 import useHover from '../hooks/useHover'
 import { ifElse, prop, value } from '../utils/fp'
+import PlayAlbumMutation from './PlayAlbumMutation'
 
 interface Props {
   album: Album_album
@@ -77,12 +78,17 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
             fallback={<PlaceholderPhoto />}
           />
           <AlbumLink visible={hovered} to={`/albums/${album.id}`}>
-            <PlayButton
-              size="30%"
-              onClick={e => {
-                e.preventDefault()
-              }}
-            />
+            <PlayAlbumMutation>
+              {({ playAlbum }) => (
+                <PlayButton
+                  size="30%"
+                  onClick={e => {
+                    e.preventDefault()
+                    playAlbum(album.uri!)
+                  }}
+                />
+              )}
+            </PlayAlbumMutation>
           </AlbumLink>
         </CoverPhotoContainer>
       ) : (
