@@ -45,18 +45,18 @@ export default gql`
     refreshSession(input: RefreshSessionInput!): RefreshSessionPayload
 
     "Play an album"
-    playAlbum(input: PlayAlbumInput!): PlayAlbumPayload
+    playCollection(input: PlayCollectionInput!): PlayCollectionPayload
   }
 
-  input PlayAlbumInput {
-    "Album URI to play"
-    album: String!
+  input PlayCollectionInput {
+    "Collection URI to play. Must be part of a PlayableCollection"
+    collectionUri: String!
 
     "The device in which to play the album"
     deviceId: ID
   }
 
-  type PlayAlbumPayload {
+  type PlayCollectionPayload {
     success: Boolean
   }
 

@@ -148,7 +148,7 @@ class SpotifyAPI extends RESTDataSource {
     )
   }
 
-  playAlbum(uri, { deviceId }) {
+  playCollection(uri, { deviceId }) {
     const params = new URLSearchParams()
     deviceId && params.set('device_id', deviceId)
 
