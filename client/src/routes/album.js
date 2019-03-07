@@ -1,6 +1,5 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
-import LazyImage from 'components/LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import ReleaseYear from 'components/ReleaseYear'
@@ -9,15 +8,12 @@ import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
+import AlbumCover from '../components/AlbumCover'
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 300px 1fr;
   grid-gap: 1rem;
-`
-
-const CoverPhoto = styled(LazyImage)`
-  margin-bottom: 1rem;
 `
 
 const Info = styled.div`
@@ -85,6 +81,8 @@ const Album = ({ albumId }) => (
               total
             }
           }
+
+          ...AlbumCover_album
         }
       }
 
@@ -93,6 +91,7 @@ const Album = ({ albumId }) => (
       ${Track.Duration.fragments.track}
       ${Track.Name.fragments.track}
       ${ReleaseYear.fragments.releaseDate}
+      ${AlbumCover.fragments.album}
     `}
     variables={{ albumId }}
   >
@@ -104,11 +103,7 @@ const Album = ({ albumId }) => (
           <Container>
             {image && <BackgroundFromImage src={imageFor(album).url} />}
             <Info>
-              {image ? (
-                <CoverPhoto block src={imageFor(album).url} width="300px" />
-              ) : (
-                <PlaceholderPhoto marginBottom="1rem" />
-              )}
+              <AlbumCover album={album} marginBottom="1rem" width="300px" />
               <h2>{album.name}</h2>
               <div>
                 <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
