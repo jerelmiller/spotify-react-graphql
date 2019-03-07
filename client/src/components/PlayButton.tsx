@@ -4,9 +4,11 @@ import styled from 'styled-components'
 import { prop } from '../utils/fp'
 import { MouseEvent } from 'react'
 import { rgba } from 'polished'
+import PauseIcon from './PauseIcon'
 
 interface Props {
   size: string
+  playing: boolean
   onClick?(e: MouseEvent): void
 }
 
@@ -36,9 +38,13 @@ const CenteredPlayIcon = styled(PlayIcon)`
   left: 5%;
 `
 
-const PlayButton: FC<Props> = ({ size, onClick }) => (
+const PlayButton: FC<Props> = ({ size, onClick, playing }) => (
   <Container size={size} onClick={onClick}>
-    <CenteredPlayIcon size="60%" fill="white" />
+    {playing ? (
+      <PauseIcon size="60%" fill="white" strokeWidth={0} />
+    ) : (
+      <CenteredPlayIcon size="60%" fill="white" />
+    )}
   </Container>
 )
 

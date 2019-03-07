@@ -11,6 +11,7 @@ import PlayButton from './PlayButton'
 import useHover from '../hooks/useHover'
 import { ifElse, prop, value } from '../utils/fp'
 import PlayAlbumMutation from './PlayAlbumMutation'
+import useSpotifyContext from '../hooks/useSpotifyContext'
 
 interface Props {
   album: Album_album
@@ -67,6 +68,15 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
   // Try to get medium-sized photo first
   const coverPhoto = album.images[1] || album.images[0]
   const { hovered, bind } = useHover()
+  const {
+    contextUri,
+    playing,
+    isPlayingThroughPlayer,
+    play,
+    pause
+  } = useSpotifyContext()
+
+  const isPlayingAlbum = album.uri === contextUri
 
   return (
     <Container>
@@ -77,14 +87,23 @@ const AlbumTile: FragmentComponent<Props, { album: GQLFragment }> = ({
             width="100%"
             fallback={<PlaceholderPhoto />}
           />
-          <AlbumLink visible={hovered} to={`/albums/${album.id}`}>
+          <AlbumLink
+            visible={hovered || isPlayingAlbum}
+            to={`/albums/${album.id}`}
+          >
             <PlayAlbumMutation>
               {({ playAlbum }) => (
                 <PlayButton
+                  playing={isPlayingAlbum && playing}
                   size="30%"
                   onClick={e => {
                     e.preventDefault()
-                    playAlbum(album.uri!)
+
+                    if (isPlayingAlbum) {
+                      playing ? pause() : play()
+                    } else {
+                      playAlbum(album.uri!)
+                    }
                   }}
                 />
               )}
