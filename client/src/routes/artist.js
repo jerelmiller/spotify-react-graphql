@@ -10,6 +10,8 @@ import TabNav from 'components/TabNav'
 import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
+import PlayCollectionMutation from '../components/PlayCollectionMutation'
+import useSpotifyContext from '../hooks/useSpotifyContext'
 
 const ArtistName = styled.h1`
   font-size: 4.5rem;
@@ -64,6 +66,31 @@ const Content = styled.section`
   padding: 2rem 0;
 `
 
+const PlayButton = ({ children, uri }) => {
+  const { contextUri, playing, play, pause } = useSpotifyContext()
+  const isPlayingArtist = contextUri === uri
+
+  return (
+    <PlayCollectionMutation>
+      {({ playCollection }) => (
+        <Button
+          size="sm"
+          kind="primary"
+          onClick={() => {
+            if (isPlayingArtist) {
+              return playing ? pause() : play()
+            }
+
+            playCollection(uri)
+          }}
+        >
+          {isPlayingArtist && playing ? 'Pause' : 'Play'}
+        </Button>
+      )}
+    </PlayCollectionMutation>
+  )
+}
+
 const Artist = ({ artistId, children }) => {
   useBackgroundColor('#181818', { useGradient: false })
 
@@ -74,6 +101,7 @@ const Artist = ({ artistId, children }) => {
           artist(id: $artistId) {
             id
             name
+            uri
 
             followers {
               total
@@ -98,9 +126,7 @@ const Artist = ({ artistId, children }) => {
               </Listeners>
               <ArtistName>{artist.name}</ArtistName>
               <FlexContainer alignItems="center">
-                <Button size="sm" kind="primary">
-                  Play
-                </Button>
+                <PlayButton uri={artist.uri} />
                 <Button size="sm" kind="ghost">
                   Save to your library
                 </Button>
