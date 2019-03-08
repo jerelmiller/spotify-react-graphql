@@ -10,6 +10,9 @@ export const curry = fn => {
   return curried
 }
 
+export const compose = (...fns) =>
+  fns.reduce((f, g) => (...args) => f(g(...args)))
+
 export const prop = name => obj => obj[name]
 export const self = item => item
 export const filterKeys = curry((fn, obj) =>
@@ -23,3 +26,5 @@ export const filterNullValues = filterKeys(([_, value]) => Boolean(value))
 export const omit = curry((keys, obj) =>
   filterKeys(([key]) => !keys.includes(key), obj)
 )
+
+export const filter = curry((fn, arr) => arr.filter(fn))
