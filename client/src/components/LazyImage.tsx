@@ -2,7 +2,6 @@ import React, { forwardRef, ReactNode } from 'react'
 import styled from 'styled-components'
 import { ifElse, compose, defaultTo, prop, noop, value } from '../utils/fp'
 import useLazyImage from '../hooks/useLazyImage'
-import { Omit } from '../types/shared'
 import posed, { PoseGroup } from 'react-pose'
 
 interface LazyImageProps {
