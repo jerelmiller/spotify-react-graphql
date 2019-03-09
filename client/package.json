@@ -55,7 +55,9 @@
   ],
   "devDependencies": {
     "apollo": "^2.5.3",
+    "customize-cra": "^0.2.12",
     "node-fetch": "^2.3.0",
-    "prettier": "1.16.4"
+    "prettier": "1.16.4",
+    "react-app-rewired": "^2.1.0"
   }
 }
