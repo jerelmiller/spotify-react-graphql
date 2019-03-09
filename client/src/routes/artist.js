@@ -10,7 +10,7 @@ import TabNav from 'components/TabNav'
 import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import { Query } from 'react-apollo'
-import PlayCollectionMutation from '../components/PlayCollectionMutation'
+import PlayCollection from '../components/PlayCollection'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 
 const ArtistName = styled.h1`
@@ -71,7 +71,7 @@ const PlayButton = ({ children, uri }) => {
   const isPlayingArtist = contextUri === uri
 
   return (
-    <PlayCollectionMutation>
+    <PlayCollection>
       {({ playCollection }) => (
         <Button
           size="sm"
@@ -87,7 +87,7 @@ const PlayButton = ({ children, uri }) => {
           {isPlayingArtist && playing ? 'Pause' : 'Play'}
         </Button>
       )}
-    </PlayCollectionMutation>
+    </PlayCollection>
   )
 }
 

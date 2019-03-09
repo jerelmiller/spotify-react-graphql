@@ -19,16 +19,16 @@ interface Variables {
   input: PlayCollectionInput
 }
 
-class _PlayCollectionMutation extends Mutation<
+class PlayCollectionMutation extends Mutation<
   PlayCollectionMutationDef,
   Variables
 > {}
 
-const PlayCollectionMutation: FC<Props> = ({ children }) => {
+const PlayCollection: FC<Props> = ({ children }) => {
   const { deviceId } = useSpotifyContext()
 
   return (
-    <_PlayCollectionMutation
+    <PlayCollectionMutation
       mutation={gql`
         mutation PlayCollectionMutation($input: PlayCollectionInput!) {
           playCollection(input: $input) {
@@ -47,8 +47,8 @@ const PlayCollectionMutation: FC<Props> = ({ children }) => {
             })
         })
       }
-    </_PlayCollectionMutation>
+    </PlayCollectionMutation>
   )
 }
 
-export default PlayCollectionMutation
+export default PlayCollection
