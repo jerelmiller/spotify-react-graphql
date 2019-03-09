@@ -1,20 +1,10 @@
 import useSpotifyContext from './useSpotifyContext'
-import gql from 'graphql-tag'
-import { useMutation } from 'react-apollo-hooks'
+import usePlayCollectionMutation from './usePlayCollectionMutation'
 
 const usePlayableCollection = (uri: string) => {
-  const { contextUri, play, pause, playing, deviceId } = useSpotifyContext()
+  const { contextUri, play, pause, playing } = useSpotifyContext()
   const isCurrentContext = contextUri === uri
-  const playCollection = useMutation(
-    gql`
-      mutation PlayCollectionMutation($input: PlayCollectionInput!) {
-        playCollection(input: $input) {
-          success
-        }
-      }
-    `,
-    { variables: { input: { collectionUri: uri, deviceId } } }
-  )
+  const playCollection = usePlayCollectionMutation(uri)
 
   let action
 
@@ -24,7 +14,7 @@ const usePlayableCollection = (uri: string) => {
     action = playCollection
   }
 
-  return { playing: isCurrentContext && playing, perform: action }
+  return { playing: isCurrentContext && playing, toggle: action }
 }
 
 export default usePlayableCollection
