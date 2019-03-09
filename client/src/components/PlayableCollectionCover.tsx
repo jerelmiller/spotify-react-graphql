@@ -6,11 +6,10 @@ import LazyImage from './LazyImage'
 import { ifElse, prop, value } from '../utils/fp'
 import { Match, Link as RRLink } from '@reach/router'
 import { FragmentComponent, GQLFragment } from '../types/shared'
-import PlayCollection from './PlayCollection'
-import PlayButton from './PlayButton'
-import useSpotifyContext from '../hooks/useSpotifyContext'
+import CircularPlayButton from './CircularPlayButton'
 import PlaceholderPhoto from './PlaceholderPhoto'
 import { PlayableCollectionCover_collection } from './types/PlayableCollectionCover_collection'
+import usePlayableCollection from '../hooks/usePlayableCollection'
 
 interface Props {
   collection: PlayableCollectionCover_collection
@@ -62,10 +61,9 @@ const PlayableCollectionCover: FragmentComponent<
   { collection: GQLFragment }
 > = ({ href, collection, marginBottom, width }) => {
   const { hovered, bind } = useHover()
-  const { playing, pause, play, contextUri } = useSpotifyContext()
+  const { playing, toggle } = usePlayableCollection(collection.uri!)
 
   const coverPhoto = collection.images[1] || collection.images[0]
-  const isPlayingCollection = contextUri === collection.uri
 
   return coverPhoto ? (
     <Container marginBottom={marginBottom} {...bind}>
@@ -75,24 +73,16 @@ const PlayableCollectionCover: FragmentComponent<
         fallback={<PlaceholderPhoto />}
         width={width}
       />
-      <Link to={href} visible={hovered || (isPlayingCollection && playing)}>
-        <PlayCollection>
-          {({ playCollection }) => (
-            <PlayButton
-              playing={isPlayingCollection && playing}
-              onClick={e => {
-                e.preventDefault()
+      <Link to={href} visible={hovered || playing}>
+        <CircularPlayButton
+          playing={playing}
+          onClick={e => {
+            e.preventDefault()
 
-                if (isPlayingCollection) {
-                  playing ? pause() : play()
-                } else {
-                  playCollection(collection.uri!)
-                }
-              }}
-              size="30%"
-            />
-          )}
-        </PlayCollection>
+            toggle()
+          }}
+          size="30%"
+        />
       </Link>
     </Container>
   ) : (
