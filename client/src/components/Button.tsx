@@ -1,6 +1,6 @@
+import { HTMLProps } from 'react'
 import styled, { css } from 'styled-components'
 import { color, lighten, typography } from '../styles/utils'
-import { HTMLProps } from 'react'
 
 const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
