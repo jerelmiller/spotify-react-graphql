@@ -7,6 +7,7 @@ import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
+import PlayCollectionButton from '../components/PlayCollectionButton'
 
 // TODO: Abstract all these components to share with album
 const Container = styled.div`
@@ -38,6 +39,10 @@ const Typography = styled.span`
   font-weight: 300;
   color: ${textColor('muted')};
   text-transform: uppercase;
+`
+
+const ButtonContainer = styled.div`
+  margin-top: 1.5rem;
 `
 
 const Playlist = ({ playlistId }) => (
@@ -108,6 +113,9 @@ const Playlist = ({ playlistId }) => (
             <div>
               <Typography>{playlist.tracks.pageInfo.total} Songs</Typography>
             </div>
+            <ButtonContainer>
+              <PlayCollectionButton size="sm" uri={playlist.uri} />
+            </ButtonContainer>
           </Info>
           <div>
             {playlist.tracks.edges.map(({ node }) => (
