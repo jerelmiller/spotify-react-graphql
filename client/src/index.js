@@ -7,6 +7,7 @@ import store from './config/store'
 import theme from './styles/theme'
 import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from 'react-apollo'
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import './index.css'
@@ -15,9 +16,11 @@ ReactDOM.render(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <BackgroundColorProvider>
-          <App />
-        </BackgroundColorProvider>
+        <ApolloHooksProvider client={client}>
+          <BackgroundColorProvider>
+            <App />
+          </BackgroundColorProvider>
+        </ApolloHooksProvider>
       </ApolloProvider>
     </ThemeProvider>
   </Provider>,
