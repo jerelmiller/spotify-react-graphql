@@ -4,11 +4,30 @@ import useScript from './useScript'
 import useTimer from './useTimer'
 import parseSpotifyId from 'utils/parseSpotifyId'
 
+const USER_PLAYLIST = /^spotify:.*?:playlist:(.*)$/
+
 const DEFAULT_STATE = {
   paused: true,
   playing: false,
   position: 0,
   duration: 0
+}
+
+const normalizeContextUri = uri => {
+  /*
+   * Playlists come in a special form that differs from the uri returned from
+   * the API. We need to normalize it to match the form returned from the
+   * backend to ensure we can detect when a playlist is currently being played.
+   *
+   * The uri looks like the following in this special case:
+   *    spotify:user:playlist:{playlistId}
+   */
+  if (USER_PLAYLIST.test(uri)) {
+    const [_, id] = uri.match(USER_PLAYLIST)
+    return `spotify:playlist:${id}`
+  }
+
+  return uri
 }
 
 const useSpotify = token => {
@@ -31,7 +50,7 @@ const useSpotify = token => {
     const { current_track: currentTrack } = state.track_window
 
     return {
-      contextUri: state.context ? state.context.uri : null,
+      contextUri: state.context ? normalizeContextUri(state.context.uri) : null,
       paused: state.paused,
       playing: !state.paused,
       position: state.position,
