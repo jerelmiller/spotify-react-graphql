@@ -1,10 +1,6 @@
 import styled, { css } from 'styled-components'
 import { color, lighten, typography } from '../styles/utils'
-
-interface Props {
-  size: 'sm' | 'md'
-  kind: 'primary' | 'ghost'
-}
+import { HTMLProps } from 'react'
 
 const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
@@ -44,9 +40,16 @@ const KINDS = {
   `
 }
 
+interface OwnProps {
+  size: 'sm' | 'md'
+  kind: 'primary' | 'ghost'
+}
+
+export type Props = OwnProps & HTMLProps<HTMLButtonElement>
+
 const Button = styled.button.attrs({
   className: 'sp-btn'
-})<Props>`
+})<OwnProps>`
   border-radius: 10rem;
   font-size: 1.25rem;
   border: 2px solid;
@@ -71,9 +74,5 @@ const Button = styled.button.attrs({
     margin-left: 1rem;
   }
 `
-
-Button.defaultProps = {
-  size: 'md'
-}
 
 export default Button
