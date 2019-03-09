@@ -23,6 +23,7 @@ const Login = () => (
       <Button
         as="a"
         kind="primary"
+        size="md"
         href={`${process.env.REACT_APP_API_HOST}/oauth/init`}
       >
         Login with Spotify
