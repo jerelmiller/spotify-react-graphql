@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.7",
+    "@emotion/styled": "^10.0.7",
     "@reach/router": "1.2.1",
     "@reactions/component": "^2.0.2",
     "@types/jest": "^24.0.6",
@@ -56,6 +58,7 @@
   ],
   "devDependencies": {
     "apollo": "^2.5.3",
+    "babel-plugin-emotion": "^10.0.7",
     "customize-cra": "^0.2.12",
     "node-fetch": "^2.3.0",
     "prettier": "1.16.4",
