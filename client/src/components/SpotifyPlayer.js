@@ -38,11 +38,11 @@ const TimeInfo = styled(Timestamp)`
   ${typography('xs')};
   width: 2rem;
 
-  &:first-child {
+  &:first-of-type {
     justify-self: end;
   }
 
-  &:last-child {
+  &:last-of-type {
     justify-self: start;
   }
 `
