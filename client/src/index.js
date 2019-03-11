@@ -9,20 +9,23 @@ import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from 'react-apollo'
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { Provider } from 'react-redux'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider as LegacyThemeProvider } from 'styled-components'
+import { ThemeProvider } from 'emotion-theming'
 import './index.css'
 
 ReactDOM.render(
   <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <ApolloProvider client={client}>
-        <ApolloHooksProvider client={client}>
-          <BackgroundColorProvider>
-            <App />
-          </BackgroundColorProvider>
-        </ApolloHooksProvider>
-      </ApolloProvider>
-    </ThemeProvider>
+    <LegacyThemeProvider theme={theme}>
+      <ThemeProvider theme={theme}>
+        <ApolloProvider client={client}>
+          <ApolloHooksProvider client={client}>
+            <BackgroundColorProvider>
+              <App />
+            </BackgroundColorProvider>
+          </ApolloHooksProvider>
+        </ApolloProvider>
+      </ThemeProvider>
+    </LegacyThemeProvider>
   </Provider>,
   document.getElementById('root')
 )
