@@ -1,9 +1,8 @@
-import React, { forwardRef, ReactNode } from 'react'
+import React, { forwardRef, HTMLProps, ReactNode } from 'react'
 import styled from '../styled'
 import useLazyImage from '../hooks/useLazyImage'
 import posed, { PoseGroup } from 'react-pose'
 import { Omit } from '../types/shared'
-import { HTMLProps } from 'react'
 
 interface ImgProps {
   block?: boolean
@@ -38,11 +37,14 @@ const FallbackContainer = styled(
   width: ${({ width }) => width || '100%'};
 `
 
-type Props = {
+interface OwnProps {
   src: string
   fallback?: FallbackContainerProps['children']
   width?: string
-} & ImgProps &
+}
+
+type Props = OwnProps &
+  ImgProps &
   Omit<FallbackContainerProps, 'children'> &
   HTMLProps<HTMLImageElement>
 
