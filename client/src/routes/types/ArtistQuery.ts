@@ -33,7 +33,7 @@ export interface ArtistQuery_artist_images {
 export interface ArtistQuery_artist {
   __typename: "Artist";
   /**
-   * The [Spotify ID](https: // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * The [Spotify ID](https:  // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
    * for the artist.
    */
   id: string;
@@ -41,6 +41,11 @@ export interface ArtistQuery_artist {
    * The name of the artist.
    */
   name: string;
+  /**
+   * The [Spotify URI](https: // developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+   * for the artist.
+   */
+  uri: string | null;
   /**
    * Information about the followers of the artist.
    */
