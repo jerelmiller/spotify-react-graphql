@@ -2,15 +2,12 @@ import React, { forwardRef, ReactNode } from 'react'
 import styled from '../styled'
 import useLazyImage from '../hooks/useLazyImage'
 import posed, { PoseGroup } from 'react-pose'
+import { Omit } from '../types/shared'
 
-interface LazyImageProps {
-  src: string
+interface ImgProps {
   block?: boolean
-  fallback?: ReactNode
   width?: string
 }
-
-type ImgProps = Pick<LazyImageProps, 'block' | 'width'>
 
 const Img = styled(
   posed.img({
@@ -25,8 +22,9 @@ const Img = styled(
   object-fit: cover;
 `
 
-type FallbackContainerProps = Pick<LazyImageProps, 'width'> & {
+interface FallbackContainerProps {
   children: ReactNode
+  width?: string
 }
 
 const FallbackContainer = styled(
@@ -39,16 +37,23 @@ const FallbackContainer = styled(
   width: ${({ width }) => width || '100%'};
 `
 
+type LazyImageProps = {
+  src: string
+  fallback?: FallbackContainerProps['children']
+  width?: string
+} & ImgProps &
+  Omit<FallbackContainerProps, 'children'>
+
 const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(
-  ({ src, width, fallback, ...props }, ref) => {
+  ({ src, fallback, ...props }, ref) => {
     const loaded = useLazyImage(src)
 
     return (
       <PoseGroup>
         {loaded ? (
-          <Img key="img" src={src} width={width} ref={ref} {...props} />
+          <Img key="img" src={src} ref={ref} {...props} />
         ) : (
-          <FallbackContainer key="fallback" width={width} {...props}>
+          <FallbackContainer key="fallback" {...props}>
             {fallback}
           </FallbackContainer>
         )}
