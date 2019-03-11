@@ -8,13 +8,16 @@ export interface Props {
   open: boolean
 }
 
-const Menu = styled('div', {
+const Menu = styled('ul', {
   shouldForwardProp: prop => isPropValid(prop) && prop !== 'open'
 })<Props>`
+  list-style: none;
+  margin: 0;
+  z-index: 99;
   position: absolute;
   background-color: ${color('grey')};
   display: ${({ open }) => (open ? 'block' : 'none')};
-  padding: 0.5rem 0;
+  padding: 0.25rem 0;
   top: 100%;
   min-width: 150px;
   border-radius: 4px;
