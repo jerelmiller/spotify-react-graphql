@@ -9,7 +9,11 @@ type Props = OwnProps &
   Pick<DropdownMenuProps, 'align'> &
   Pick<ComponentProps<typeof MoreIcon>, 'size'>
 
-const MoreMenu: FC<Props> = ({ align, children, size }) => (
+type MoreMenuComponent = FC<Props> & {
+  Item: typeof DropdownMenu.Item
+}
+
+const MoreMenu: MoreMenuComponent = ({ align, children, size }) => (
   <DropdownMenu
     align={align}
     trigger={({ toggle }) => (
@@ -19,5 +23,7 @@ const MoreMenu: FC<Props> = ({ align, children, size }) => (
     {children}
   </DropdownMenu>
 )
+
+MoreMenu.Item = DropdownMenu.Item
 
 export default MoreMenu
