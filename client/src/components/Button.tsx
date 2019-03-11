@@ -1,78 +1,89 @@
 import { HTMLProps } from 'react'
-import styled, { css } from 'styled-components'
+import { css, ClassNames } from '@emotion/core'
 import { color, lighten, typography } from '../styles/utils'
+import { FC } from 'react'
+import { Omit } from '../types/shared'
 
 const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
 
 const SIZES = {
-  sm: css`
-    ${typography('xs')};
+  sm: (theme: any) => css`
+    ${typography('xs', { theme })};
     font-weight: normal;
     letter-spacing: 1.2px;
     padding: 0.75rem 3rem;
   `,
-  md: css`
-    ${typography('md')};
+  md: (theme: any) => css`
+    ${typography('md', { theme })};
     padding: 0.75rem 3rem;
   `
 }
 
 const KINDS = {
-  primary: css`
-    color: ${color('white')};
-    background: ${GREEN};
-    border-color: ${GREEN};
+  primary: (theme: any) => css`
+    color: ${color('white', { theme })};
+    background: ${GREEN({ theme })};
+    border-color: ${GREEN({ theme })};
 
     &:hover {
-      background: ${LIGHT_GREEN};
-      border-color: ${LIGHT_GREEN};
+      background: ${LIGHT_GREEN({ theme })};
+      border-color: ${LIGHT_GREEN({ theme })};
     }
   `,
-  ghost: css`
-    color: ${color('white')};
+  ghost: (theme: any) => css`
+    color: ${color('white', { theme })};
     background: transparent;
-    border-color: ${color('offWhite')};
+    border-color: ${color('offWhite', { theme })};
 
     &:hover {
-      border-color: ${color('white')};
+      border-color: ${color('white', { theme })};
     }
   `
 }
 
 interface OwnProps {
+  className?: string
   size: 'sm' | 'md'
   kind: 'primary' | 'ghost'
 }
 
-export type Props = OwnProps & HTMLProps<HTMLButtonElement>
+export type Props = OwnProps & Omit<HTMLProps<HTMLButtonElement>, 'size'>
 
-const Button = styled.button.attrs({
-  className: 'sp-btn'
-})<OwnProps>`
-  border-radius: 10rem;
-  font-size: 1.25rem;
-  border: 2px solid;
-  text-transform: uppercase;
-  transition: all 0.15s ease-in-out;
-  cursor: pointer;
+const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
+  <ClassNames>
+    {({ css, cx, theme }) => (
+      <button
+        className={cx('sp-btn', className)}
+        css={css`
+          border-radius: 10rem;
+          font-size: 1.25rem;
+          border: 2px solid;
+          text-transform: uppercase;
+          transition: all 0.15s ease-in-out;
+          cursor: pointer;
 
-  &:focus {
-    outline: 0;
-  }
+          &:focus {
+            outline: 0;
+          }
 
-  &:hover {
-    transform: scale(1.05);
-  }
+          &:hover {
+            transform: scale(1.05);
+          }
 
-  ${({ size, kind }) => css`
-    ${SIZES[size]};
-    ${KINDS[kind]};
-  `};
+          ${SIZES[size](theme)};
+          ${KINDS[kind](theme)};
 
-  &.sp-btn + .sp-btn {
-    margin-left: 1rem;
-  }
-`
+          &.sp-btn + .sp-btn {
+            margin-left: 1rem;
+          }
+        `}
+        {...props}
+      >
+        {children}
+      </button>
+    )}
+  </ClassNames>
+)
 
 export default Button
