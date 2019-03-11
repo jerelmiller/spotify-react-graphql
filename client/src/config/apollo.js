@@ -15,6 +15,8 @@ import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
 import { compose, prop } from 'utils/fp'
+import typeDefs from './typeDefs'
+import resolvers from './resolvers'
 
 let isRefreshingToken = false
 
@@ -115,7 +117,15 @@ const httpLink = new HttpLink({
 
 const client = new ApolloClient({
   cache,
-  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, httpLink])
+  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, httpLink]),
+  typeDefs,
+  resolvers
+})
+
+cache.writeData({
+  data: {
+    notifications: []
+  }
 })
 
 export default client
