@@ -14,7 +14,7 @@ const Container = styled.div`
   align-items: center;
 `
 const UserAvatar: FragmentComponent<Props, { user: GQLFragment }> = ({
-  user = { displayName: '', images: [{ url: '' }] }
+  user
 }) => (
   <Container>
     <Avatar image={user.images[0]} />
@@ -38,7 +38,7 @@ UserAvatar.fragments = {
       }
     }
 
-    ${Avatar.fragments.image}
+    ${Avatar.fragments!.image}
   `
 }
 
