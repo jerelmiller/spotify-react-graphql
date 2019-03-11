@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import PlayIcon from './PlayIcon'
-import styled from 'styled-components'
+import styled from '../styled'
 import { prop } from '../utils/fp'
 import { MouseEvent } from 'react'
 import { rgba } from 'polished'
