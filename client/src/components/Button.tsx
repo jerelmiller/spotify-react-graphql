@@ -3,25 +3,26 @@ import { css, ClassNames } from '@emotion/core'
 import { color, lighten, typography } from '../styles/utils'
 import { FC } from 'react'
 import { Omit } from '../types/shared'
+import { Theme } from '../styles/theme'
 
 const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
 
 const SIZES = {
-  sm: (theme: any) => css`
+  sm: (theme: Theme) => css`
     ${typography('xs', { theme })};
     font-weight: normal;
     letter-spacing: 1.2px;
     padding: 0.75rem 3rem;
   `,
-  md: (theme: any) => css`
+  md: (theme: Theme) => css`
     ${typography('md', { theme })};
     padding: 0.75rem 3rem;
   `
 }
 
 const KINDS = {
-  primary: (theme: any) => css`
+  primary: (theme: Theme) => css`
     color: ${color('white', { theme })};
     background: ${GREEN({ theme })};
     border-color: ${GREEN({ theme })};
@@ -31,7 +32,7 @@ const KINDS = {
       border-color: ${LIGHT_GREEN({ theme })};
     }
   `,
-  ghost: (theme: any) => css`
+  ghost: (theme: Theme) => css`
     color: ${color('white', { theme })};
     background: transparent;
     border-color: ${color('offWhite', { theme })};
@@ -51,7 +52,7 @@ interface OwnProps {
 export type Props = OwnProps & Omit<HTMLProps<HTMLButtonElement>, 'size'>
 
 const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
-  <ClassNames>
+  <ClassNames<Theme>>
     {({ css, cx, theme }) => (
       <button
         className={cx('sp-btn', className)}
