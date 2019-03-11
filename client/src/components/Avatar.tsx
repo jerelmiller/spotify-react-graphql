@@ -2,8 +2,16 @@ import React from 'react'
 import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import { css } from '../styled'
+import { Avatar_image } from './types/Avatar_image'
+import { FragmentComponent, GQLFragment } from '../types/shared'
 
-const Avatar = ({ image }) => (
+interface Props {
+  image: Avatar_image
+}
+
+const Avatar: FragmentComponent<Props, { image: GQLFragment }> = ({
+  image
+}) => (
   <LazyImage
     src={image.url}
     alt="avatar"
