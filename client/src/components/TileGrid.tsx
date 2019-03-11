@@ -1,4 +1,5 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled'
+import isPropValid from '@emotion/is-prop-valid'
 import { prop } from '../utils/fp'
 
 interface Props {
@@ -7,7 +8,9 @@ interface Props {
   minWidth: string
 }
 
-const TileGrid = styled.div<Props>`
+const TileGrid = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'fill'
+})<Props>`
   display: grid;
   grid-gap: ${prop('gap')};
   grid-template-columns: repeat(

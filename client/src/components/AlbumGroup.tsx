@@ -2,7 +2,7 @@ import React from 'react'
 import AlbumTile from './AlbumTile'
 import gql from 'graphql-tag'
 import TileGrid from './TileGrid'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import { AlbumGroup_album } from './types/AlbumGroup_album'
 
