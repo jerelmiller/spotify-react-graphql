@@ -30,8 +30,8 @@ export default {
       size: size.sm
     },
     md: {
-      weight: weight.normal,
-      size: size.normal
+      size: size.normal,
+      weight: undefined
     }
   }
 }
