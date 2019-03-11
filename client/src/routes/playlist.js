@@ -2,6 +2,7 @@ import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
@@ -113,9 +114,13 @@ const Playlist = ({ playlistId }) => (
             <div>
               <Typography>{playlist.tracks.pageInfo.total} Songs</Typography>
             </div>
-            <ButtonContainer>
+            <div
+              css={css`
+                margin-top: 1.5rem;
+              `}
+            >
               <PlayCollectionButton size="sm" uri={playlist.uri} />
-            </ButtonContainer>
+            </div>
           </Info>
           <div>
             {playlist.tracks.edges.map(({ node }) => (
