@@ -1,6 +1,5 @@
 import React, { forwardRef, ReactNode } from 'react'
-import styled from 'styled-components'
-import { ifElse, compose, defaultTo, prop, noop, value } from '../utils/fp'
+import styled from '../styled'
 import useLazyImage from '../hooks/useLazyImage'
 import posed, { PoseGroup } from 'react-pose'
 
@@ -19,17 +18,16 @@ const Img = styled(
     exit: { opacity: 0 }
   })
 )<ImgProps>`
-  display: ${ifElse(prop('block'), value('block'), noop)};
-  width: ${compose(
-    defaultTo('100%'),
-    prop('width')
-  )};
+  display: ${({ block }) => (block ? 'block' : null)};
+  width: ${({ width }) => width || '100%'};
   height: auto;
   transition: opacity 0.3s ease-out;
   object-fit: cover;
 `
 
-type FallbackContainerProps = Pick<LazyImageProps, 'width'>
+type FallbackContainerProps = Pick<LazyImageProps, 'width'> & {
+  children: ReactNode
+}
 
 const FallbackContainer = styled(
   posed.div({
@@ -38,10 +36,7 @@ const FallbackContainer = styled(
   })
 )<FallbackContainerProps>`
   padding-bottom: ${({ children }) => (children ? null : '100%')};
-  width: ${compose(
-    defaultTo('100%'),
-    prop('width')
-  )};
+  width: ${({ width }) => width || '100%'};
 `
 
 const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(
