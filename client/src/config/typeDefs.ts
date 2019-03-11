@@ -6,18 +6,18 @@ const typeDefs = gql`
   }
 
   extend type Mutation {
-    notify(input: NotificationInput!): NotificationPayload!
+    notify(input: NotifyInput!): NotifyPayload!
     removeNotification(
       input: RemoveNotificationInput!
     ): RemoveNotificationPayload!
   }
 
-  input NotificationInput {
+  input NotifyInput {
     message: String!
-    timeout: Number
+    timeout: Int
   }
 
-  type NotificationPayload {
+  type NotifyPayload {
     id: ID!
   }
 
@@ -32,7 +32,7 @@ const typeDefs = gql`
   type Notification {
     id: ID!
     message: String!
-    timeout: Number!
+    timeout: Int!
   }
 `
 
