@@ -1,17 +1,19 @@
 import { css } from '../styled'
 import { color as themeColor } from '../styles/utils'
-import { CSSProperties, HTMLAttributes, FC } from 'react'
+import { CSSProperties, FC, HTMLAttributes } from 'react'
 import { ColorName, Theme } from '../styles/theme'
 
 type Color = ColorName | 'currentColor'
 
-export interface Props extends HTMLAttributes<SVGElement> {
+interface OwnProps {
   cursor?: CSSProperties['cursor']
   fill?: Color
   stroke?: Color
   strokeWidth?: CSSProperties['strokeWidth']
   size?: string
 }
+
+export type Props = HTMLAttributes<SVGElement> & OwnProps
 
 const color = (
   value: Color | undefined,
@@ -31,7 +33,8 @@ const FeatherSVG: FC<Props> = ({
   children,
   size,
   stroke,
-  strokeWidth
+  strokeWidth,
+  ...props
 }) => (
   <svg
     viewBox="0 0 24 24"
@@ -46,6 +49,7 @@ const FeatherSVG: FC<Props> = ({
       width: ${size};
       height: ${size};
     `}
+    {...props}
   >
     {children}
   </svg>
