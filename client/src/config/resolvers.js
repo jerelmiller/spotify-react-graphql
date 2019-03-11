@@ -31,6 +31,27 @@ const resolvers = {
       })
 
       return { id: notification.id, __typename: 'NotifyPayload' }
+    },
+    removeNotification: (_, { input: { id } }, { cache }) => {
+      const { notifications: currentNotifications } = cache.readQuery({
+        query: NOTIFICATIONS_QUERY
+      })
+
+      const notifications = currentNotifications.filter(
+        notification => notification.id !== id
+      )
+
+      cache.writeQuery({
+        query: NOTIFICATIONS_QUERY,
+        data: {
+          notifications
+        }
+      })
+
+      return {
+        notifications,
+        __typename: 'RemoveNotificationPayload'
+      }
     }
   }
 }

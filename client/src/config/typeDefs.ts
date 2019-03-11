@@ -26,7 +26,7 @@ const typeDefs = gql`
   }
 
   type RemoveNotificationPayload {
-    success: Boolean
+    notifications: [Notification!]!
   }
 
   type Notification {
