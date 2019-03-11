@@ -25,6 +25,11 @@ export enum ReleaseDatePrecision {
   YEAR = "YEAR",
 }
 
+export interface NotifyInput {
+  message: string;
+  timeout?: number | null;
+}
+
 export interface PlayCollectionInput {
   collectionUri: string;
   deviceId?: string | null;
