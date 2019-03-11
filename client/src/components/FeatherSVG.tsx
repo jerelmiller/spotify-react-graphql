@@ -1,14 +1,28 @@
 import { css } from '../styled'
-import { color } from '../styles/utils'
+import { color as themeColor } from '../styles/utils'
 import { CSSProperties, HTMLAttributes, FC } from 'react'
 import { ColorName, Theme } from '../styles/theme'
 
+type Color = ColorName | 'currentColor'
+
 export interface Props extends HTMLAttributes<SVGElement> {
   cursor?: CSSProperties['cursor']
-  fill?: ColorName
-  stroke?: ColorName
+  fill?: Color
+  stroke?: Color
   strokeWidth?: CSSProperties['strokeWidth']
   size?: string
+}
+
+const color = (
+  value: Color | undefined,
+  theme: Theme,
+  { defaultTo }: { defaultTo: string }
+) => {
+  if (value === 'currentColor') {
+    return 'currentColor'
+  }
+
+  return value ? themeColor(value, { theme }) : defaultTo
 }
 
 const FeatherSVG: FC<Props> = ({
@@ -24,8 +38,8 @@ const FeatherSVG: FC<Props> = ({
     xmlns="http://www.w3.org/2000/svg"
     css={(theme: Theme) => css`
       cursor: ${cursor};
-      fill: ${fill ? color(fill, { theme }) : 'none'};
-      stroke: ${stroke ? color(stroke, { theme }) : 'currentColor'};
+      fill: ${color(fill, theme, { defaultTo: 'none' })};
+      stroke: ${color(stroke, theme, { defaultTo: 'currentColor' })};
       stroke-width: ${strokeWidth || 2};
       stroke-linecap: round;
       stroke-linejoin: round;
