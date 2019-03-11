@@ -4,6 +4,7 @@ import Menu, { Props as MenuProps } from './Menu'
 import useToggle from '../../hooks/useToggle'
 import useOuterClick from '../../hooks/useOuterClick'
 import Item from './Item'
+import Context from './Context'
 
 interface OwnProps {
   trigger(props: TriggerProps): ReactNode
@@ -34,7 +35,7 @@ const DropdownMenu: DropdownMenuComponent = ({ align, children, trigger }) => {
     >
       {trigger({ toggle })}
       <Menu align={align} open={open}>
-        {children}
+        <Context.Provider value={{ close }}>{children}</Context.Provider>
       </Menu>
     </div>
   )
