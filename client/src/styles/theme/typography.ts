@@ -16,6 +16,11 @@ const textColors = {
   highlight: colors.lightGreen
 }
 
+interface Style {
+  weight?: number
+  size: keyof typeof size
+}
+
 export default {
   colors: textColors,
   size,
@@ -30,8 +35,7 @@ export default {
       size: size.sm
     },
     md: {
-      size: size.normal,
-      weight: undefined
+      size: size.normal
     }
-  }
+  } as { [key: string]: Style }
 }
