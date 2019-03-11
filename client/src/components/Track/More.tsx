@@ -1,8 +1,8 @@
 import React, { FC } from 'react'
-import MoreIcon from '../MoreIcon'
+import MoreMenu from '../MoreMenu'
 
 interface Props {}
 
-const More: FC<Props> = () => <MoreIcon size="1.25rem" color="white" />
+const More: FC<Props> = () => <MoreMenu size="1.25rem" />
 
 export default More
