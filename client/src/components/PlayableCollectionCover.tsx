@@ -1,15 +1,16 @@
 import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import styled from 'styled-components'
+import styled from '../styled'
 import useHover from '../hooks/useHover'
 import LazyImage from './LazyImage'
 import { ifElse, prop, value } from '../utils/fp'
-import { Match, Link as RRLink } from '@reach/router'
+import { Match, Link } from '@reach/router'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import CircularPlayButton from './CircularPlayButton'
 import PlaceholderPhoto from './PlaceholderPhoto'
 import { PlayableCollectionCover_collection } from './types/PlayableCollectionCover_collection'
 import usePlayableCollection from '../hooks/usePlayableCollection'
+import isPropValid from '@emotion/is-prop-valid'
 
 interface Props {
   collection: PlayableCollectionCover_collection
@@ -18,7 +19,11 @@ interface Props {
   href: string
 }
 
-const Container = styled.div<{ marginBottom?: string }>`
+interface ContainerProps {
+  marginBottom?: string
+}
+
+const Container = styled.div<ContainerProps>`
   position: relative;
   margin-bottom: ${prop('marginBottom')};
 `
@@ -28,21 +33,27 @@ interface AlbumLinkProps {
   to: string
 }
 
-const Link: FC<AlbumLinkProps> = ({ children, to, visible }) => (
+const BackgroundLink: FC<AlbumLinkProps> = ({ children, to, visible }) => (
   <Match path={to}>
     {({ match }) =>
       match ? (
         <HoverBackground visible={visible}>{children}</HoverBackground>
       ) : (
-        <HoverBackground as={RRLink} to={to} visible={visible}>
+        <HoverBackgroundLink to={to} visible={visible}>
           {children}
-        </HoverBackground>
+        </HoverBackgroundLink>
       )
     }
   </Match>
 )
 
-const HoverBackground = styled.div<{ visible: boolean; to?: string }>`
+interface HoverBackgroundProps {
+  visible: boolean
+}
+
+const HoverBackground = styled('div', {
+  shouldForwardProp: prop => isPropValid(prop) && prop !== 'visible'
+})<HoverBackgroundProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,6 +66,8 @@ const HoverBackground = styled.div<{ visible: boolean; to?: string }>`
   bottom: 0;
   left: 0;
 `
+
+const HoverBackgroundLink = HoverBackground.withComponent(Link)
 
 const PlayableCollectionCover: FragmentComponent<
   Props,
@@ -73,7 +86,7 @@ const PlayableCollectionCover: FragmentComponent<
         fallback={<PlaceholderPhoto />}
         width={width}
       />
-      <Link to={href} visible={hovered || playing}>
+      <BackgroundLink to={href} visible={hovered || playing}>
         <CircularPlayButton
           playing={playing}
           onClick={e => {
@@ -83,7 +96,7 @@ const PlayableCollectionCover: FragmentComponent<
           }}
           size="30%"
         />
-      </Link>
+      </BackgroundLink>
     </Container>
   ) : (
     <PlaceholderPhoto marginBottom={marginBottom} />
