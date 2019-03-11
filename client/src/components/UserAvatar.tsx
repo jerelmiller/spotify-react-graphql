@@ -1,7 +1,7 @@
 import React from 'react'
 import Avatar from './Avatar'
 import gql from 'graphql-tag'
-import styled from 'styled-components'
+import styled, { css } from '../styled'
 import { UserAvatar_user } from './types/UserAvatar_user'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 
@@ -12,17 +12,19 @@ interface Props {
 const Container = styled.div`
   display: flex;
   align-items: center;
-
-  img {
-    margin-right: 0.5rem;
-  }
 `
 const UserAvatar: FragmentComponent<Props, { user: GQLFragment }> = ({
   user = { displayName: '', images: [{ url: '' }] }
 }) => (
   <Container>
     <Avatar image={user.images[0]} />
-    <span>{user.displayName}</span>
+    <span
+      css={css`
+        margin-left: 0.5rem;
+      `}
+    >
+      {user.displayName}
+    </span>
   </Container>
 )
 
