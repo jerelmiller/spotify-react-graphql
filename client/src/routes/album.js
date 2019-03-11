@@ -1,13 +1,14 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
-import styled from 'styled-components'
+import styled, { css } from '../styled'
 import ReleaseYear from 'components/ReleaseYear'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
+import PlayCollectionButton from '../components/PlayCollectionButton'
 
 const Container = styled.div`
   display: grid;
@@ -119,6 +120,13 @@ const Album = ({ albumId }) => (
                   <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
                   {album.tracks.pageInfo.total} Songs
                 </Typography>
+              </div>
+              <div
+                css={css`
+                  margin-top: 1.5rem;
+                `}
+              >
+                <PlayCollectionButton size="sm" uri={album.uri} />
               </div>
             </Info>
             <div>
