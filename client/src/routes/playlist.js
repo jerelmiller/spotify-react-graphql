@@ -42,10 +42,6 @@ const Typography = styled.span`
   text-transform: uppercase;
 `
 
-const ButtonContainer = styled.div`
-  margin-top: 1.5rem;
-`
-
 const Playlist = ({ playlistId }) => (
   <Query
     query={gql`
