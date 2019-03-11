@@ -1,5 +1,5 @@
 import { curry } from '../utils/fp'
-import { css } from 'styled-components'
+import { css } from '@emotion/core'
 import { lighten as lighter } from 'polished'
 import { Theme } from './theme'
 
