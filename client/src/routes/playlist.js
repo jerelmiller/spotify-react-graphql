@@ -1,7 +1,7 @@
 import React from 'react'
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import Track from 'components/Track'
 import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
