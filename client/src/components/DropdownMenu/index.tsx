@@ -13,7 +13,7 @@ interface OwnProps {
 export type Props = OwnProps & Pick<MenuProps, 'align'>
 
 interface TriggerProps {
-  toggle(): void
+  toggle: ReturnType<typeof useToggle>['toggle']
 }
 
 type DropdownMenuComponent = FC<Props> & {
