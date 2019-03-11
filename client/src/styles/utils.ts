@@ -1,13 +1,12 @@
 import { curry } from '../utils/fp'
 import { css } from '@emotion/core'
 import { lighten as lighter } from 'polished'
-import { Theme } from './theme'
+import { ColorName, Theme } from './theme'
 
 interface Props {
   theme: Theme
 }
 
-type ColorName = keyof Theme['colors']
 type TypographyColor = keyof Theme['typography']['colors']
 type TypographyStyle = keyof Theme['typography']['style']
 
