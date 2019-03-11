@@ -3,6 +3,7 @@ import styled from '../styled'
 import useLazyImage from '../hooks/useLazyImage'
 import posed, { PoseGroup } from 'react-pose'
 import { Omit } from '../types/shared'
+import { HTMLProps } from 'react'
 
 interface ImgProps {
   block?: boolean
@@ -37,14 +38,15 @@ const FallbackContainer = styled(
   width: ${({ width }) => width || '100%'};
 `
 
-type LazyImageProps = {
+type Props = {
   src: string
   fallback?: FallbackContainerProps['children']
   width?: string
 } & ImgProps &
-  Omit<FallbackContainerProps, 'children'>
+  Omit<FallbackContainerProps, 'children'> &
+  HTMLProps<HTMLImageElement>
 
-const LazyImage = forwardRef<HTMLImageElement, LazyImageProps>(
+const LazyImage = forwardRef<HTMLImageElement, Props>(
   ({ src, fallback, ...props }, ref) => {
     const loaded = useLazyImage(src)
 
