@@ -23,7 +23,7 @@ const CategoryTile: FragmentComponent<Props, { category: GQLFragment }> = ({
   return (
     <Container>
       <Link to={href}>
-        <LazyImage src={icon.url} width="100%" />
+        <LazyImage src={icon.url} width="100%" block />
       </Link>
       <Link to={href}>{category.name}</Link>
     </Container>
