@@ -1,7 +1,8 @@
-import React, { ReactNode, FC } from 'react'
+import React, { ReactNode, FC, useRef, useCallback } from 'react'
 import { css } from '../../styled'
 import Menu, { Props as MenuProps } from './Menu'
 import useToggle from '../../hooks/useToggle'
+import useOuterClick from '../../hooks/useOuterClick'
 import Item from './Item'
 
 interface OwnProps {
@@ -19,7 +20,9 @@ type DropdownMenuComponent = FC<Props> & {
 }
 
 const DropdownMenu: DropdownMenuComponent = ({ align, children, trigger }) => {
-  const { on: open, toggle } = useToggle()
+  const ref = useRef(null)
+  const { on: open, toggle, disable: close } = useToggle()
+  useOuterClick(ref, close)
 
   return (
     <div
@@ -27,6 +30,7 @@ const DropdownMenu: DropdownMenuComponent = ({ align, children, trigger }) => {
         position: relative;
       `}
       onDoubleClick={e => e.stopPropagation()}
+      ref={ref}
     >
       {trigger({ toggle })}
       <Menu align={align} open={open}>
