@@ -7,7 +7,7 @@ import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
 import RepeatIcon from 'components/RepeatIcon'
-import styled from 'styled-components/macro'
+import styled, { css } from '../styled'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
 import { color, textColor, typography } from 'styles/utils'
@@ -76,55 +76,59 @@ const TimeControls = styled.div`
   color: ${color('offWhite')};
 `
 
-const ControlButton = styled.button.attrs(({ fill, icon: Icon }) => ({
-  children: Icon && (
+const ControlButton = ({ fill, icon: Icon, ...props }) => (
+  <button
+    css={theme => css`
+      color: ${color('offWhite', { theme })};
+      background: none;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+      transition: 0.15s ease-in-out;
+
+      &:hover:not(:disabled) {
+        color: ${color('white', { theme })};
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.2;
+      }
+    `}
+    {...props}
+  >
     <Icon size={ICON_SIZE} fill={fill ? 'currentColor' : 'none'} />
-  )
-}))`
-  color: ${color('offWhite')};
-  background: none;
-  padding: 0;
-  border: none;
-  cursor: pointer;
-  transition: 0.15s ease-in-out;
+  </button>
+)
 
-  &:hover:not(:disabled) {
-    color: ${color('white')};
-  }
+const PlayButton = ({ paused, ...props }) => (
+  <ControlButton
+    css={css`
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      border: 1px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  &:focus {
-    outline: none;
-  }
+      &:hover {
+        transform: scale(1.1);
+      }
 
-  &:disabled {
-    cursor: not-allowed;
-    opacity: 0.2;
-  }
-`
-
-const PlayButton = styled(ControlButton).attrs(({ paused }) => ({
-  children: paused ? (
-    <PlayIcon size={ICON_SIZE} fill="currentColor" />
-  ) : (
-    <PauseIcon size={ICON_SIZE} fill="currentColor" />
-  )
-}))`
-  height: 2rem;
-  width: 2rem;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  svg {
-    margin-left: ${({ paused }) => (paused ? '3px' : null)};
-  }
-`
+      svg {
+        margin-left: ${paused ? '3px' : null};
+      }
+    `}
+    fill
+    icon={paused ? PlayIcon : PauseIcon}
+    {...props}
+  />
+)
 
 const ControlButtons = styled.div`
   display: grid;
