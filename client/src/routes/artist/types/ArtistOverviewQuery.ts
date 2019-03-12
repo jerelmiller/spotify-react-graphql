@@ -84,6 +84,7 @@ export interface ArtistOverviewQuery_artist_topTracks {
    * for the artist.
    */
   uri: string | null;
+  link: string;
   /**
    * The track length in milliseconds
    */

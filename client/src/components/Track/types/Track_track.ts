@@ -14,4 +14,5 @@ export interface Track_track {
    * for the track.
    */
   uri: string | null;
+  link: string;
 }

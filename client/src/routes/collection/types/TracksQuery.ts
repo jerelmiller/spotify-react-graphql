@@ -30,6 +30,7 @@ export interface TracksQuery_viewer_savedTracks_edges_node {
    * for the artist.
    */
   uri: string | null;
+  link: string;
   /**
    * A simplified album object.
    */
