@@ -72,6 +72,8 @@ const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
       <button
         className={cx('sp-btn', className)}
         css={css`
+          display: inline-flex;
+          align-items: center;
           border-radius: 10rem;
           font-size: 1.25rem;
           border: 2px solid;
@@ -94,6 +96,10 @@ const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
 
           &.sp-btn + .sp-btn {
             margin-left: 1rem;
+          }
+
+          svg {
+            margin-right: 0.5rem;
           }
         `}
         {...props}
