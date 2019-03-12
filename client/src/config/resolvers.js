@@ -1,6 +1,8 @@
 import globalId from '../utils/globalId'
 import gql from 'graphql-tag'
 
+const DEFAULT_TIMEOUT = 3000
+
 const NOTIFICATIONS_QUERY = gql`
   query NotificationsQuery {
     notifications @client {
@@ -19,7 +21,7 @@ const resolvers = {
       const notification = {
         ...input,
         id: globalId(),
-        timeout: input.timeout || 3000,
+        timeout: input.timeout || DEFAULT_TIMEOUT,
         __typename: 'Notification'
       }
 
