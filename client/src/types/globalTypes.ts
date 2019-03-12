@@ -25,6 +25,10 @@ export enum ReleaseDatePrecision {
   YEAR = "YEAR",
 }
 
+export interface AddAlbumToLibraryInput {
+  albumId: string;
+}
+
 export interface NotifyInput {
   message: string;
   timeout?: number | null;
