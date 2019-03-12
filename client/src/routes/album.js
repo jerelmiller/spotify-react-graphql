@@ -10,13 +10,10 @@ import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
 import Button from '../components/Button'
-import MinusIcon from '../components/MinusIcon'
-import PlusIcon from '../components/PlusIcon'
 import MoreMenu from '../components/MoreMenu'
-import Notify from '../components/NotifyMutation'
 import copyToClipboard from '../utils/copyToClipboard'
-import RemoveAlbumFromLibrary from '../components/RemoveAlbumFromLibraryMutation'
-import AddAlbumToLibrary from '../components/AddAlbumToLibary'
+import useAlbumInLibraryToggle from '../hooks/useAlbumInLibraryToggle'
+import useNotifyMutation from '../hooks/useNotifyMutation'
 
 const Container = styled.div`
   display: grid;
@@ -50,6 +47,36 @@ const Typography = styled.span`
 `
 
 const imageFor = album => album.images[0]
+
+const ToggleButton = ({ album }) => {
+  const { toggle, message, Icon } = useAlbumInLibraryToggle(album)
+
+  return (
+    <Button kind="ghost" size="xs" onClick={toggle}>
+      <Icon size="1rem" /> {message}
+    </Button>
+  )
+}
+
+const AlbumMenu = ({ album }) => {
+  const notify = useNotifyMutation()
+  const { message, toggle } = useAlbumInLibraryToggle(album)
+
+  return (
+    <MoreMenu size="1.25rem">
+      <MoreMenu.Item onClick={toggle}>{message}</MoreMenu.Item>
+      <MoreMenu.Item
+        onClick={() =>
+          copyToClipboard(album.link).then(() =>
+            notify({ message: 'Link copied to clipboard' })
+          )
+        }
+      >
+        Copy Album Link
+      </MoreMenu.Item>
+    </MoreMenu>
+  )
+}
 
 const Album = ({ albumId }) => (
   <Query
@@ -146,58 +173,8 @@ const Album = ({ albumId }) => (
                   margin-top: 1.5rem;
                 `}
               >
-                <Notify>
-                  {({ notify }) =>
-                    album.savedToLibrary ? (
-                      <RemoveAlbumFromLibrary>
-                        {({ removeAlbumFromLibrary }) => (
-                          <Button
-                            kind="ghost"
-                            size="xs"
-                            onClick={() =>
-                              removeAlbumFromLibrary(album.id).then(() =>
-                                notify({ message: 'Removed from Your Library' })
-                              )
-                            }
-                          >
-                            <MinusIcon size="1rem" /> Remove from your library
-                          </Button>
-                        )}
-                      </RemoveAlbumFromLibrary>
-                    ) : (
-                      <AddAlbumToLibrary>
-                        {({ addAlbumToLibrary }) => (
-                          <Button
-                            kind="ghost"
-                            size="xs"
-                            onClick={() =>
-                              addAlbumToLibrary(album.id).then(() =>
-                                notify({ message: 'Saved to Your Library' })
-                              )
-                            }
-                          >
-                            <PlusIcon size="1rem" /> Save to your library
-                          </Button>
-                        )}
-                      </AddAlbumToLibrary>
-                    )
-                  }
-                </Notify>
-                <MoreMenu size="1.25rem">
-                  <Notify>
-                    {({ notify }) => (
-                      <MoreMenu.Item
-                        onClick={() =>
-                          copyToClipboard(album.link).then(() =>
-                            notify({ message: 'Link copied to clipboard' })
-                          )
-                        }
-                      >
-                        Copy Album Link
-                      </MoreMenu.Item>
-                    )}
-                  </Notify>
-                </MoreMenu>
+                <ToggleButton album={album} />
+                <AlbumMenu album={album} />
               </div>
             </Info>
             <div>
