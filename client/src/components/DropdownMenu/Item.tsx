@@ -20,6 +20,7 @@ const Item: FC<Props> = ({ onClick, children }) => {
         cursor: pointer;
         color: ${textColor('muted', { theme })};
         white-space: nowrap;
+        transition: color 0.1s ease-in-out, background 0.1s ease-out;
 
         ${fontSize('sm', { theme })};
 
