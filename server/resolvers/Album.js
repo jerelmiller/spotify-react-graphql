@@ -7,5 +7,7 @@ export default {
   }),
   tracks: async ({ id }, _args, { dataSources }) =>
     dataSources.spotifyAPI.getAlbumTracks(id),
-  type: ({ album_type: type }) => type.toUpperCase()
+  type: ({ album_type: type }) => type.toUpperCase(),
+  savedToLibrary: ({ id }, _args, { dataSources }) =>
+    dataSources.spotifyAPI.checkSavedAlbums([id]).then(([contains]) => contains)
 }

@@ -155,6 +155,9 @@ export default gql`
     for the album.
     """
     uri: String
+
+    "Whether or not the album is saved to the user's library"
+    savedToLibrary: Boolean
   }
 
   type AlbumEdge {
