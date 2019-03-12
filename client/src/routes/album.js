@@ -12,6 +12,9 @@ import PlayCollectionButton from '../components/PlayCollectionButton'
 import Button from '../components/Button'
 import MinusIcon from '../components/MinusIcon'
 import PlusIcon from '../components/PlusIcon'
+import MoreMenu from '../components/MoreMenu'
+import Notify from '../components/NotifyMutation'
+import copyToClipboard from '../utils/copyToClipboard'
 
 const Container = styled.div`
   display: grid;
@@ -56,6 +59,7 @@ const Album = ({ albumId }) => (
           type
           uri
           savedToLibrary
+          link @client
 
           releaseDate {
             ...ReleaseYear_releaseDate
@@ -134,6 +138,9 @@ const Album = ({ albumId }) => (
               </div>
               <div
                 css={css`
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
                   margin-top: 1.5rem;
                 `}
               >
@@ -148,6 +155,21 @@ const Album = ({ albumId }) => (
                     </>
                   )}
                 </Button>
+                <MoreMenu size="1.25rem">
+                  <Notify>
+                    {({ notify }) => (
+                      <MoreMenu.Item
+                        onClick={() =>
+                          copyToClipboard(album.link).then(() =>
+                            notify({ message: 'Link copied to clipboard' })
+                          )
+                        }
+                      >
+                        Copy Album Link
+                      </MoreMenu.Item>
+                    )}
+                  </Notify>
+                </MoreMenu>
               </div>
             </Info>
             <div>
