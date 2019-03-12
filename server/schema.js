@@ -50,10 +50,23 @@ export default gql`
     "Toggle shuffle for a users's playback"
     shuffle(input: ShuffleInput!): ShufflePayload
 
+    "Add an album to a user's library"
+    addAlbumToLibrary(input: AddAlbumToLibraryInput!): AddAlbumToLibraryPayload!
+
     "Remove an album from a user's library"
     removeAlbumFromLibrary(
       input: RemoveAlbumFromLibraryInput!
     ): RemoveAlbumFromLibraryPayload!
+  }
+
+  input AddAlbumToLibraryInput {
+    "Album id of the album that should be added to the user's library"
+    albumId: ID!
+  }
+
+  type AddAlbumToLibraryPayload {
+    "Modified album after adding to the user's library"
+    album: Album
   }
 
   input RemoveAlbumFromLibraryInput {
@@ -62,7 +75,7 @@ export default gql`
   }
 
   type RemoveAlbumFromLibraryPayload {
-    "Modified album after removing from library"
+    "Modified album after removing from the user's library"
     album: Album
   }
 
