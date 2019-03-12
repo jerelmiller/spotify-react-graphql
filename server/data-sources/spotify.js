@@ -163,6 +163,13 @@ class SpotifyAPI extends RESTDataSource {
     return this.put(`/me/player/shuffle?${params}`)
   }
 
+  checkSavedAlbums(ids) {
+    const params = new URLSearchParams()
+    params.set('ids', ids)
+
+    return this.get(`/me/albums/contains?${params}`)
+  }
+
   async refreshSession(accessToken) {
     try {
       const session = await Session.findOne({ where: { accessToken } })
