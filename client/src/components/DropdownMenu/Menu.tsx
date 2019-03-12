@@ -24,6 +24,7 @@ const Menu = styled(
   min-width: 150px;
   border-radius: 4px;
   transform-origin: top ${prop('align')} !important;
+  text-align: left;
 
   ${prop('align')}: 0;
 `
