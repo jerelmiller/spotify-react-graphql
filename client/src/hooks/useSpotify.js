@@ -10,7 +10,8 @@ const DEFAULT_STATE = {
   paused: true,
   playing: false,
   position: 0,
-  duration: 0
+  duration: 0,
+  shuffle: false
 }
 
 const normalizeContextUri = uri => {
@@ -55,6 +56,7 @@ const useSpotify = token => {
       playing: !state.paused,
       position: state.position,
       duration: state.duration,
+      shuffle: state.shuffle,
       currentTrack: {
         ...currentTrack,
         album: {
