@@ -21,7 +21,7 @@ const resolvers = {
       const notification = {
         ...input,
         id: globalId(),
-        timeout: input.timeout || DEFAULT_TIMEOUT,
+        timeout: timeout || DEFAULT_TIMEOUT,
         __typename: 'Notification'
       }
 
