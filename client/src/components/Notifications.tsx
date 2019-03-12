@@ -1,6 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import Notification from './Notification'
+import { PoseGroup } from 'react-pose'
 import { Query } from 'react-apollo'
 import { NotificationsQuery as NotificationsQueryDef } from '../config/types/NotificationsQuery'
 
@@ -12,11 +13,11 @@ const Notifications = () => (
       query NotificationsQuery {
         notifications @client {
           id
-					...Notification_notification
+          ...Notification_notification
         }
-
-				${Notification.fragments!.notification}
       }
+
+      ${Notification.fragments!.notification}
     `}
   >
     {({ loading, data }) => {
@@ -24,9 +25,15 @@ const Notifications = () => (
         return null
       }
 
-      return data.notifications.map(notification => (
-        <Notification key={notification.id} notification={notification} />
-      ))
+      return (
+        <PoseGroup>
+          {data.notifications.map(notification => (
+            <Notification key={notification.id} notification={notification} />
+          ))}
+        </PoseGroup>
+      )
     }}
   </NotificationsQuery>
 )
+
+export default Notifications
