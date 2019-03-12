@@ -219,7 +219,24 @@ const SpotifyPlayer = ({ token }) => {
           </Info>
           <Controls>
             <ControlButtons>
-              <ControlButton icon={ShuffleIcon} />
+              <ShuffleMutation>
+                {({ shuffle }) => (
+                  <ControlButton
+                    icon={ShuffleIcon}
+                    css={theme =>
+                      shuffleState &&
+                      css`
+                        color: ${color('green', { theme })};
+
+                        &:hover:not(:disabled) {
+                          color: ${color('lightGreen', { theme })};
+                        }
+                      `
+                    }
+                    onClick={() => shuffle(!shuffleState)}
+                  />
+                )}
+              </ShuffleMutation>
               <ControlButton
                 icon={PrevTrackIcon}
                 fill
@@ -233,20 +250,7 @@ const SpotifyPlayer = ({ token }) => {
                 disabled={!allowedActions.playNextTrack}
                 onClick={playNextTrack}
               />
-              <ShuffleMutation>
-                {({ shuffle }) => (
-                  <ControlButton
-                    icon={RepeatIcon}
-                    css={theme =>
-                      shuffleState &&
-                      css`
-                        color: ${color('green', { theme })};
-                      `
-                    }
-                    onClick={() => shuffle(!shuffleState)}
-                  />
-                )}
-              </ShuffleMutation>
+              <ControlButton icon={RepeatIcon} />
             </ControlButtons>
             <TimeControls>
               <TimeInfo milliseconds={currentTime}>{currentTime}</TimeInfo>
