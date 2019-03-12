@@ -39,19 +39,7 @@ const typeDefs = gql`
     link: String!
   }
 
-  extend type Track {
-    link: String!
-  }
-
-  extend type SimpleTrack {
-    link: String!
-  }
-
-  extend type FullTrack {
-    link: String!
-  }
-
-  extend type SavedTrack {
+  extend interface Track {
     link: String!
   }
 `
