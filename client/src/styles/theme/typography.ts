@@ -1,6 +1,7 @@
 import colors from './colors'
 
 const size = {
+  xxs: '0.625rem',
   xs: '0.8rem',
   sm: '0.9rem',
   normal: '1rem'
@@ -26,6 +27,10 @@ export default {
   size,
   weight,
   style: {
+    xxs: {
+      weight: weight.light,
+      size: size.xxs
+    },
     xs: {
       weight: weight.light,
       size: size.xs
