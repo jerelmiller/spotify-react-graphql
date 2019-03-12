@@ -41,6 +41,10 @@ export interface PlayTrackInput {
   contextUri?: string | null;
 }
 
+export interface RemoveNotificationInput {
+  id: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
