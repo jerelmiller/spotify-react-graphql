@@ -49,6 +49,21 @@ export default gql`
 
     "Toggle shuffle for a users's playback"
     shuffle(input: ShuffleInput!): ShufflePayload
+
+    "Remove an album from a user's library"
+    removeAlbumFromLibrary(
+      input: RemoveAlbumFromLibraryInput!
+    ): RemoveAlbumFromLibraryPayload!
+  }
+
+  input RemoveAlbumFromLibraryInput {
+    "Album id of the album that should be removed from the user's library"
+    albumId: ID!
+  }
+
+  type RemoveAlbumFromLibraryPayload {
+    "Modified album after removing from library"
+    album: Album
   }
 
   input ShuffleInput {
