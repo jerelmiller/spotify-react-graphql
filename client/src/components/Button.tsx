@@ -45,8 +45,8 @@ const KINDS = {
 
 interface OwnProps {
   className?: string
-  size: 'sm' | 'md'
-  kind: 'primary' | 'ghost'
+  size: keyof typeof SIZES
+  kind: keyof typeof KINDS
 }
 
 export type Props = OwnProps & Omit<HTMLProps<HTMLButtonElement>, 'size'>
