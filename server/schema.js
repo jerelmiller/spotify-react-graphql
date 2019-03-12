@@ -46,6 +46,27 @@ export default gql`
 
     "Play an album"
     playCollection(input: PlayCollectionInput!): PlayCollectionPayload
+
+    "Toggle shuffle for a users's playback"
+    shuffle(input: ShuffleInput!): ShufflePayload
+  }
+
+  input ShuffleInput {
+    """
+    true: Shuffle the user's playback
+    false: Do not shuffle user's playback
+    """
+    state: Boolean!
+
+    """
+    The id of the device this command is targeting. If not supplied, the
+    user’s currently active device is the target.
+    """
+    deviceId: ID
+  }
+
+  type ShufflePayload {
+    success: Boolean!
   }
 
   input PlayCollectionInput {
