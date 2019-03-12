@@ -3,13 +3,11 @@ import MoreMenu from '../MoreMenu'
 import copyToClipboard from '../../utils/copyToClipboard'
 import Notify from '../NotifyMutation'
 import TrackContext from './Context'
-import useLocation from '../../hooks/useLocation'
 
 interface Props {}
 
 const More: FC<Props> = () => {
   const { track } = useContext(TrackContext)
-  const { origin } = useLocation()
 
   return (
     <MoreMenu size="1.25rem" align="right">
@@ -19,7 +17,7 @@ const More: FC<Props> = () => {
         {({ notify }) => (
           <MoreMenu.Item
             onClick={() =>
-              copyToClipboard(`${origin}/tracks/${track.id}`).then(() =>
+              copyToClipboard(track.link).then(() =>
                 notify({ message: 'Link copied to clipboard' })
               )
             }

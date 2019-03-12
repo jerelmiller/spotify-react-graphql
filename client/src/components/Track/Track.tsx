@@ -134,6 +134,7 @@ Track.fragments = {
     fragment Track_track on Track {
       id
       uri
+      link @client
     }
   `
 }
