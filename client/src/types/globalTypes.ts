@@ -41,6 +41,10 @@ export interface PlayTrackInput {
   contextUri?: string | null;
 }
 
+export interface RemoveAlbumFromLibraryInput {
+  albumId: string;
+}
+
 export interface RemoveNotificationInput {
   id: string;
 }
