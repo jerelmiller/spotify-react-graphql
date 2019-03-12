@@ -20,6 +20,7 @@ import Playlist from './routes/playlist'
 import Genre from './routes/genre'
 import useSession from './hooks/useSession'
 import SpotifyProvider from './components/SpotifyProvider'
+import Notifications from './components/Notifications'
 import { Redirect, Router } from '@reach/router'
 
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
   return isAuthenticated ? (
     <SpotifyProvider token={data.token}>
       <AppLayout>
+        <Notifications />
         <Router primary={false}>
           <Redirect
             noThrow
