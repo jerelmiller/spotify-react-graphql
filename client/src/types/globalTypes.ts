@@ -45,6 +45,11 @@ export interface RemoveNotificationInput {
   id: string;
 }
 
+export interface ShuffleInput {
+  state: boolean;
+  deviceId?: string | null;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================
