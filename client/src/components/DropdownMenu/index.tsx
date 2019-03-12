@@ -5,6 +5,7 @@ import useToggle from '../../hooks/useToggle'
 import useOuterClick from '../../hooks/useOuterClick'
 import Item from './Item'
 import Context from './Context'
+import { PoseGroup } from 'react-pose'
 
 interface OwnProps {
   trigger(props: TriggerProps): ReactNode
@@ -34,9 +35,13 @@ const DropdownMenu: DropdownMenuComponent = ({ align, children, trigger }) => {
       ref={ref}
     >
       {trigger({ toggle })}
-      <Menu align={align} open={open}>
-        <Context.Provider value={{ close }}>{children}</Context.Provider>
-      </Menu>
+      <PoseGroup>
+        {open && (
+          <Menu key="menu" align={align}>
+            <Context.Provider value={{ close }}>{children}</Context.Provider>
+          </Menu>
+        )}
+      </PoseGroup>
     </div>
   )
 }
