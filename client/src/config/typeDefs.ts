@@ -34,6 +34,26 @@ const typeDefs = gql`
     message: String!
     timeout: Int!
   }
+
+  extend type Album {
+    link: String!
+  }
+
+  extend type Track {
+    link: String!
+  }
+
+  extend type SimpleTrack {
+    link: String!
+  }
+
+  extend type FullTrack {
+    link: String!
+  }
+
+  extend type SavedTrack {
+    link: String!
+  }
 `
 
 export default typeDefs

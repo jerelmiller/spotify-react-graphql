@@ -55,6 +55,18 @@ const resolvers = {
         __typename: 'RemoveNotificationPayload'
       }
     }
+  },
+  Album: {
+    link: ({ id }) => `${window.location.origin}/albums/${id}`
+  },
+  SimpleTrack: {
+    link: ({ id }) => `${window.location.origin}/tracks/${id}`
+  },
+  SavedTrack: {
+    link: ({ id }) => `${window.location.origin}/tracks/${id}`
+  },
+  FullTrack: {
+    link: ({ id }) => `${window.location.origin}/tracks/${id}`
   }
 }
 
