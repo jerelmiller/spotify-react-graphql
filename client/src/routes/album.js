@@ -9,6 +9,9 @@ import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
+import Button from '../components/Button'
+import MinusIcon from '../components/MinusIcon'
+import PlusIcon from '../components/PlusIcon'
 
 const Container = styled.div`
   display: grid;
@@ -52,6 +55,7 @@ const Album = ({ albumId }) => (
           name
           type
           uri
+          savedToLibrary
 
           releaseDate {
             ...ReleaseYear_releaseDate
@@ -127,6 +131,23 @@ const Album = ({ albumId }) => (
                 `}
               >
                 <PlayCollectionButton size="sm" uri={album.uri} />
+              </div>
+              <div
+                css={css`
+                  margin-top: 1.5rem;
+                `}
+              >
+                <Button kind="ghost" size="xs">
+                  {album.savedToLibrary ? (
+                    <>
+                      <MinusIcon size="1rem" /> Remove from your library
+                    </>
+                  ) : (
+                    <>
+                      <PlusIcon size="1rem" /> Save to your library
+                    </>
+                  )}
+                </Button>
               </div>
             </Info>
             <div>
