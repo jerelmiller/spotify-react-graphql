@@ -101,7 +101,7 @@ const Artist = ({ artistId, children }) => {
               <ArtistName>{artist.name}</ArtistName>
               <FlexContainer alignItems="center">
                 <PlayCollectionButton size="sm" uri={artist.uri} />
-                <Button size="sm" kind="ghost">
+                <Button size="sm" kind="hollow">
                   Save to your library
                 </Button>
                 <More size="2rem" />
