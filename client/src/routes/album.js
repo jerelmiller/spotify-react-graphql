@@ -16,6 +16,7 @@ import MoreMenu from '../components/MoreMenu'
 import Notify from '../components/NotifyMutation'
 import copyToClipboard from '../utils/copyToClipboard'
 import RemoveAlbumFromLibrary from '../components/RemoveAlbumFromLibraryMutation'
+import AddAlbumToLibrary from '../components/AddAlbumToLibary'
 
 const Container = styled.div`
   display: grid;
@@ -164,9 +165,21 @@ const Album = ({ albumId }) => (
                         )}
                       </RemoveAlbumFromLibrary>
                     ) : (
-                      <Button kind="ghost" size="xs">
-                        <PlusIcon size="1rem" /> Save to your library
-                      </Button>
+                      <AddAlbumToLibrary>
+                        {({ addAlbumToLibrary }) => (
+                          <Button
+                            kind="ghost"
+                            size="xs"
+                            onClick={() =>
+                              addAlbumToLibrary(album.id).then(() =>
+                                notify({ message: 'Saved to Your Library' })
+                              )
+                            }
+                          >
+                            <PlusIcon size="1rem" /> Save to your library
+                          </Button>
+                        )}
+                      </AddAlbumToLibrary>
                     )
                   }
                 </Notify>
