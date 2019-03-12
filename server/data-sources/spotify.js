@@ -172,14 +172,14 @@ class SpotifyAPI extends RESTDataSource {
 
   removeAlbumsFromLibrary(ids) {
     const params = new URLSearchParams()
-    params.set('ids', ids)
+    params.set('ids', ids.join(','))
 
     return this.delete(`/me/albums?${params}`)
   }
 
   addAlbumsToLibrary(ids) {
     const params = new URLSearchParams()
-    params.set('ids', ids)
+    params.set('ids', ids.join(','))
 
     return this.put(`/me/albums?${params}`)
   }

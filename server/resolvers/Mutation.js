@@ -22,11 +22,11 @@ export default {
   removeAlbumFromLibrary: (_, { input }, { dataSources }) =>
     dataSources.spotifyAPI
       .removeAlbumsFromLibrary([input.albumId])
-      .then(() => dataSources.spotifyAPI.getAlbum(input.id))
+      .then(() => dataSources.spotifyAPI.getAlbum(input.albumId))
       .then(album => ({ album })),
   addAlbumToLibrary: (_, { input }, { dataSources }) =>
     dataSources.spotifyAPI
       .addAlbumsToLibrary([input.albumId])
-      .then(() => dataSources.spotifyAPI.getAlbum(input.id))
+      .then(() => dataSources.spotifyAPI.getAlbum(input.albumId))
       .then(album => ({ album }))
 }
