@@ -7,6 +7,7 @@ import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
 import RepeatIcon from 'components/RepeatIcon'
+import ShuffleMutation from './ShuffleMutation'
 import styled, { css } from '../styled'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
@@ -188,7 +189,8 @@ const SpotifyPlayer = ({ token }) => {
     playNextTrack,
     playPreviousTrack,
     togglePlayback,
-    seek
+    seek,
+    shuffle: shuffleState
   } = useSpotifyContext()
 
   const { album, name: trackName, artists } = currentTrack || {}
@@ -231,7 +233,20 @@ const SpotifyPlayer = ({ token }) => {
                 disabled={!allowedActions.playNextTrack}
                 onClick={playNextTrack}
               />
-              <ControlButton icon={RepeatIcon} />
+              <ShuffleMutation>
+                {({ shuffle }) => (
+                  <ControlButton
+                    icon={RepeatIcon}
+                    css={theme =>
+                      shuffleState &&
+                      css`
+                        color: ${color('green', { theme })};
+                      `
+                    }
+                    onClick={() => shuffle(!shuffleState)}
+                  />
+                )}
+              </ShuffleMutation>
             </ControlButtons>
             <TimeControls>
               <TimeInfo milliseconds={currentTime}>{currentTime}</TimeInfo>
