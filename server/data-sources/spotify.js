@@ -170,6 +170,13 @@ class SpotifyAPI extends RESTDataSource {
     return this.get(`/me/albums/contains?${params}`)
   }
 
+  removeAlbumsFromLibrary(ids) {
+    const params = new URLSearchParams()
+    params.set('ids', ids)
+
+    return this.delete(`/me/albums?${params}`)
+  }
+
   async refreshSession(accessToken) {
     try {
       const session = await Session.findOne({ where: { accessToken } })

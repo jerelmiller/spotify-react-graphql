@@ -18,5 +18,10 @@ export default {
     dataSources.spotifyAPI
       .shuffle(input.state, { deviceId: input.deviceId })
       .then(() => ({ success: true }))
-      .catch(() => ({ success: false }))
+      .catch(() => ({ success: false })),
+  removeAlbumFromLibrary: (_, { input }, { dataSources }) =>
+    dataSources.spotifyAPI
+      .removeAlbumsFromLibrary([input.albumId])
+      .then(() => dataSources.spotifyAPI.getAlbum(input.id))
+      .then(album => ({ album }))
 }
