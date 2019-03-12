@@ -42,7 +42,19 @@ const RemoveAlbumFromLibrary: FC<Props> = ({ children }) => {
       {mutation =>
         children({
           removeAlbumFromLibrary: albumId =>
-            mutation({ variables: { input: { albumId } } })
+            mutation({
+              variables: { input: { albumId } },
+              optimisticResponse: {
+                removeAlbumFromLibrary: {
+                  album: {
+                    id: albumId,
+                    savedToLibrary: false,
+                    __typename: 'Album'
+                  },
+                  __typename: 'RemoveAlbumFromLibraryPayload'
+                }
+              }
+            })
         })
       }
     </RemoveAlbumFromLibraryMutation>

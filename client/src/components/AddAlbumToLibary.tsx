@@ -40,7 +40,19 @@ const AddAlbumToLibrary: FC<Props> = ({ children }) => {
       {mutation =>
         children({
           addAlbumToLibrary: albumId =>
-            mutation({ variables: { input: { albumId } } })
+            mutation({
+              variables: { input: { albumId } },
+              optimisticResponse: {
+                addAlbumToLibrary: {
+                  album: {
+                    id: albumId,
+                    savedToLibrary: true,
+                    __typename: 'Album'
+                  },
+                  __typename: 'AddAlbumToLibraryPayload'
+                }
+              }
+            })
         })
       }
     </AddAlbumToLibraryMutation>
