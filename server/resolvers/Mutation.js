@@ -13,5 +13,10 @@ export default {
     dataSources.spotifyAPI
       .playCollection(input.collectionUri, { deviceId: input.deviceId })
       .then(() => ({ success: true }))
+      .catch(() => ({ success: false })),
+  shuffle: (_, { input }, { dataSources }) =>
+    dataSources.spotifyAPI
+      .shuffle(input.state, { deviceId: input.deviceId })
+      .then(() => ({ success: true }))
       .catch(() => ({ success: false }))
 }
