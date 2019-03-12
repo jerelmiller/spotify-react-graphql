@@ -29,6 +29,7 @@ const DropdownMenu: DropdownMenuComponent = ({ align, children, trigger }) => {
   return (
     <div
       css={css`
+        display: flex;
         position: relative;
       `}
       onDoubleClick={e => e.stopPropagation()}
