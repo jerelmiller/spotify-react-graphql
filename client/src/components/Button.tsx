@@ -9,6 +9,12 @@ const GREEN = color('green')
 const LIGHT_GREEN = lighten(0.1, 'green')
 
 const SIZES = {
+  xs: (theme: Theme) => css`
+    ${typography('xxs', { theme })};
+    font-weight: normal;
+    letter-spacing: 1.2px;
+    padding: 0.75rem 1.5rem;
+  `,
   sm: (theme: Theme) => css`
     ${typography('xs', { theme })};
     font-weight: normal;
@@ -32,13 +38,22 @@ const KINDS = {
       border-color: ${LIGHT_GREEN({ theme })};
     }
   `,
-  ghost: (theme: Theme) => css`
+  hollow: (theme: Theme) => css`
     color: ${color('white', { theme })};
     background: transparent;
     border-color: ${color('offWhite', { theme })};
 
     &:hover {
       border-color: ${color('white', { theme })};
+    }
+  `,
+  ghost: (theme: Theme) => css`
+    color: ${color('white', { theme })};
+    background: transparent;
+    border-color: transparent;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
   `
 }
@@ -63,6 +78,8 @@ const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
           text-transform: uppercase;
           transition: all 0.15s ease-in-out;
           cursor: pointer;
+          backface-visibility: hidden;
+          transform: translateZ(0) scale(1, 1);
 
           &:focus {
             outline: 0;
