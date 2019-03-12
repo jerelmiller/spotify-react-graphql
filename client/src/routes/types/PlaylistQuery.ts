@@ -41,6 +41,7 @@ export interface PlaylistQuery_playlist_tracks_edges_node_SimpleTrack {
    * for the artist.
    */
   uri: string | null;
+  link: string;
   /**
    * An array of simplified artist objects.
    */
@@ -84,6 +85,7 @@ export interface PlaylistQuery_playlist_tracks_edges_node_SavedTrack {
    * for the artist.
    */
   uri: string | null;
+  link: string;
   /**
    * A simplified album object.
    */
@@ -131,6 +133,7 @@ export interface PlaylistQuery_playlist_tracks_edges_node_FullTrack {
    * for the artist.
    */
   uri: string | null;
+  link: string;
   /**
    * A simplified album object.
    */

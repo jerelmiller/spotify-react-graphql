@@ -53,6 +53,7 @@ export interface AlbumQuery_album_tracks_edges_node {
    * for the track.
    */
   uri: string | null;
+  link: string;
   /**
    * An array of simplified artist objects.
    */
@@ -106,6 +107,11 @@ export interface AlbumQuery_album {
    * for the album.
    */
   uri: string | null;
+  /**
+   * Whether or not the album is saved to the user's library
+   */
+  savedToLibrary: boolean | null;
+  link: string;
   /**
    * Information about the release date of the album.
    */
