@@ -15,6 +15,7 @@ import PlusIcon from '../components/PlusIcon'
 import MoreMenu from '../components/MoreMenu'
 import Notify from '../components/NotifyMutation'
 import copyToClipboard from '../utils/copyToClipboard'
+import RemoveAlbumFromLibrary from '../components/RemoveAlbumFromLibraryMutation'
 
 const Container = styled.div`
   display: grid;
@@ -144,17 +145,31 @@ const Album = ({ albumId }) => (
                   margin-top: 1.5rem;
                 `}
               >
-                <Button kind="ghost" size="xs">
-                  {album.savedToLibrary ? (
-                    <>
-                      <MinusIcon size="1rem" /> Remove from your library
-                    </>
-                  ) : (
-                    <>
-                      <PlusIcon size="1rem" /> Save to your library
-                    </>
-                  )}
-                </Button>
+                <Notify>
+                  {({ notify }) =>
+                    album.savedToLibrary ? (
+                      <RemoveAlbumFromLibrary>
+                        {({ removeAlbumFromLibrary }) => (
+                          <Button
+                            kind="ghost"
+                            size="xs"
+                            onClick={() =>
+                              removeAlbumFromLibrary(album.id).then(() =>
+                                notify({ message: 'Removed from Your Library' })
+                              )
+                            }
+                          >
+                            <MinusIcon size="1rem" /> Remove from your library
+                          </Button>
+                        )}
+                      </RemoveAlbumFromLibrary>
+                    ) : (
+                      <Button kind="ghost" size="xs">
+                        <PlusIcon size="1rem" /> Save to your library
+                      </Button>
+                    )
+                  }
+                </Notify>
                 <MoreMenu size="1.25rem">
                   <Notify>
                     {({ notify }) => (
