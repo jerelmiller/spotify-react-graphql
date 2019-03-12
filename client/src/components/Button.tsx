@@ -13,7 +13,7 @@ const SIZES = {
     ${typography('xxs', { theme })};
     font-weight: normal;
     letter-spacing: 1.2px;
-    padding: 0.75rem 1.5rem;
+    padding: 0.625rem 1.25rem;
   `,
   sm: (theme: Theme) => css`
     ${typography('xs', { theme })};
