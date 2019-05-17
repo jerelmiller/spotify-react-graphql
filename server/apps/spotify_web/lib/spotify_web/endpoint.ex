@@ -15,12 +15,15 @@ defmodule SpotifyWeb.Endpoint do
   plug Plug.Logger
 
   plug Plug.Parsers,
-    parsers: [:urlencoded, :multipart, :json],
+    parsers: [:urlencoded, :multipart, :json, Absinthe.Plug.Parser],
     pass: ["*/*"],
     json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
+
+  plug Absinthe.Plug,
+    schema: SpotifyWeb.Schema
 
   plug SpotifyWeb.Router
 end
