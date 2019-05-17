@@ -12,5 +12,5 @@ defmodule SpotifyWeb.Router do
     get "/finalize", OAuthController, :finalize
   end
 
-  forward "/graphql", Absinthe.Plug, schema: SpotifyWeb.Schema
+  forward "/graphql", Absinthe.Plug, schema: SpotifyWeb.Schema, json_codec: Jason
 end
