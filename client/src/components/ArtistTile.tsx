@@ -16,11 +16,14 @@ const Container = styled.div`
 
 const ArtistImage = styled(LazyImage)`
   display: block;
-  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
   border-radius: 50%;
+
+  && {
+    height: 100%;
+  }
 `
 
 const ImageContainer = styled.div`
