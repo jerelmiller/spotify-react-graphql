@@ -8,4 +8,6 @@ defmodule SpotifyWeb.Router do
   scope "/api", SpotifyWeb do
     pipe_through :api
   end
+
+  forward "/graphql", Absinthe.Plug, schema: SpotifyWeb.Schema
 end
