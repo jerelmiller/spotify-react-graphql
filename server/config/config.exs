@@ -22,7 +22,8 @@ config :spotify_web, SpotifyWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "ngS46bHsTRlXaWEDz5lsWzFl4ie21lY1kluV/ZBMoyyCOhJTIpfC1Ch7rzqYPbZu",
   render_errors: [view: SpotifyWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: SpotifyWeb.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: SpotifyWeb.PubSub, adapter: Phoenix.PubSub.PG2],
+  instrumenters: [NewRelic.Phoenix.Instrumenter]
 
 # Configures Elixir's Logger
 config :logger, :console,

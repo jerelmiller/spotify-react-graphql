@@ -26,6 +26,9 @@ config :spotify_web, SpotifyWeb.OAuthConfig,
   redirect_uri: "http://localhost:4001/oauth/finalize",
   client_uri: "https://localhost:3000"
 
+config :new_relic_agent,
+  app_name: "Jerel's Spotify Clone"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed
