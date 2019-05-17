@@ -46,7 +46,10 @@ defmodule SpotifyWeb.MixProject do
       {:spotify, in_umbrella: true},
       {:spotify_client, in_umbrella: true},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:new_relic_agent, "~> 1.0"},
+      {:new_relic_phoenix, "~> 0.1"},
+      {:new_relic_absinthe, "~> 0.0.2"}
     ]
   end
 
