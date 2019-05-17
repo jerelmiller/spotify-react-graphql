@@ -23,4 +23,9 @@ defmodule SpotifyClient do
       [{"Content-type", "application/x-www-form-urlencoded"}]
     )
   end
+
+  def playlists(params \\ [], headers \\ []) do
+    Client.uri(:api, "/me/playlists")
+    |> Client.get(headers)
+  end
 end
