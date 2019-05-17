@@ -23,5 +23,7 @@ defmodule SpotifyWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
+  plug CORSPlug
+
   plug SpotifyWeb.Router
 end
