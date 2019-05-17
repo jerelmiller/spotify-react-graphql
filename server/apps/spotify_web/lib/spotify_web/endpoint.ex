@@ -22,8 +22,5 @@ defmodule SpotifyWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  plug Absinthe.Plug,
-    schema: SpotifyWeb.Schema
-
   plug SpotifyWeb.Router
 end
