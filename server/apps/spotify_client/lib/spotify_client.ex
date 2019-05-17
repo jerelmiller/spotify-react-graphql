@@ -22,9 +22,5 @@ defmodule SpotifyClient do
        ]},
       [{"Content-type", "application/x-www-form-urlencoded"}]
     )
-    |> case do
-      {:ok, response} -> {:ok, IO.inspect(response)}
-      error -> error
-    end
   end
 end
