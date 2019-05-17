@@ -1,6 +1,4 @@
 defmodule SpotifyWeb.OAuthConfig do
-  def client_id, do: config(:client_id)
-  def client_secret, do: config(:client_secret)
   def redirect_uri, do: config(:redirect_uri)
   def client_uri, do: config(:client_uri)
 

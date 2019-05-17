@@ -24,10 +24,10 @@ defmodule SpotifyWeb.OAuthController do
 
   def init(conn, _) do
     conn
-    |> redirect(external: "https://accounts.spotify.com/authorize?#{generate_oauth_params()}")
+    |> redirect(external: "#{SpotifyClient.oauth_uri()}?#{generate_oauth_params()}")
   end
 
-  def finalize(conn, params) do
+  def finalize(conn, _params) do
     conn
     |> redirect(external: "#{OAuthConfig.client_uri()}/set-token")
   end
@@ -35,7 +35,7 @@ defmodule SpotifyWeb.OAuthController do
   defp generate_oauth_params do
     Plug.Conn.Query.encode(%{
       response_type: "code",
-      client_id: OAuthConfig.client_id(),
+      client_id: SpotifyClient.client_id(),
       redirect_uri: OAuthConfig.redirect_uri(),
       scope: @scopes
     })
