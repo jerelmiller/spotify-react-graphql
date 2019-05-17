@@ -27,9 +27,20 @@ defmodule SpotifyWeb.OAuthController do
     |> redirect(external: "#{SpotifyClient.oauth_uri()}/authorize?#{generate_oauth_params()}")
   end
 
-  def finalize(conn, _params) do
-    conn
-    |> redirect(external: "#{OAuthConfig.client_uri()}/set-token")
+  def finalize(conn, %{"code" => code}) do
+    code
+    |> SpotifyClient.generate_token(OAuthConfig.redirect_uri())
+    |> case do
+      {:ok, response} ->
+        conn
+        |> redirect(external: "#{OAuthConfig.client_uri()}/set-token")
+
+      {:error, error} ->
+        IO.inspect(error)
+
+        conn
+        |> send_resp(500, "Something went wrong trying to authorize you.")
+    end
   end
 
   defp generate_oauth_params do
