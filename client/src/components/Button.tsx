@@ -1,4 +1,4 @@
-import { HTMLProps } from 'react'
+import { HTMLProps, ReactType } from 'react'
 import { css, ClassNames } from '@emotion/core'
 import { color, lighten, typography } from '../styles/utils'
 import { FC } from 'react'
@@ -59,6 +59,7 @@ const KINDS = {
 }
 
 interface OwnProps {
+  as?: ReactType
   className?: string
   size: keyof typeof SIZES
   kind: keyof typeof KINDS
@@ -66,10 +67,17 @@ interface OwnProps {
 
 export type Props = OwnProps & Omit<HTMLProps<HTMLButtonElement>, 'size'>
 
-const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
+const Button: FC<Props> = ({
+  className,
+  children,
+  size,
+  kind,
+  as: ButtonType = 'button',
+  ...props
+}) => (
   <ClassNames<Theme>>
     {({ css, cx, theme }) => (
-      <button
+      <ButtonType
         className={cx('sp-btn', className)}
         css={css`
           display: inline-flex;
@@ -105,7 +113,7 @@ const Button: FC<Props> = ({ className, children, size, kind, ...props }) => (
         {...props}
       >
         {children}
-      </button>
+      </ButtonType>
     )}
   </ClassNames>
 )
