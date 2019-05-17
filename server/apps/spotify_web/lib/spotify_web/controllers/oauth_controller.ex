@@ -24,7 +24,7 @@ defmodule SpotifyWeb.OAuthController do
 
   def init(conn, _) do
     conn
-    |> redirect(external: "#{SpotifyClient.oauth_uri()}?#{generate_oauth_params()}")
+    |> redirect(external: "#{SpotifyClient.oauth_uri()}/authorize?#{generate_oauth_params()}")
   end
 
   def finalize(conn, _params) do
