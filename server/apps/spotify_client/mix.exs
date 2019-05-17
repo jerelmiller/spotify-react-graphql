@@ -27,7 +27,7 @@ defmodule SpotifyClient.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.4"},
-      {:ssl_verify_fun, "~> 1.1", override: true}
+      {:ssl_verify_fun, "1.1.4", override: true}
     ]
   end
 end
