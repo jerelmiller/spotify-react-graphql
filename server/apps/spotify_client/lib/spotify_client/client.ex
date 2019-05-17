@@ -7,6 +7,12 @@ defmodule SpotifyClient.Client do
   def uri(:auth, path), do: @oauth_uri <> path
   def uri(:api, path), do: @api_uri <> path
 
+  def get(uri, headers \\ [], options \\ []) do
+    uri
+    |> HTTPoison.get(headers, options)
+    |> parse_response(:json)
+  end
+
   def post(uri, body, headers \\ [], options \\ []) do
     uri
     |> HTTPoison.post(body, headers, options)
