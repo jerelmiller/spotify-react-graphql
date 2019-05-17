@@ -3,6 +3,30 @@ defmodule SpotifyWeb.Schema.Types do
 
   alias SpotifyWeb.Resolvers
 
+  object :category do
+    field :id, non_null(:id)
+    field :icons, list_of(:image)
+    field :name, non_null(:string)
+  end
+
+  object :category_connection do
+    field :edges, list_of(:catgory_edge)
+    field :page_info, non_null(:cursor_info)
+  end
+
+  object :category_edge do
+    field :node, non_null(:category)
+  end
+
+  object :cursor_info do
+    @desc "The cursor used to find the next set of items."
+    field :cursor, :string
+
+    field :has_next_page, non_null(:boolean)
+
+    field :has_previous_page, non_null(:boolean)
+  end
+
   object :image do
     @desc "The image height in pixels. If unknown, null is returned."
     field :height, :integer
