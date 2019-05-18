@@ -13,7 +13,7 @@ defmodule SpotifyWeb.Schema do
       arg :limit, :integer
       arg :offset, :integer
 
-      resolve &Resolvers.Category.categories/3
+      resolve &Resolvers.Category.categories/2
     end
   end
 
