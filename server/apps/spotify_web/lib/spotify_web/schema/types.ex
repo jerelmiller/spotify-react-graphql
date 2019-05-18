@@ -107,7 +107,10 @@ defmodule SpotifyWeb.Schema.Types do
   object :viewer do
     @desc "The list of the current user's owned or followed playlists"
     field :playlists, :playlist_connection do
-      resolve(&Resolvers.Viewer.playlists/2)
+      arg :limit, :integer
+      arg :offset, :integer
+
+      resolve &Resolvers.Viewer.playlists/2
     end
 
     @desc "Info about the user"
