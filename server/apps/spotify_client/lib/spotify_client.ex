@@ -58,15 +58,15 @@ defmodule SpotifyClient do
 
   defp query_params(params) when is_map(params), do: URI.encode_query(params)
 
-  defp get(uri, headers \\ [], options \\ []) do
+  defp get(uri, headers) do
     uri
-    |> HTTPoison.get(headers, options)
+    |> HTTPoison.get(headers)
     |> parse_response()
   end
 
-  def post(uri, body, headers \\ [], options \\ []) do
+  def post(uri, body, headers) do
     uri
-    |> HTTPoison.post(body, headers, options)
+    |> HTTPoison.post(body, headers)
     |> parse_response()
   end
 
