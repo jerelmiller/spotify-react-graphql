@@ -10,7 +10,7 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :category_connection do
-    field :edges, list_of(:catgory_edge)
+    field :edges, list_of(:category_edge)
     field :page_info, non_null(:cursor_info)
   end
 
@@ -25,6 +25,15 @@ defmodule SpotifyWeb.Schema.Types do
     field :has_next_page, non_null(:boolean)
 
     field :has_previous_page, non_null(:boolean)
+
+    @desc """
+    The maximum number of items in the response (as set in the query or by
+    default)
+    """
+    field :limit, non_null(:integer)
+
+    @desc "The total number of items available to return."
+    field :total, non_null(:integer)
   end
 
   object :image do
