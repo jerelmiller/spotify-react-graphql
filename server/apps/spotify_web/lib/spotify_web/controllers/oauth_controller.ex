@@ -31,7 +31,7 @@ defmodule SpotifyWeb.OAuthController do
     code
     |> SpotifyClient.generate_token(OAuthConfig.redirect_uri())
     |> case do
-      {:ok, %HTTPoison.Response{body: %{"access_token" => access_token}}} ->
+      {:ok, %HTTPoison.Response{body: %{access_token: access_token}}} ->
         conn
         |> redirect(external: "#{OAuthConfig.client_uri()}/set-token?token=#{access_token}")
 
