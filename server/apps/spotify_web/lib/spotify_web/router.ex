@@ -23,4 +23,14 @@ defmodule SpotifyWeb.Router do
       schema: SpotifyWeb.Schema,
       json_codec: Jason
   end
+
+  if Mix.env == :dev do
+    scope "/graphiql" do
+      pipe_through :graphql
+
+      forward "/", Absinthe.Plug.GraphiQL,
+        schema: SpotifyWeb.Schema,
+        interface: :playground
+    end
+  end
 end
