@@ -31,4 +31,11 @@ defmodule SpotifyWeb.Resolvers.Album do
     |> SpotifyClient.tracks_by_album([{"Authorization", authorization}])
     |> Helpers.handle_response()
   end
+
+  def add_to_library(%{input: %{album_id: album_id}}, res) do
+    with {:ok, _} <- SpotifyClient.add_album_to_library(album_id, Helpers.prepare_headers(res)),
+         {:ok, %HTTPoison.Response{body: body}} <- SpotifyClient.album(album_id, Helpers.prepare_headers(res)) do
+      {:ok, %{album: body}}
+    end
+  end
 end

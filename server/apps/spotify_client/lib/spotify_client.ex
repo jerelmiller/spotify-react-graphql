@@ -10,6 +10,12 @@ defmodule SpotifyClient do
 
   def oauth_uri, do: @oauth_uri
 
+  def add_album_to_library(id, headers \\ []) do
+    "/me/albums"
+    |> api_uri(%{ids: id})
+    |> put("", headers)
+  end
+
   def current_user(headers \\ []) do
     "/me"
     |> api_uri()
@@ -141,10 +147,24 @@ defmodule SpotifyClient do
     |> parse_response()
   end
 
+  def put(uri, body, headers) do
+    uri
+    |> HTTPoison.put(body, headers)
+    |> parse_response()
+  end
+
+  defp parse_response({:ok, %{status_code: 200, body: ""} = response}) do
+    {:ok, response}
+  end
+
   defp parse_response({:ok, %{status_code: 200} = response}) do
     {:ok,
      response
      |> Map.update!(:body, &Jason.decode!(&1, keys: :atoms))}
+  end
+
+  defp parse_response({:ok, %{body: ""} = response}) do
+    {:error, response}
   end
 
   defp parse_response({:ok, response}) do
