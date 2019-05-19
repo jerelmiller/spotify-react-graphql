@@ -66,7 +66,7 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :artist do
-    @desc  """
+    @desc """
     The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the artist.
     """
