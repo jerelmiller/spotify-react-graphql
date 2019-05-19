@@ -22,9 +22,11 @@ defmodule SpotifyWeb.Schema.Types do
     @desc "The cursor used to find the next set of items."
     field :cursor, :string
 
-    field :has_next_page, non_null(:boolean)
+    field :has_next_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_next_page/3
 
-    field :has_previous_page, non_null(:boolean)
+    field :has_previous_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_previous_page/3
 
     @desc """
     The maximum number of items in the response (as set in the query or by
@@ -49,21 +51,23 @@ defmodule SpotifyWeb.Schema.Types do
 
   object :page_info do
     @desc "Whether there is a next page of items."
-    field :has_next_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_next_page/3
+    field :has_next_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_next_page/3
 
     @desc "Whether there is a previous page of items."
-    field :has_previous_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_previous_page/3
+    field :has_previous_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_previous_page/3
 
     @desc """
     The maximum number of items in the response (as set in the query or default)
     """
-    field :limit, non_null(:integer), resolve: &Resolvers.PageInfo.limit/3
+    field :limit, non_null(:integer)
 
     @desc "The offset of the items returned (as set in the query or default)"
-    field :offset, non_null(:integer), resolve: &Resolvers.PageInfo.offset/3
+    field :offset, non_null(:integer)
 
     @desc "The total number of items returned for the page."
-    field :total, non_null(:integer), resolve: &Resolvers.PageInfo.total/3
+    field :total, non_null(:integer)
   end
 
   object :playlist do
