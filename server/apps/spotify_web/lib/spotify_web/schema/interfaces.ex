@@ -55,9 +55,9 @@ defmodule SpotifyWeb.Schema.Interfaces do
     field :uri, :string
 
     resolve_type fn
-      %{added_at: added_at} when not is_nil(added_at) -> :saved_track
-      %{album: album} when not is_nil(album) -> :full_track
-      _ -> :simple_track
+      %{added_at: added_at}, _ when not is_nil(added_at) -> :saved_track
+      %{album: album}, _ when not is_nil(album) -> :full_track
+      _, _ -> :simple_track
     end
   end
 end

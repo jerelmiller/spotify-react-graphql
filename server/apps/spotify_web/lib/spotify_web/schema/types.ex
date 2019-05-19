@@ -38,7 +38,10 @@ defmodule SpotifyWeb.Schema.Types do
     field :name, non_null(:string)
 
     @desc "Information about the release date of the album."
-    field :release_date, :release_date
+    field :release_date, :release_date, resolve: &Resolvers.Album.release_date/3
+
+    @desc "The tracks of the album."
+    field :tracks, :track_connection
 
     @desc "The type of album"
     field :type, non_null(:album_type)
@@ -50,7 +53,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
 
     @desc "Whether or not the album is saved to the user's library"
-    field :saved_to_library, non_null(:boolean)
+    field :saved_to_library, non_null(:boolean), resolve: &Resolvers.Album.saved_to_library/3
   end
 
   object :album_connection do
@@ -315,6 +318,7 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :track_edge do
+    @desc "The track object."
     field :node, non_null(:track), resolve: &Resolvers.Connection.node/3
   end
 
