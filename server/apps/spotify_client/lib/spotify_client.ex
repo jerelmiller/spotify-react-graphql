@@ -37,9 +37,9 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
-  def playlists(params \\ %{}, headers \\ []) do
-    "/me/playlists"
-    |> api_uri(params)
+  def category(id, headers \\ []) do
+    "/browse/categories/#{id}"
+    |> api_uri()
     |> get(headers)
   end
 
@@ -49,14 +49,26 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
-  defp uri(path, nil), do: path
-  defp uri(path, %{}), do: path
-  defp uri(path, params), do: "#{path}?#{query_params(params)}"
+  def playlists(params \\ %{}, headers \\ []) do
+    "/me/playlists"
+    |> api_uri(params)
+    |> get(headers)
+  end
 
-  defp api_uri(path, params \\ nil), do: @api_uri <> uri(path, params)
-  defp oauth_uri(path, params \\ nil), do: @oauth_uri <> uri(path, params)
+  def playlists_by_category(category_id, params \\ %{}, headers \\ []) do
+    "/browse/categories/#{category_id}/playlists"
+    |> api_uri(params)
+    |> get(headers)
+  end
 
-  defp query_params(params) when is_map(params), do: URI.encode_query(params)
+  def uri(path, nil), do: path
+  def uri(path, params) when map_size(params) == 0, do: path
+  def uri(path, params), do: "#{path}?#{query_params(params)}"
+
+  def api_uri(path, params \\ nil), do: @api_uri <> uri(path, params)
+  def oauth_uri(path, params \\ nil), do: @oauth_uri <> uri(path, params)
+
+  def query_params(params) when is_map(params), do: URI.encode_query(params)
 
   defp get(uri, headers) do
     uri
