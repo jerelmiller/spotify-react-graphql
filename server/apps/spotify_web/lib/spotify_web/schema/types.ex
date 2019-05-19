@@ -189,7 +189,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :added_at, :string
 
     @desc "The album object."
-    field :node, non_null(:album), resolve: &Resolvers.Connection.node/3
+    field :node, non_null(:album), resolve: Resolvers.Connection.named_node(:album)
   end
 
   object :saved_track do
