@@ -4,6 +4,8 @@ defmodule SpotifyWeb.Schema.Types do
   alias SpotifyWeb.Resolvers
 
   object :album do
+    interface :playable_collection
+
     field :id, non_null(:id)
 
     @desc """
@@ -23,6 +25,12 @@ defmodule SpotifyWeb.Schema.Types do
     empty string
     """
     field :name, non_null(:string)
+
+    @desc """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the album.
+    """
+    field :uri, :string
   end
 
   object :album_connection do
