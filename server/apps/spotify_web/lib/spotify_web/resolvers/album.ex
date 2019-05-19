@@ -16,11 +16,17 @@ defmodule SpotifyWeb.Resolvers.Album do
   def primary_artist(%{artists: artists}, _, __), do: {:ok, List.first(artists)}
 
   def release_date(%{release_date: date, release_date_precision: precision}, _, _),
-    do: {:ok, %{date: date, release_date_precision: precision}}
+    do: {:ok, %{date: date, precision: precision}}
 
   def saved_to_library(%{id: id}, _, %{context: %{authorization: authorization}}) do
     id
     |> SpotifyClient.check_saved_albums([{"Authorization", authorization}])
     |> Helpers.handle_response(fn [contains] -> contains end)
+  end
+
+  def tracks(%{id: id}, _, %{context: %{authorization: authorization}}) do
+    id
+    |> SpotifyClient.tracks_by_album([{"Authorization", authorization}])
+    |> Helpers.handle_response()
   end
 end

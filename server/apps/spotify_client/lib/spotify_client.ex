@@ -84,6 +84,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def tracks_by_album(album_id, headers \\ []) do
+    "/albums/#{album_id}/tracks"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def uri(path, nil), do: path
   def uri(path, params) when map_size(params) == 0, do: path
   def uri(path, params), do: "#{path}?#{query_params(params)}"
