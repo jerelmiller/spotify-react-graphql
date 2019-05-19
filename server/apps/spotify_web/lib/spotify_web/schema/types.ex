@@ -8,6 +8,11 @@ defmodule SpotifyWeb.Schema.Types do
 
     field :id, non_null(:id)
 
+    @desc "The artists of the album."
+    field :artists, list_of(:simple_artist)
+
+    field :primary_artist, :simple_artist, resolve: &Resolvers.Album.primary_artist/3
+
     @desc """
     A list of the genres used to classify the album. For example: "Prog Rock",
     "Post-Grunge". (If not yet classified, the array is empty.)
@@ -140,6 +145,13 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "The track object."
     field :node, non_null(:track)
+  end
+
+  @desc "Simplified representation of an artist."
+  object :simple_artist do
+    field :id, non_null(:id)
+
+    field :name, non_null(:string)
   end
 
   object :track do
