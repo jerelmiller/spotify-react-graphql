@@ -13,4 +13,10 @@ defmodule SpotifyWeb.Schema.Enums do
     value :compilation
     value :single
   end
+
+  enum :release_date_precision do
+    value :year
+    value :month
+    value :day
+  end
 end
