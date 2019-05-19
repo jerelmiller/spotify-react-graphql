@@ -49,6 +49,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def new_releases(params \\ %{}, headers \\ []) do
+    "/browse/new-releases"
+    |> api_uri(params)
+    |> get(headers)
+  end
+
   def playlists(params \\ %{}, headers \\ []) do
     "/me/playlists"
     |> api_uri(params)
