@@ -35,7 +35,6 @@ defmodule SpotifyWeb.Schema do
       resolve &Resolvers.Playlist.by_category/2
     end
 
-
     @desc "Info about the current logged-in user"
     field :viewer, :viewer, resolve: &Resolvers.Viewer.viewer/2
   end
