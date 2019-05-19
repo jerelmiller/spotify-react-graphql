@@ -12,4 +12,10 @@ defmodule SpotifyWeb.Resolvers.Artist do
     |> SpotifyClient.find_artist([{"Authorization", authorization}])
     |> Helpers.handle_response()
   end
+
+  def top_tracks(%{id: id}, %{limit: limit}, %{context: %{authorization: authorization}}) do
+    id
+    |> SpotifyClient.top_tracks_by_artist([{"Authorization", authorization}])
+    |> Helpers.handle_response(fn %{tracks: tracks} -> Enum.take(tracks, limit) end)
+  end
 end

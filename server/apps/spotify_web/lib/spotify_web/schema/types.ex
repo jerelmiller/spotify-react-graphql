@@ -107,7 +107,9 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "Top tracks for the artist."
     field :top_tracks, list_of(:full_track) do
-      arg :limit, :integer
+      arg :limit, :integer, default_value: 10
+
+      resolve &Resolvers.Artist.top_tracks/3
     end
 
     @desc """
@@ -162,6 +164,9 @@ defmodule SpotifyWeb.Schema.Types do
     interface :track
 
     field :id, non_null(:id)
+
+    @desc "A simplified album object."
+    field :album, non_null(:simple_album)
 
     @desc "An array of simplified artist objects."
     field :artists, list_of(:simple_artist)
@@ -325,6 +330,23 @@ defmodule SpotifyWeb.Schema.Types do
     for the track.
     """
     field :uri, :string
+  end
+
+  @desc "Simplified representation of an album."
+  object :simple_album do
+    field :id, non_null(:id)
+
+    @desc "The type of album"
+    field :type, non_null(:album_type)
+
+    @desc "The cover art for the album in various sizes, widest first."
+    field :images, list_of(:image)
+
+    @desc """
+    The name of the album. In case of an album takedown, the value may be an
+    empty string.
+    """
+    field :name, non_null(:string)
   end
 
   @desc "Simplified representation of an artist."
