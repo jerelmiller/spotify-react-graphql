@@ -10,12 +10,12 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :category_connection do
-    field :edges, list_of(:category_edge)
+    field :edges, list_of(:category_edge), resolve: &Resolvers.Connection.edges/3
     field :page_info, non_null(:cursor_info)
   end
 
   object :category_edge do
-    field :node, non_null(:category)
+    field :node, non_null(:category), resolve: &Resolvers.Connection.node/3
   end
 
   object :cursor_info do
@@ -82,12 +82,12 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist_connection do
-    field :edges, list_of(:playlist_edge), resolve: &Resolvers.PlaylistConnection.edges/3
+    field :edges, list_of(:playlist_edge), resolve: &Resolvers.Connection.edges/3
     field :page_info, non_null(:page_info)
   end
 
   object :playlist_edge do
-    field :node, non_null(:playlist), resolve: &Resolvers.PlaylistConnection.node/3
+    field :node, non_null(:playlist), resolve: &Resolvers.Connection.node/3
   end
 
   object :user do
