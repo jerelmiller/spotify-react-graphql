@@ -19,6 +19,12 @@ defmodule SpotifyWeb.Schema.Types do
     """
     field :genres, list_of(:string)
 
+    @desc """
+    The field is present when getting an artist’s albums. Compared to type
+    this field represents relationship between the artist and the album.
+    """
+    field :group, :album_group
+
     @desc "The cover art for the album in various sizes, widest first."
     field :images, list_of(:image)
 
@@ -34,11 +40,17 @@ defmodule SpotifyWeb.Schema.Types do
     @desc "Information about the release date of the album."
     field :release_date, :release_date
 
+    @desc "The type of album"
+    field :type, non_null(:album_type)
+
     @desc """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the album.
     """
     field :uri, :string
+
+    @desc "Whether or not the album is saved to the user's library"
+    field :saved_to_library, non_null(:boolean)
   end
 
   object :album_connection do
@@ -81,6 +93,12 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "The total number of items available to return."
     field :total, non_null(:integer)
+  end
+
+  object :full_track do
+    interface :track
+
+    field :id, non_null(:id)
   end
 
   object :image do
@@ -161,6 +179,12 @@ defmodule SpotifyWeb.Schema.Types do
     field :precision, :release_date_precision
   end
 
+  object :saved_track do
+    interface :track
+
+    field :id, non_null(:id)
+  end
+
   @desc "Simplified representation of an artist."
   object :simple_artist do
     field :id, non_null(:id)
@@ -168,8 +192,19 @@ defmodule SpotifyWeb.Schema.Types do
     field :name, non_null(:string)
   end
 
-  object :track do
+  object :simple_track do
+    interface :track
+
     field :id, non_null(:id)
+  end
+
+  object :track_connection do
+    field :edges, list_of(:track_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:page_info)
+  end
+
+  object :track_edge do
+    field :node, non_null(:track), resolve: &Resolvers.Connection.node/3
   end
 
   object :user do

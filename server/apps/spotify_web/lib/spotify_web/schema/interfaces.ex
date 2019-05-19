@@ -18,4 +18,14 @@ defmodule SpotifyWeb.Schema.Interfaces do
       |> String.to_existing_atom()
     end
   end
+
+  interface :track do
+    field :id, non_null(:id)
+
+    resolve_type fn
+      %{added_at: added_at} when not is_nil(added_at) -> :saved_track
+      %{album: album} when not is_nil(album) -> :full_track
+      _ -> :simple_track
+    end
+  end
 end
