@@ -8,6 +8,13 @@ defmodule SpotifyWeb.Schema do
   import_types SpotifyWeb.Schema.Interfaces
 
   query do
+    @desc "Get an album by its ID."
+    field :album, :album do
+      arg :id, non_null(:id)
+
+      resolve &Album.find/2
+    end
+
     field :category, :category do
       arg :id, non_null(:id)
 
