@@ -4,6 +4,7 @@ defmodule SpotifyWeb.Schema do
   alias SpotifyWeb.Resolvers
 
   import_types SpotifyWeb.Schema.Types
+  import_types SpotifyWeb.Schema.Interfaces
 
   query do
     field :category, :category do
