@@ -119,7 +119,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
 
     @desc "Artists similar to the artist."
-    field :related_artists, list_of(:artist)
+    field :related_artists, list_of(:artist), resolve: &Resolvers.Artist.related_artists/3
   end
 
   object :category do

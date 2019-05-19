@@ -90,6 +90,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def related_artists_for_artist(artist_id, headers \\ []) do
+    "/artists/#{artist_id}/related-artists"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def saved_albums(params \\ %{}, headers \\ []) do
     "/me/albums"
     |> api_uri(Map.put(params, :aggregate_tracks, true))
