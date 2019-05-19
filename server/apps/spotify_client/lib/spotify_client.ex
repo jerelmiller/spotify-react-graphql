@@ -31,6 +31,17 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def check_saved_albums(ids, headers \\ [])
+
+  def check_saved_albums(id, headers) when not is_list(id),
+    do: check_saved_albums([id], headers)
+
+  def check_saved_albums(ids, headers) when is_list(ids) do
+    "/me/albums/contains"
+    |> api_uri(%{ids: Enum.join(ids, ",")})
+    |> get(headers)
+  end
+
   def artist(id, headers \\ []) do
     "/artists/#{id}"
     |> api_uri()

@@ -18,5 +18,9 @@ defmodule SpotifyWeb.Resolvers.Album do
   def release_date(%{release_date: date, release_date_precision: precision}, _, _),
     do: {:ok, %{date: date, release_date_precision: precision}}
 
-  def saved_to_library(_, _, _), do: {:ok, false}
+  def saved_to_library(%{id: id}, _, %{context: %{authorization: authorization}}) do
+    id
+    |> SpotifyClient.check_saved_albums([{"Authorization", authorization}])
+    |> Helpers.handle_response(fn [contains] -> contains end)
+  end
 end
