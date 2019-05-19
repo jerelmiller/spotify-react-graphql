@@ -24,7 +24,7 @@ defmodule SpotifyWeb.Router do
       json_codec: Jason
   end
 
-  if Mix.env == :dev do
+  if Mix.env() == :dev do
     scope "/graphiql" do
       pipe_through :graphql
 
