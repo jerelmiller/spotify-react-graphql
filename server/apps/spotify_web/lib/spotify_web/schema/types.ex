@@ -3,6 +3,37 @@ defmodule SpotifyWeb.Schema.Types do
 
   alias SpotifyWeb.Resolvers
 
+  object :album do
+    field :id, non_null(:id)
+
+    @desc """
+    A list of the genres used to classify the album. For example: "Prog Rock",
+    "Post-Grunge". (If not yet classified, the array is empty.)
+    """
+    field :genres, list_of(:string)
+
+    @desc "The cover art for the album in various sizes, widest first."
+    field :images, list_of(:image)
+
+    @desc "The label for the album."
+    field :label, :string
+
+    @desc """
+    The name of the album. In case of an album takedown, the value may be an
+    empty string
+    """
+    field :name, non_null(:string)
+  end
+
+  object :album_connection do
+    field :edges, list_of(:album_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:page_info)
+  end
+
+  object :album_edge do
+    field :node, non_null(:album), resolve: &Resolvers.Connection.node/3
+  end
+
   object :category do
     field :id, non_null(:id)
     field :icons, list_of(:image)

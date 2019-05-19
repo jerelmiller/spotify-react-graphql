@@ -3,7 +3,7 @@ defmodule SpotifyWeb.Schema do
 
   alias SpotifyWeb.Resolvers
 
-  import_types(SpotifyWeb.Schema.Types)
+  import_types SpotifyWeb.Schema.Types
 
   query do
     field :category, :category do
@@ -19,6 +19,13 @@ defmodule SpotifyWeb.Schema do
       resolve &Resolvers.Category.categories/2
     end
 
+    field :new_releases, :album_connection do
+      arg :limit, :integer
+      arg :offset, :integer
+
+      resolve &Resolvers.Album.new_releases/2
+    end
+
     field :playlists_by_category, :playlist_connection do
       arg :category_id, non_null(:id)
       arg :limit, :integer, default_value: 50
@@ -26,6 +33,7 @@ defmodule SpotifyWeb.Schema do
 
       resolve &Resolvers.Playlist.by_category/2
     end
+
 
     @desc "Info about the current logged-in user"
     field :viewer, :viewer, resolve: &Resolvers.Viewer.viewer/2
