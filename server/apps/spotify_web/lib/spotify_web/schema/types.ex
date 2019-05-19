@@ -428,7 +428,7 @@ defmodule SpotifyWeb.Schema.Types do
     end
 
     @desc "Info about the user"
-    field :user, :user
+    field :user, :user, resolve: &Resolvers.Viewer.user/2
 
     @desc "The collection of saved albums in the current user's Spotify library."
     field :saved_albums, :saved_album_connection do

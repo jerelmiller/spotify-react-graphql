@@ -10,6 +10,12 @@ defmodule SpotifyClient do
 
   def oauth_uri, do: @oauth_uri
 
+  def current_user(headers \\ []) do
+    "/me"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def generate_token(code, redirect_uri) do
     oauth_uri("/api/token")
     |> post(
