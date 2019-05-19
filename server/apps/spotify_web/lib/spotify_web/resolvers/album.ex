@@ -13,6 +13,8 @@ defmodule SpotifyWeb.Resolvers.Album do
     |> Helpers.handle_response(fn %{albums: albums} -> albums end)
   end
 
+  def group(%{album_group: group}, _, _), do: {:ok, group}
+
   def primary_artist(%{artists: artists}, _, __), do: {:ok, List.first(artists)}
 
   def release_date(%{release_date: date, release_date_precision: precision}, _, _),
