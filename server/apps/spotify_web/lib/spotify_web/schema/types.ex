@@ -65,6 +65,61 @@ defmodule SpotifyWeb.Schema.Types do
     field :node, non_null(:album), resolve: &Resolvers.Connection.node/3
   end
 
+  object :artist do
+    @desc  """
+    The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    field :id, non_null(:id)
+
+    @desc "A list of albums created by the artist."
+    field :albums, non_null(:album_connection) do
+      arg :limit, :integer, default_value: 50
+      arg :offset, :integer, default_value: 0
+
+      resolve &Resolvers.Artist.albums/3
+    end
+
+    @desc "Information about the followers of the artist."
+    field :followers, :followers
+
+    @desc """
+    A list of the genres the artist is associated with. For example
+    "Prog Rock", "Post-Grunge". (If not yet classified, the array is empty.)
+    """
+    field :genres, list_of(:string)
+
+    @desc "A link to the Web API endpoint providing full details of the artist."
+    field :href, non_null(:string)
+
+    @desc "Images of the artist in various sizes, widest first."
+    field :images, list_of(:image)
+
+    @desc "The name of the artist."
+    field :name, non_null(:string)
+
+    @desc """
+    The popularity of the artist. The value will be between 0 and 100, with 100
+    being the most popular. The artist's popularity is calculated from the
+    popularity of all the artist's tracks.
+    """
+    field :popularity, non_null(:integer)
+
+    @desc "Top tracks for the artist."
+    field :top_tracks, list_of(:full_track) do
+      arg :limit, :integer
+    end
+
+    @desc """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the artist.
+    """
+    field :uri, :string
+
+    @desc "Artists similar to the artist."
+    field :related_artists, list_of(:artist)
+  end
+
   object :category do
     field :id, non_null(:id)
     field :icons, list_of(:image)
@@ -95,6 +150,11 @@ defmodule SpotifyWeb.Schema.Types do
     field :limit, non_null(:integer)
 
     @desc "The total number of items available to return."
+    field :total, non_null(:integer)
+  end
+
+  object :followers do
+    @desc "The total number of followers."
     field :total, non_null(:integer)
   end
 
