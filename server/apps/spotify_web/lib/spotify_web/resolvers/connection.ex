@@ -13,4 +13,6 @@ defmodule SpotifyWeb.Resolvers.Connection do
       _ -> {:ok, item}
     end
   end
+
+  def page_info(connection, _, _), do: {:ok, Map.delete(connection, :items)}
 end

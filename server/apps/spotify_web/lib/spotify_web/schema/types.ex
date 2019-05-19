@@ -41,7 +41,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :release_date, :release_date, resolve: &Resolvers.Album.release_date/3
 
     @desc "The tracks of the album."
-    field :tracks, :track_connection
+    field :tracks, :track_connection, resolve: &Resolvers.Album.tracks/3
 
     @desc "The type of album"
     field :type, non_null(:album_type)
@@ -112,7 +112,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :disc_number, non_null(:integer)
 
     @desc "The track length in milliseconds"
-    field :duration, non_null(:integer)
+    field :duration, non_null(:integer), resolve: &Resolvers.Track.duration/3
 
     @desc """
     Whether or not the track has explicit lyrics (true = yes it does;
@@ -243,7 +243,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :disc_number, non_null(:integer)
 
     @desc "The track length in milliseconds"
-    field :duration, non_null(:integer)
+    field :duration, non_null(:integer), resolve: &Resolvers.Track.duration/3
 
     @desc """
     Whether or not the track has explicit lyrics (true = yes it does;
@@ -288,7 +288,7 @@ defmodule SpotifyWeb.Schema.Types do
     field :disc_number, non_null(:integer)
 
     @desc "The track length in milliseconds"
-    field :duration, non_null(:integer)
+    field :duration, non_null(:integer), resolve: &Resolvers.Track.duration/3
 
     @desc """
     Whether or not the track has explicit lyrics (true = yes it does;
@@ -314,7 +314,7 @@ defmodule SpotifyWeb.Schema.Types do
 
   object :track_connection do
     field :edges, list_of(:track_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:page_info)
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
   end
 
   object :track_edge do
