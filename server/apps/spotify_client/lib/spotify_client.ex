@@ -31,6 +31,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def albums_by_artist(artist_id, params \\ %{}, headers \\ []) do
+    "/artists/#{artist_id}/albums"
+    |> api_uri(params)
+    |> get(headers)
+  end
+
   def check_saved_albums(ids, headers \\ [])
 
   def check_saved_albums(id, headers) when not is_list(id),
@@ -42,7 +48,7 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
-  def artist(id, headers \\ []) do
+  def find_artist(id, headers \\ []) do
     "/artists/#{id}"
     |> api_uri()
     |> get(headers)
