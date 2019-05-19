@@ -122,6 +122,15 @@ defmodule SpotifyWeb.Schema.Types do
     field :related_artists, list_of(:artist), resolve: &Resolvers.Artist.related_artists/3
   end
 
+  object :artist_connection do
+    field :edges, list_of(:artist_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:cursor_info), resolve: &Resolvers.Connection.page_info/3
+  end
+
+  object :artist_edge do
+    field :node, non_null(:artist), resolve: &Resolvers.Connection.node/3
+  end
+
   object :category do
     field :id, non_null(:id)
     field :icons, list_of(:image)
@@ -419,6 +428,14 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :viewer do
+    @desc "The list of the current user's followed artists."
+    field :followed_artists, :artist_connection do
+      arg :limit, :integer, default_value: 50
+      arg :after, :string
+
+      resolve &Resolvers.Viewer.followed_artists/2
+    end
+
     @desc "The list of the current user's owned or followed playlists"
     field :playlists, :playlist_connection do
       arg :limit, :integer

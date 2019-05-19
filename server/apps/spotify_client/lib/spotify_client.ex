@@ -16,6 +16,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def followed_artists(params \\ %{}, headers \\ []) do
+    "/me/following"
+    |> api_uri(Map.put(params, :type, "artist"))
+    |> get(headers)
+  end
+
   def generate_token(code, redirect_uri) do
     oauth_uri("/api/token")
     |> post(
