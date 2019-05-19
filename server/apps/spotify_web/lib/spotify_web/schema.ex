@@ -4,6 +4,7 @@ defmodule SpotifyWeb.Schema do
   alias SpotifyWeb.Resolvers.{Album, Category, Playlist, Viewer}
 
   import_types SpotifyWeb.Schema.Types
+  import_types SpotifyWeb.Schema.Enums
   import_types SpotifyWeb.Schema.Interfaces
 
   query do
