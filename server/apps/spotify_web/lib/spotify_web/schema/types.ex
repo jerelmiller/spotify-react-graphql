@@ -129,6 +129,23 @@ defmodule SpotifyWeb.Schema.Types do
     field :node, non_null(:playlist), resolve: &Resolvers.Connection.node/3
   end
 
+  object :playlist_track_connection do
+    field :edges, list_of(:playlist_track_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:page_info)
+  end
+
+  object :playlist_track_edge do
+    field :added_at, :string
+    field :added_by, :user
+
+    @desc "The track object."
+    field :node, non_null(:track)
+  end
+
+  object :track do
+    field :id, non_null(:id)
+  end
+
   object :user do
     @desc """
     The [Spotify user ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
