@@ -185,11 +185,13 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_album_edge do
+    meta node: :album
+
     @desc "The date and time the album was saved."
     field :added_at, :string
 
     @desc "The album object."
-    field :node, non_null(:album), resolve: Resolvers.Connection.named_node(:album)
+    field :node, non_null(:album), resolve: &Resolvers.Connection.node/3
   end
 
   object :saved_track do

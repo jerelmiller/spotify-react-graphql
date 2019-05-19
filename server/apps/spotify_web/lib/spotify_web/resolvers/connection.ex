@@ -3,16 +3,14 @@ defmodule SpotifyWeb.Resolvers.Connection do
   def edges(_, _, _), do: {:error, "No items found"}
 
   def node(item, _, _) when is_nil(item), do: {:error, "Node is null"}
-  def node(item, _, _), do: {:ok, item}
 
-  def named_node(name) do
-    fn parent, _, _ ->
-      parent
-      |> Map.fetch(name)
-      |> case do
-        :error -> {:error, "key does not exist"}
-        result -> result
-      end
+  def node(item, _, resolution) do
+    resolution.schema
+    |> Absinthe.Schema.lookup_type(resolution.parent_type.identifier)
+    |> Absinthe.Type.meta()
+    |> case do
+      %{node: name} -> {:ok, Map.get(item, name)}
+      _ -> {:ok, item}
     end
   end
 end
