@@ -23,7 +23,7 @@ defmodule SpotifyWeb.Schema.Types do
     The field is present when getting an artist’s albums. Compared to type
     this field represents relationship between the artist and the album.
     """
-    field :group, :album_group
+    field :group, :album_group, resolve: &Resolvers.Album.group/3
 
     @desc "The cover art for the album in various sizes, widest first."
     field :images, list_of(:image)
