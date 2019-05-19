@@ -179,6 +179,19 @@ defmodule SpotifyWeb.Schema.Types do
     field :precision, :release_date_precision
   end
 
+  object :saved_album_connection do
+    field :edges, list_of(:saved_album_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:page_info)
+  end
+
+  object :saved_album_edge do
+    @desc "The date and time the album was saved."
+    field :added_at, :string
+
+    @desc "The album object."
+    field :node, non_null(:album), resolve: &Resolvers.Connection.node/3
+  end
+
   object :saved_track do
     interface :track
 
@@ -232,5 +245,13 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "Info about the user"
     field :user, :user
+
+    @desc "The collection of saved albums in the current user's Spotify library."
+    field :saved_albums, :saved_album_connection do
+      arg :limit, :integer, default_value: 50
+      arg :offset, :integer, default_value: 0
+
+      resolve &Resolvers.Viewer.saved_albums/2
+    end
   end
 end

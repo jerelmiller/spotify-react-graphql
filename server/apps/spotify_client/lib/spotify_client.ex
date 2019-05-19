@@ -67,6 +67,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def saved_albums(params \\ %{}, headers \\ []) do
+    "/me/albums"
+    |> api_uri(Map.put(params, :aggregate_tracks, true))
+    |> get(headers)
+  end
+
   def uri(path, nil), do: path
   def uri(path, params) when map_size(params) == 0, do: path
   def uri(path, params), do: "#{path}?#{query_params(params)}"
