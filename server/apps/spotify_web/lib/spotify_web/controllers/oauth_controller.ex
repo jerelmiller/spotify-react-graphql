@@ -44,11 +44,11 @@ defmodule SpotifyWeb.OAuthController do
   end
 
   defp generate_oauth_params do
-    Plug.Conn.Query.encode(%{
+    URI.encode_query(%{
       response_type: "code",
       client_id: SpotifyClient.client_id(),
       redirect_uri: OAuthConfig.redirect_uri(),
-      scope: @scopes
+      scope: Enum.join(@scopes, " ")
     })
   end
 end
