@@ -3,6 +3,11 @@ defmodule SpotifyWeb.Schema.Types do
 
   alias SpotifyWeb.Resolvers
 
+  object :add_album_to_library_payload do
+    @desc "Modified album after adding to the user's library"
+    field :album, :album
+  end
+
   object :album do
     interface :playable_collection
 

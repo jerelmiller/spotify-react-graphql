@@ -6,6 +6,7 @@ defmodule SpotifyWeb.Schema do
   import_types SpotifyWeb.Schema.Types
   import_types SpotifyWeb.Schema.Enums
   import_types SpotifyWeb.Schema.Interfaces
+  import_types SpotifyWeb.Schema.InputObjects
 
   query do
     @desc "Get an album by its ID."
@@ -51,6 +52,15 @@ defmodule SpotifyWeb.Schema do
 
     @desc "Info about the current logged-in user"
     field :viewer, :viewer, resolve: &Viewer.viewer/2
+  end
+
+  mutation do
+    @desc "Add an album to a user's library"
+    field :add_album_to_library, :add_album_to_library_payload do
+      arg :input, non_null(:add_album_to_library_input)
+
+      resolve &Album.add_to_library/2
+    end
   end
 
   def middleware(middleware, _field, _object) do
