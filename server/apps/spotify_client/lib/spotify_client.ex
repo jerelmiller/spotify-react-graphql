@@ -90,6 +90,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def top_tracks_by_artist(artist_id, headers \\ []) do
+    "/artists/#{artist_id}/top-tracks"
+    |> api_uri(%{market: "from_token"})
+    |> get(headers)
+  end
+
   def tracks_by_album(album_id, headers \\ []) do
     "/albums/#{album_id}/tracks"
     |> api_uri()
