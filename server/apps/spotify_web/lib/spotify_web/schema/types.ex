@@ -31,6 +31,9 @@ defmodule SpotifyWeb.Schema.Types do
     """
     field :name, non_null(:string)
 
+    @desc "Information about the release date of the album."
+    field :release_date, :release_date
+
     @desc """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the album.
@@ -145,6 +148,17 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "The track object."
     field :node, non_null(:track)
+  end
+
+  object :release_date do
+    @desc """
+    The date the album was first released, for example 1981. Depending on the
+    precision, it might be shown as 1981-12, or 1981-12-15.
+    """
+    field :date, :string
+
+    @desc "The precision with which the release date value is known."
+    field :precision, :release_date_precision
   end
 
   @desc "Simplified representation of an artist."
