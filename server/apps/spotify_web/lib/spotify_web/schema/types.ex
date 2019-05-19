@@ -67,12 +67,12 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist do
-    field :id, non_null(:id), resolve: &Resolvers.Playlist.id/3
-    field :collaborative, non_null(:boolean), resolve: &Resolvers.Playlist.collaborative/3
-    field :images, list_of(:image), resolve: &Resolvers.Playlist.images/3
-    field :name, non_null(:string), resolve: &Resolvers.Playlist.name/3
-    field :owner, non_null(:user), resolve: &Resolvers.Playlist.owner/3
-    field :public, non_null(:boolean), resolve: &Resolvers.Playlist.public/3
+    field :id, non_null(:id)
+    field :collaborative, non_null(:boolean)
+    field :images, list_of(:image)
+    field :name, non_null(:string)
+    field :owner, non_null(:user)
+    field :public, non_null(:boolean)
 
     @desc """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
