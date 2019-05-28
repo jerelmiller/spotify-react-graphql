@@ -253,6 +253,8 @@ defmodule SpotifyWeb.Schema.Types do
     field :owner, non_null(:user)
     field :public, non_null(:boolean)
 
+    field :tracks, non_null(:playlist_track_connection), resolve: &Resolvers.Playlist.tracks/3
+
     @desc """
     The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the playlist.
