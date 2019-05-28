@@ -251,6 +251,10 @@ defmodule SpotifyWeb.Schema.Types do
     field :success, non_null(:boolean)
   end
 
+  object :play_track_payload do
+    field :success, non_null(:boolean)
+  end
+
   object :playlist do
     interface :playable_collection
 

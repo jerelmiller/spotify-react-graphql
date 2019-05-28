@@ -13,4 +13,18 @@ defmodule SpotifyWeb.Schema.InputObjects do
     @desc "The device in which to play the album"
     field :device_id, :id
   end
+
+  input_object :play_track_input do
+    @desc "Track URI to play"
+    field :track, non_null(:string)
+
+    @desc "The device in which to play the track"
+    field :device_id, :id
+
+    @desc """
+    Spotify URI of the context to play. Valid contexts are albums, artists,
+    playlists. Example: 'spotify:album:1Je1IMUlBXcx1Fz0WE7oPT'
+    """
+    field :context_uri, :string
+  end
 end

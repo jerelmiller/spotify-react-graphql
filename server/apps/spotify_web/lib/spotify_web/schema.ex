@@ -74,6 +74,13 @@ defmodule SpotifyWeb.Schema do
 
       resolve &Player.play_collection/2
     end
+
+    @desc "Play a track or set of tracks"
+    field :play_track, :play_track_payload do
+      arg :input, non_null(:play_track_input)
+
+      resolve &Player.play_track/2
+    end
   end
 
   def middleware(middleware, _field, _object) do

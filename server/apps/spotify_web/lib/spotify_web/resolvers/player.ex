@@ -12,4 +12,13 @@ defmodule SpotifyWeb.Resolvers.Player do
       _ -> {:ok, %{success: false}}
     end
   end
+
+  def play_track(%{input: input}, res) do
+    input.track
+    |> SpotifyClient.play_track(Map.delete(input, :track), Helpers.prepare_headers(res))
+    |> case do
+      {:ok, _} -> {:ok, %{success: true}}
+      _ -> {:ok, %{success: false}}
+    end
+  end
 end
