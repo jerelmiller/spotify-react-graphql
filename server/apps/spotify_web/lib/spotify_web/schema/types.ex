@@ -313,6 +313,9 @@ defmodule SpotifyWeb.Schema.Types do
 
     field :id, non_null(:id)
 
+    @desc "A simplified album object."
+    field :album, non_null(:simple_album)
+
     @desc "An array of simplified artist objects."
     field :artists, list_of(:simple_artist)
 
