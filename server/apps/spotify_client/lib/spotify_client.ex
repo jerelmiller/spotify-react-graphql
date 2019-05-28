@@ -102,6 +102,18 @@ defmodule SpotifyClient do
     |> put(%{context_uri: uri}, headers)
   end
 
+  def play_track(uri, %{device_id: device_id} = params, headers \\ []) do
+    "/me/player/play"
+    |> api_uri(%{device_id: device_id})
+    |> put(format_play_track_request(uri, params), headers)
+  end
+
+  defp format_play_track_request(uri, %{context_uri: nil}),
+    do: %{uris: [uri]}
+
+  defp format_play_track_request(uri, %{context_uri: context_uri}),
+    do: %{context_uri: context_uri, offset: %{uri: uri}}
+
   def playlists(params \\ %{}, headers \\ []) do
     "/me/playlists"
     |> api_uri(params)
