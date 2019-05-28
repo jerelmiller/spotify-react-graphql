@@ -72,6 +72,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def find_playlist(id, headers \\ []) do
+    "/playlists/#{id}"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def category(id, headers \\ []) do
     "/browse/categories/#{id}"
     |> api_uri()

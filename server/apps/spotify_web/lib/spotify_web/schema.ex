@@ -42,6 +42,12 @@ defmodule SpotifyWeb.Schema do
       resolve &Album.new_releases/2
     end
 
+    field :playlist, :playlist do
+      arg :id, non_null(:id)
+
+      resolve &Playlist.find/2
+    end
+
     field :playlists_by_category, :playlist_connection do
       arg :category_id, non_null(:id)
       arg :limit, :integer, default_value: 50

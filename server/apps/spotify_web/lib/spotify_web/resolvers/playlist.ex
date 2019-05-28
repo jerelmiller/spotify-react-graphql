@@ -12,6 +12,12 @@ defmodule SpotifyWeb.Resolvers.Playlist do
     end
   end
 
+  def find(%{id: id}, res) do
+    id
+    |> SpotifyClient.find_playlist(Helpers.prepare_headers(res))
+    |> Helpers.handle_response()
+  end
+
   def tracks(%{id: id}, args, res) do
     id
     |> SpotifyClient.tracks_by_playlist(args, Helpers.prepare_headers(res))
