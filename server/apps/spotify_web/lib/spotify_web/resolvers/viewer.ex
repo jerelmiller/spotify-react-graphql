@@ -18,6 +18,12 @@ defmodule SpotifyWeb.Resolvers.Viewer do
     end
   end
 
+  def saved_tracks(args, res) do
+    args
+    |> SpotifyClient.saved_tracks(Helpers.prepare_headers(res))
+    |> Helpers.handle_response()
+  end
+
   def playlists(args, %{context: %{authorization: authorization}}) do
     args
     |> SpotifyClient.playlists([{"Authorization", authorization}])
