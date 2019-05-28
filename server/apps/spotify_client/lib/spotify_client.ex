@@ -96,6 +96,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def play_collection(uri, params \\ %{}, headers \\ []) do
+    "/me/player/play"
+    |> api_uri(params)
+    |> put(%{context_uri: uri}, headers)
+  end
+
   def playlists(params \\ %{}, headers \\ []) do
     "/me/playlists"
     |> api_uri(params)
@@ -165,13 +171,20 @@ defmodule SpotifyClient do
     |> parse_response()
   end
 
-  def put(uri, body, headers) do
+  def put(uri, "", headers) do
     uri
-    |> HTTPoison.put(body, headers)
+    |> HTTPoison.put("", headers)
     |> parse_response()
   end
 
-  defp parse_response({:ok, %{status_code: 200, body: ""} = response}) do
+  def put(uri, body, headers) do
+    uri
+    |> HTTPoison.put(Jason.encode!(body), headers)
+    |> parse_response()
+  end
+
+  defp parse_response({:ok, %{status_code: status_code, body: ""} = response})
+       when status_code in [200, 204] do
     {:ok, response}
   end
 
