@@ -71,6 +71,8 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :artist do
+    interface :playable_collection
+
     @desc """
     The [Spotify ID](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
     for the artist.
@@ -246,6 +248,8 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist do
+    interface :playable_collection
+
     field :id, non_null(:id)
     field :collaborative, non_null(:boolean)
     field :images, list_of(:image)
@@ -273,15 +277,17 @@ defmodule SpotifyWeb.Schema.Types do
 
   object :playlist_track_connection do
     field :edges, list_of(:playlist_track_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:page_info)
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
   end
 
   object :playlist_track_edge do
+    meta node: :track
+
     field :added_at, :string
     field :added_by, :user
 
     @desc "The track object."
-    field :node, non_null(:track)
+    field :node, non_null(:track), resolve: &Resolvers.Connection.node/3
   end
 
   object :release_date do
