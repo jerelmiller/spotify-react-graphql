@@ -1,7 +1,7 @@
 defmodule SpotifyWeb.Schema do
   use Absinthe.Schema
 
-  alias SpotifyWeb.Resolvers.{Album, Artist, Category, Playlist, Viewer}
+  alias SpotifyWeb.Resolvers.{Album, Artist, Category, Player, Playlist, Viewer}
 
   import_types SpotifyWeb.Schema.Types
   import_types SpotifyWeb.Schema.Enums
@@ -66,6 +66,13 @@ defmodule SpotifyWeb.Schema do
       arg :input, non_null(:add_album_to_library_input)
 
       resolve &Album.add_to_library/2
+    end
+
+    @desc "Play an album"
+    field :play_collection, :play_collection_payload do
+      arg :input, non_null(:play_collection_input)
+
+      resolve &Player.play_collection/2
     end
   end
 
