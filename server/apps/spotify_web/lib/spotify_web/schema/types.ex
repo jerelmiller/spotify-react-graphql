@@ -346,6 +346,21 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
   end
 
+  object :saved_track_connection do
+    field :edges, list_of(:saved_track_edge), resolve: &Resolvers.Connection.edges/3
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+  end
+
+  object :saved_track_edge do
+    meta node: :track
+
+    @desc "The date and time the track was saved."
+    field :added_at, :string
+
+    @desc "The track object."
+    field :node, non_null(:saved_track), resolve: &Resolvers.Connection.node/3
+  end
+
   @desc "Simplified representation of an album."
   object :simple_album do
     field :id, non_null(:id)
@@ -458,6 +473,14 @@ defmodule SpotifyWeb.Schema.Types do
       arg :offset, :integer, default_value: 0
 
       resolve &Resolvers.Viewer.saved_albums/2
+    end
+
+    @desc "The collection of saved songs in the current user's Spotify library."
+    field :saved_tracks, :saved_track_connection do
+      arg :limit, :integer, default_value: 50
+      arg :offset, :integer, default_value: 0
+
+      resolve &Resolvers.Viewer.saved_tracks/2
     end
   end
 end
