@@ -477,8 +477,8 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "The list of the current user's owned or followed playlists"
     field :playlists, :playlist_connection do
-      arg :limit, :integer
-      arg :offset, :integer
+      arg :limit, :integer, default_value: 50
+      arg :offset, :integer, default_value: 0
 
       resolve &Resolvers.Viewer.playlists/2
     end
