@@ -6,7 +6,7 @@ defmodule Spotify.Repo.Migrations.CreateSessions do
       add :access_token, :string, null: false
       add :refresh_token, :string, null: false
       add :expires_at, :utc_datetime, null: false
-      add :scopes, :text, null: false, default: ""
+      add :scope, :text, null: false, default: ""
 
       timestamps()
     end
