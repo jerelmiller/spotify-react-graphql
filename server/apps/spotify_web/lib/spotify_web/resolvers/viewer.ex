@@ -27,10 +27,7 @@ defmodule SpotifyWeb.Resolvers.Viewer do
   def playlists(args, %{context: %{authorization: authorization}}) do
     args
     |> SpotifyClient.playlists([{"Authorization", authorization}])
-    |> case do
-      {:ok, %HTTPoison.Response{body: body}} -> {:ok, body}
-      error -> error
-    end
+    |> Helpers.handle_response()
   end
 
   def user(_, %{context: %{authorization: authorization}}) do
