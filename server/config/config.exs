@@ -13,6 +13,9 @@ use Mix.Config
 config :spotify,
   ecto_repos: [Spotify.Repo]
 
+config :spotify, Spotify.Repo,
+  migration_primary_key: [name: :id, type: :binary_id]
+
 config :spotify_web,
   ecto_repos: [Spotify.Repo],
   generators: [context_app: :spotify]
