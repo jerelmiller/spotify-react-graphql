@@ -1,19 +1,15 @@
 defmodule SpotifyWeb.Resolvers.Category do
+  alias SpotifyWeb.Resolvers.Helpers
+
   def find(%{id: id}, %{context: %{authorization: authorization}}) do
     id
     |> SpotifyClient.category([{"Authorization", authorization}])
-    |> case do
-      {:ok, %HTTPoison.Response{body: body}} -> {:ok, body}
-      error -> error
-    end
+    |> Helpers.handle_response()
   end
 
   def categories(args, %{context: %{authorization: authorization}}) do
     args
     |> SpotifyClient.categories([{"Authorization", authorization}])
-    |> case do
-      {:ok, %HTTPoison.Response{body: body}} -> {:ok, body.categories}
-      error -> error
-    end
+    |> Helpers.handle_response(fn %{categories: categories} -> categories end)
   end
 end
