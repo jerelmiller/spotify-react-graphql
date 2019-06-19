@@ -3,8 +3,8 @@ defmodule Spotify.Repo.Migrations.CreateSessions do
 
   def change do
     create table(:sessions) do
-      add :access_token, :string, null: false
-      add :refresh_token, :string, null: false
+      add :access_token, :text, null: false
+      add :refresh_token, :text, null: false
       add :expires_at, :utc_datetime, null: false
       add :scope, :text, null: false, default: ""
 
