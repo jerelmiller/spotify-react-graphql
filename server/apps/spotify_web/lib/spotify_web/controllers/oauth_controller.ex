@@ -28,16 +28,13 @@ defmodule SpotifyWeb.OAuthController do
   end
 
   def finalize(conn, %{"code" => code}) do
-    code
-    |> SpotifyClient.generate_token(OAuthConfig.redirect_uri())
-    |> case do
-      {:ok, %HTTPoison.Response{body: %{access_token: access_token}}} ->
-        conn
-        |> redirect(external: "#{OAuthConfig.client_uri()}/set-token?token=#{access_token}")
-
-      {:error, error} ->
-        IO.inspect(error)
-
+    with {:ok, %HTTPoison.Response{body: %{access_token: access_token} = body}} <-
+           SpotifyClient.generate_token(code, OAuthConfig.redirect_uri()),
+         {:ok, _} <- Spotify.Sessions.create(body) do
+      conn
+      |> redirect(external: "#{OAuthConfig.client_uri()}/set-token?token=#{access_token}")
+    else
+      _ ->
         conn
         |> send_resp(500, "Something went wrong trying to authorize you.")
     end
