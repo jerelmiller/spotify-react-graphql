@@ -84,6 +84,6 @@ defmodule SpotifyWeb.Schema do
   end
 
   def middleware(middleware, _field, _object) do
-    [NewRelic.Absinthe.Middleware] ++ middleware
+    [NewRelic.Absinthe.Middleware] ++ middleware ++ [SpotifyWeb.Middleware.Error]
   end
 end
