@@ -4,15 +4,6 @@ defmodule Spotify.Sessions do
 
   def create(session \\ %Session{}, attrs)
 
-  def create(session, %{expires_in: expires_in} = attrs) when is_integer(expires_in) do
-    create(
-      session,
-      attrs
-      |> Map.put(:expires_at, DateTime.add(DateTime.utc_now(), expires_in, :second))
-      |> Map.delete(:expires_in)
-    )
-  end
-
   def create(session, attrs) do
     session
     |> Session.create_changeset(attrs)
