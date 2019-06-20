@@ -10,9 +10,15 @@ defmodule Spotify.Sessions.Session do
     timestamps()
   end
 
-  def changeset(%__MODULE__{} = session, attrs) do
+  def create_changeset(%__MODULE__{} = session, attrs) do
     session
     |> cast(attrs, [:access_token, :refresh_token, :expires_at, :scope])
     |> validate_required([:access_token, :refresh_token, :expires_at, :scope])
+  end
+
+  def update_changeset(%__MODULE__{} = session, attrs) do
+    session
+    |> cast(attrs, [:access_token, :expires_at, :scope])
+    |> validate_required([:access_token, :expires_at, :scope])
   end
 end
