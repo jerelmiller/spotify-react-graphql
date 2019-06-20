@@ -4,24 +4,24 @@ defprotocol SpotifyWeb.ResolverError do
 end
 
 defimpl SpotifyWeb.ResolverError, for: BitString do
-  def message(error), do: {:ok, error}
-  def code(_), do: :ok
+  def message(error), do: error
+  def code(_), do: nil
 end
 
 defimpl SpotifyWeb.ResolverError, for: Map do
-  def message(%{message: message}), do: {:ok, message}
-  def message(_), do: :error
+  def message(%{message: message}), do: message
+  def message(_), do: nil
 
-  def code(%{code: code}), do: {:ok, code}
-  def code(_), do: :ok
+  def code(%{code: code}), do: code
+  def code(_), do: nil
 end
 
 defimpl SpotifyWeb.ResolverError, for: HTTPoison.Response do
-  def message(%{body: %{error: %{message: message}}}), do: {:ok, message}
-  def message(_), do: :error
+  def message(%{body: %{error: %{message: message}}}), do: message
+  def message(_), do: nil
 
-  def code(%{status_code: status_code}), do: {:ok, status_string(status_code)}
-  def code(_), do: :ok
+  def code(%{status_code: status_code}), do: status_string(status_code)
+  def code(_), do: status_string(500)
 
   defp status_string(400), do: "BAD_REQUEST"
   defp status_string(401), do: "UNAUTHENTICATED"
