@@ -23,6 +23,9 @@ defimpl SpotifyWeb.ResolverError, for: HTTPoison.Response do
   def code(%{status_code: status_code}), do: {:ok, status_string(status_code)}
   def code(_), do: :ok
 
+  defp status_string(400), do: "BAD_REQUEST"
   defp status_string(401), do: "UNAUTHENTICATED"
   defp status_string(403), do: "UNAUTHORIZED"
+  defp status_string(404), do: "NOT_FOUND"
+  defp status_string(500), do: "INTERNAL_SERVER_ERROR"
 end
