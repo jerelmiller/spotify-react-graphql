@@ -19,8 +19,8 @@ defmodule SpotifyWeb.Middleware.Error do
     error
     |> ResolverError.message()
     |> case do
-      {:ok, message} -> Map.put(map, :message, message)
-      :error -> Map.put(map, :message, "Something went wrong")
+      nil -> map
+      message -> Map.put(map, :message, message)
     end
   end
 
@@ -38,9 +38,8 @@ defmodule SpotifyWeb.Middleware.Error do
     error
     |> ResolverError.code()
     |> case do
-      :ok -> Map.put(extensions, :code, "INTERNAL_SERVER_ERROR")
-      :error -> Map.put(extensions, :code, "INTERNAL_SERVER_ERROR")
-      {:ok, code} -> Map.put(extensions, :code, code)
+      nil -> Map.put(extensions, :code, "INTERNAL_SERVER_ERROR")
+      code -> Map.put(extensions, :code, code)
     end
   end
 
@@ -59,7 +58,8 @@ defmodule SpotifyWeb.Middleware.Error do
   end
 
   defp formatted_stacktrace do
-    with {:current_stacktrace, stacktrace} <- Process.info(self(), :current_stacktrace) do
+    with {:current_stacktrace, stacktrace} <-
+           Process.info(self(), :current_stacktrace) do
       stacktrace
       |> tl()
       |> Enum.map(fn {module, function, arity, [file: file, line: line]} ->
@@ -68,6 +68,9 @@ defmodule SpotifyWeb.Middleware.Error do
     end
   end
 
-  def debug?,
-    do: :spotify_web |> Application.get_env(SpotifyWeb.Middleware) |> Keyword.get(:debug, false)
+  def debug? do
+    :spotify_web
+    |> Application.get_env(SpotifyWeb.Middleware)
+    |> Keyword.get(:debug, false)
+  end
 end
