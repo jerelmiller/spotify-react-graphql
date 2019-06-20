@@ -26,8 +26,7 @@ config :spotify_web, SpotifyWeb.OAuthConfig,
   redirect_uri: "http://localhost:4001/oauth/finalize",
   client_uri: "https://localhost:3000"
 
-config :spotify_web, SpotifyWeb.Middleware,
-  debug: true
+config :spotify_web, SpotifyWeb.Middleware, debug: true
 
 config :new_relic_agent,
   app_name: "Jerel's Spotify Clone"
