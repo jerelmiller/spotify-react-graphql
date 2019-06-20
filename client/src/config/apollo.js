@@ -19,6 +19,7 @@ import typeDefs from './typeDefs'
 import resolvers from './resolvers'
 
 let isRefreshingToken = false
+let pendingRequests = []
 
 const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
 
@@ -90,13 +91,14 @@ const retryAuthLink = onError(
                   error: observer.next.bind(observer),
                   complete: observer.next.bind(observer)
                 })
-
-                isRefreshingToken = false
               })
               .catch(error => {
-                isRefreshingToken = false
                 store.dispatch(invalidateSession())
                 observer.error(error)
+              })
+              .finally(() => {
+                isRefreshingToken = false
+                pendingRequests = []
               })
           })
 
