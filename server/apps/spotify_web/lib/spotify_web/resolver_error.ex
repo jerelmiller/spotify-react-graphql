@@ -21,11 +21,7 @@ defimpl SpotifyWeb.ResolverError, for: HTTPoison.Response do
   def message(_), do: :error
 
   def code(%{status_code: status_code}), do: {:ok, status_string(status_code)}
-
-  def code(response) do
-    IO.inspect(response)
-    :ok
-  end
+  def code(_), do: :ok
 
   defp status_string(401), do: "UNAUTHENTICATED"
 end
