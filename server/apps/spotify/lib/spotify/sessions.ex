@@ -8,7 +8,7 @@ defmodule Spotify.Sessions do
     create(
       session,
       attrs
-      |> Map.put(:expires_at, DateTime.add(DateTime.utc_now(), expires_in, :seconds))
+      |> Map.put(:expires_at, DateTime.add(DateTime.utc_now(), expires_in, :second))
       |> Map.delete(:expires_in)
     )
   end
