@@ -9,7 +9,7 @@ defmodule SpotifyWeb.Resolvers.Auth do
              session.access_token,
              session.refresh_token
            ),
-         {:ok, session} <-
+         {:ok, _} <-
            Sessions.update(
              session,
              Map.take(body, [:access_token, :scope, :expires_in])
