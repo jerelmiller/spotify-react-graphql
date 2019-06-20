@@ -37,7 +37,6 @@ defmodule SpotifyWeb.Middleware.Error do
   defp put_code(extensions, error) do
     error
     |> ResolverError.code()
-    |> IO.inspect(label: "CODE")
     |> case do
       :ok -> Map.put(extensions, :code, "INTERNAL_SERVER_ERROR")
       :error -> Map.put(extensions, :code, "INTERNAL_SERVER_ERROR")
