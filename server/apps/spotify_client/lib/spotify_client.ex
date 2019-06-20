@@ -43,6 +43,26 @@ defmodule SpotifyClient do
     )
   end
 
+  def refresh_session(access_token, refresh_token) do
+    oauth_uri("/api/token")
+    |> post(
+      {:form,
+       [
+         grant_type: "refresh_token",
+         refresh_token: refresh_token
+       ]},
+      Accept: "application/json",
+      Authorization: "Basic #{auth_header_token()}",
+      "Content-type": "application/x-www-form-urlencoded"
+    )
+  end
+
+  defp auth_header_token do
+    [client_id(), client_secret()]
+    |> Enum.join(":")
+    |> Base.encode64()
+  end
+
   def album(id, headers \\ []) do
     "/albums/#{id}"
     |> api_uri()
