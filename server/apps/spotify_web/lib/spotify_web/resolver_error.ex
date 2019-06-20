@@ -24,4 +24,5 @@ defimpl SpotifyWeb.ResolverError, for: HTTPoison.Response do
   def code(_), do: :ok
 
   defp status_string(401), do: "UNAUTHENTICATED"
+  defp status_string(403), do: "UNAUTHORIZED"
 end
