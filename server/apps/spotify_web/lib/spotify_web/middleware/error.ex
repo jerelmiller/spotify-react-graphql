@@ -60,7 +60,9 @@ defmodule SpotifyWeb.Middleware.Error do
 
   defp formatted_stacktrace do
     with {:current_stacktrace, stacktrace} <- Process.info(self(), :current_stacktrace) do
-      Enum.map(stacktrace, fn {module, function, arity, [file: file, line: line]} ->
+      stacktrace
+      |> tl()
+      |> Enum.map(fn {module, function, arity, [file: file, line: line]} ->
         "\tat #{module}.#{function}/#{arity} (#{file}:#{line})"
       end)
     end
