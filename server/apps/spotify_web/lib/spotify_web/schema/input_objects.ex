@@ -27,4 +27,9 @@ defmodule SpotifyWeb.Schema.InputObjects do
     """
     field :context_uri, :string
   end
+
+  input_object :refresh_session_input do
+    @desc "The token used to previously authenticate the request"
+    field :token, non_null(:string)
+  end
 end

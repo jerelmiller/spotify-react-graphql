@@ -9,4 +9,3 @@ defmodule Spotify.Schema do
     end
   end
 end
-

@@ -298,6 +298,11 @@ defmodule SpotifyWeb.Schema.Types do
     field :node, non_null(:track), resolve: &Resolvers.Connection.node/3
   end
 
+  object :refresh_session_payload do
+    @desc "The new access token"
+    field :token, :string
+  end
+
   object :release_date do
     @desc """
     The date the album was first released, for example 1981. Depending on the
