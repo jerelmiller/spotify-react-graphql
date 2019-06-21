@@ -35,6 +35,14 @@ defmodule SpotifyWeb.Schema do
       resolve &Category.categories/2
     end
 
+    @desc "Get a list of Spotify featured playlists"
+    field :featured_playlists, :featured_playlist_connection do
+      arg :limit, :integer, default_value: 50
+      arg :offset, :integer, default_value: 0
+
+      resolve &Playlist.featured/2
+    end
+
     field :new_releases, :album_connection do
       arg :limit, :integer, default_value: 50
       arg :offset, :integer, default_value: 0
