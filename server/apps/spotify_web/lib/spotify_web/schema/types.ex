@@ -325,6 +325,11 @@ defmodule SpotifyWeb.Schema.Types do
     field :precision, :release_date_precision
   end
 
+  object :remove_album_from_library_payload do
+    @desc "Modified album after removing from the user's library"
+    field :album, :album
+  end
+
   object :saved_album_connection do
     field :edges, list_of(:saved_album_edge), resolve: &Resolvers.Connection.edges/3
     field :page_info, non_null(:page_info)

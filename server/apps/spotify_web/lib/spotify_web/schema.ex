@@ -78,7 +78,7 @@ defmodule SpotifyWeb.Schema do
 
   mutation do
     @desc "Add an album to a user's library"
-    field :add_album_to_library, :add_album_to_library_payload do
+    field :add_album_to_library, non_null(:add_album_to_library_payload) do
       arg :input, non_null(:add_album_to_library_input)
 
       resolve &Album.add_to_library/2
@@ -103,6 +103,13 @@ defmodule SpotifyWeb.Schema do
       arg :input, non_null(:refresh_session_input)
 
       resolve &Auth.refresh_session/2
+    end
+
+    @desc "Remove an album from a user's library"
+    field :remove_album_from_library, non_null(:remove_album_from_library_payload) do
+      arg :input, non_null(:remove_album_from_library_input)
+
+      resolve &Album.remove_from_library/2
     end
 
     field :shuffle, :shuffle_payload do

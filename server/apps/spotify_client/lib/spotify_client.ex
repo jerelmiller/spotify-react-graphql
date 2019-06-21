@@ -161,6 +161,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def remove_album_from_library(id, headers \\ []) do
+    "/me/albums"
+    |> api_uri(%{ids: id})
+    |> delete(headers)
+  end
+
   def saved_albums(params \\ %{}, headers \\ []) do
     "/me/albums"
     |> api_uri(Map.put(params, :aggregate_tracks, true))
@@ -227,6 +233,12 @@ defmodule SpotifyClient do
   def put(uri, body, headers) do
     uri
     |> HTTPoison.put(Jason.encode!(body), headers)
+    |> parse_response()
+  end
+
+  def delete(uri, headers) do
+    uri
+    |> HTTPoison.delete(headers)
     |> parse_response()
   end
 
