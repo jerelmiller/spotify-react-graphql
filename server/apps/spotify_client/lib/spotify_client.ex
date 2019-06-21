@@ -43,7 +43,7 @@ defmodule SpotifyClient do
     )
   end
 
-  def refresh_session(access_token, refresh_token) do
+  def refresh_session(refresh_token) do
     oauth_uri("/api/token")
     |> post(
       {:form,

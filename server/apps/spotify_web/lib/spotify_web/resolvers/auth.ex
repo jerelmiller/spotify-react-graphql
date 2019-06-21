@@ -5,10 +5,7 @@ defmodule SpotifyWeb.Resolvers.Auth do
     with %Sessions.Session{} = session <-
            Sessions.find_by_access_token(input.token),
          {:ok, %{body: %{access_token: access_token} = body}} <-
-           SpotifyClient.refresh_session(
-             session.access_token,
-             session.refresh_token
-           ),
+           SpotifyClient.refresh_session(session.refresh_token),
          {:ok, _} <-
            Sessions.update(
              session,
