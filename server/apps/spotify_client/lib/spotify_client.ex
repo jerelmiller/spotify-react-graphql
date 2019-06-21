@@ -22,6 +22,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def featured_playlists(params \\ %{}, headers \\ []) do
+    "/browse/featured-playlists"
+    |> api_uri(params)
+    |> get(headers)
+  end
+
   def followed_artists(params \\ %{}, headers \\ []) do
     "/me/following"
     |> api_uri(Map.put(params, :type, "artist"))
