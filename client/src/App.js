@@ -34,7 +34,7 @@ const App = () => {
           <Redirect
             noThrow
             from="/"
-            to={'browse/genres' /* "browse/featured" */}
+            to="browse/featured"
           />
           <Album path="albums/:albumId" />
           <Artist path="artists/:artistId">
@@ -45,12 +45,12 @@ const App = () => {
             <Redirect
               noThrow
               from="/"
-              to={'browse/genres' /* "browse/featured" */}
+              to="browse/featured"
             />
             {/*
             <BrowseDiscover path="discover" />
-            <BrowseFeatured path="featured" />
             */}
+            <BrowseFeatured path="featured" />
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
           </Browse>
