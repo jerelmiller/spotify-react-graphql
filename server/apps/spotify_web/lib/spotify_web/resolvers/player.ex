@@ -21,4 +21,13 @@ defmodule SpotifyWeb.Resolvers.Player do
       _ -> {:ok, %{success: false}}
     end
   end
+
+  def shuffle(%{input: input}, res) do
+    input.state
+    |> SpotifyClient.shuffle(%{device_id: input.device_id}, Helpers.prepare_headers(res))
+    |> case do
+      {:ok, _} -> {:ok, %{success: true}}
+      _ -> {:ok, %{success: false}}
+    end
+  end
 end
