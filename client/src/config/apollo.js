@@ -19,7 +19,10 @@ import typeDefs from './typeDefs'
 import resolvers from './resolvers'
 
 let isRefreshingToken = false
-let pendingRequests = []
+let tokenSubscribers = []
+
+const subscribeToRefresh = fn => tokenSubscribers.push(fn)
+const onTokenRefreshed = token => tokenSubscribers.forEach(fn => fn(token))
 
 const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
 
@@ -36,18 +39,32 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
 const cache = new InMemoryCache({ fragmentMatcher })
 
 const retryAuthLink = onError(
-  ({ graphQLErrors, networkErrors, operation, forward, ...rest }) => {
+  ({ graphQLErrors, networkErrors, operation, forward, response }) => {
     if (!graphQLErrors) {
       return
     }
 
-    for (let err of graphQLErrors) {
-      switch (err.extensions.code) {
-        case 'UNAUTHENTICATED':
-          // eslint-disable-next-line no-loop-func
-          return new Observable(observer => {
+    return new Observable(observer => {
+      graphQLErrors.forEach(error => {
+        switch (error.extensions.code) {
+          case 'UNAUTHENTICATED':
+            const retryRequest = token => {
+              operation.setContext(({ headers = {} }) => ({
+                headers: {
+                  ...headers,
+                  Authorization: `Bearer ${token}`
+                }
+              }))
+
+              return forward(operation).subscribe({
+                next: observer.next.bind(observer),
+                error: observer.next.bind(observer),
+                complete: observer.next.bind(observer)
+              })
+            }
+
             if (isRefreshingToken) {
-              return
+              return subscribeToRefresh(retryRequest)
             }
 
             isRefreshingToken = true
@@ -77,35 +94,26 @@ const retryAuthLink = onError(
 
                 const { token } = data.refreshSession
 
+                onTokenRefreshed(token)
                 await store.dispatch(authenticate('spotify', token))
 
-                operation.setContext(({ headers = {} }) => ({
-                  headers: {
-                    ...headers,
-                    Authorization: `Bearer ${token}`
-                  }
-                }))
-
-                forward(operation).subscribe({
-                  next: observer.next.bind(observer),
-                  error: observer.next.bind(observer),
-                  complete: observer.next.bind(observer)
-                })
+                return retryRequest(token)
               })
-              .catch(error => {
+              .catch(() => {
                 store.dispatch(invalidateSession())
                 observer.error(error)
               })
               .finally(() => {
                 isRefreshingToken = false
-                pendingRequests = []
+                tokenSubscribers = []
               })
-          })
 
-        default:
-          return
-      }
-    }
+            break
+          default:
+            return observer.next(response)
+        }
+      })
+    })
   }
 )
 
