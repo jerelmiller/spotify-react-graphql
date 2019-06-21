@@ -215,6 +215,22 @@ defmodule SpotifyWeb.Schema.Types do
     @desc "The name of the track"
     field :name, non_null(:string)
 
+    @desc "A link to a 30 second preview (MP3 format) of the track."
+    field :preview_url, :string
+
+    @desc """
+    The popularity of a track is a value between 0 and 100, with 100 being the
+    most popular. The popularity is calculated by algorithm and is based, in
+    the most part, on the total number of plays the track has had and how
+    recent those plays are. Generally speaking, songs that are being played a
+    lot now will have a higher popularity than songs that were played a lot in
+    the past. Duplicate tracks (e.g. the same track from a single and an album)
+    are rated independently. Artist and album popularity is derived
+    mathematically from track popularity. Note that the popularity value may
+    lag actual popularity by a few days: the value is not updated in real time.
+    """
+    field :popularity, non_null(:integer)
+
     @desc """
     The number of the track. If an album has several discs, the track number is
     the number on the specified disc.
@@ -286,7 +302,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist_connection do
-    field :edges, list_of(:playlist_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:playlist_edge),
+      resolve: &Resolvers.Connection.edges/3
+
     field :page_info, non_null(:page_info)
   end
 
@@ -331,7 +349,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_album_connection do
-    field :edges, list_of(:saved_album_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:saved_album_edge),
+      resolve: &Resolvers.Connection.edges/3
+
     field :page_info, non_null(:page_info)
   end
 
@@ -387,8 +407,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_track_connection do
-    field :edges, list_of(:saved_track_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+    field :edges, list_of(:saved_track_edge),
+      resolve: &Resolvers.Connection.edges/3
+
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :saved_track_edge do
