@@ -173,6 +173,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def shuffle(params \\ %{}, headers \\ []) do
+    "/me/player/shuffle"
+    |> api_uri(params)
+    |> put("", headers)
+  end
+
   def top_tracks_by_artist(artist_id, headers \\ []) do
     "/artists/#{artist_id}/top-tracks"
     |> api_uri(%{market: "from_token"})
