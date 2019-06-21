@@ -49,7 +49,7 @@ defmodule SpotifyWeb.Middleware.Error do
         Map.put(
           extensions,
           :stacktrace,
-          Enum.join(["Error: #{message}" | formatted_stacktrace()], "\n")
+          ["Error: #{message}" | formatted_stacktrace()]
         )
 
       false ->
@@ -63,7 +63,7 @@ defmodule SpotifyWeb.Middleware.Error do
       stacktrace
       |> tl()
       |> Enum.map(fn {module, function, arity, [file: file, line: line]} ->
-        "\tat #{module}.#{function}/#{arity} (#{file}:#{line})"
+        "at #{module}.#{function}/#{arity} (#{file}:#{line})"
       end)
     end
   end
