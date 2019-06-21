@@ -39,4 +39,12 @@ defmodule SpotifyWeb.Resolvers.Album do
       {:ok, %{album: body}}
     end
   end
+
+  def remove_from_library(%{input: %{album_id: album_id}}, res) do
+    with {:ok, _} <- SpotifyClient.remove_album_from_library(album_id, Helpers.prepare_headers(res)),
+         {:ok, %HTTPoison.Response{body: body}} <-
+           SpotifyClient.album(album_id, Helpers.prepare_headers(res)) do
+      {:ok, %{album: body}}
+    end
+  end
 end

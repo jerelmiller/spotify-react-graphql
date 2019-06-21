@@ -33,6 +33,11 @@ defmodule SpotifyWeb.Schema.InputObjects do
     field :token, non_null(:string)
   end
 
+  input_object :remove_album_from_library_input do
+    @desc "Album id of the album that should be removed from the user's library"
+    field :album_id, non_null(:id)
+  end
+
   input_object :shuffle_input do
     @desc """
     true: Shuffle the user's playback
