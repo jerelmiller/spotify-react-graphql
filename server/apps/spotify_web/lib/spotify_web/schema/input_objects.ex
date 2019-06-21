@@ -32,4 +32,18 @@ defmodule SpotifyWeb.Schema.InputObjects do
     @desc "The token used to previously authenticate the request"
     field :token, non_null(:string)
   end
+
+  input_object :shuffle_input do
+    @desc """
+    true: Shuffle the user's playback
+    false: Do not shuffle the user's playback
+    """
+    field :state, non_null(:boolean)
+
+    @desc """
+    The id of the device this command is targeting. If not supplied, the
+    user’s currently active device is the target.
+    """
+    field :device_id, :id
+  end
 end

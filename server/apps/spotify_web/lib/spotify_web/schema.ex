@@ -1,7 +1,15 @@
 defmodule SpotifyWeb.Schema do
   use Absinthe.Schema
 
-  alias SpotifyWeb.Resolvers.{Album, Artist, Auth, Category, Player, Playlist, Viewer}
+  alias SpotifyWeb.Resolvers.{
+    Album,
+    Artist,
+    Auth,
+    Category,
+    Player,
+    Playlist,
+    Viewer
+  }
 
   import_types SpotifyWeb.Schema.Types
   import_types SpotifyWeb.Schema.Enums
@@ -95,6 +103,12 @@ defmodule SpotifyWeb.Schema do
       arg :input, non_null(:refresh_session_input)
 
       resolve &Auth.refresh_session/2
+    end
+
+    field :shuffle, :shuffle_payload do
+      arg :input, non_null(:shuffle_input)
+
+      resolve &Player.shuffle/2
     end
   end
 

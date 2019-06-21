@@ -396,6 +396,10 @@ defmodule SpotifyWeb.Schema.Types do
     field :node, non_null(:saved_track), resolve: &Resolvers.Connection.node/3
   end
 
+  object :shuffle_payload do
+    field :success, non_null(:boolean)
+  end
+
   @desc "Simplified representation of an album."
   object :simple_album do
     field :id, non_null(:id)

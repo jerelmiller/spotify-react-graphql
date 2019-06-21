@@ -15,7 +15,10 @@ defmodule SpotifyWeb.Resolvers.Player do
 
   def play_track(%{input: input}, res) do
     input.track
-    |> SpotifyClient.play_track(Map.delete(input, :track), Helpers.prepare_headers(res))
+    |> SpotifyClient.play_track(
+      Map.delete(input, :track),
+      Helpers.prepare_headers(res)
+    )
     |> case do
       {:ok, _} -> {:ok, %{success: true}}
       _ -> {:ok, %{success: false}}
@@ -23,8 +26,8 @@ defmodule SpotifyWeb.Resolvers.Player do
   end
 
   def shuffle(%{input: input}, res) do
-    input.state
-    |> SpotifyClient.shuffle(%{device_id: input.device_id}, Helpers.prepare_headers(res))
+    %{state: input.state, device_id: input.device_id}
+    |> SpotifyClient.shuffle(Helpers.prepare_headers(res))
     |> case do
       {:ok, _} -> {:ok, %{success: true}}
       _ -> {:ok, %{success: false}}
