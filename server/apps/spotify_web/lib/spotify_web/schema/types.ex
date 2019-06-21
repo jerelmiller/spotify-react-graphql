@@ -489,6 +489,12 @@ defmodule SpotifyWeb.Schema.Types do
 
     @desc "The user’s profile image."
     field :images, list_of(:image)
+
+    @desc """
+    The [Spotify URI](https://developer.spotify.com/documentation/web-api/#spotify-uris-and-ids)
+    for the user.
+    """
+    field :uri, :string
   end
 
   object :viewer do
