@@ -7,6 +7,7 @@ import PaginationObserver from 'components/PaginationObserver'
 import styled from 'styled-components'
 import { color } from '../styles/utils'
 import { rgba } from 'polished'
+import { concat, compose, lensPath, view, set } from 'utils/fp'
 
 const Sidebar = styled.aside`
   grid-area: sidebar;
@@ -84,6 +85,9 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
+const playlistEdgesLens = lensPath(['viewer', 'playlists', 'edges'])
+const pageInfoLens = lensPath(['viewer', 'playlists', 'pageInfo'])
+
 const AppSidebar = ({ fetchMore, loading, viewer }) => {
   const [scrollContainer, setScrollContainer] = useState(null)
 
@@ -133,22 +137,18 @@ const AppSidebar = ({ fetchMore, loading, viewer }) => {
               fetchMore={fetchMore}
               scrollContainer={scrollContainer}
               pageInfo={viewer.playlists.pageInfo}
-              updateQuery={(prev, { fetchMoreResult }) => {
-                return {
-                  ...prev,
-                  viewer: {
-                    ...prev.viewer,
-                    playlists: {
-                      ...prev.viewer.playlists,
-                      edges: [
-                        ...prev.viewer.playlists.edges,
-                        ...fetchMoreResult.viewer.playlists.edges
-                      ],
-                      pageInfo: fetchMoreResult.viewer.playlists.pageInfo
-                    }
-                  }
-                }
-              }}
+              updateQuery={(prev, { fetchMoreResult }) =>
+                compose(
+                  set(
+                    playlistEdgesLens,
+                    concat(
+                      view(playlistEdgesLens, prev),
+                      view(playlistEdgesLens, fetchMoreResult)
+                    )
+                  ),
+                  set(pageInfoLens, view(pageInfoLens, fetchMoreResult))
+                )(prev)
+              }
             />
           </>
         )}
