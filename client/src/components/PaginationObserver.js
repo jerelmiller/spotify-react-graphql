@@ -13,14 +13,19 @@ const PaginationObserver = ({
   const ref = useIntersectionObserver(
     ({ isIntersecting }) => {
       if (isIntersecting && pageInfo.hasNextPage) {
-        fetchMore({
-          query,
-          variables: {
-            limit: pageInfo.limit,
-            offset: pageInfo.offset + pageInfo.limit
-          },
-          updateQuery
-        })
+        fetchMore(
+          Object.assign(
+            {},
+            {
+              variables: {
+                limit: pageInfo.limit,
+                offset: pageInfo.offset + pageInfo.limit
+              },
+              updateQuery
+            },
+            query && { query }
+          )
+        )
       }
     },
     {
