@@ -2,11 +2,11 @@ import React from 'react'
 import AlbumTile from 'components/AlbumTile'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
-import PaginationObserver from 'components/PaginationObserver'
 import TileGrid from 'components/TileGrid'
 import useBackgroundColor from 'hooks/useBackgroundColor'
-import useScrollContainer from 'hooks/useScrollContainer'
-import { Query } from 'react-apollo'
+import usePaginationObserver, {
+  usePaginationObserver_pageInfo
+} from 'hooks/usePaginationObserver'
 import { view, lensPath } from 'utils/fp'
 import { useQuery } from '@apollo/react-hooks'
 
@@ -16,9 +16,7 @@ const pageInfoLens = lensPath(['viewer', 'savedAlbums', 'pageInfo'])
 const Albums = () => {
   useBackgroundColor('#090B0F')
 
-  const scrollContainer = useScrollContainer()
-
-  const { loading, data, fetchMore } = useQuery(gql`
+  const result = useQuery(gql`
     query AlbumsQuery($limit: Int, $offset: Int) {
       viewer {
         savedAlbums(limit: $limit, offset: $offset) {
@@ -30,15 +28,23 @@ const Albums = () => {
           }
 
           pageInfo {
-            ...PaginationObserver_pageInfo
+            ...usePaginationObserver_pageInfo
           }
         }
       }
     }
 
     ${AlbumTile.fragments.album}
-    ${PaginationObserver.fragments.pageInfo}
+    ${usePaginationObserver_pageInfo}
   `)
+
+  const { loading, data } = result
+
+  const ref = usePaginationObserver(result, {
+    threshold: '750px',
+    edgesLens,
+    pageInfoLens
+  })
 
   return (
     <>
@@ -49,16 +55,7 @@ const Albums = () => {
             <AlbumTile key={node.id} album={node} />
           ))}
       </TileGrid>
-      {loading || (
-        <PaginationObserver
-          fetchMore={fetchMore}
-          scrollContainer={scrollContainer}
-          pageInfo={view(pageInfoLens, data)}
-          edgesLens={edgesLens}
-          pageInfoLens={pageInfoLens}
-          threshold="750px"
-        />
-      )}
+      <div ref={ref} />
     </>
   )
 }
