@@ -20,7 +20,7 @@
     "apollo-link-context": "^1.0.18",
     "apollo-link-error": "^1.1.11",
     "apollo-link-http": "^1.5.15",
-    "color-thief": "^2.2.3",
+    "color-thief": "^2.2.5",
     "emotion-theming": "^10.0.14",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
