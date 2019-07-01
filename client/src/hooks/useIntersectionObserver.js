@@ -11,11 +11,14 @@ const useIntersectionObserver = (
       return
     }
 
-    const observer = new IntersectionObserver(([entry]) => onIntersect(entry), {
-      root,
-      rootMargin,
-      threshold
-    })
+    const observer = new IntersectionObserver(
+      ([entry], observer) => onIntersect(entry, observer),
+      {
+        root,
+        rootMargin,
+        threshold
+      }
+    )
 
     observer.observe(ref)
 
