@@ -41,12 +41,12 @@ const Albums = () => {
       `}
       variables={{ limit: 50, offset: 0 }}
     >
-      {({ loading, fetchMore, data: { viewer } }) => (
+      {({ loading, fetchMore, data  }) => (
         <>
           <PageTitle>Albums</PageTitle>
           <TileGrid minWidth="180px">
             {loading ||
-              viewer.savedAlbums.edges.map(({ node }) => (
+              view(edgesLens, data).map(({ node }) => (
                 <AlbumTile key={node.id} album={node} />
               ))}
           </TileGrid>
@@ -54,7 +54,7 @@ const Albums = () => {
             <PaginationObserver
               fetchMore={fetchMore}
               scrollContainer={scrollContainer}
-              pageInfo={viewer.savedAlbums.pageInfo}
+              pageInfo={view(pageInfoLens, data)}
               updateQuery={(prev, { fetchMoreResult }) =>
                 compose(
                   set(
