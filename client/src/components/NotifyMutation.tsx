@@ -1,25 +1,23 @@
-import React, { FC, ReactNode } from 'react'
-import { Mutation, MutationFn } from 'react-apollo'
+import React, { FC } from 'react'
+import { Mutation, MutationFunction } from 'react-apollo'
 import gql from 'graphql-tag'
-import { NotifyMutation as NotifyMutationDef } from './types/NotifyMutation'
+import { NotifyMutation } from './types/NotifyMutation'
 import { NotifyInput } from '../types/globalTypes'
 
-class NotifyMutation extends Mutation<NotifyMutationDef, Variables> {}
-
 interface Props {
-  children(props: ChildrenProps): ReactNode
+  children(props: ChildrenProps): JSX.Element | null
 }
 
 interface ChildrenProps {
   notify(
     notification: NotifyInput
-  ): ReturnType<MutationFn<NotifyMutationDef, Variables>>
+  ): ReturnType<MutationFunction<NotifyMutation, Variables>>
 }
 
 interface Variables {}
 
 const Notify: FC<Props> = ({ children }) => (
-  <NotifyMutation
+  <Mutation<NotifyMutation, Variables>
     mutation={gql`
       mutation NotifyMutation($input: NotifyInput!) {
         notify(input: $input) @client {
@@ -33,7 +31,7 @@ const Notify: FC<Props> = ({ children }) => (
         notify: notification => mutation({ variables: { input: notification } })
       })
     }
-  </NotifyMutation>
+  </Mutation>
 )
 
 export default Notify

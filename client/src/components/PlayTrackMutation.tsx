@@ -1,32 +1,30 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import { Mutation, MutationFn } from 'react-apollo'
+import { Mutation, MutationFunction } from 'react-apollo'
 import useSpotifyContext from '../hooks/useSpotifyContext'
-import { PlayTrackMutation as PlayTrackMutationDef } from './types/PlayTrackMutation'
+import { PlayTrackMutation } from './types/PlayTrackMutation'
 import { PlayTrackInput } from '../types/globalTypes'
 
 interface Props {
-  children(props: ChildrenProps): ReactNode
+  children(props: ChildrenProps): JSX.Element | null
 }
 
 interface ChildrenProps {
   playTrack: (
     uri: string,
     options: { context?: string }
-  ) => ReturnType<MutationFn<PlayTrackMutationDef, Variables>>
+  ) => ReturnType<MutationFunction<PlayTrackMutation, Variables>>
 }
 
 interface Variables {
   input: PlayTrackInput
 }
 
-class PlayTrackMutation extends Mutation<PlayTrackMutationDef, Variables> {}
-
 const _PlayTrackMutation: FC<Props> = ({ children }) => {
   const { deviceId } = useSpotifyContext()
 
   return (
-    <PlayTrackMutation
+    <Mutation<PlayTrackMutation, Variables>
       mutation={gql`
         mutation PlayTrackMutation($input: PlayTrackInput!) {
           playTrack(input: $input) {
@@ -45,7 +43,7 @@ const _PlayTrackMutation: FC<Props> = ({ children }) => {
             })
         })
       }
-    </PlayTrackMutation>
+    </Mutation>
   )
 }
 

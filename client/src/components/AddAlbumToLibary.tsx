@@ -1,22 +1,17 @@
-import React, { ReactNode, FC } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import { Mutation, MutationFn } from 'react-apollo'
-import { AddAlbumToLibraryMutation as AddAlbumToLibraryMutationDef } from './types/AddAlbumToLibraryMutation'
+import { Mutation, MutationFunction } from 'react-apollo'
+import { AddAlbumToLibraryMutation } from './types/AddAlbumToLibraryMutation'
 import { AddAlbumToLibraryInput } from '../types/globalTypes'
 
-class AddAlbumToLibraryMutation extends Mutation<
-  AddAlbumToLibraryMutationDef,
-  Variables
-> {}
-
 interface Props {
-  children(props: ChildrenProps): ReactNode
+  children(props: ChildrenProps): JSX.Element | null
 }
 
 interface ChildrenProps {
   addAlbumToLibrary(
     albumId: AddAlbumToLibraryInput['albumId']
-  ): ReturnType<MutationFn<AddAlbumToLibraryMutationDef, Variables>>
+  ): ReturnType<MutationFunction<AddAlbumToLibraryMutation, Variables>>
 }
 
 interface Variables {
@@ -25,7 +20,7 @@ interface Variables {
 
 const AddAlbumToLibrary: FC<Props> = ({ children }) => {
   return (
-    <AddAlbumToLibraryMutation
+    <Mutation<AddAlbumToLibraryMutation, Variables>
       mutation={gql`
         mutation AddAlbumToLibraryMutation($input: AddAlbumToLibraryInput!) {
           addAlbumToLibrary(input: $input) {
@@ -39,13 +34,13 @@ const AddAlbumToLibrary: FC<Props> = ({ children }) => {
     >
       {mutation =>
         children({
-          addAlbumToLibrary: albumId =>
+          addAlbumToLibrary: (albumId: AddAlbumToLibraryInput['albumId']) =>
             mutation({
               variables: { input: { albumId } }
             })
         })
       }
-    </AddAlbumToLibraryMutation>
+    </Mutation>
   )
 }
 
