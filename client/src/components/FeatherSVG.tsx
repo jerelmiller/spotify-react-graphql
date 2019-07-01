@@ -1,3 +1,4 @@
+import React from 'react'
 import { css } from '../styled'
 import { color as themeColor } from '../styles/utils'
 import { CSSProperties, FC, HTMLAttributes } from 'react'
