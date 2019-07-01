@@ -3,20 +3,12 @@ import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import { Link } from '@reach/router'
-import { FragmentComponent, GQLFragment } from '../types/shared'
-import { CategoryTile_category } from './types/CategoryTile_category'
-
-interface Props {
-  category: CategoryTile_category
-}
 
 const Container = styled.div`
   text-align: center;
 `
 
-const CategoryTile: FragmentComponent<Props, { category: GQLFragment }> = ({
-  category
-}) => {
+const CategoryTile = ({ category }) => {
   const icon = category.icons[0]
   const href = `/genres/${category.id}`
 
