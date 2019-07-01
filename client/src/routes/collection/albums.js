@@ -8,61 +8,58 @@ import useBackgroundColor from 'hooks/useBackgroundColor'
 import useScrollContainer from 'hooks/useScrollContainer'
 import { Query } from 'react-apollo'
 import { view, lensPath } from 'utils/fp'
+import { useQuery } from '@apollo/react-hooks'
 
 const edgesLens = lensPath(['viewer', 'savedAlbums', 'edges'])
 const pageInfoLens = lensPath(['viewer', 'savedAlbums', 'pageInfo'])
 
 const Albums = () => {
   useBackgroundColor('#090B0F')
+
   const scrollContainer = useScrollContainer()
 
-  return (
-    <Query
-      query={gql`
-        query AlbumsQuery($limit: Int!, $offset: Int!) {
-          viewer {
-            savedAlbums(limit: $limit, offset: $offset) {
-              edges {
-                node {
-                  id
-                  ...Album_album
-                }
-              }
-
-              pageInfo {
-                ...PaginationObserver_pageInfo
-              }
+  const { loading, data, fetchMore } = useQuery(gql`
+    query AlbumsQuery($limit: Int, $offset: Int) {
+      viewer {
+        savedAlbums(limit: $limit, offset: $offset) {
+          edges {
+            node {
+              id
+              ...Album_album
             }
           }
-        }
 
-        ${AlbumTile.fragments.album}
-        ${PaginationObserver.fragments.pageInfo}
-      `}
-      variables={{ limit: 50, offset: 0 }}
-    >
-      {({ loading, fetchMore, data }) => (
-        <>
-          <PageTitle>Albums</PageTitle>
-          <TileGrid minWidth="180px">
-            {loading ||
-              view(edgesLens, data).map(({ node }) => (
-                <AlbumTile key={node.id} album={node} />
-              ))}
-          </TileGrid>
-          {loading || (
-            <PaginationObserver
-              fetchMore={fetchMore}
-              scrollContainer={scrollContainer}
-              pageInfo={view(pageInfoLens, data)}
-              edgesLens={edgesLens}
-              pageInfoLens={pageInfoLens}
-              threshold="750px"
-            />
-          )}
-        </>
+          pageInfo {
+            ...PaginationObserver_pageInfo
+          }
+        }
+      }
+    }
+
+    ${AlbumTile.fragments.album}
+    ${PaginationObserver.fragments.pageInfo}
+  `)
+
+  return (
+    <>
+      <PageTitle>Albums</PageTitle>
+      <TileGrid minWidth="180px">
+        {loading ||
+          view(edgesLens, data).map(({ node }) => (
+            <AlbumTile key={node.id} album={node} />
+          ))}
+      </TileGrid>
+      {loading || (
+        <PaginationObserver
+          fetchMore={fetchMore}
+          scrollContainer={scrollContainer}
+          pageInfo={view(pageInfoLens, data)}
+          edgesLens={edgesLens}
+          pageInfoLens={pageInfoLens}
+          threshold="750px"
+        />
       )}
-    </Query>
+    </>
   )
 }
 
