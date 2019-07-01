@@ -4,11 +4,11 @@ import gql from 'graphql-tag'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import Track from 'components/Track'
-import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
+import { useQuery } from '@apollo/react-hooks'
 
 // TODO: Abstract all these components to share with album
 const Container = styled.div`
@@ -42,9 +42,12 @@ const Typography = styled.span`
   text-transform: uppercase;
 `
 
-const Playlist = ({ playlistId }) => (
-  <Query
-    query={gql`
+const Playlist = ({ playlistId }) => {
+  const {
+    loading,
+    data: { playlist }
+  } = useQuery(
+    gql`
       query PlaylistQuery($playlistId: ID!) {
         playlist(id: $playlistId) {
           id
@@ -86,60 +89,60 @@ const Playlist = ({ playlistId }) => (
       ${Track.ExplicitBadge.fragments.track}
       ${Track.Name.fragments.track}
       ${PlayableCollectionCover.fragments.collection}
-    `}
-    variables={{ playlistId }}
-  >
-    {({ loading, data: { playlist } }) =>
-      loading || (
-        <Container>
-          {playlist.images.length > 0 && (
-            <BackgroundFromImage src={playlist.images[0].url} />
-          )}
-          <Info>
-            <PlayableCollectionCover
-              href={`/playlists/${playlist.id}`}
-              collection={playlist}
-              marginBottom="1rem"
-            />
-            <h2>{playlist.name}</h2>
-            <div>
-              <UserLink to={`/users/${playlist.owner.id}`}>
-                {playlist.owner.displayName}
-              </UserLink>
-            </div>
-            <div>
-              <Typography>{playlist.tracks.pageInfo.total} Songs</Typography>
-            </div>
-            <div
-              css={css`
-                margin-top: 1.5rem;
-              `}
-            >
-              <PlayCollectionButton size="sm" uri={playlist.uri} />
-            </div>
-          </Info>
+    `,
+    { variables: { playlistId } }
+  )
+
+  return (
+    loading || (
+      <Container>
+        {playlist.images.length > 0 && (
+          <BackgroundFromImage src={playlist.images[0].url} />
+        )}
+        <Info>
+          <PlayableCollectionCover
+            href={`/playlists/${playlist.id}`}
+            collection={playlist}
+            marginBottom="1rem"
+          />
+          <h2>{playlist.name}</h2>
           <div>
-            {playlist.tracks.edges.map(({ node }) => (
-              <Track
-                key={node.id}
-                columns="auto 1fr auto auto"
-                track={node}
-                playContext={playlist.uri}
-              >
-                <Track.Name />
-                <Track.More />
-                <Track.Duration />
-                <Track.Details>
-                  <Track.ExplicitBadge /> <Track.ArtistLink /> &middot;{' '}
-                  <Track.AlbumLink />
-                </Track.Details>
-              </Track>
-            ))}
+            <UserLink to={`/users/${playlist.owner.id}`}>
+              {playlist.owner.displayName}
+            </UserLink>
           </div>
-        </Container>
-      )
-    }
-  </Query>
-)
+          <div>
+            <Typography>{playlist.tracks.pageInfo.total} Songs</Typography>
+          </div>
+          <div
+            css={css`
+              margin-top: 1.5rem;
+            `}
+          >
+            <PlayCollectionButton size="sm" uri={playlist.uri} />
+          </div>
+        </Info>
+        <div>
+          {playlist.tracks.edges.map(({ node }) => (
+            <Track
+              key={node.id}
+              columns="auto 1fr auto auto"
+              track={node}
+              playContext={playlist.uri}
+            >
+              <Track.Name />
+              <Track.More />
+              <Track.Duration />
+              <Track.Details>
+                <Track.ExplicitBadge /> <Track.ArtistLink /> &middot;{' '}
+                <Track.AlbumLink />
+              </Track.Details>
+            </Track>
+          ))}
+        </div>
+      </Container>
+    )
+  )
+}
 
 export default Playlist
