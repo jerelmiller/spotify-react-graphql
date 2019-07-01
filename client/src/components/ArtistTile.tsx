@@ -14,7 +14,7 @@ const Container = styled.div`
   text-align: center;
 `
 
-const ArtistImage = styled(LazyImage)`
+const ArtistImage = styled(LazyImage)<{ src: string }>`
   display: block;
   position: absolute;
   top: 0;
