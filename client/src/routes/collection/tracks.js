@@ -88,18 +88,8 @@ const Tracks = () => {
               scrollContainer={scrollContainer}
               fetchMore={fetchMore}
               pageInfo={viewer.savedTracks.pageInfo}
-              updateQuery={(prev, { fetchMoreResult }) =>
-                compose(
-                  set(
-                    tracksEdgesLens,
-                    concat(
-                      view(tracksEdgesLens, prev),
-                      view(tracksEdgesLens, fetchMoreResult)
-                    )
-                  ),
-                  set(pageInfoLens, view(pageInfoLens, fetchMoreResult))
-                )(prev)
-              }
+              edgesLens={tracksEdgesLens}
+              pageInfoLens={pageInfoLens}
             />
           )}
         </>
