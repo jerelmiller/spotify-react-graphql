@@ -1,12 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import useBackgroundColor from 'hooks/useBackgroundColor'
+import ScrollContainerContext from './ScrollContainerContext'
 import { prop } from 'utils/fp'
-
-// const BACKGROUND_COLORS = {
-//   '/browse/podcasts': '#673239',
-//   '/browse/charts': '#224F6A',
-// }
 
 const Main = styled.main`
   grid-area: main;
@@ -40,12 +36,15 @@ const Backdrop = styled.div`
 `
 
 const AppMain = ({ children }) => {
+  const [scrollContainer, setScrollContainer] = useState(null)
   const { color, usingGradient } = useBackgroundColor()
 
   return (
-    <Main>
+    <Main ref={setScrollContainer}>
       <Backdrop backgroundColor={color} usingGradient={usingGradient} />
-      {children}
+      <ScrollContainerContext.Provider value={scrollContainer}>
+        {children}
+      </ScrollContainerContext.Provider>
     </Main>
   )
 }
