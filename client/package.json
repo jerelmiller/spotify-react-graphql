@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-components": "^0.1.0-beta.7",
     "@apollo/react-hooks": "^0.1.0-beta.10",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
@@ -28,7 +29,7 @@
     "polished": "^2.3.3",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.8",
+    "react-apollo": "^3.0.0-beta.3",
     "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
