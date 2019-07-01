@@ -1,5 +1,4 @@
 import React from 'react'
-import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import styled, { css } from '../styled'
 import ReleaseYear from 'components/ReleaseYear'
@@ -12,8 +11,12 @@ import Button from '../components/Button'
 import MoreMenu from '../components/MoreMenu'
 import copyToClipboard from '../utils/copyToClipboard'
 import useAlbumInLibraryToggle from '../hooks/useAlbumInLibraryToggle'
+import useBackgroundFromImage from 'hooks/useBackgroundFromImage'
 import useNotifyMutation from '../hooks/useNotifyMutation'
 import { useQuery } from '@apollo/react-hooks'
+import { lensPath, view } from 'utils/fp'
+
+const albumImageUrl = lensPath(['album', 'images', 0, 'url'])
 
 const Container = styled.div`
   display: grid;
@@ -45,8 +48,6 @@ const Typography = styled.span`
   color: ${textColor('muted')};
   text-transform: uppercase;
 `
-
-const imageFor = album => album.images[0]
 
 const ToggleButton = ({ album }) => {
   const { toggle, message, Icon } = useAlbumInLibraryToggle(album)
@@ -81,6 +82,7 @@ const AlbumMenu = ({ album }) => {
 const Album = ({ albumId }) => {
   const {
     loading,
+    data,
     data: { album }
   } = useQuery(
     gql`
@@ -135,12 +137,12 @@ const Album = ({ albumId }) => {
     `,
     { variables: { albumId } }
   )
-  const image = loading ? {} : album.images[0]
+
+  useBackgroundFromImage(view(albumImageUrl, data))
 
   return (
     loading || (
       <Container>
-        {image && <BackgroundFromImage src={imageFor(album).url} />}
         <Info>
           <PlayableCollectionCover
             href={`/albums/${album.id}`}
