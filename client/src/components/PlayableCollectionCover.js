@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import gql from 'graphql-tag'
 import styled from '../styled'
 import useHover from '../hooks/useHover'
@@ -8,32 +8,15 @@ import { Match, Link } from '@reach/router'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import CircularPlayButton from './CircularPlayButton'
 import PlaceholderPhoto from './PlaceholderPhoto'
-import { PlayableCollectionCover_collection } from './types/PlayableCollectionCover_collection'
 import usePlayableCollection from '../hooks/usePlayableCollection'
 import isPropValid from '@emotion/is-prop-valid'
 
-interface Props {
-  collection: PlayableCollectionCover_collection
-  marginBottom?: string
-  width?: string
-  href: string
-}
-
-interface ContainerProps {
-  marginBottom?: string
-}
-
-const Container = styled.div<ContainerProps>`
+const Container = styled.div`
   position: relative;
   margin-bottom: ${prop('marginBottom')};
 `
 
-interface AlbumLinkProps {
-  visible: boolean
-  to: string
-}
-
-const BackgroundLink: FC<AlbumLinkProps> = ({ children, to, visible }) => (
+const BackgroundLink = ({ children, to, visible }) => (
   <Match path={to}>
     {({ match }) =>
       match ? (
@@ -47,13 +30,9 @@ const BackgroundLink: FC<AlbumLinkProps> = ({ children, to, visible }) => (
   </Match>
 )
 
-interface HoverBackgroundProps {
-  visible: boolean
-}
-
 const HoverBackground = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && prop !== 'visible'
-})<HoverBackgroundProps>`
+})`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,12 +48,9 @@ const HoverBackground = styled('div', {
 
 const HoverBackgroundLink = HoverBackground.withComponent(Link)
 
-const PlayableCollectionCover: FragmentComponent<
-  Props,
-  { collection: GQLFragment }
-> = ({ href, collection, marginBottom, width }) => {
+const PlayableCollectionCover = ({ href, collection, marginBottom, width }) => {
   const { hovered, bind } = useHover()
-  const { playing, toggle } = usePlayableCollection(collection.uri!)
+  const { playing, toggle } = usePlayableCollection(collection.uri)
 
   const coverPhoto = collection.images[1] || collection.images[0]
 
