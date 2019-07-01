@@ -7,7 +7,7 @@ import useBackgroundColor from 'hooks/useBackgroundColor'
 import useScrollContainer from 'hooks/useScrollContainer'
 import posed, { PoseGroup } from 'react-pose'
 import { Query } from 'react-apollo'
-import { concat, compose, lensPath, view, set } from 'utils/fp'
+import { lensPath } from 'utils/fp'
 
 const tracksEdgesLens = lensPath(['viewer', 'savedTracks', 'edges'])
 const pageInfoLens = lensPath(['viewer', 'savedTracks', 'pageInfo'])
