@@ -41,7 +41,7 @@ const Albums = () => {
       `}
       variables={{ limit: 50, offset: 0 }}
     >
-      {({ loading, fetchMore, data  }) => (
+      {({ loading, fetchMore, data }) => (
         <>
           <PageTitle>Albums</PageTitle>
           <TileGrid minWidth="180px">
@@ -55,18 +55,8 @@ const Albums = () => {
               fetchMore={fetchMore}
               scrollContainer={scrollContainer}
               pageInfo={view(pageInfoLens, data)}
-              updateQuery={(prev, { fetchMoreResult }) =>
-                compose(
-                  set(
-                    edgesLens,
-                    concat(
-                      view(edgesLens, prev),
-                      view(edgesLens, fetchMoreResult)
-                    )
-                  ),
-                  set(pageInfoLens, view(pageInfoLens, fetchMoreResult))
-                )(prev)
-              }
+              edgesLens={edgesLens}
+              pageInfoLens={pageInfoLens}
               threshold="750px"
             />
           )}

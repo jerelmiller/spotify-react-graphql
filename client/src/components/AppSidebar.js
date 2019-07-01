@@ -137,18 +137,8 @@ const AppSidebar = ({ fetchMore, loading, viewer }) => {
               fetchMore={fetchMore}
               scrollContainer={scrollContainer}
               pageInfo={viewer.playlists.pageInfo}
-              updateQuery={(prev, { fetchMoreResult }) =>
-                compose(
-                  set(
-                    playlistEdgesLens,
-                    concat(
-                      view(playlistEdgesLens, prev),
-                      view(playlistEdgesLens, fetchMoreResult)
-                    )
-                  ),
-                  set(pageInfoLens, view(pageInfoLens, fetchMoreResult))
-                )(prev)
-              }
+              edgesLens={playlistEdgesLens}
+              pageInfoLens={pageInfoLens}
             />
           </>
         )}

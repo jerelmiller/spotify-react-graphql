@@ -1,13 +1,15 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import useIntersectionObserver from 'hooks/useIntersectionObserver'
+import { compose, concat, set, view } from 'utils/fp'
 
 const PaginationObserver = ({
+  edgesLens,
+  pageInfoLens,
   query,
   fetchMore,
   pageInfo,
   scrollContainer,
-  updateQuery,
   threshold = '300px'
 }) => {
   const ref = useIntersectionObserver(
@@ -21,7 +23,17 @@ const PaginationObserver = ({
                 limit: pageInfo.limit,
                 offset: pageInfo.offset + pageInfo.limit
               },
-              updateQuery
+              updateQuery: (prev, { fetchMoreResult }) =>
+                compose(
+                  set(
+                    edgesLens,
+                    concat(
+                      view(edgesLens, prev),
+                      view(edgesLens, fetchMoreResult)
+                    )
+                  ),
+                  set(pageInfoLens, view(pageInfoLens, fetchMoreResult))
+                )(prev)
             },
             query && { query }
           )
