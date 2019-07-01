@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { compose, prop } from 'utils/fp'
 import useScript from './useScript'
 import useTimer from './useTimer'
@@ -37,9 +37,12 @@ const useSpotify = token => {
   const [deviceId, setDeviceId] = useState(null)
   const [state, setState] = useState(null)
   const [error, setError] = useState(null)
-  const setSpotifyError = compose(
-    setError,
-    prop('message')
+  const setSpotifyError = useCallback(
+    compose(
+      setError,
+      prop('message')
+    ),
+    []
   )
   const [currentTime, setCurrentTime] = useState(0)
 
@@ -101,8 +104,9 @@ const useSpotify = token => {
       .connect()
       .then(() => player.getCurrentState())
       .then(setState)
+
     return () => player && player.disconnect()
-  }, [player])
+  }, [player, setSpotifyError])
   useScript('https://sdk.scdn.co/spotify-player.js')
 
   useTimer(
@@ -117,17 +121,21 @@ const useSpotify = token => {
     [timestamp, state && state.position]
   )
 
-  useEffect(() => {
-    if (state && state.position != null) {
-      setCurrentTime(state.position)
-    }
-  }, [state && state.position])
+  const position = state && state.position
 
   useEffect(() => {
-    if (state && state.timestamp) {
-      setTimestamp(state.timestamp)
+    if (position != null) {
+      setCurrentTime(position)
     }
-  }, [state && state.timestamp])
+  }, [position])
+
+  const spotifyTimestamp = state && state.timestamp
+
+  useEffect(() => {
+    if (spotifyTimestamp) {
+      setTimestamp(spotifyTimestamp)
+    }
+  }, [spotifyTimestamp])
 
   return {
     deviceId,
