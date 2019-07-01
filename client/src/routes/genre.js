@@ -3,12 +3,15 @@ import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
 import PlaylistTile from 'components/PlaylistTile'
-import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 
-const Genre = ({ genreId }) => (
-  <Query
-    query={gql`
-      query GenreQuery($categoryId: ID!, $limit: Int!, $offset: Int!) {
+const Genre = ({ genreId }) => {
+  const {
+    loading,
+    data: { category, playlistsByCategory }
+  } = useQuery(
+    gql`
+      query GenreQuery($categoryId: ID!, $limit: Int, $offset: Int) {
         playlistsByCategory(
           categoryId: $categoryId
           limit: $limit
@@ -29,22 +32,22 @@ const Genre = ({ genreId }) => (
       }
 
       ${PlaylistTile.fragments.playlist}
-    `}
-    variables={{ categoryId: genreId, limit: 50, offset: 0 }}
-  >
-    {({ loading, data: { category, playlistsByCategory } }) =>
-      loading || (
-        <>
-          <PageTitle>{category.name}</PageTitle>
-          <TileGrid minWidth="180px">
-            {playlistsByCategory.edges.map(({ node }) => (
-              <PlaylistTile key={node.id} playlist={node} />
-            ))}
-          </TileGrid>
-        </>
-      )
-    }
-  </Query>
-)
+    `,
+    { variables: { categoryId: genreId } }
+  )
+
+  return (
+    loading || (
+      <>
+        <PageTitle>{category.name}</PageTitle>
+        <TileGrid minWidth="180px">
+          {playlistsByCategory.edges.map(({ node }) => (
+            <PlaylistTile key={node.id} playlist={node} />
+          ))}
+        </TileGrid>
+      </>
+    )
+  )
+}
 
 export default Genre
