@@ -2,14 +2,15 @@ import React from 'react'
 import Track from 'components/Track'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
-import PaginationObserver from 'components/PaginationObserver'
 import useBackgroundColor from 'hooks/useBackgroundColor'
-import useScrollContainer from 'hooks/useScrollContainer'
+import usePaginationObserver, {
+  usePaginationObserver_pageInfo
+} from 'hooks/usePaginationObserver'
 import posed, { PoseGroup } from 'react-pose'
-import { lensPath } from 'utils/fp'
+import { lensPath, view } from 'utils/fp'
 import { useQuery } from '@apollo/react-hooks'
 
-const tracksEdgesLens = lensPath(['viewer', 'savedTracks', 'edges'])
+const edgesLens = lensPath(['viewer', 'savedTracks', 'edges'])
 const pageInfoLens = lensPath(['viewer', 'savedTracks', 'pageInfo'])
 
 const TrackContainer = posed.div({
@@ -23,13 +24,8 @@ const TrackContainer = posed.div({
 
 const Tracks = () => {
   useBackgroundColor('#1F3363')
-  const scrollContainer = useScrollContainer()
 
-  const {
-    loading,
-    fetchMore,
-    data: { viewer }
-  } = useQuery(
+  const result = useQuery(
     gql`
       query TracksQuery($limit: Int, $offset: Int) {
         viewer {
@@ -48,13 +44,13 @@ const Tracks = () => {
             }
 
             pageInfo {
-              ...PaginationObserver_pageInfo
+              ...usePaginationObserver_pageInfo
             }
           }
         }
       }
 
-      ${PaginationObserver.fragments.pageInfo}
+      ${usePaginationObserver_pageInfo}
       ${Track.fragments.track}
       ${Track.AlbumLink.fragments.track}
       ${Track.ArtistLink.fragments.track}
@@ -65,12 +61,20 @@ const Tracks = () => {
     { fetchPolicy: 'network-only' }
   )
 
+  const { loading, data } = result
+
+  const ref = usePaginationObserver(result, {
+    threshold: '750px',
+    edgesLens: edgesLens,
+    pageInfoLens
+  })
+
   return (
     <>
       <PageTitle>Songs</PageTitle>
       <PoseGroup>
         {loading ||
-          viewer.savedTracks.edges.map(({ node }, idx) => (
+          view(edgesLens, data).map(({ node }, idx) => (
             <TrackContainer key={node.id}>
               <Track track={node} columns="auto 1fr auto auto">
                 <Track.Name />
@@ -85,16 +89,7 @@ const Tracks = () => {
           ))}
       </PoseGroup>
 
-      {loading || (
-        <PaginationObserver
-          threshold="750px"
-          scrollContainer={scrollContainer}
-          fetchMore={fetchMore}
-          pageInfo={viewer.savedTracks.pageInfo}
-          edgesLens={tracksEdgesLens}
-          pageInfoLens={pageInfoLens}
-        />
-      )}
+      <div ref={ref} />
     </>
   )
 }
