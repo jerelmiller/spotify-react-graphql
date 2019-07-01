@@ -23,7 +23,7 @@ const useBackgroundFromImage = src => {
     return () => {
       img.onload = null
     }
-  })
+  }, [src])
 }
 
 export default useBackgroundFromImage
