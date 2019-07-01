@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import gql from 'graphql-tag'
 import UserAvatar from './UserAvatar'
 import NavLink from './NavLink'
 import UnstyledList from './UnstyledList'
+import useIntersectionObserver from '../hooks/useIntersectionObserver'
 import styled from 'styled-components'
 import { color } from '../styles/utils'
 import { rgba } from 'polished'
-import { AppSidebar_viewer } from './types/AppSidebar_viewer'
-import { FragmentComponent, GQLFragment } from '../types/shared'
-import { FC } from 'react'
 
 const Sidebar = styled.aside`
   grid-area: sidebar;
@@ -34,11 +32,11 @@ const Title = styled.h5`
   border-left: 0.375rem transparent;
 `
 
-interface NavSectionProps {
-  title?: string
-}
+const IntersectionRect = styled.div`
+  width: 100%;
+`
 
-const NavSection: FC<NavSectionProps> = ({ children, title }) => (
+const NavSection = ({ children, title }) => (
   <Section>
     {title && <Title>{title}</Title>}
     <nav>
@@ -78,11 +76,7 @@ const Li = styled.li`
   }
 `
 
-interface LinkProps {
-  to: string
-}
-
-const Link: FC<LinkProps> = ({ children, to }) => (
+const Link = ({ children, to }) => (
   <Li>
     <SidebarLink to={to}>{children}</SidebarLink>
   </Li>
@@ -94,38 +88,40 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
-interface Props {
-  loading: boolean
-  viewer: AppSidebar_viewer
-}
+const AppSidebar = ({ loading, viewer }) => {
+  const [root, setRoot] = useState(null)
+  const ref = useIntersectionObserver(entry => console.log(entry), {
+    root,
+    rootMargin: '0px 0px 100px 0px',
+    threshold: 1
+  })
 
-const AppSidebar: FragmentComponent<Props, { viewer: GQLFragment }> = ({
-  loading,
-  viewer
-}) => (
-  <Sidebar>
-    <AvatarContainer>
-      {viewer && viewer.user && <UserAvatar user={viewer.user} />}
-    </AvatarContainer>
-    <NavSection>
-      <Link to="browse">Browse</Link>
-    </NavSection>
-    <NavSection title="Your Library">
-      <Link to="collection/tracks">Songs</Link>
-      <Link to="collection/albums">Albums</Link>
-      <Link to="collection/artists">Artists</Link>
-    </NavSection>
-    <NavSection title="Playlists">
-      {loading ||
-        (viewer.playlists &&
-          viewer.playlists.edges.map(({ node }) => (
-            <Link key={node.id} to={`/playlists/${node.id}`}>
-              {node.name}
-            </Link>
-          )))}
-    </NavSection>
-  </Sidebar>
-)
+  return (
+    <Sidebar ref={setRoot}>
+      <AvatarContainer>
+        {viewer && viewer.user && <UserAvatar user={viewer.user} />}
+      </AvatarContainer>
+      <NavSection>
+        <Link to="browse">Browse</Link>
+      </NavSection>
+      <NavSection title="Your Library">
+        <Link to="collection/tracks">Songs</Link>
+        <Link to="collection/albums">Albums</Link>
+        <Link to="collection/artists">Artists</Link>
+      </NavSection>
+      <NavSection title="Playlists">
+        {loading ||
+          (viewer.playlists &&
+            viewer.playlists.edges.map(({ node }) => (
+              <Link key={node.id} to={`/playlists/${node.id}`}>
+                {node.name}
+              </Link>
+            )))}
+        <IntersectionRect ref={ref} />
+      </NavSection>
+    </Sidebar>
+  )
+}
 
 AppSidebar.fragments = {
   viewer: gql`
@@ -142,10 +138,16 @@ AppSidebar.fragments = {
             name
           }
         }
+
+        pageInfo {
+          limit
+          offset
+          hasNextPage
+        }
       }
     }
 
-    ${UserAvatar.fragments!.user}
+    ${UserAvatar.fragments.user}
   `
 }
 
