@@ -1,4 +1,4 @@
-import React, { ReactNode, FC, useRef, useCallback } from 'react'
+import React, { ReactNode, FC, useRef } from 'react'
 import { css } from '../../styled'
 import Menu, { Props as MenuProps } from './Menu'
 import useToggle from '../../hooks/useToggle'

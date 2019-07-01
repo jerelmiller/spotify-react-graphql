@@ -1,4 +1,4 @@
-import React, { forwardRef, HTMLProps, ReactNode } from 'react'
+import React, { forwardRef } from 'react'
 import styled from '@emotion/styled'
 import useLazyImage from '../hooks/useLazyImage'
 import posed, { PoseGroup } from 'react-pose'

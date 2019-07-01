@@ -1,10 +1,7 @@
 import React, { FC, ReactNode } from 'react'
 import { Mutation, MutationFn } from 'react-apollo'
 import gql from 'graphql-tag'
-import {
-  NotifyMutation as NotifyMutationDef,
-  NotifyMutation_notify
-} from './types/NotifyMutation'
+import { NotifyMutation as NotifyMutationDef } from './types/NotifyMutation'
 import { NotifyInput } from '../types/globalTypes'
 
 class NotifyMutation extends Mutation<NotifyMutationDef, Variables> {}

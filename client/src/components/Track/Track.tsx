@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react'
+import React, { memo } from 'react'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
 import useSpotifyContext from '../../hooks/useSpotifyContext'

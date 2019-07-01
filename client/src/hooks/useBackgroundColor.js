@@ -19,7 +19,7 @@ const useBackgroundColor = (color, { useGradient } = {}) => {
       setColor(DEFAULT_COLOR)
       setUsingGradient(true)
     }
-  }, [color, useGradient])
+  }, [color, useGradient, setColor, setUsingGradient])
 
   return { color: currentColor, usingGradient }
 }
