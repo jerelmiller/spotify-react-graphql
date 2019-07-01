@@ -14,7 +14,7 @@ const useOuterClick = (
     document.addEventListener('click', handleClick)
 
     return () => document.removeEventListener('click', handleClick)
-  }, [onOuterClick])
+  }, [onOuterClick, ref])
 }
 
 export default useOuterClick

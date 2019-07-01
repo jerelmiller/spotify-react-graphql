@@ -26,14 +26,14 @@ const useAlbumInLibraryToggle = ({ id, savedToLibrary }: Album) => {
       await addAlbumToLibrary(id)
       notify({ message: 'Saved to Your Library' })
     })
-  }, [addAlbumToLibrary, id])
+  }, [addAlbumToLibrary, id, notify])
 
   const remove = useCallback(() => {
     transaction(async () => {
       await removeAlbumFromLibrary(id)
       notify({ message: 'Removed from Your Library' })
     })
-  }, [removeAlbumFromLibrary, id])
+  }, [removeAlbumFromLibrary, id, notify])
 
   return {
     loading,

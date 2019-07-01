@@ -5,7 +5,7 @@ const useTimeout = (fn: () => void, delay: number) => {
     const timeoutId = setTimeout(fn, delay)
 
     return () => clearTimeout(timeoutId)
-  }, [])
+  }, [delay, fn])
 }
 
 export default useTimeout

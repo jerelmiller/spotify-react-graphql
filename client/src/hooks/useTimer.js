@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useTimer = (fn, { on } = {}, vars = []) => {
+const useTimer = (fn, { on } = {}) => {
   useEffect(() => {
     let intervalId
     if (on) {
@@ -10,7 +10,7 @@ const useTimer = (fn, { on } = {}, vars = []) => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [on, ...vars])
+  }, [on, fn])
 }
 
 export default useTimer

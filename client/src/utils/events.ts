@@ -1,4 +1,4 @@
-import { MouseEvent, SyntheticEvent } from 'react'
+import { SyntheticEvent } from 'react'
 
 type EventHandler<Event extends SyntheticEvent> =
   | ((e: Event) => void)

@@ -1,6 +1,5 @@
 import styled from '../../styled'
 import { color } from '../../styles/utils'
-import isPropValid from '@emotion/is-prop-valid'
 import { prop } from '../../utils/fp'
 import posed from 'react-pose'
 
