@@ -305,7 +305,8 @@ defmodule SpotifyWeb.Schema.Types do
     field :edges, list_of(:playlist_edge),
       resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info)
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :playlist_edge do
