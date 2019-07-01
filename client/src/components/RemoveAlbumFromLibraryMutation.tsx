@@ -1,22 +1,17 @@
-import React, { ReactNode, FC } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import { Mutation, MutationFn } from 'react-apollo'
-import { RemoveAlbumFromLibraryMutation as RemoveAlbumFromLibraryMutationDef } from './types/RemoveAlbumFromLibraryMutation'
+import { Mutation, MutationFunction } from 'react-apollo'
+import { RemoveAlbumFromLibraryMutation } from './types/RemoveAlbumFromLibraryMutation'
 import { RemoveAlbumFromLibraryInput } from '../types/globalTypes'
 
-class RemoveAlbumFromLibraryMutation extends Mutation<
-  RemoveAlbumFromLibraryMutationDef,
-  Variables
-> {}
-
 interface Props {
-  children(props: ChildrenProps): ReactNode
+  children(props: ChildrenProps): JSX.Element | null
 }
 
 interface ChildrenProps {
   removeAlbumFromLibrary(
     albumId: RemoveAlbumFromLibraryInput['albumId']
-  ): ReturnType<MutationFn<RemoveAlbumFromLibraryMutationDef, Variables>>
+  ): ReturnType<MutationFunction<RemoveAlbumFromLibraryMutation, Variables>>
 }
 
 interface Variables {
@@ -25,7 +20,7 @@ interface Variables {
 
 const RemoveAlbumFromLibrary: FC<Props> = ({ children }) => {
   return (
-    <RemoveAlbumFromLibraryMutation
+    <Mutation<RemoveAlbumFromLibraryMutation, Variables>
       mutation={gql`
         mutation RemoveAlbumFromLibraryMutation(
           $input: RemoveAlbumFromLibraryInput!
@@ -47,7 +42,7 @@ const RemoveAlbumFromLibrary: FC<Props> = ({ children }) => {
             })
         })
       }
-    </RemoveAlbumFromLibraryMutation>
+    </Mutation>
   )
 }
 

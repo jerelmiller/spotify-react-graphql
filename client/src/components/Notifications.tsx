@@ -2,13 +2,11 @@ import React from 'react'
 import gql from 'graphql-tag'
 import Notification from './Notification'
 import { PoseGroup } from 'react-pose'
-import { Query } from 'react-apollo'
-import { NotificationsQuery as NotificationsQueryDef } from '../config/types/NotificationsQuery'
-
-class NotificationsQuery extends Query<NotificationsQueryDef> {}
+import { Query } from '@apollo/react-components'
+import { NotificationsQuery } from '../config/types/NotificationsQuery'
 
 const Notifications = () => (
-  <NotificationsQuery
+  <Query<NotificationsQuery>
     query={gql`
       query NotificationsQuery {
         notifications @client {
@@ -33,7 +31,7 @@ const Notifications = () => (
         </PoseGroup>
       )
     }}
-  </NotificationsQuery>
+  </Query>
 )
 
 export default Notifications

@@ -1,34 +1,29 @@
-import React, { FC, ReactNode } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
-import { Mutation, MutationFn } from 'react-apollo'
+import { Mutation, MutationFunction } from 'react-apollo'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 import { PlayCollectionInput } from '../types/globalTypes'
-import { PlayCollectionMutation as PlayCollectionMutationDef } from './types/PlayCollectionMutation'
+import { PlayCollectionMutation } from './types/PlayCollectionMutation'
 
 interface Props {
-  children(props: ChildrenProps): ReactNode
+  children(props: ChildrenProps): JSX.Element | null
 }
 
 interface ChildrenProps {
   playCollection: (
     uri: string
-  ) => ReturnType<MutationFn<PlayCollectionMutationDef, Variables>>
+  ) => ReturnType<MutationFunction<PlayCollectionMutation, Variables>>
 }
 
 interface Variables {
   input: PlayCollectionInput
 }
 
-class PlayCollectionMutation extends Mutation<
-  PlayCollectionMutationDef,
-  Variables
-> {}
-
 const PlayCollection: FC<Props> = ({ children }) => {
   const { deviceId } = useSpotifyContext()
 
   return (
-    <PlayCollectionMutation
+    <Mutation<PlayCollectionMutation, Variables>
       mutation={gql`
         mutation PlayCollectionMutation($input: PlayCollectionInput!) {
           playCollection(input: $input) {
@@ -47,7 +42,7 @@ const PlayCollection: FC<Props> = ({ children }) => {
             })
         })
       }
-    </PlayCollectionMutation>
+    </Mutation>
   )
 }
 
