@@ -7,7 +7,7 @@ import TileGrid from 'components/TileGrid'
 import useBackgroundColor from 'hooks/useBackgroundColor'
 import useScrollContainer from 'hooks/useScrollContainer'
 import { Query } from 'react-apollo'
-import { compose, concat, set, view, lensPath } from 'utils/fp'
+import { view, lensPath } from 'utils/fp'
 
 const edgesLens = lensPath(['viewer', 'savedAlbums', 'edges'])
 const pageInfoLens = lensPath(['viewer', 'savedAlbums', 'pageInfo'])

@@ -7,7 +7,7 @@ import PaginationObserver from 'components/PaginationObserver'
 import styled from 'styled-components'
 import { color } from '../styles/utils'
 import { rgba } from 'polished'
-import { concat, compose, lensPath, view, set } from 'utils/fp'
+import { lensPath } from 'utils/fp'
 
 const Sidebar = styled.aside`
   grid-area: sidebar;
