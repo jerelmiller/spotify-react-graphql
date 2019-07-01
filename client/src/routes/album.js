@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 import styled, { css } from '../styled'
 import ReleaseYear from 'components/ReleaseYear'
 import Track from 'components/Track'
-import { Query } from 'react-apollo'
 import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
@@ -14,6 +13,7 @@ import MoreMenu from '../components/MoreMenu'
 import copyToClipboard from '../utils/copyToClipboard'
 import useAlbumInLibraryToggle from '../hooks/useAlbumInLibraryToggle'
 import useNotifyMutation from '../hooks/useNotifyMutation'
+import { useQuery } from '@apollo/react-hooks'
 
 const Container = styled.div`
   display: grid;
@@ -78,9 +78,12 @@ const AlbumMenu = ({ album }) => {
   )
 }
 
-const Album = ({ albumId }) => (
-  <Query
-    query={gql`
+const Album = ({ albumId }) => {
+  const {
+    loading,
+    data: { album }
+  } = useQuery(
+    gql`
       query AlbumQuery($albumId: ID!) {
         album(id: $albumId) {
           id
@@ -129,78 +132,75 @@ const Album = ({ albumId }) => (
       ${Track.Name.fragments.track}
       ${ReleaseYear.fragments.releaseDate}
       ${PlayableCollectionCover.fragments.collection}
-    `}
-    variables={{ albumId }}
-  >
-    {({ loading, data: { album } }) => {
-      const image = loading ? {} : album.images[0]
+    `,
+    { variables: { albumId } }
+  )
+  const image = loading ? {} : album.images[0]
 
-      return (
-        loading || (
-          <Container>
-            {image && <BackgroundFromImage src={imageFor(album).url} />}
-            <Info>
-              <PlayableCollectionCover
-                href={`/albums/${album.id}`}
-                collection={album}
-                marginBottom="1rem"
-                width="300px"
-              />
-              <h2>{album.name}</h2>
-              <div>
-                <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
-                  {album.primaryArtist.name}
-                </ArtistLink>
-              </div>
-              <div>
-                <Typography>
-                  <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
-                  {album.tracks.pageInfo.total} Songs
-                </Typography>
-              </div>
-              <div
-                css={css`
-                  margin-top: 1.5rem;
-                `}
-              >
-                <PlayCollectionButton size="sm" uri={album.uri} />
-              </div>
-              <div
-                css={css`
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-around;
-                  margin-top: 1.5rem;
-                `}
-              >
-                <ToggleButton album={album} />
-                <AlbumMenu album={album} />
-              </div>
-            </Info>
-            <div>
-              {album.tracks.edges.map(({ node }) => (
-                <Track
-                  key={node.id}
-                  columns="auto 1fr auto auto"
-                  track={node}
-                  playContext={album.uri}
-                >
-                  <Track.Name />
-                  <Track.More />
-                  <Track.Duration />
-                  {album.type === 'COMPILATION' && (
-                    <Track.Details>
-                      <Track.ExplicitBadge /> <Track.ArtistLink />
-                    </Track.Details>
-                  )}
-                </Track>
-              ))}
-            </div>
-          </Container>
-        )
-      )
-    }}
-  </Query>
-)
+  return (
+    loading || (
+      <Container>
+        {image && <BackgroundFromImage src={imageFor(album).url} />}
+        <Info>
+          <PlayableCollectionCover
+            href={`/albums/${album.id}`}
+            collection={album}
+            marginBottom="1rem"
+            width="300px"
+          />
+          <h2>{album.name}</h2>
+          <div>
+            <ArtistLink to={`/artists/${album.primaryArtist.id}`}>
+              {album.primaryArtist.name}
+            </ArtistLink>
+          </div>
+          <div>
+            <Typography>
+              <ReleaseYear releaseDate={album.releaseDate} /> &middot;{' '}
+              {album.tracks.pageInfo.total} Songs
+            </Typography>
+          </div>
+          <div
+            css={css`
+              margin-top: 1.5rem;
+            `}
+          >
+            <PlayCollectionButton size="sm" uri={album.uri} />
+          </div>
+          <div
+            css={css`
+              display: flex;
+              align-items: center;
+              justify-content: space-around;
+              margin-top: 1.5rem;
+            `}
+          >
+            <ToggleButton album={album} />
+            <AlbumMenu album={album} />
+          </div>
+        </Info>
+        <div>
+          {album.tracks.edges.map(({ node }) => (
+            <Track
+              key={node.id}
+              columns="auto 1fr auto auto"
+              track={node}
+              playContext={album.uri}
+            >
+              <Track.Name />
+              <Track.More />
+              <Track.Duration />
+              {album.type === 'COMPILATION' && (
+                <Track.Details>
+                  <Track.ExplicitBadge /> <Track.ArtistLink />
+                </Track.Details>
+              )}
+            </Track>
+          ))}
+        </div>
+      </Container>
+    )
+  )
+}
 
 export default Album
