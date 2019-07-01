@@ -24,6 +24,7 @@ const normalizeContextUri = uri => {
    *    spotify:user:playlist:{playlistId}
    */
   if (USER_PLAYLIST.test(uri)) {
+    // eslint-disable-next-line no-unused-vars
     const [_, id] = uri.match(USER_PLAYLIST)
     return `spotify:playlist:${id}`
   }
@@ -45,6 +46,7 @@ const useSpotify = token => {
     []
   )
   const [currentTime, setCurrentTime] = useState(0)
+  const position = state && state.position
 
   const parseState = state => {
     if (!state) {
@@ -92,6 +94,7 @@ const useSpotify = token => {
     if (!player) {
       return
     }
+
     player.addListener('initialization_error', setSpotifyError)
     player.addListener('authentication_error', setSpotifyError)
     player.addListener('account_error', setSpotifyError)
@@ -109,19 +112,15 @@ const useSpotify = token => {
   }, [player, setSpotifyError])
   useScript('https://sdk.scdn.co/spotify-player.js')
 
-  useTimer(
-    () => {
-      if (state && timestamp) {
-        // Ensure a more accurate `currentTime` in case the timer doesn't fire
-        // exactly 1 second later.
-        setCurrentTime(state.position + (Date.now() - timestamp))
-      }
-    },
-    { on: Boolean(state) && !state.paused },
-    [timestamp, state && state.position]
-  )
+  const tick = useCallback(() => {
+    if (position != null && timestamp) {
+      // Ensure a more accurate `currentTime` in case the timer doesn't fire
+      // exactly 1 second later.
+      setCurrentTime(position + (Date.now() - timestamp))
+    }
+  }, [position, timestamp])
 
-  const position = state && state.position
+  useTimer(tick, { on: Boolean(state) && !state.paused })
 
   useEffect(() => {
     if (position != null) {
