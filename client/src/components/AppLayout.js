@@ -23,7 +23,7 @@ const AppLayout = ({ children }) => {
   return (
     <Query
       query={gql`
-        query AppLayoutQuery {
+        query AppLayoutQuery($limit: Int, $offset: Int) {
           viewer {
             ...AppSidebar_viewer
           }
@@ -32,9 +32,9 @@ const AppLayout = ({ children }) => {
         ${AppSidebar.fragments.viewer}
       `}
     >
-      {({ loading, data: { viewer } }) => (
+      {({ loading, fetchMore, data: { viewer } }) => (
         <Container>
-          <AppSidebar loading={loading} viewer={viewer} />
+          <AppSidebar loading={loading} fetchMore={fetchMore} viewer={viewer} />
           <AppMain>{children}</AppMain>
           <SpotifyPlayer token={data.token} />
         </Container>
