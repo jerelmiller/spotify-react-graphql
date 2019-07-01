@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.9",
-    "@emotion/styled": "^10.0.9",
+    "@emotion/core": "^10.0.14",
+    "@emotion/styled": "^10.0.14",
     "@reach/router": "1.2.1",
     "@reactions/component": "^2.0.2",
     "@types/jest": "^24.0.6",
@@ -21,7 +21,7 @@
     "apollo-link-error": "^1.1.8",
     "apollo-link-http": "^1.5.12",
     "color-thief": "^2.2.3",
-    "emotion-theming": "^10.0.7",
+    "emotion-theming": "^10.0.14",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
     "polished": "^2.3.3",
@@ -60,7 +60,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@emotion/babel-preset-css-prop": "^10.0.9",
+    "@emotion/babel-preset-css-prop": "^10.0.14",
     "apollo": "^2.6.0",
     "customize-cra": "^0.2.12",
     "node-fetch": "^2.3.0",
