@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import UserAvatar from './UserAvatar'
 import NavLink from './NavLink'
 import UnstyledList from './UnstyledList'
-import useIntersectionObserver from '../hooks/useIntersectionObserver'
+import PaginationObserver from 'components/PaginationObserver'
 import styled from 'styled-components'
 import { color } from '../styles/utils'
 import { rgba } from 'polished'
@@ -30,10 +30,6 @@ const Title = styled.h5`
   margin-bottom: 0.5rem;
   letter-spacing: 1px;
   border-left: 0.375rem transparent;
-`
-
-const IntersectionRect = styled.div`
-  width: 100%;
 `
 
 const NavSection = ({ children, title }) => (
@@ -88,16 +84,11 @@ const AvatarContainer = styled.div`
   border-left: 0.375rem solid transparent;
 `
 
-const AppSidebar = ({ loading, viewer }) => {
-  const [root, setRoot] = useState(null)
-  const ref = useIntersectionObserver(entry => console.log(entry), {
-    root,
-    rootMargin: '0px 0px 100px 0px',
-    threshold: 1
-  })
+const AppSidebar = ({ fetchMore, loading, viewer }) => {
+  const [scrollContainer, setScrollContainer] = useState(null)
 
   return (
-    <Sidebar ref={setRoot}>
+    <Sidebar ref={setScrollContainer}>
       <AvatarContainer>
         {viewer && viewer.user && <UserAvatar user={viewer.user} />}
       </AvatarContainer>
@@ -110,14 +101,57 @@ const AppSidebar = ({ loading, viewer }) => {
         <Link to="collection/artists">Artists</Link>
       </NavSection>
       <NavSection title="Playlists">
-        {loading ||
-          (viewer.playlists &&
-            viewer.playlists.edges.map(({ node }) => (
-              <Link key={node.id} to={`/playlists/${node.id}`}>
-                {node.name}
-              </Link>
-            )))}
-        <IntersectionRect ref={ref} />
+        {loading || (
+          <>
+            {viewer.playlists &&
+              viewer.playlists.edges.map(({ node }) => (
+                <Link key={node.id} to={`/playlists/${node.id}`}>
+                  {node.name}
+                </Link>
+              ))}
+            <PaginationObserver
+              query={gql`
+                query MorePlaylistsQuery($limit: Int!, $offset: Int!) {
+                  viewer {
+                    playlists(limit: $limit, offset: $offset) {
+                      edges {
+                        node {
+                          id
+                          name
+                        }
+                      }
+
+                      pageInfo {
+                        ...PaginationObserver_pageInfo
+                      }
+                    }
+                  }
+                }
+
+                ${PaginationObserver.fragments.pageInfo}
+              `}
+              fetchMore={fetchMore}
+              scrollContainer={scrollContainer}
+              pageInfo={viewer.playlists.pageInfo}
+              updateQuery={(prev, { fetchMoreResult }) => {
+                return {
+                  ...prev,
+                  viewer: {
+                    ...prev.viewer,
+                    playlists: {
+                      ...prev.viewer.playlists,
+                      edges: [
+                        ...prev.viewer.playlists.edges,
+                        ...fetchMoreResult.viewer.playlists.edges
+                      ],
+                      pageInfo: fetchMoreResult.viewer.playlists.pageInfo
+                    }
+                  }
+                }
+              }}
+            />
+          </>
+        )}
       </NavSection>
     </Sidebar>
   )
@@ -131,7 +165,7 @@ AppSidebar.fragments = {
         ...UserAvatar_user
       }
 
-      playlists {
+      playlists(limit: $limit, offset: $offset) {
         edges {
           node {
             id
@@ -140,14 +174,13 @@ AppSidebar.fragments = {
         }
 
         pageInfo {
-          limit
-          offset
-          hasNextPage
+          ...PaginationObserver_pageInfo
         }
       }
     }
 
     ${UserAvatar.fragments.user}
+    ${PaginationObserver.fragments.pageInfo}
   `
 }
 
