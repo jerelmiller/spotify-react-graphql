@@ -1,4 +1,4 @@
-import { ApolloLink, Observable } from 'apollo-link'
+import { ApolloLink, Observable, split } from 'apollo-link'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import {
@@ -15,8 +15,10 @@ import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
 import store from './store'
 import { compose, prop } from 'utils/fp'
+import absintheSocketLink from './absintheSocketLink'
 import typeDefs from './typeDefs'
 import resolvers from './resolvers'
+import { getMainDefinition } from 'apollo-utilities'
 
 let isRefreshingToken = false
 let tokenSubscribers = []
@@ -125,9 +127,22 @@ const httpLink = new HttpLink({
   uri: API_URI
 })
 
+const requestLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query)
+
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    )
+  },
+  absintheSocketLink,
+  httpLink
+)
+
 const client = new ApolloClient({
   cache,
-  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, httpLink]),
+  link: ApolloLink.from([setAuthorizationLink, retryAuthLink, requestLink]),
   typeDefs,
   resolvers
 })
