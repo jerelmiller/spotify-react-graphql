@@ -5,7 +5,7 @@ import useSpotifyContext from './useSpotifyContext'
 
 const useShuffleMutation = () => {
   const { deviceId } = useSpotifyContext()
-  const [mutation] = useMutation(gql`
+  const [shuffle] = useMutation(gql`
     mutation ShuffleMutation($input: ShuffleInput!) {
       shuffle(input: $input) {
         success
@@ -14,8 +14,8 @@ const useShuffleMutation = () => {
   `)
 
   return useCallback(
-    state => mutation({ variables: { input: { state, deviceId } } }),
-    [mutation, deviceId]
+    state => shuffle({ variables: { input: { state, deviceId } } }),
+    [shuffle, deviceId]
   )
 }
 
