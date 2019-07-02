@@ -151,7 +151,7 @@ defmodule SpotifyClient do
 
   def player(params \\ %{}, headers \\ []) do
     "/me/player"
-    |> api_uri()
+    |> api_uri(params)
     |> get(headers)
   end
 
