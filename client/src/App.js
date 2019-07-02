@@ -38,9 +38,6 @@ const App = () => {
           </Artist>
           <Browse path="browse">
             <Redirect noThrow from="/" to="browse/featured" />
-            {/*
-            <BrowseDiscover path="discover" />
-            */}
             <BrowseFeatured path="featured" />
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
