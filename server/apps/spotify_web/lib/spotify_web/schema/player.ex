@@ -19,6 +19,9 @@ defmodule SpotifyWeb.Schema.Player do
     be null).
     """
     field :context, :context
+
+    @desc "off, track, context"
+    field :repeat_state, non_null(:repeat_state)
   end
 
   defp progress(%{progress_ms: progress}, _, _), do: {:ok, progress}

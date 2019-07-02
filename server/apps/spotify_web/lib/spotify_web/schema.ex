@@ -18,6 +18,7 @@ defmodule SpotifyWeb.Schema do
   import_types SpotifyWeb.Schema.Context
   import_types SpotifyWeb.Schema.ExternalUrl
   import_types SpotifyWeb.Schema.Player
+  import_types SpotifyWeb.Schema.RepeatState
   import_types SpotifyWeb.Schema.Viewer
 
   query do
