@@ -4,7 +4,6 @@ import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
-import { Query } from 'react-apollo'
 import { useQuery } from '@apollo/react-hooks'
 
 const Artists = () => {
