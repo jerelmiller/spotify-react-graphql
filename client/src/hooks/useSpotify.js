@@ -147,6 +147,7 @@ const useSpotify = token => {
     playPreviousTrack: () => player.previousTrack(),
     togglePlayback: () => player.togglePlay(),
     seek: milliseconds => player.seek(milliseconds),
+    setVolume: volume => player.setVolume(volume),
     allowedActions: {
       play: isAllowed('resuming'),
       pause: isAllowed('pausing'),

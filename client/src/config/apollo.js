@@ -129,12 +129,9 @@ const httpLink = new HttpLink({
 
 const requestLink = split(
   ({ query }) => {
-    const definition = getMainDefinition(query)
+    const { kind, operation } = getMainDefinition(query)
 
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    )
+    return kind === 'OperationDefinition' && operation === 'subscription'
   },
   absintheSocketLink,
   httpLink
