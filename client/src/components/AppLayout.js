@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import SpotifyPlayer from './SpotifyPlayer'
 import useSession from 'hooks/useSession'
-import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 
 const Container = styled.div`
   height: 100vh;
@@ -19,27 +19,26 @@ const Container = styled.div`
 
 const AppLayout = ({ children }) => {
   const { data } = useSession()
+  const {
+    loading,
+    fetchMore,
+    data: { viewer }
+  } = useQuery(gql`
+    query AppLayoutQuery($limit: Int, $offset: Int) {
+      viewer {
+        ...AppSidebar_viewer
+      }
+    }
+
+    ${AppSidebar.fragments.viewer}
+  `)
 
   return (
-    <Query
-      query={gql`
-        query AppLayoutQuery($limit: Int, $offset: Int) {
-          viewer {
-            ...AppSidebar_viewer
-          }
-        }
-
-        ${AppSidebar.fragments.viewer}
-      `}
-    >
-      {({ loading, fetchMore, data: { viewer } }) => (
-        <Container>
-          <AppSidebar loading={loading} fetchMore={fetchMore} viewer={viewer} />
-          <AppMain>{children}</AppMain>
-          <SpotifyPlayer token={data.token} />
-        </Container>
-      )}
-    </Query>
+    <Container>
+      <AppSidebar loading={loading} fetchMore={fetchMore} viewer={viewer} />
+      <AppMain>{children}</AppMain>
+      <SpotifyPlayer token={data.token} />
+    </Container>
   )
 }
 
