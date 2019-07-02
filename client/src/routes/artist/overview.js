@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import Track from 'components/Track'
 import styled from 'styled-components'
 import { Query } from 'react-apollo'
+import { useQuery } from '@apollo/react-hooks'
 
 const groupAlbumsByType = ({ edges }) =>
   edges.reduce(
@@ -23,10 +24,13 @@ const InlineExplicitBadge = styled(Track.ExplicitBadge)`
   align-self: flex-start;
 `
 
-const Overview = ({ artistId }) => (
-  <Query
-    query={gql`
-      query ArtistOverviewQuery($artistId: ID!, $limit: Int!) {
+const Overview = ({ artistId }) => {
+  const {
+    loading,
+    data: { artist }
+  } = useQuery(
+    gql`
+      query ArtistOverviewQuery($artistId: ID!, $limit: Int) {
         artist(id: $artistId) {
           id
           uri
@@ -59,56 +63,48 @@ const Overview = ({ artistId }) => (
       ${Track.Image.fragments.track}
       ${Track.Name.fragments.track}
       ${AlbumGroup.fragments.album}
-    `}
-    variables={{ artistId, limit: 5 }}
-  >
-    {({ loading, data: { artist } }) => {
-      const albumsByType = loading ? {} : groupAlbumsByType(artist.albums)
+    `,
+    { variables: { artistId, limit: 5 } }
+  )
 
-      return (
+  const albumsByType = loading ? {} : groupAlbumsByType(artist.albums)
+
+  return (
+    <>
+      <h1>Popular</h1>
+      {loading || (
         <>
-          <h1>Popular</h1>
-          {loading || (
-            <>
-              <TopTracksContainer>
-                {artist.topTracks.map(track => (
-                  <Track
-                    key={track.id}
-                    track={track}
-                    playContext={artist.uri}
-                    columns="auto auto 1fr auto auto"
-                  >
-                    <Track.Image size="50px" />
-                    <FlexContainer direction="column">
-                      <Track.Name />
-                      <InlineExplicitBadge />
-                    </FlexContainer>
-                    <Track.More />
-                    <Track.Duration />
-                  </Track>
-                ))}
-              </TopTracksContainer>
-              {albumsByType.ALBUM && (
-                <AlbumGroup title="Albums" albums={albumsByType.ALBUM} />
-              )}
-              {albumsByType.SINGLE && (
-                <AlbumGroup
-                  title="Singles and EPs"
-                  albums={albumsByType.SINGLE}
-                />
-              )}
-              {albumsByType.APPEARS_ON && (
-                <AlbumGroup
-                  title="Appears On"
-                  albums={albumsByType.APPEARS_ON}
-                />
-              )}
-            </>
+          <TopTracksContainer>
+            {artist.topTracks.map(track => (
+              <Track
+                key={track.id}
+                track={track}
+                playContext={artist.uri}
+                columns="auto auto 1fr auto auto"
+              >
+                <Track.Image size="50px" />
+                <FlexContainer direction="column">
+                  <Track.Name />
+                  <InlineExplicitBadge />
+                </FlexContainer>
+                <Track.More />
+                <Track.Duration />
+              </Track>
+            ))}
+          </TopTracksContainer>
+          {albumsByType.ALBUM && (
+            <AlbumGroup title="Albums" albums={albumsByType.ALBUM} />
+          )}
+          {albumsByType.SINGLE && (
+            <AlbumGroup title="Singles and EPs" albums={albumsByType.SINGLE} />
+          )}
+          {albumsByType.APPEARS_ON && (
+            <AlbumGroup title="Appears On" albums={albumsByType.APPEARS_ON} />
           )}
         </>
-      )
-    }}
-  </Query>
-)
+      )}
+    </>
+  )
+}
 
 export default Overview
