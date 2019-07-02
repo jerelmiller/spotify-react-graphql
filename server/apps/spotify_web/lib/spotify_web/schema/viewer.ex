@@ -1,7 +1,5 @@
 defmodule SpotifyWeb.Schema.Viewer do
-  use Absinthe.Schema.Notation
-
-  alias SpotifyWeb.Resolvers.Helpers
+  use SpotifyWeb.Schema.Definition
 
   object :viewer_queries do
     @desc "Info about the current logged-in user"
@@ -62,20 +60,20 @@ defmodule SpotifyWeb.Schema.Viewer do
 
   defp devices(_, res) do
     res
-    |> Helpers.prepare_headers()
+    |> prepare_headers()
     |> SpotifyClient.devices()
-    |> Helpers.handle_response(fn %{devices: devices} -> devices end)
+    |> handle_response(fn %{devices: devices} -> devices end)
   end
 
   defp followed_artists(args, res) do
     args
-    |> SpotifyClient.followed_artists(Helpers.prepare_headers(res))
-    |> Helpers.handle_response(fn %{artists: artists} -> artists end)
+    |> SpotifyClient.followed_artists(prepare_headers(res))
+    |> handle_response(fn %{artists: artists} -> artists end)
   end
 
   defp player(args, res) do
     args
-    |> SpotifyClient.player(Helpers.prepare_headers(res))
+    |> SpotifyClient.player(prepare_headers(res))
     |> case do
       {:ok, %{body: ""}} -> {:ok, nil}
       {:ok, %{body: body}} -> {:ok, body}
@@ -94,20 +92,20 @@ defmodule SpotifyWeb.Schema.Viewer do
 
   defp saved_tracks(args, res) do
     args
-    |> SpotifyClient.saved_tracks(Helpers.prepare_headers(res))
-    |> Helpers.handle_response()
+    |> SpotifyClient.saved_tracks(prepare_headers(res))
+    |> handle_response()
   end
 
   defp playlists(args, %{context: %{authorization: authorization}}) do
     args
     |> SpotifyClient.playlists([{"Authorization", authorization}])
-    |> Helpers.handle_response()
+    |> handle_response()
   end
 
   defp user(_, res) do
     res
-    |> Helpers.prepare_headers()
+    |> prepare_headers()
     |> SpotifyClient.current_user()
-    |> Helpers.handle_response()
+    |> handle_response()
   end
 end
