@@ -3,6 +3,13 @@ defmodule SpotifyWeb.Resolvers.Viewer do
 
   def viewer(_, _), do: {:ok, %{}}
 
+  def devices(_, res) do
+    res
+    |> Helpers.prepare_headers()
+    |> SpotifyClient.devices()
+    |> Helpers.handle_response(fn %{devices: devices} -> devices end)
+  end
+
   def followed_artists(args, res) do
     args
     |> SpotifyClient.followed_artists(Helpers.prepare_headers(res))
