@@ -1,5 +1,6 @@
 defmodule SpotifyWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :spotify_web
+  use Absinthe.Phoenix.Endpoint
   use NewRelic.Phoenix.Transaction
 
   socket "/socket", SpotifyWeb.UserSocket,
