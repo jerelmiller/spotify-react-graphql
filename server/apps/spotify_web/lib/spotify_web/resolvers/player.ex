@@ -33,4 +33,6 @@ defmodule SpotifyWeb.Resolvers.Player do
       _ -> {:ok, %{success: false}}
     end
   end
+
+  def progress(%{progress_ms: progress}, _, _), do: {:ok, progress}
 end
