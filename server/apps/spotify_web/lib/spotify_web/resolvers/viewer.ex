@@ -19,7 +19,11 @@ defmodule SpotifyWeb.Resolvers.Viewer do
   def player(args, res) do
     args
     |> SpotifyClient.player(Helpers.prepare_headers(res))
-    |> Helpers.handle_response()
+    |> case do
+      {:ok, %{body: ""}} -> {:ok, nil}
+      {:ok, %{body: body}} -> {:ok, body}
+      {:error, response} -> {:error, response}
+    end
   end
 
   def saved_albums(args, %{context: %{authorization: authorization}}) do
