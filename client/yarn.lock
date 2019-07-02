@@ -10,18 +10,6 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-components@^0.1.0-beta.7":
-  version "0.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@apollo/react-components/-/react-components-0.1.0-beta.7.tgz#1a3457b2249cad4b04be3cf9f7b28c816662f979"
-  integrity sha512-hNXdUu9sN8lQB/mxDAdSmLqYAm4wKkKXs1X7TuCcUbTn7RSeUM9F67/uFcDJ1Io+RPse+EI3EG8jOkCIo4S/0g==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.8"
-    "@apollo/react-hooks" "^0.1.0-beta.10"
-    hoist-non-react-statics "^3.3.0"
-    prop-types "^15.7.2"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
 "@apollo/react-hooks@^0.1.0-beta.10":
   version "0.1.0-beta.10"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-0.1.0-beta.10.tgz#4069fad454c0a77eb09d00242dcd96b3bac7791b"
