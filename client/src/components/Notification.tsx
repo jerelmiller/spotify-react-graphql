@@ -4,7 +4,7 @@ import useTimeout from '../hooks/useTimeout'
 import styled from '../styled'
 import { FragmentComponent, GQLFragment } from '../types/shared'
 import { Notification_notification } from './types/Notification_notification'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import { RemoveNotificationInput } from '../types/globalTypes'
 import { color } from '../styles/utils'
 import posed from 'react-pose'
@@ -15,8 +15,8 @@ interface Props {
   notification: Notification_notification
 }
 
-const useRemoveNotification = (id: RemoveNotificationInput['id']) =>
-  useMutation(
+const useRemoveNotification = (id: RemoveNotificationInput['id']) => {
+  const [removeNotification] = useMutation(
     gql`
       mutation RemoveNotificationMutation($input: RemoveNotificationInput!) {
         removeNotification(input: $input) @client {
@@ -28,6 +28,9 @@ const useRemoveNotification = (id: RemoveNotificationInput['id']) =>
     `,
     { variables: { input: { id } } }
   )
+
+  return removeNotification
+}
 
 interface ContainerProps {
   children: ReactNode
