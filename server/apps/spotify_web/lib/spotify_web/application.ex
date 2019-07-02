@@ -9,7 +9,8 @@ defmodule SpotifyWeb.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      SpotifyWeb.Endpoint
+      SpotifyWeb.Endpoint,
+      {Absinthe.Subscription, [SpotifyWeb.Endpoint]}
       # Starts a worker by calling: SpotifyWeb.Worker.start_link(arg)
       # {SpotifyWeb.Worker, arg},
     ]

@@ -1,5 +1,6 @@
 defmodule SpotifyWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: SpotifyWeb.Schema
 
   ## Channels
   # channel "room:*", SpotifyWeb.RoomChannel
@@ -15,8 +16,8 @@ defmodule SpotifyWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket, _connect_info) do
+    {:ok, Absinthe.Phoenix.Socket.put_opts(socket, context: %{authorization: token})}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
