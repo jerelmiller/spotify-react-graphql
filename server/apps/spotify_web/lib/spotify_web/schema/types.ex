@@ -198,11 +198,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :featured_playlist_connection do
-    field :title, non_null(:string),
-      resolve: &Resolvers.FeaturedPlaylistConnection.title/3
+    field :title, non_null(:string), resolve: &Resolvers.FeaturedPlaylistConnection.title/3
 
-    field :edges, list_of(:playlist_edge),
-      resolve: &Resolvers.FeaturedPlaylistConnection.edges/3
+    field :edges, list_of(:playlist_edge), resolve: &Resolvers.FeaturedPlaylistConnection.edges/3
 
     field :page_info, non_null(:page_info),
       resolve: &Resolvers.FeaturedPlaylistConnection.page_info/3
@@ -333,11 +331,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist_connection do
-    field :edges, list_of(:playlist_edge),
-      resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:playlist_edge), resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info),
-      resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
   end
 
   object :playlist_edge do
@@ -381,11 +377,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_album_connection do
-    field :edges, list_of(:saved_album_edge),
-      resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:saved_album_edge), resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info),
-      resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
   end
 
   object :saved_album_edge do
@@ -440,11 +434,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_track_connection do
-    field :edges, list_of(:saved_track_edge),
-      resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:saved_track_edge), resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info),
-      resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
   end
 
   object :saved_track_edge do
