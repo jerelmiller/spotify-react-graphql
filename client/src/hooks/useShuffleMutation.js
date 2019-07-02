@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback } from 'react'
 import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 import useSpotifyContext from './useSpotifyContext'
@@ -13,10 +13,8 @@ const useShuffleMutation = () => {
     }
   `)
 
-  return useMemo(
-    () => ({
-      shuffle: state => mutation({ variables: { input: { state, deviceId } } })
-    }),
+  return useCallback(
+    state => mutation({ variables: { input: { state, deviceId } } }),
     [mutation, deviceId]
   )
 }

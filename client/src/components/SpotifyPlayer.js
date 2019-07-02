@@ -193,7 +193,7 @@ const SpotifyPlayer = ({ token }) => {
     shuffle: shuffleState
   } = useSpotifyContext()
 
-  const { shuffle } = useShuffleMutation()
+  const shuffle = useShuffleMutation()
   const { album, name: trackName, artists } = currentTrack || {}
 
   return (
