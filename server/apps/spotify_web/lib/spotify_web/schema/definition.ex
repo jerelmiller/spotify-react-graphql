@@ -3,7 +3,7 @@ defmodule SpotifyWeb.Schema.Definition do
     quote do
       use Absinthe.Schema.Notation
 
-      alias SpotifyWeb.Resolvers.Helpers, as: Helper
+      import SpotifyWeb.Resolvers.Helpers
     end
   end
 end
