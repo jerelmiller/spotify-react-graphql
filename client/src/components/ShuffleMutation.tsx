@@ -1,4 +1,4 @@
-import React, { ReactNode, FC } from 'react'
+import React, { FC } from 'react'
 import gql from 'graphql-tag'
 import useSpotifyContext from '../hooks/useSpotifyContext'
 import { Mutation, MutationFunction } from 'react-apollo'
