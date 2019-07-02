@@ -332,6 +332,11 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
   end
 
+  object :player do
+    @desc "The device that is currently active"
+    field :device, :device
+  end
+
   object :playlist_connection do
     field :edges, list_of(:playlist_edge),
       resolve: &Resolvers.Connection.edges/3
@@ -564,6 +569,9 @@ defmodule SpotifyWeb.Schema.Types do
 
       resolve &Resolvers.Viewer.followed_artists/2
     end
+
+    @desc "Information about the user's current playback."
+    field :player, :player, resolve: &Resolvers.Viewer.player/2
 
     @desc "The list of the current user's owned or followed playlists"
     field :playlists, :playlist_connection do

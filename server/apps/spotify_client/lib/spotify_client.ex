@@ -149,6 +149,12 @@ defmodule SpotifyClient do
   defp format_play_track_request(uri, params),
     do: format_play_track_request(uri, Map.put(params, :context_uri, nil))
 
+  def player(params \\ %{}, headers \\ []) do
+    "/me/player"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def playlists(params \\ %{}, headers \\ []) do
     "/me/playlists"
     |> api_uri(params)
