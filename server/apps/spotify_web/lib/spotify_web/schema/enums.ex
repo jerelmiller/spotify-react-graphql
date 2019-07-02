@@ -14,6 +14,12 @@ defmodule SpotifyWeb.Schema.Enums do
     value :single, as: "single"
   end
 
+  enum :context_type do
+    value :album, as: "album"
+    value :artist, as: "artist"
+    value :playlist, as: "playlist"
+  end
+
   enum :device_type do
     value :avr, as: "AVR"
     value :audio_dongle, as: "AudioDongle"
