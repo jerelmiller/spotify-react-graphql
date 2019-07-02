@@ -9,8 +9,8 @@ import styled from 'styled-components'
 import TabNav from 'components/TabNav'
 import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
-import { Query } from 'react-apollo'
 import PlayCollectionButton from '../components/PlayCollectionButton'
+import { useQuery } from '@apollo/react-hooks'
 
 const ArtistName = styled.h1`
   font-size: 4.5rem;
@@ -68,58 +68,57 @@ const Content = styled.section`
 const Artist = ({ artistId, children }) => {
   useBackgroundColor('#181818', { useGradient: false })
 
-  return (
-    <Query
-      query={gql`
-        query ArtistQuery($artistId: ID!) {
-          artist(id: $artistId) {
-            id
-            name
-            uri
+  const {
+    loading,
+    data: { artist }
+  } = useQuery(
+    gql`
+      query ArtistQuery($artistId: ID!) {
+        artist(id: $artistId) {
+          id
+          name
+          uri
 
-            followers {
-              total
-            }
+          followers {
+            total
+          }
 
-            images {
-              url
-              width
-              height
-            }
+          images {
+            url
+            width
+            height
           }
         }
-      `}
-      variables={{ artistId }}
-    >
-      {({ loading, data: { artist } }) =>
-        loading || (
-          <>
-            <Header src={artist.images[0].url} component="header">
-              <Listeners>
-                {toNumeral(artist.followers.total)} Followers
-              </Listeners>
-              <ArtistName>{artist.name}</ArtistName>
-              <FlexContainer alignItems="center">
-                <PlayCollectionButton size="sm" uri={artist.uri} />
-                <Button size="sm" kind="hollow">
-                  Save to your library
-                </Button>
-                <More size="2rem" />
-              </FlexContainer>
-              <Nav>
-                <TabNav.NavItem to="./" exact replace>
-                  Overview
-                </TabNav.NavItem>
-                <TabNav.NavItem to="related-artists" replace>
-                  Related artists
-                </TabNav.NavItem>
-              </Nav>
-            </Header>
-            <Content>{children}</Content>
-          </>
-        )
       }
-    </Query>
+    `,
+    { variables: { artistId } }
+  )
+
+  return (
+    loading || (
+      <>
+        <Header src={artist.images[0].url} component="header">
+          <Listeners>{toNumeral(artist.followers.total)} Followers</Listeners>
+          <ArtistName>{artist.name}</ArtistName>
+          <FlexContainer alignItems="center">
+            <PlayCollectionButton size="sm" uri={artist.uri} />
+            <Button size="sm" kind="hollow">
+              Save to your library
+            </Button>
+            <More size="2rem" />
+          </FlexContainer>
+          <Nav>
+            <TabNav.NavItem to="./" exact replace>
+              Overview
+            </TabNav.NavItem>
+            <TabNav.NavItem to="related-artists" replace>
+              Related artists
+            </TabNav.NavItem>
+          </Nav>
+        </Header>
+        <Content>{children}</Content>
+      </>
+    )
   )
 }
 
