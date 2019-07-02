@@ -26,6 +26,7 @@
     "emotion-theming": "^10.0.14",
     "graphql": "^14.4.1",
     "graphql-tag": "^2.10.1",
+    "phoenix": "^1.4.8",
     "polished": "^2.3.3",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
