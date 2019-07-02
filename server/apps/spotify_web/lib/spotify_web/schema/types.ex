@@ -171,6 +171,32 @@ defmodule SpotifyWeb.Schema.Types do
     field :total, non_null(:integer)
   end
 
+  object :device do
+    @desc "The device ID. This may be null"
+    field :id, :id
+
+    @desc "If this device is the currently active device"
+    field :is_active, non_null(:boolean)
+
+    @desc "If this device is currently in a private session"
+    field :is_private_session, non_null(:boolean)
+
+    @desc """
+    Whether controlling this device is restricted. At present if this is "true",
+    then no Web API commands will be accepted by this device.
+    """
+    field :is_restricted, non_null(:boolean)
+
+    @desc "The name of the device."
+    field :name, non_null(:string)
+
+    @desc "Device type."
+    field :type, non_null(:device_type)
+
+    @desc "The current volume in percent."
+    field :volume_percent, :integer
+  end
+
   object :featured_playlist_connection do
     field :title, non_null(:string),
       resolve: &Resolvers.FeaturedPlaylistConnection.title/3
@@ -528,6 +554,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :viewer do
+    @desc "The list of the current user's available devices."
+    field :devices, list_of(:device), resolve: &Resolvers.Viewer.devices/2
+
     @desc "The list of the current user's followed artists."
     field :followed_artists, :artist_connection do
       arg :limit, :integer, default_value: 50

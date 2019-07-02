@@ -14,6 +14,22 @@ defmodule SpotifyWeb.Schema.Enums do
     value :single, as: "single"
   end
 
+  enum :device_type do
+    value :avr, as: "AVR"
+    value :audio_dongle, as: "AudioDongle"
+    value :automobile, as: "Automobile"
+    value :cast_audio, as: "CastAudio"
+    value :cast_video, as: "CastVideo"
+    value :computer, as: "Computer"
+    value :game_console, as: "GameConsole"
+    value :smartphone, as: "Smartphone"
+    value :speaker, as: "Speaker"
+    value :stb, as: "STB"
+    value :tablet, as: "Tablet"
+    value :tv, as: "TV"
+    value :unknown, as: "unknown"
+  end
+
   enum :release_date_precision do
     value :year, as: "year"
     value :month, as: "month"

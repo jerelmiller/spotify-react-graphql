@@ -22,6 +22,12 @@ defmodule SpotifyClient do
     |> get(headers)
   end
 
+  def devices(headers \\ []) do
+    "/me/player/devices"
+    |> api_uri()
+    |> get(headers)
+  end
+
   def featured_playlists(params \\ %{}, headers \\ []) do
     "/browse/featured-playlists"
     |> api_uri(params)
