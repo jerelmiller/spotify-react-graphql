@@ -9,6 +9,13 @@ import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
 import { useQuery } from '@apollo/react-hooks'
+import usePaginationObserver, {
+  usePaginationObserver_pageInfo
+} from 'hooks/usePaginationObserver'
+import { lensPath } from 'utils/fp'
+
+const edgesLens = lensPath(['playlist', 'tracks', 'edges'])
+const pageInfoLens = lensPath(['playlist', 'tracks', 'pageInfo'])
 
 // TODO: Abstract all these components to share with album
 const Container = styled.div`
@@ -43,12 +50,9 @@ const Typography = styled.span`
 `
 
 const Playlist = ({ playlistId }) => {
-  const {
-    loading,
-    data: { playlist }
-  } = useQuery(
+  const result = useQuery(
     gql`
-      query PlaylistQuery($playlistId: ID!) {
+      query PlaylistQuery($playlistId: ID!, $limit: Int, $offset: Int) {
         playlist(id: $playlistId) {
           id
           name
@@ -61,7 +65,7 @@ const Playlist = ({ playlistId }) => {
             displayName
           }
 
-          tracks {
+          tracks(limit: $limit, offset: $offset) {
             edges {
               node {
                 id
@@ -75,6 +79,7 @@ const Playlist = ({ playlistId }) => {
             }
             pageInfo {
               total
+              ...usePaginationObserver_pageInfo
             }
           }
 
@@ -89,9 +94,21 @@ const Playlist = ({ playlistId }) => {
       ${Track.ExplicitBadge.fragments.track}
       ${Track.Name.fragments.track}
       ${PlayableCollectionCover.fragments.collection}
+      ${usePaginationObserver_pageInfo}
     `,
     { variables: { playlistId } }
   )
+
+  const {
+    loading,
+    data: { playlist }
+  } = result
+
+  const ref = usePaginationObserver(result, {
+    threshold: '750px',
+    edgesLens,
+    pageInfoLens
+  })
 
   return (
     loading || (
@@ -139,6 +156,7 @@ const Playlist = ({ playlistId }) => {
               </Track.Details>
             </Track>
           ))}
+          <div ref={ref} />
         </div>
       </Container>
     )
