@@ -204,6 +204,7 @@ const SpotifyPlayer = ({ token }) => {
     playPreviousTrack,
     togglePlayback,
     seek,
+    setVolume,
     shuffle: shuffleState
   } = useSpotifyContext()
 
@@ -280,7 +281,12 @@ const SpotifyPlayer = ({ token }) => {
           </CenterControls>
           <RightControls>
             <ControlButton icon={LoudVolumeIcon} />
-            <VolumeBar progress={50 / 100} />
+            <VolumeBar
+              progress={50 / 100}
+              onClick={({ clientX, target: { offsetLeft, clientWidth } }) =>
+                setVolume((clientX - offsetLeft) / clientWidth)
+              }
+            />
           </RightControls>
         </Container>
       )}
