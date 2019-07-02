@@ -14,6 +14,8 @@ defmodule SpotifyWeb.Schema do
   import_types SpotifyWeb.Schema.Enums
   import_types SpotifyWeb.Schema.Interfaces
   import_types SpotifyWeb.Schema.InputObjects
+
+  import_types SpotifyWeb.Schema.Player
   import_types SpotifyWeb.Schema.Viewer
 
   query do

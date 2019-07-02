@@ -343,26 +343,6 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
   end
 
-  object :player do
-    @desc "The device that is currently active."
-    field :device, non_null(:device)
-
-    @desc "Unix millisecond timestamp when data was fetched."
-    field :timestamp, non_null(:integer)
-
-    @desc """
-    Progress into the currently playing track in milliseconds. Can be null
-    (e.g. If private session is enabled this will be null).
-    """
-    field :progress, :integer, resolve: &Resolvers.Player.progress/3
-
-    @desc """
-    A Context Object. Can be null (e.g. If private session is enabled this will
-    be null).
-    """
-    field :context, :context
-  end
-
   object :playlist_connection do
     field :edges, list_of(:playlist_edge),
       resolve: &Resolvers.Connection.edges/3
