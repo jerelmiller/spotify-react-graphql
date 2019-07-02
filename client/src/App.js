@@ -8,7 +8,6 @@ import AppLayout from './components/AppLayout'
 import Login from './routes/login'
 import Logout from './routes/logout'
 import Browse from './routes/browse'
-import BrowseDiscover from './routes/browse/discover'
 import BrowseFeatured from './routes/browse/featured'
 import BrowseGenres from './routes/browse/genres'
 import BrowseNewReleases from './routes/browse/new-releases'
@@ -31,22 +30,14 @@ const App = () => {
       <AppLayout>
         <Notifications />
         <Router primary={false}>
-          <Redirect
-            noThrow
-            from="/"
-            to="browse/featured"
-          />
+          <Redirect noThrow from="/" to="browse/featured" />
           <Album path="albums/:albumId" />
           <Artist path="artists/:artistId">
             <ArtistOverview path="/" />
             <RelatedArtists path="related-artists" />
           </Artist>
           <Browse path="browse">
-            <Redirect
-              noThrow
-              from="/"
-              to="browse/featured"
-            />
+            <Redirect noThrow from="/" to="browse/featured" />
             {/*
             <BrowseDiscover path="discover" />
             */}
