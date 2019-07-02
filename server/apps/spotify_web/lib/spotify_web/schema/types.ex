@@ -571,7 +571,16 @@ defmodule SpotifyWeb.Schema.Types do
     end
 
     @desc "Information about the user's current playback."
-    field :player, :player, resolve: &Resolvers.Viewer.player/2
+    field :player, :player do
+      @desc """
+      An [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+      or the string from_token. Provide this parameter if you want to apply
+      [Track Relinking](https://developer.spotify.com/documentation/general/guides/track-relinking-guide/).
+      """
+      arg :market, :string
+
+      resolve &Resolvers.Viewer.player/2
+    end
 
     @desc "The list of the current user's owned or followed playlists"
     field :playlists, :playlist_connection do

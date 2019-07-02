@@ -16,8 +16,8 @@ defmodule SpotifyWeb.Resolvers.Viewer do
     |> Helpers.handle_response(fn %{artists: artists} -> artists end)
   end
 
-  def player(_, res) do
-    %{}
+  def player(args, res) do
+    args
     |> SpotifyClient.player(Helpers.prepare_headers(res))
     |> Helpers.handle_response()
   end
