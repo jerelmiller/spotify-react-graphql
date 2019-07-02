@@ -29,8 +29,6 @@
     "polished": "^2.3.3",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
-    "react-apollo": "^3.0.0-beta.3",
-    "react-apollo-hooks": "^0.4.5",
     "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
     "react-redux": "^6.0.1",

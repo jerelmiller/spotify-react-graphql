@@ -22,16 +22,6 @@
     ts-invariant "^0.4.4"
     tslib "^1.10.0"
 
-"@apollo/react-hoc@^0.1.0-beta.7":
-  version "0.1.0-beta.7"
-  resolved "https://registry.yarnpkg.com/@apollo/react-hoc/-/react-hoc-0.1.0-beta.7.tgz#cc3aeffd4ce9b9ecbbb94d87b09601012ff6acdc"
-  integrity sha512-dNEAkeNStSSfuJmJBw3Hd11PMoQwfBq3rmFZeVhC4Wa4DtqVXEvO3/x6FX34fmJHEtvPoGD1Uxa05jFkWvH3/Q==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.8"
-    "@apollo/react-components" "^0.1.0-beta.7"
-    ts-invariant "^0.4.4"
-    tslib "^1.10.0"
-
 "@apollo/react-hooks@^0.1.0-beta.10":
   version "0.1.0-beta.10"
   resolved "https://registry.yarnpkg.com/@apollo/react-hooks/-/react-hooks-0.1.0-beta.10.tgz#4069fad454c0a77eb09d00242dcd96b3bac7791b"
@@ -10620,23 +10610,6 @@ rc@^1.2.7:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
-
-react-apollo-hooks@^0.4.5:
-  version "0.4.5"
-  resolved "https://registry.yarnpkg.com/react-apollo-hooks/-/react-apollo-hooks-0.4.5.tgz#7fe6a8ddfdc92df2da664d399ea77a0da4a10bad"
-  integrity sha512-fq04h88hg4ONtlzxYInmv7Okqqstzk3UCp55jHWOlIO2lFKoZPhQrtCz7A+TrcRu8GGwtG1SsioRKN8kIQaAOQ==
-  dependencies:
-    lodash "^4.17.11"
-
-react-apollo@^3.0.0-beta.3:
-  version "3.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/react-apollo/-/react-apollo-3.0.0-beta.3.tgz#bc704e299f515e7081e03fcc85ee0be3501c5e9f"
-  integrity sha512-SxcDSq0b3n7WZ/2oV9qWDcU0AMHLgFBLKzV6me6hXha2uiQOMaZJwxxCldT9q5KKq9FKAHBTrVqfZfCfGDYM8A==
-  dependencies:
-    "@apollo/react-common" "^0.1.0-beta.8"
-    "@apollo/react-components" "^0.1.0-beta.7"
-    "@apollo/react-hoc" "^0.1.0-beta.7"
-    "@apollo/react-hooks" "^0.1.0-beta.10"
 
 react-app-polyfill@^1.0.1:
   version "1.0.1"
