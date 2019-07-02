@@ -7,8 +7,6 @@ import store from './config/store'
 import theme from './styles/theme'
 import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from '@apollo/react-hooks'
-import { ApolloProvider as LegacyApolloProvider } from 'react-apollo'
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks'
 import { Provider } from 'react-redux'
 import { ThemeProvider as LegacyThemeProvider } from 'styled-components'
 import { ThemeProvider } from 'emotion-theming'
@@ -19,13 +17,9 @@ ReactDOM.render(
     <LegacyThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <LegacyApolloProvider client={client}>
-            <ApolloHooksProvider client={client}>
-              <BackgroundColorProvider>
-                <App />
-              </BackgroundColorProvider>
-            </ApolloHooksProvider>
-          </LegacyApolloProvider>
+          <BackgroundColorProvider>
+            <App />
+          </BackgroundColorProvider>
         </ApolloProvider>
       </ThemeProvider>
     </LegacyThemeProvider>
