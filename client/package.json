@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@absinthe/socket-apollo-link": "^0.2.1",
     "@apollo/react-hooks": "^0.1.0-beta.10",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
