@@ -17,10 +17,10 @@ import MusicIcon from '../MusicIcon'
 import Name from './Name'
 import PauseIcon from '../PauseIcon'
 import PlayIcon from '../PlayIcon'
-import PlayTrackMutation from '../PlayTrackMutation'
 import SpeakerIcon from '../SpeakerIcon'
 import TrackContext from './Context'
 import useHover from '../../hooks/useHover'
+import usePlayTrackMutation from 'hooks/usePlayTrackMutation'
 
 interface ContainerProps {
   columns: string
@@ -68,54 +68,51 @@ const Track: TrackComponent<Props> = memo(
     const { currentTrack, pause, paused, play } = useSpotifyContext()
     const isCurrent = Boolean(currentTrack) && currentTrack.id === track.id
     const iconProps = { size: '1.25rem', strokeWidth: 1 }
+    const playTrack = usePlayTrackMutation()
 
     return (
-      <PlayTrackMutation>
-        {({ playTrack }) => (
-          <TrackContext.Provider value={{ track, hovered, playTrack }}>
-            <Container
-              columns={columns}
-              onDoubleClick={() =>
+      <TrackContext.Provider value={{ track, hovered, playTrack }}>
+        <Container
+          columns={columns}
+          onDoubleClick={() =>
+            track.uri && playTrack(track.uri, { context: playContext })
+          }
+          isCurrent={isCurrent}
+          {...bind}
+        >
+          {isCurrent && hovered && paused ? (
+            <PlayIcon
+              {...iconProps}
+              fill="white"
+              stroke="white"
+              cursor="pointer"
+              onClick={play}
+            />
+          ) : isCurrent && hovered && !paused ? (
+            <PauseIcon
+              {...iconProps}
+              fill="white"
+              stroke="white"
+              cursor="pointer"
+              onClick={pause}
+            />
+          ) : hovered ? (
+            <PlayIcon
+              {...iconProps}
+              fill="currentColor"
+              cursor="pointer"
+              onClick={() =>
                 track.uri && playTrack(track.uri, { context: playContext })
               }
-              isCurrent={isCurrent}
-              {...bind}
-            >
-              {isCurrent && hovered && paused ? (
-                <PlayIcon
-                  {...iconProps}
-                  fill="white"
-                  stroke="white"
-                  cursor="pointer"
-                  onClick={play}
-                />
-              ) : isCurrent && hovered && !paused ? (
-                <PauseIcon
-                  {...iconProps}
-                  fill="white"
-                  stroke="white"
-                  cursor="pointer"
-                  onClick={pause}
-                />
-              ) : hovered ? (
-                <PlayIcon
-                  {...iconProps}
-                  fill="currentColor"
-                  cursor="pointer"
-                  onClick={() =>
-                    track.uri && playTrack(track.uri, { context: playContext })
-                  }
-                />
-              ) : isCurrent ? (
-                <SpeakerIcon stroke="lightGreen" {...iconProps} />
-              ) : (
-                <MusicIcon {...iconProps} />
-              )}
-              {children}
-            </Container>
-          </TrackContext.Provider>
-        )}
-      </PlayTrackMutation>
+            />
+          ) : isCurrent ? (
+            <SpeakerIcon stroke="lightGreen" {...iconProps} />
+          ) : (
+            <MusicIcon {...iconProps} />
+          )}
+          {children}
+        </Container>
+      </TrackContext.Provider>
     )
   }
 )
