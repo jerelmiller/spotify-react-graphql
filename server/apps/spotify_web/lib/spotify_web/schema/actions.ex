@@ -1,6 +1,10 @@
 defmodule SpotifyWeb.Schema.Actions do
   use SpotifyWeb.Schema.Definition
 
+  @desc """
+  Allows to update the user interface based on which playback actions are
+  available within the current context.
+  """
   object :actions do
     field :interrupting_playback, non_null(:action), resolve: &action/3
     field :pausing, non_null(:action), resolve: &action/3
