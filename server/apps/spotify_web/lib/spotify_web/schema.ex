@@ -7,16 +7,18 @@ defmodule SpotifyWeb.Schema do
     Auth,
     Category,
     Player,
-    Playlist,
-    Viewer
+    Playlist
   }
 
   import_types SpotifyWeb.Schema.Types
   import_types SpotifyWeb.Schema.Enums
   import_types SpotifyWeb.Schema.Interfaces
   import_types SpotifyWeb.Schema.InputObjects
+  import_types SpotifyWeb.Schema.Viewer
 
   query do
+    import_fields :viewer_queries
+
     @desc "Get an album by its ID."
     field :album, :album do
       arg :id, non_null(:id)
@@ -71,9 +73,6 @@ defmodule SpotifyWeb.Schema do
 
       resolve &Playlist.by_category/2
     end
-
-    @desc "Info about the current logged-in user"
-    field :viewer, :viewer, resolve: &Viewer.viewer/2
   end
 
   mutation do
