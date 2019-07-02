@@ -1,9 +1,9 @@
 import { useCallback } from 'react'
-import { useMutation } from 'react-apollo-hooks'
+import { useMutation } from '@apollo/react-hooks'
 import gql from 'graphql-tag'
 
 const useRemoveAlbumFromLibraryMutation = () => {
-  const removeAlbumFromLibrary = useMutation(gql`
+  const [removeAlbumFromLibrary] = useMutation(gql`
     mutation RemoveAlbumFromLibraryMutation(
       $input: RemoveAlbumFromLibraryInput!
     ) {
