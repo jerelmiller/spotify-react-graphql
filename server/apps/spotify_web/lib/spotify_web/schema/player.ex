@@ -9,6 +9,12 @@ defmodule SpotifyWeb.Schema.Player do
   end
 
   object :player do
+    @desc """
+    Allows to update the user interface based on which playback actions are
+    available within the current context.
+    """
+    field :actions, non_null(:actions), resolve: &actions/3
+
     @desc "The object type of the currently playing item."
     field :currently_playing_type, non_null(:media_type)
 
@@ -45,6 +51,8 @@ defmodule SpotifyWeb.Schema.Player do
     """
     field :item, :full_track
   end
+
+  defp actions(%{actions: %{disallows: actions}}, _, _), do: {:ok, actions}
 
   defp progress(%{progress_ms: progress}, _, _), do: {:ok, progress}
 end
