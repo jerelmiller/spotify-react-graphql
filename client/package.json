@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@apollo/react-components": "^0.1.0-beta.7",
     "@apollo/react-hooks": "^0.1.0-beta.10",
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",
