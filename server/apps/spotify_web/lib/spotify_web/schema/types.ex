@@ -172,6 +172,10 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :context do
+    @desc "The external_urls of the context, or empty if not available."
+    field :external_urls, list_of(:external_url),
+      resolve: &SpotifyWeb.Schema.ExternalUrl.list/3
+
     @desc "The uri of the context."
     field :uri, non_null(:string)
 
