@@ -1,7 +1,6 @@
 defmodule SpotifyWeb.Schema.Viewer do
   use Absinthe.Schema.Notation
 
-  alias SpotifyWeb.Resolvers
   alias SpotifyWeb.Resolvers.Helpers
 
   object :viewer_queries do
