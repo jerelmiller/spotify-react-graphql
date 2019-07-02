@@ -4,7 +4,6 @@ import FlexContainer from 'components/FlexContainer'
 import gql from 'graphql-tag'
 import Track from 'components/Track'
 import styled from 'styled-components'
-import { Query } from 'react-apollo'
 import { useQuery } from '@apollo/react-hooks'
 
 const groupAlbumsByType = ({ edges }) =>
