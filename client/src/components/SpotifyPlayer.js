@@ -8,11 +8,13 @@ import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
 import useShuffleMutation from 'hooks/useShuffleMutation'
 import RepeatIcon from 'components/RepeatIcon'
-import styled, { css } from '../styled'
+import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
 import { color, textColor, typography } from 'styles/utils'
 import { Link } from '@reach/router'
+import LoudVolumeIcon from 'components/LoudVolumeIcon'
 
 const PLAYBAR_SIZE = '4px'
 const ICON_SIZE = '1.1rem'
@@ -63,10 +65,18 @@ const Info = styled.div`
   align-items: center;
 `
 
-const Controls = styled.div`
+const CenterControls = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+`
+
+const RightControls = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-gap: 0.5rem;
+  justify-self: end;
+  align-items: center;
 `
 
 const TimeControls = styled.div`
@@ -160,6 +170,10 @@ const Playbar = styled.div`
   }
 `
 
+const VolumeBar = styled(Playbar)`
+  width: 100px;
+`
+
 const Container = styled(
   posed.footer({
     enter: {
@@ -218,7 +232,7 @@ const SpotifyPlayer = ({ token }) => {
               </div>
             </SongInfo>
           </Info>
-          <Controls>
+          <CenterControls>
             <ControlButtons>
               <ControlButton
                 icon={ShuffleIcon}
@@ -263,8 +277,11 @@ const SpotifyPlayer = ({ token }) => {
               />
               <TimeInfo milliseconds={duration}>{duration}</TimeInfo>
             </TimeControls>
-          </Controls>
-          <div />
+          </CenterControls>
+          <RightControls>
+            <ControlButton icon={LoudVolumeIcon} />
+            <VolumeBar progress={50 / 100} />
+          </RightControls>
         </Container>
       )}
     </PoseGroup>
