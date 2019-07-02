@@ -6,8 +6,8 @@ import NextTrackIcon from 'components/NextTrackIcon'
 import PrevTrackIcon from 'components/PrevTrackIcon'
 import ShuffleIcon from 'components/ShuffleIcon'
 import useSpotifyContext from 'hooks/useSpotifyContext'
+import useShuffleMutation from 'hooks/useShuffleMutation'
 import RepeatIcon from 'components/RepeatIcon'
-import ShuffleMutation from './ShuffleMutation'
 import styled, { css } from '../styled'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
@@ -193,6 +193,7 @@ const SpotifyPlayer = ({ token }) => {
     shuffle: shuffleState
   } = useSpotifyContext()
 
+  const { shuffle } = useShuffleMutation()
   const { album, name: trackName, artists } = currentTrack || {}
 
   return (
@@ -219,24 +220,20 @@ const SpotifyPlayer = ({ token }) => {
           </Info>
           <Controls>
             <ControlButtons>
-              <ShuffleMutation>
-                {({ shuffle }) => (
-                  <ControlButton
-                    icon={ShuffleIcon}
-                    css={theme =>
-                      shuffleState &&
-                      css`
-                        color: ${color('green', { theme })};
+              <ControlButton
+                icon={ShuffleIcon}
+                css={theme =>
+                  shuffleState &&
+                  css`
+                    color: ${color('green', { theme })};
 
-                        &:hover:not(:disabled) {
-                          color: ${color('lightGreen', { theme })};
-                        }
-                      `
+                    &:hover:not(:disabled) {
+                      color: ${color('lightGreen', { theme })};
                     }
-                    onClick={() => shuffle(!shuffleState)}
-                  />
-                )}
-              </ShuffleMutation>
+                  `
+                }
+                onClick={() => shuffle(!shuffleState)}
+              />
               <ControlButton
                 icon={PrevTrackIcon}
                 fill
