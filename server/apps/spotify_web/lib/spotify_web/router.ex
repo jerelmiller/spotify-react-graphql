@@ -30,7 +30,8 @@ defmodule SpotifyWeb.Router do
 
       forward "/", Absinthe.Plug.GraphiQL,
         schema: SpotifyWeb.Schema,
-        interface: :playground
+        interface: :playground,
+        socket: SpotifyWeb.UserSocket
     end
   end
 end
