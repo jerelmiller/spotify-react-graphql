@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
 
 const typeDefs = gql`
-  extend type Query {
+  extend type RootQueryType {
     notifications: [Notification!]!
   }
 
-  extend type Mutation {
+  extend type RootMutationType {
     notify(input: NotifyInput!): NotifyPayload!
     removeNotification(
       input: RemoveNotificationInput!
@@ -40,6 +40,18 @@ const typeDefs = gql`
   }
 
   extend interface Track {
+    link: String!
+  }
+
+  extend type SavedTrack {
+    link: String!
+  }
+
+  extend type SimpleTrack {
+    link: String!
+  }
+
+  extend type FullTrack {
     link: String!
   }
 `
