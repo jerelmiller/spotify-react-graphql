@@ -53,6 +53,9 @@
   "eslintConfig": {
     "extends": "react-app"
   },
+  "resolutions": {
+    "apollo/graphql": "14.5.8"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
