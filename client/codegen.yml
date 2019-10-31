@@ -1,0 +1,23 @@
+overwrite: true
+schema:
+  - "http://localhost:4001/graphql"
+  - "./src/config/typeDefs.ts"
+documents:
+  - "src/**/*.js"
+  - "src/**/*.ts"
+  - "src/**/*.tsx"
+generates:
+  # ./src/types/globalTypes.ts:
+  #   plugins:
+  #     - "typescript"
+  #     - "typescript-operations":
+  #   config:
+  #     namingConvention: keep
+  #     dedupeOperationSuffix: true
+  #     nonOptionalTypename: true
+  #   hooks:
+  #     afterOneFileWrite:
+  #       - prettier --write
+  ./src/config/fragmentTypes.json:
+      plugins:
+        - "fragment-matcher"
