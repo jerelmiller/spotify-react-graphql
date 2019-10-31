@@ -27,7 +27,7 @@
     "graphql": "^14.4.1",
     "graphql-tag": "^2.10.1",
     "phoenix": "^1.4.8",
-    "polished": "^2.3.3",
+    "polished": "^3.4.2",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
