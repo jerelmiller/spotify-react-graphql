@@ -5,10 +5,7 @@ import TileGrid from 'components/TileGrid'
 import { useQuery } from '@apollo/react-hooks'
 
 const RelatedArtists = ({ artistId, children }) => {
-  const {
-    loading,
-    data: { artist }
-  } = useQuery(
+  const { loading, data: { artist } = {} } = useQuery(
     gql`
       query RelatedArtistQuery($artistId: ID!) {
         artist(id: $artistId) {

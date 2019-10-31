@@ -6,10 +6,7 @@ import PlaylistTile from 'components/PlaylistTile'
 import { useQuery } from '@apollo/react-hooks'
 
 const Genre = ({ genreId }) => {
-  const {
-    loading,
-    data: { category, playlistsByCategory }
-  } = useQuery(
+  const { loading, data: { category, playlistsByCategory } = {} } = useQuery(
     gql`
       query GenreQuery($categoryId: ID!, $limit: Int, $offset: Int) {
         playlistsByCategory(

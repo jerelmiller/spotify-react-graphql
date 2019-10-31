@@ -7,10 +7,7 @@ import TileGrid from 'components/TileGrid'
 import { useQuery } from '@apollo/react-hooks'
 
 const Artists = () => {
-  const {
-    loading,
-    data: { viewer }
-  } = useQuery(gql`
+  const { loading, data: { viewer } = {} } = useQuery(gql`
     query ArtistsQuery($limit: Int, $after: String) {
       viewer {
         followedArtists(limit: $limit, after: $after) {

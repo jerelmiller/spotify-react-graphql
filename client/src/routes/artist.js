@@ -68,10 +68,7 @@ const Content = styled.section`
 const Artist = ({ artistId, children }) => {
   useBackgroundColor('#181818', { useGradient: false })
 
-  const {
-    loading,
-    data: { artist }
-  } = useQuery(
+  const { loading, data: { artist } = {} } = useQuery(
     gql`
       query ArtistQuery($artistId: ID!) {
         artist(id: $artistId) {

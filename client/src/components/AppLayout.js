@@ -22,7 +22,7 @@ const AppLayout = ({ children }) => {
   const {
     loading,
     fetchMore,
-    data: { viewer }
+    data: { viewer } = {}
   } = useQuery(gql`
     query AppLayoutQuery($limit: Int, $offset: Int) {
       viewer {
