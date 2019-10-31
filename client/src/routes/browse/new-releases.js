@@ -9,10 +9,7 @@ import { useQuery } from '@apollo/react-hooks'
 const NewReleases = () => {
   useBackgroundColor('#283A6A')
 
-  const {
-    loading,
-    data: { newReleases }
-  } = useQuery(gql`
+  const { loading, data: { newReleases } = {} } = useQuery(gql`
     query NewReleasesQuery($limit: Int, $offset: Int) {
       newReleases(limit: $limit, offset: $offset) {
         edges {

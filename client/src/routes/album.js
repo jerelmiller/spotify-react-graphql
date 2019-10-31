@@ -80,11 +80,7 @@ const AlbumMenu = ({ album }) => {
 }
 
 const Album = ({ albumId }) => {
-  const {
-    loading,
-    data,
-    data: { album }
-  } = useQuery(
+  const { loading, data, data: { album } = {} } = useQuery(
     gql`
       query AlbumQuery($albumId: ID!) {
         album(id: $albumId) {

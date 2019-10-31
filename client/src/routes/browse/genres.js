@@ -9,10 +9,7 @@ import { useQuery } from '@apollo/react-hooks'
 const Genres = () => {
   useBackgroundColor('#272527')
 
-  const {
-    loading,
-    data: { categories }
-  } = useQuery(gql`
+  const { loading, data: { categories } = {} } = useQuery(gql`
     query GenresQuery($limit: Int, $offset: Int) {
       categories(limit: $limit, offset: $offset) {
         edges {

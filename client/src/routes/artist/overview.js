@@ -24,10 +24,7 @@ const InlineExplicitBadge = styled(Track.ExplicitBadge)`
 `
 
 const Overview = ({ artistId }) => {
-  const {
-    loading,
-    data: { artist }
-  } = useQuery(
+  const { loading, data: { artist } = {} } = useQuery(
     gql`
       query ArtistOverviewQuery($artistId: ID!, $limit: Int) {
         artist(id: $artistId) {

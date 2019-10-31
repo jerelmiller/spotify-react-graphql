@@ -11,7 +11,7 @@ const RouteBrowseFeatured = () => {
 
   const {
     loading,
-    data: { featuredPlaylists }
+    data: { featuredPlaylists } = {}
   } = useQuery(gql`
     query BrowseFeaturedQuery($limit: Int, $offset: Int) {
       featuredPlaylists(limit: $limit, offset: $offset) {
