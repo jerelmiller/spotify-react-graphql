@@ -68,7 +68,7 @@
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.14",
     "apollo": "^2.15.0",
-    "customize-cra": "^0.2.14",
+    "customize-cra": "^0.8.0",
     "node-fetch": "^2.3.0",
     "prettier": "1.16.4",
     "react-app-rewired": "^2.1.3"
