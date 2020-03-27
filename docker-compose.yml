@@ -1,0 +1,15 @@
+version: '3'
+services:
+  db:
+    image: postgres:12
+    container_name: db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=spotify_development
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+volumes:
+  postgres:
