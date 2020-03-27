@@ -1,4 +1,4 @@
-import useLocation from './useLocation'
+import { useLocation } from '@reach/router'
 
 const useQueryParams = () => {
   const location = useLocation()

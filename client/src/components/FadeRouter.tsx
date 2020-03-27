@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import posed, { PoseGroup } from 'react-pose'
-import useLocation from '../hooks/useLocation'
+import { useLocation } from '@reach/router'
 import { Router, RouterProps } from '@reach/router'
 
 type Props = RouterProps
