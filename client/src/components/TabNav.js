@@ -2,16 +2,7 @@ import React from 'react'
 import NavLink from 'components/NavLink'
 import styled from 'styled-components'
 import { color } from 'styles/utils'
-
-const NavContainer = styled.ul`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  list-style: none;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-`
+import { css } from '@emotion/core'
 
 const Link = styled(NavLink)`
   display: block;
@@ -63,7 +54,19 @@ const NavItem = props => (
 )
 const TabNav = ({ className, children }) => (
   <nav className={className}>
-    <NavContainer>{children}</NavContainer>
+    <ul
+      css={css`
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        list-style: none;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+      `}
+    >
+      {children}
+    </ul>
   </nav>
 )
 
