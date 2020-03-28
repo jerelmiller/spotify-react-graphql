@@ -1,7 +1,7 @@
 import React from 'react'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import { textColor } from '../styles/utils'
 import PlayableCollectionCover from './PlayableCollectionCover'
 

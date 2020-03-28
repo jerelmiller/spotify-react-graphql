@@ -13,7 +13,7 @@ import { css } from '@emotion/core'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
 import { color, textColor, typography } from 'styles/utils'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 import LoudVolumeIcon from 'components/LoudVolumeIcon'
 
 const PLAYBAR_SIZE = '4px'

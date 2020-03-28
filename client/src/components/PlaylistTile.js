@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 import LazyImage from './LazyImage'
 import PlaceholderPhoto from './PlaceholderPhoto'
 import styled from 'styled-components'
-import { Link } from '@reach/router'
+import { Link } from 'react-router-dom'
 
 const Container = styled.div`
   text-align: center;
