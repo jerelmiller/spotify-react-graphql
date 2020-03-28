@@ -108,7 +108,7 @@ const Artist = () => {
             <More size="2rem" />
           </FlexContainer>
           <Nav>
-            <TabNav.NavItem to="./" exact replace>
+            <TabNav.NavItem to="" exact replace>
               Overview
             </TabNav.NavItem>
             <TabNav.NavItem to="related-artists" replace>
