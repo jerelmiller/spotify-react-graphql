@@ -21,6 +21,7 @@ import useSession from './hooks/useSession'
 import SpotifyProvider from './components/SpotifyProvider'
 import Notifications from './components/Notifications'
 import { Redirect, Router } from '@reach/router'
+import { Routes, Route } from 'react-router-dom'
 
 const App = () => {
   const { data, isAuthenticated } = useSession()
@@ -29,6 +30,9 @@ const App = () => {
     <SpotifyProvider token={data.token}>
       <AppLayout>
         <Notifications />
+        <Routes>
+          <Route path="playlists/:playlistId" element={<Playlist />} />
+        </Routes>
         <Router primary={false}>
           <Redirect noThrow from="/" to="browse/featured" />
           <Album path="albums/:albumId" />
@@ -45,7 +49,6 @@ const App = () => {
           <Albums path="collection/albums" />
           <Artists path="collection/artists" />
           <Tracks path="collection/tracks" />
-          <Playlist path="playlists/:playlistId" />
           <Genre path="genres/:genreId" />
           <Logout path="logout" />
         </Router>

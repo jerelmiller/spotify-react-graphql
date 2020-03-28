@@ -13,6 +13,7 @@ import usePaginationObserver, {
   usePaginationObserver_pageInfo
 } from 'hooks/usePaginationObserver'
 import { lensPath } from 'utils/fp'
+import { useParams } from 'react-router-dom'
 
 const edgesLens = lensPath(['playlist', 'tracks', 'edges'])
 const pageInfoLens = lensPath(['playlist', 'tracks', 'pageInfo'])
@@ -49,7 +50,9 @@ const Typography = styled.span`
   text-transform: uppercase;
 `
 
-const Playlist = ({ playlistId }) => {
+const Playlist = () => {
+  const { playlistId } = useParams()
+
   const result = useQuery(
     gql`
       query PlaylistQuery($playlistId: ID!, $limit: Int, $offset: Int) {
