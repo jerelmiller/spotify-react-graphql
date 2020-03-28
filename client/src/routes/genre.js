@@ -3,9 +3,12 @@ import gql from 'graphql-tag'
 import PageTitle from 'components/PageTitle'
 import TileGrid from 'components/TileGrid'
 import PlaylistTile from 'components/PlaylistTile'
+import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 
-const Genre = ({ genreId }) => {
+const Genre = () => {
+  const { genreId } = useParams()
+
   const { loading, data: { category, playlistsByCategory } = {} } = useQuery(
     gql`
       query GenreQuery($categoryId: ID!, $limit: Int, $offset: Int) {

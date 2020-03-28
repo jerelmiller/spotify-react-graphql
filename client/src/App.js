@@ -33,6 +33,9 @@ const App = () => {
         <Routes>
           <Route path="albums/:albumId" element={<Album />} />
           <Route path="collection/albums" element={<Albums />} />
+          <Route path="collection/artists" element={<Artists />} />
+          <Route path="collection/tracks" element={<Tracks />} />
+          <Route path="genres/:genreId" element={<Genre />} />
           <Route path="playlists/:playlistId" element={<Playlist />} />
         </Routes>
         <Router primary={false}>
@@ -47,9 +50,6 @@ const App = () => {
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
           </Browse>
-          <Artists path="collection/artists" />
-          <Tracks path="collection/tracks" />
-          <Genre path="genres/:genreId" />
           <Logout path="logout" />
         </Router>
       </AppLayout>
