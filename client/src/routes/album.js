@@ -3,7 +3,6 @@ import gql from 'graphql-tag'
 import styled, { css } from '../styled'
 import ReleaseYear from 'components/ReleaseYear'
 import Track from 'components/Track'
-import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
@@ -13,6 +12,7 @@ import copyToClipboard from '../utils/copyToClipboard'
 import useAlbumInLibraryToggle from '../hooks/useAlbumInLibraryToggle'
 import useBackgroundFromImage from 'hooks/useBackgroundFromImage'
 import useNotifyMutation from '../hooks/useNotifyMutation'
+import { Link, useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
 import { lensPath, view } from 'utils/fp'
 
@@ -79,7 +79,9 @@ const AlbumMenu = ({ album }) => {
   )
 }
 
-const Album = ({ albumId }) => {
+const Album = () => {
+  const { albumId } = useParams()
+
   const { loading, data, data: { album } = {} } = useQuery(
     gql`
       query AlbumQuery($albumId: ID!) {

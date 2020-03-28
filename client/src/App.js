@@ -31,11 +31,11 @@ const App = () => {
       <AppLayout>
         <Notifications />
         <Routes>
+          <Route path="albums/:albumId" element={<Album />} />
           <Route path="playlists/:playlistId" element={<Playlist />} />
         </Routes>
         <Router primary={false}>
           <Redirect noThrow from="/" to="browse/featured" />
-          <Album path="albums/:albumId" />
           <Artist path="artists/:artistId">
             <ArtistOverview path="/" />
             <RelatedArtists path="related-artists" />
