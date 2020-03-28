@@ -1,11 +1,6 @@
 import React from 'react'
-import Session from 'components/Session'
-import { Redirect } from '@reach/router'
+import { Navigate } from 'react-router-dom'
 
-const LoggedOut = () => (
-  <Session>
-    {({ authenticated }) => authenticated || <Redirect noThrow to="/login" />}
-  </Session>
-)
+const LoggedOut = () => <Navigate to="/login" replace />
 
 export default LoggedOut
