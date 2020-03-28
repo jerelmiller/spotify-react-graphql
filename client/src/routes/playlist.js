@@ -99,10 +99,7 @@ const Playlist = ({ playlistId }) => {
     { variables: { playlistId } }
   )
 
-  const {
-    loading,
-    data: { playlist }
-  } = result
+  const { loading, data: { playlist } = {} } = result
 
   const ref = usePaginationObserver(result, {
     threshold: '750px',
