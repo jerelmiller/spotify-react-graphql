@@ -32,6 +32,7 @@ const App = () => {
         <Notifications />
         <Routes>
           <Route path="albums/:albumId" element={<Album />} />
+          <Route path="collection/albums" element={<Albums />} />
           <Route path="playlists/:playlistId" element={<Playlist />} />
         </Routes>
         <Router primary={false}>
@@ -46,7 +47,6 @@ const App = () => {
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
           </Browse>
-          <Albums path="collection/albums" />
           <Artists path="collection/artists" />
           <Tracks path="collection/tracks" />
           <Genre path="genres/:genreId" />
