@@ -20,8 +20,7 @@ import Genre from './routes/genre'
 import useSession from './hooks/useSession'
 import SpotifyProvider from './components/SpotifyProvider'
 import Notifications from './components/Notifications'
-import { Redirect, Router } from '@reach/router'
-import { Routes, Route } from 'react-router-dom'
+import { Redirect, Routes, Route } from 'react-router-dom'
 
 const App = () => {
   const { data, isAuthenticated } = useSession()
@@ -31,10 +30,17 @@ const App = () => {
       <AppLayout>
         <Notifications />
         <Routes>
+          <Redirect from="/" to="browse/featured" />
           <Route path="albums/:albumId" element={<Album />} />
           <Route path="artists/:artistId" element={<Artist />}>
             <Route path="/" element={<ArtistOverview />} />
             <Route path="related-artists" element={<RelatedArtists />} />
+          </Route>
+          <Route path="browse" element={<Browse />}>
+            <Redirect from="/" to="featured" />
+            <Route path="featured" element={<BrowseFeatured />} />
+            <Route path="genres" element={<BrowseGenres />} />
+            <Route path="new-releases" element={<BrowseNewReleases />} />
           </Route>
           <Route path="collection/albums" element={<Albums />} />
           <Route path="collection/artists" element={<Artists />} />
@@ -43,23 +49,14 @@ const App = () => {
           <Route path="logout" element={<Logout />} />
           <Route path="playlists/:playlistId" element={<Playlist />} />
         </Routes>
-        <Router primary={false}>
-          <Redirect noThrow from="/" to="browse/featured" />
-          <Browse path="browse">
-            <Redirect noThrow from="/" to="browse/featured" />
-            <BrowseFeatured path="featured" />
-            <BrowseGenres path="genres" />
-            <BrowseNewReleases path="new-releases" />
-          </Browse>
-        </Router>
       </AppLayout>
     </SpotifyProvider>
   ) : (
-    <Router primary={false}>
-      <Login path="login" />
-      <SetToken path="set-token" />
-      <LoggedOut default />
-    </Router>
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="set-token" element={<SetToken />} />
+      <Route path="*" element={<LoggedOut />} />
+    </Routes>
   )
 }
 
