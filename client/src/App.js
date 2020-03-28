@@ -23,7 +23,7 @@ import Notifications from './components/Notifications'
 import { Redirect, Routes, Route } from 'react-router-dom'
 
 const App = () => {
-  const { data, isAuthenticated } = useSession()
+  const { data, isAuthenticated, isRestored } = useSession()
 
   return isAuthenticated ? (
     <SpotifyProvider token={data.token}>
@@ -51,13 +51,13 @@ const App = () => {
         </Routes>
       </AppLayout>
     </SpotifyProvider>
-  ) : (
+  ) : isRestored ? (
     <Routes>
       <Route path="login" element={<Login />} />
       <Route path="set-token" element={<SetToken />} />
       <Route path="*" element={<LoggedOut />} />
     </Routes>
-  )
+  ) : null
 }
 
 export default App
