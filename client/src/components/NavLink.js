@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import usePartialMatch from 'hooks/usePartialMatch'
 
 const NavLink = ({ activeClassName, className, exact, to, ...rest }) => {
-  const match = usePartialMatch(to)
+  const match = usePartialMatch(to, { exact })
 
   return (
     <Link
