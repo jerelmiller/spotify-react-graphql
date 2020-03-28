@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Link as RRLink } from '@reach/router'
+import { Link as RRLink } from 'react-router-dom'
 
 const Link = styled(RRLink)`
   border-bottom: 1px solid transparent;
