@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 import styled from '@emotion/styled'
 import { css } from '@emotion/core'
 import Track from 'components/Track'
-import { Link } from '@reach/router'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
@@ -13,7 +12,7 @@ import usePaginationObserver, {
   usePaginationObserver_pageInfo
 } from 'hooks/usePaginationObserver'
 import { lensPath } from 'utils/fp'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 const edgesLens = lensPath(['playlist', 'tracks', 'edges'])
 const pageInfoLens = lensPath(['playlist', 'tracks', 'pageInfo'])
