@@ -1,18 +1,18 @@
 import React from 'react'
 import { Link } from '@reach/router'
+import usePartialMatch from 'hooks/usePartialMatch'
 
-const NavLink = ({ activeClassName, className, exact, ...rest }) => (
-  <Link
-    {...rest}
-    getProps={({ isCurrent, isPartiallyCurrent }) => {
-      const match = exact ? isCurrent : isPartiallyCurrent
+const NavLink = ({ activeClassName, className, exact, to, ...rest }) => {
+  const match = usePartialMatch(to)
 
-      return {
-        className: match ? `${className} ${activeClassName}` : className
-      }
-    }}
-  />
-)
+  return (
+    <Link
+      {...rest}
+      to={to}
+      className={match ? `${className} ${activeClassName}` : className}
+    />
+  )
+}
 
 NavLink.defaultProps = {
   activeClassName: 'active',
