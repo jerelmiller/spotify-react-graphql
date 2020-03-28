@@ -36,6 +36,7 @@ const App = () => {
           <Route path="collection/artists" element={<Artists />} />
           <Route path="collection/tracks" element={<Tracks />} />
           <Route path="genres/:genreId" element={<Genre />} />
+          <Route path="logout" element={<Logout />} />
           <Route path="playlists/:playlistId" element={<Playlist />} />
         </Routes>
         <Router primary={false}>
@@ -50,7 +51,6 @@ const App = () => {
             <BrowseGenres path="genres" />
             <BrowseNewReleases path="new-releases" />
           </Browse>
-          <Logout path="logout" />
         </Router>
       </AppLayout>
     </SpotifyProvider>
