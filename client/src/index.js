@@ -10,20 +10,23 @@ import { ApolloProvider } from '@apollo/react-hooks'
 import { Provider } from 'react-redux'
 import { ThemeProvider as LegacyThemeProvider } from 'styled-components'
 import { ThemeProvider } from 'emotion-theming'
+import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 
 ReactDOM.render(
-  <Provider store={store}>
-    <LegacyThemeProvider theme={theme}>
-      <ThemeProvider theme={theme}>
-        <ApolloProvider client={client}>
-          <BackgroundColorProvider>
-            <App />
-          </BackgroundColorProvider>
-        </ApolloProvider>
-      </ThemeProvider>
-    </LegacyThemeProvider>
-  </Provider>,
+  <Router>
+    <Provider store={store}>
+      <LegacyThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+          <ApolloProvider client={client}>
+            <BackgroundColorProvider>
+              <App />
+            </BackgroundColorProvider>
+          </ApolloProvider>
+        </ThemeProvider>
+      </LegacyThemeProvider>
+    </Provider>
+  </Router>,
   document.getElementById('root')
 )
 
