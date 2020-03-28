@@ -1,8 +1,10 @@
 import useQueryParams from 'hooks/useQueryParams'
 import useSession from 'hooks/useSession'
 import useOnMount from 'hooks/useOnMount'
+import { useNavigate } from 'react-router-dom'
 
-const SetToken = ({ navigate }) => {
+const SetToken = () => {
+  const navigate = useNavigate()
   const query = useQueryParams()
   const { authenticate, isAuthenticated } = useSession()
 
