@@ -31,6 +31,7 @@ const App = () => {
         <Notifications />
         <Routes>
           <Redirect from="/" to="browse/featured" />
+          <Redirect from="/login" to="browse/featured" />
           <Route path="albums/:albumId" element={<Album />} />
           <Route path="artists/:artistId" element={<Artist />}>
             <Route path="/" element={<ArtistOverview />} />
