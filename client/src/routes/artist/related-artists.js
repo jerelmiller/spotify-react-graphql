@@ -3,8 +3,10 @@ import ArtistTile from 'components/ArtistTile'
 import gql from 'graphql-tag'
 import TileGrid from 'components/TileGrid'
 import { useQuery } from '@apollo/react-hooks'
+import { useParams } from 'react-router-dom'
 
-const RelatedArtists = ({ artistId, children }) => {
+const RelatedArtists = () => {
+  const { artistId } = useParams()
   const { loading, data: { artist } = {} } = useQuery(
     gql`
       query RelatedArtistQuery($artistId: ID!) {

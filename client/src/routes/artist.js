@@ -11,6 +11,7 @@ import { toNumeral } from 'utils/number'
 import { color, textColor, typography } from 'styles/utils'
 import PlayCollectionButton from '../components/PlayCollectionButton'
 import { useQuery } from '@apollo/react-hooks'
+import { Outlet, useParams } from 'react-router-dom'
 
 const ArtistName = styled.h1`
   font-size: 4.5rem;
@@ -65,7 +66,9 @@ const Content = styled.section`
   padding: 2rem 0;
 `
 
-const Artist = ({ artistId, children }) => {
+const Artist = () => {
+  const { artistId } = useParams()
+
   useBackgroundColor('#181818', { useGradient: false })
 
   const { loading, data: { artist } = {} } = useQuery(
@@ -113,7 +116,9 @@ const Artist = ({ artistId, children }) => {
             </TabNav.NavItem>
           </Nav>
         </Header>
-        <Content>{children}</Content>
+        <Content>
+          <Outlet />
+        </Content>
       </>
     )
   )
