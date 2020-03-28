@@ -32,6 +32,10 @@ const App = () => {
         <Notifications />
         <Routes>
           <Route path="albums/:albumId" element={<Album />} />
+          <Route path="artists/:artistId" element={<Artist />}>
+            <Route path="/" element={<ArtistOverview />} />
+            <Route path="related-artists" element={<RelatedArtists />} />
+          </Route>
           <Route path="collection/albums" element={<Albums />} />
           <Route path="collection/artists" element={<Artists />} />
           <Route path="collection/tracks" element={<Tracks />} />
@@ -41,10 +45,6 @@ const App = () => {
         </Routes>
         <Router primary={false}>
           <Redirect noThrow from="/" to="browse/featured" />
-          <Artist path="artists/:artistId">
-            <ArtistOverview path="/" />
-            <RelatedArtists path="related-artists" />
-          </Artist>
           <Browse path="browse">
             <Redirect noThrow from="/" to="browse/featured" />
             <BrowseFeatured path="featured" />

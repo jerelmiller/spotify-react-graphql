@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import Track from 'components/Track'
 import styled from 'styled-components'
 import { useQuery } from '@apollo/react-hooks'
+import { useParams } from 'react-router-dom'
 
 const groupAlbumsByType = ({ edges }) =>
   edges.reduce(
@@ -23,7 +24,8 @@ const InlineExplicitBadge = styled(Track.ExplicitBadge)`
   align-self: flex-start;
 `
 
-const Overview = ({ artistId }) => {
+const Overview = () => {
+  const { artistId } = useParams()
   const { loading, data: { artist } = {} } = useQuery(
     gql`
       query ArtistOverviewQuery($artistId: ID!, $limit: Int) {
