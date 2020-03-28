@@ -4,7 +4,7 @@ import styled from '../styled'
 import useHover from '../hooks/useHover'
 import LazyImage from './LazyImage'
 import { ifElse, prop, value } from '../utils/fp'
-import { Match, Link } from '@reach/router'
+import { Link, useMatch } from 'react-router-dom'
 import CircularPlayButton from './CircularPlayButton'
 import PlaceholderPhoto from './PlaceholderPhoto'
 import usePlayableCollection from '../hooks/usePlayableCollection'
@@ -15,19 +15,17 @@ const Container = styled.div`
   margin-bottom: ${prop('marginBottom')};
 `
 
-const BackgroundLink = ({ children, to, visible }) => (
-  <Match path={to}>
-    {({ match }) =>
-      match ? (
-        <HoverBackground visible={visible}>{children}</HoverBackground>
-      ) : (
-        <HoverBackgroundLink to={to} visible={visible}>
-          {children}
-        </HoverBackgroundLink>
-      )
-    }
-  </Match>
-)
+const BackgroundLink = ({ children, to, visible }) => {
+  const match = useMatch(to)
+
+  return match ? (
+    <HoverBackground visible={visible}>{children}</HoverBackground>
+  ) : (
+    <HoverBackgroundLink to={to} visible={visible}>
+      {children}
+    </HoverBackgroundLink>
+  )
+}
 
 const HoverBackground = styled('div', {
   shouldForwardProp: prop => isPropValid(prop) && prop !== 'visible'
