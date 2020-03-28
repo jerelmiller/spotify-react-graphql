@@ -1,7 +1,8 @@
 import React from 'react'
 import TabNav from 'components/TabNav'
+import { Outlet } from 'react-router-dom'
 
-const RouteBrowse = ({ children }) => (
+const RouteBrowse = () => (
   <>
     <header>
       <TabNav>
@@ -13,7 +14,7 @@ const RouteBrowse = ({ children }) => (
         */}
       </TabNav>
     </header>
-    {children}
+    <Outlet />
   </>
 )
 
