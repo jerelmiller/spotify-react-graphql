@@ -97,7 +97,7 @@ const AppSidebar = ({ fetchMore, loading, viewer }) => {
         {viewer && viewer.user && <UserAvatar user={viewer.user} />}
       </AvatarContainer>
       <NavSection>
-        <Link to="browse">Browse</Link>
+        <Link to="browse/featured">Browse</Link>
       </NavSection>
       <NavSection title="Your Library">
         <Link to="collection/tracks">Songs</Link>

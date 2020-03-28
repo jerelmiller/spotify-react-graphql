@@ -38,7 +38,7 @@ const App = () => {
             <Route path="related-artists" element={<RelatedArtists />} />
           </Route>
           <Route path="browse" element={<Browse />}>
-            <Redirect from="/" to="featured" />
+            <Redirect from="/" to="browse/featured" />
             <Route path="featured" element={<BrowseFeatured />} />
             <Route path="genres" element={<BrowseGenres />} />
             <Route path="new-releases" element={<BrowseNewReleases />} />
