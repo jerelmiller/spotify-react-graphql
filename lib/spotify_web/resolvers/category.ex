@@ -3,13 +3,13 @@ defmodule SpotifyWeb.Resolvers.Category do
 
   def find(%{id: id}, %{context: %{authorization: authorization}}) do
     id
-    |> SpotifyClient.category([{"Authorization", authorization}])
+    |> Spotify.Client.category([{"Authorization", authorization}])
     |> Helpers.handle_response()
   end
 
   def categories(args, %{context: %{authorization: authorization}}) do
     args
-    |> SpotifyClient.categories([{"Authorization", authorization}])
+    |> Spotify.Client.categories([{"Authorization", authorization}])
     |> Helpers.handle_response(fn %{categories: categories} -> categories end)
   end
 end

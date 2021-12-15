@@ -5,7 +5,7 @@ defmodule SpotifyWeb.Resolvers.Playlist do
         context: %{authorization: authorization}
       }) do
     category_id
-    |> SpotifyClient.playlists_by_category(Map.delete(args, :category_id), [
+    |> Spotify.Client.playlists_by_category(Map.delete(args, :category_id), [
       {"Authorization", authorization}
     ])
     |> case do
@@ -16,19 +16,19 @@ defmodule SpotifyWeb.Resolvers.Playlist do
 
   def find(%{id: id}, res) do
     id
-    |> SpotifyClient.find_playlist(Helpers.prepare_headers(res))
+    |> Spotify.Client.find_playlist(Helpers.prepare_headers(res))
     |> Helpers.handle_response()
   end
 
   def tracks(%{id: id}, args, res) do
     id
-    |> SpotifyClient.tracks_by_playlist(args, Helpers.prepare_headers(res))
+    |> Spotify.Client.tracks_by_playlist(args, Helpers.prepare_headers(res))
     |> Helpers.handle_response()
   end
 
   def featured(args, %{context: %{authorization: authorization}}) do
     args
-    |> SpotifyClient.featured_playlists(Authorization: authorization)
+    |> Spotify.Client.featured_playlists(Authorization: authorization)
     |> Helpers.handle_response()
   end
 end

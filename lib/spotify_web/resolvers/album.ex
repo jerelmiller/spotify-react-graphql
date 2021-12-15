@@ -3,13 +3,13 @@ defmodule SpotifyWeb.Resolvers.Album do
 
   def find(%{id: id}, %{context: %{authorization: authorization}}) do
     id
-    |> SpotifyClient.album([{"Authorization", authorization}])
+    |> Spotify.Client.album([{"Authorization", authorization}])
     |> Helpers.handle_response()
   end
 
   def new_releases(args, %{context: %{authorization: authorization}}) do
     args
-    |> SpotifyClient.new_releases([{"Authorization", authorization}])
+    |> Spotify.Client.new_releases([{"Authorization", authorization}])
     |> Helpers.handle_response(fn %{albums: albums} -> albums end)
   end
 
@@ -22,29 +22,29 @@ defmodule SpotifyWeb.Resolvers.Album do
 
   def saved_to_library(%{id: id}, _, %{context: %{authorization: authorization}}) do
     id
-    |> SpotifyClient.check_saved_albums([{"Authorization", authorization}])
+    |> Spotify.Client.check_saved_albums([{"Authorization", authorization}])
     |> Helpers.handle_response(fn [contains] -> contains end)
   end
 
   def tracks(%{id: id}, _, %{context: %{authorization: authorization}}) do
     id
-    |> SpotifyClient.tracks_by_album([{"Authorization", authorization}])
+    |> Spotify.Client.tracks_by_album([{"Authorization", authorization}])
     |> Helpers.handle_response()
   end
 
   def add_to_library(%{input: %{album_id: album_id}}, res) do
-    with {:ok, _} <- SpotifyClient.add_album_to_library(album_id, Helpers.prepare_headers(res)),
+    with {:ok, _} <- Spotify.Client.add_album_to_library(album_id, Helpers.prepare_headers(res)),
          {:ok, %HTTPoison.Response{body: body}} <-
-           SpotifyClient.album(album_id, Helpers.prepare_headers(res)) do
+           Spotify.Client.album(album_id, Helpers.prepare_headers(res)) do
       {:ok, %{album: body}}
     end
   end
 
   def remove_from_library(%{input: %{album_id: album_id}}, res) do
     with {:ok, _} <-
-           SpotifyClient.remove_album_from_library(album_id, Helpers.prepare_headers(res)),
+           Spotify.Client.remove_album_from_library(album_id, Helpers.prepare_headers(res)),
          {:ok, %HTTPoison.Response{body: body}} <-
-           SpotifyClient.album(album_id, Helpers.prepare_headers(res)) do
+           Spotify.Client.album(album_id, Helpers.prepare_headers(res)) do
       {:ok, %{album: body}}
     end
   end
