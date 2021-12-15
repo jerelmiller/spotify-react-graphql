@@ -15,9 +15,8 @@ defmodule Spotify.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Spotify.PubSub},
       # Start the Endpoint (http/https)
-      SpotifyWeb.Endpoint
-      # Start a worker by calling: Spotify.Worker.start_link(arg)
-      # {Spotify.Worker, arg}
+      SpotifyWeb.Endpoint,
+      {Absinthe.Subscription, SpotifyWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
