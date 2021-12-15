@@ -32,6 +32,8 @@ spotify-*.tar
 npm-debug.log
 node_modules
 
+/tmp
+
 # Ignore vscode settings
 .vscode
 
