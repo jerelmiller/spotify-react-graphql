@@ -16,7 +16,8 @@ defmodule SpotifyWeb.Schema.Types do
     @desc "The artists of the album."
     field :artists, list_of(:simple_artist)
 
-    field :primary_artist, :simple_artist, resolve: &Resolvers.Album.primary_artist/3
+    field :primary_artist, :simple_artist,
+      resolve: &Resolvers.Album.primary_artist/3
 
     @desc """
     A list of the genres used to classify the album. For example: "Prog Rock",
@@ -58,7 +59,8 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
 
     @desc "Whether or not the album is saved to the user's library"
-    field :saved_to_library, non_null(:boolean), resolve: &Resolvers.Album.saved_to_library/3
+    field :saved_to_library, non_null(:boolean),
+      resolve: &Resolvers.Album.saved_to_library/3
   end
 
   object :album_connection do
@@ -126,12 +128,15 @@ defmodule SpotifyWeb.Schema.Types do
     field :uri, :string
 
     @desc "Artists similar to the artist."
-    field :related_artists, list_of(:artist), resolve: &Resolvers.Artist.related_artists/3
+    field :related_artists, list_of(:artist),
+      resolve: &Resolvers.Artist.related_artists/3
   end
 
   object :artist_connection do
     field :edges, list_of(:artist_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:cursor_info), resolve: &Resolvers.Connection.page_info/3
+
+    field :page_info, non_null(:cursor_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :artist_edge do
@@ -145,7 +150,9 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :category_connection do
-    field :edges, list_of(:category_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:category_edge),
+      resolve: &Resolvers.Connection.edges/3
+
     field :page_info, non_null(:cursor_info)
   end
 
@@ -157,9 +164,11 @@ defmodule SpotifyWeb.Schema.Types do
     @desc "The cursor used to find the next set of items."
     field :cursor, :string
 
-    field :has_next_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_next_page/3
+    field :has_next_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_next_page/3
 
-    field :has_previous_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_previous_page/3
+    field :has_previous_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_previous_page/3
 
     @desc """
     The maximum number of items in the response (as set in the query or by
@@ -198,9 +207,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :featured_playlist_connection do
-    field :title, non_null(:string), resolve: &Resolvers.FeaturedPlaylistConnection.title/3
+    field :title, non_null(:string),
+      resolve: &Resolvers.FeaturedPlaylistConnection.title/3
 
-    field :edges, list_of(:playlist_edge), resolve: &Resolvers.FeaturedPlaylistConnection.edges/3
+    field :edges, list_of(:playlist_edge),
+      resolve: &Resolvers.FeaturedPlaylistConnection.edges/3
 
     field :page_info, non_null(:page_info),
       resolve: &Resolvers.FeaturedPlaylistConnection.page_info/3
@@ -281,10 +292,12 @@ defmodule SpotifyWeb.Schema.Types do
 
   object :page_info do
     @desc "Whether there is a next page of items."
-    field :has_next_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_next_page/3
+    field :has_next_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_next_page/3
 
     @desc "Whether there is a previous page of items."
-    field :has_previous_page, non_null(:boolean), resolve: &Resolvers.PageInfo.has_previous_page/3
+    field :has_previous_page, non_null(:boolean),
+      resolve: &Resolvers.PageInfo.has_previous_page/3
 
     @desc """
     The maximum number of items in the response (as set in the query or default)
@@ -331,9 +344,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist_connection do
-    field :edges, list_of(:playlist_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:playlist_edge),
+      resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :playlist_edge do
@@ -341,8 +356,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :playlist_track_connection do
-    field :edges, list_of(:playlist_track_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+    field :edges, list_of(:playlist_track_edge),
+      resolve: &Resolvers.Connection.edges/3
+
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :playlist_track_edge do
@@ -377,9 +395,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_album_connection do
-    field :edges, list_of(:saved_album_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:saved_album_edge),
+      resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :saved_album_edge do
@@ -434,9 +454,11 @@ defmodule SpotifyWeb.Schema.Types do
   end
 
   object :saved_track_connection do
-    field :edges, list_of(:saved_track_edge), resolve: &Resolvers.Connection.edges/3
+    field :edges, list_of(:saved_track_edge),
+      resolve: &Resolvers.Connection.edges/3
 
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :saved_track_edge do
@@ -517,7 +539,9 @@ defmodule SpotifyWeb.Schema.Types do
 
   object :track_connection do
     field :edges, list_of(:track_edge), resolve: &Resolvers.Connection.edges/3
-    field :page_info, non_null(:page_info), resolve: &Resolvers.Connection.page_info/3
+
+    field :page_info, non_null(:page_info),
+      resolve: &Resolvers.Connection.page_info/3
   end
 
   object :track_edge do

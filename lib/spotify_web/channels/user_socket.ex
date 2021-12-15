@@ -33,7 +33,10 @@ defmodule SpotifyWeb.UserSocket do
   # performing token verification on connect.
   @impl true
   def connect(%{"token" => token}, socket, _connect_info) do
-    {:ok, Absinthe.Phoenix.Socket.put_options(socket, context: %{authorization: token})}
+    {:ok,
+     Absinthe.Phoenix.Socket.put_options(socket,
+       context: %{authorization: token}
+     )}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:

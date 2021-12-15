@@ -17,8 +17,12 @@ defmodule SpotifyWeb.Resolvers.Album do
 
   def primary_artist(%{artists: artists}, _, __), do: {:ok, List.first(artists)}
 
-  def release_date(%{release_date: date, release_date_precision: precision}, _, _),
-    do: {:ok, %{date: date, precision: precision}}
+  def release_date(
+        %{release_date: date, release_date_precision: precision},
+        _,
+        _
+      ),
+      do: {:ok, %{date: date, precision: precision}}
 
   def saved_to_library(%{id: id}, _, %{context: %{authorization: authorization}}) do
     id
@@ -33,7 +37,11 @@ defmodule SpotifyWeb.Resolvers.Album do
   end
 
   def add_to_library(%{input: %{album_id: album_id}}, res) do
-    with {:ok, _} <- Spotify.Client.add_album_to_library(album_id, Helpers.prepare_headers(res)),
+    with {:ok, _} <-
+           Spotify.Client.add_album_to_library(
+             album_id,
+             Helpers.prepare_headers(res)
+           ),
          {:ok, %HTTPoison.Response{body: body}} <-
            Spotify.Client.album(album_id, Helpers.prepare_headers(res)) do
       {:ok, %{album: body}}
@@ -42,7 +50,10 @@ defmodule SpotifyWeb.Resolvers.Album do
 
   def remove_from_library(%{input: %{album_id: album_id}}, res) do
     with {:ok, _} <-
-           Spotify.Client.remove_album_from_library(album_id, Helpers.prepare_headers(res)),
+           Spotify.Client.remove_album_from_library(
+             album_id,
+             Helpers.prepare_headers(res)
+           ),
          {:ok, %HTTPoison.Response{body: body}} <-
            Spotify.Client.album(album_id, Helpers.prepare_headers(res)) do
       {:ok, %{album: body}}

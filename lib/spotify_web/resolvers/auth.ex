@@ -14,7 +14,8 @@ defmodule SpotifyWeb.Resolvers.Auth do
       {:ok, %{token: access_token}}
     else
       nil ->
-        {:error, %{message: "Unable to find current session", code: "UNAUTHENTICATED"}}
+        {:error,
+         %{message: "Unable to find current session", code: "UNAUTHENTICATED"}}
     end
   end
 end

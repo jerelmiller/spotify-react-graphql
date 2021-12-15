@@ -10,12 +10,17 @@ import Config
 config :spotify,
   ecto_repos: [Spotify.Repo]
 
-config :spotify, Spotify.Repo, migration_primary_key: [name: :id, type: :binary_id]
+config :spotify, Spotify.Repo,
+  migration_primary_key: [name: :id, type: :binary_id]
 
 # Configures the endpoint
 config :spotify, SpotifyWeb.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: SpotifyWeb.ErrorView, accepts: ~w(html json), layout: false],
+  render_errors: [
+    view: SpotifyWeb.ErrorView,
+    accepts: ~w(html json),
+    layout: false
+  ],
   pubsub_server: Spotify.PubSub,
   live_view: [signing_salt: "vhfEf+43"]
 

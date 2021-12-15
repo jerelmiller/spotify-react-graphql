@@ -111,7 +111,8 @@ defmodule SpotifyWeb.Schema do
     end
 
     @desc "Remove an album from a user's library"
-    field :remove_album_from_library, non_null(:remove_album_from_library_payload) do
+    field :remove_album_from_library,
+          non_null(:remove_album_from_library_payload) do
       arg :input, non_null(:remove_album_from_library_input)
 
       resolve &Album.remove_from_library/2
@@ -125,6 +126,7 @@ defmodule SpotifyWeb.Schema do
   end
 
   def middleware(middleware, _field, _object) do
-    [NewRelic.Absinthe.Middleware] ++ middleware ++ [SpotifyWeb.Middleware.Error]
+    [NewRelic.Absinthe.Middleware] ++
+      middleware ++ [SpotifyWeb.Middleware.Error]
   end
 end

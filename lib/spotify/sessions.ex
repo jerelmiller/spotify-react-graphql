@@ -10,7 +10,8 @@ defmodule Spotify.Sessions do
     |> Repo.insert()
   end
 
-  def find_by_access_token(access_token), do: Repo.get_by(Session, access_token: access_token)
+  def find_by_access_token(access_token),
+    do: Repo.get_by(Session, access_token: access_token)
 
   def update(%Session{} = session, attrs) do
     session

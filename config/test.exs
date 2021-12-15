@@ -17,7 +17,8 @@ config :spotify, Spotify.Repo,
 # you can enable the server option below.
 config :spotify, SpotifyWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "amzqvQQgRR01rzWu4rIH2cEg1RXMv51XonPEhSEZiqlzFhlj4d0rW9WE/PsAJL6A",
+  secret_key_base:
+    "amzqvQQgRR01rzWu4rIH2cEg1RXMv51XonPEhSEZiqlzFhlj4d0rW9WE/PsAJL6A",
   server: false
 
 # In test we don't send emails.

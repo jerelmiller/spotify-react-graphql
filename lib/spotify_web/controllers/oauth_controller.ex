@@ -24,7 +24,10 @@ defmodule SpotifyWeb.OAuthController do
 
   def init(conn, _) do
     conn
-    |> redirect(external: "#{Spotify.Client.oauth_uri()}/authorize?#{generate_oauth_params()}")
+    |> redirect(
+      external:
+        "#{Spotify.Client.oauth_uri()}/authorize?#{generate_oauth_params()}"
+    )
   end
 
   def finalize(conn, %{"code" => code}) do
@@ -32,7 +35,9 @@ defmodule SpotifyWeb.OAuthController do
            Spotify.Client.generate_token(code, OAuthConfig.redirect_uri()),
          {:ok, _} <- Spotify.Sessions.create(body) do
       conn
-      |> redirect(external: "#{OAuthConfig.client_uri()}/set-token?token=#{access_token}")
+      |> redirect(
+        external: "#{OAuthConfig.client_uri()}/set-token?token=#{access_token}"
+      )
     else
       _ ->
         conn
