@@ -3,5 +3,5 @@ defmodule SpotifyWeb.OAuthConfig do
   def client_uri, do: config(:client_uri)
 
   defp config(key),
-    do: Application.get_env(:spotify_web, __MODULE__) |> Keyword.get(key)
+    do: Application.get_env(:spotify, __MODULE__) |> Keyword.get(key)
 end

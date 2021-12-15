@@ -69,7 +69,7 @@ defmodule SpotifyWeb.Middleware.Error do
   end
 
   def debug? do
-    :spotify_web
+    :spotify
     |> Application.get_env(SpotifyWeb.Middleware)
     |> Keyword.get(:debug, false)
   end

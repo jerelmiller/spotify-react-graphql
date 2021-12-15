@@ -30,11 +30,11 @@ config :spotify, SpotifyWeb.Endpoint,
       {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
-config :spotify_web, SpotifyWeb.OAuthConfig,
+config :spotify, SpotifyWeb.OAuthConfig,
   redirect_uri: "http://localhost:4001/oauth/finalize",
   client_uri: "http://localhost:4001"
 
-config :spotify_web, SpotifyWeb.Middleware, debug: true
+config :spotify, SpotifyWeb.Middleware, debug: true
 
 config :new_relic_agent,
   app_name: "Jerel's Spotify Clone (Development)"
