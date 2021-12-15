@@ -22,7 +22,7 @@ import SpotifyProvider from './components/SpotifyProvider'
 import Notifications from './components/Notifications'
 import { Redirect, Routes, Route } from 'react-router-dom'
 
-const App = () => {
+const Routes = () => {
   const { data, isAuthenticated, isRestored } = useSession()
 
   return isAuthenticated ? (
@@ -61,4 +61,4 @@ const App = () => {
   ) : null
 }
 
-export default App
+export default Routes
