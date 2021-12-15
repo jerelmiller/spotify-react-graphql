@@ -24,7 +24,7 @@ spotify_client_secret =
     environment variable SPOTIFY_CLIENT_SECRET is missing.
     """
 
-config :spotify_client,
+config :spotify, Spotify.Client,
   client_id: spotify_client_id,
   client_secret: spotify_client_secret
 
