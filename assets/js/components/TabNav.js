@@ -1,4 +1,5 @@
-import React from 'react'
+/* @jsx jsx */
+import { jsx } from '@emotion/core'
 import NavLink from 'components/NavLink'
 import styled from 'styled-components'
 import { color } from 'styles/utils'
@@ -47,7 +48,7 @@ const Link = styled(NavLink)`
   }
 `
 
-const NavItem = props => (
+const NavItem = (props) => (
   <li>
     <Link {...props} />
   </li>
