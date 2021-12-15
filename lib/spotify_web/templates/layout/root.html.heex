@@ -8,6 +8,10 @@
     <%= live_title_tag assigns[:page_title] || "Spotify", suffix: " · Phoenix Framework" %>
     <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <link rel="preload" href="https://open.scdn.co/fonts/CircularSpUIv3T-Light.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="https://open.scdn.co/fonts/CircularSpUIv3T-Book.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="https://open.scdn.co/fonts/CircularSpUIv3T-Bold.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="preload" href="https://open.scdn.co/fonts/spoticon_regular_2.woff2" as="font" type="font/woff2" crossorigin="">
   </head>
   <body>
     <header>
