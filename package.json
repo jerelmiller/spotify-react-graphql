@@ -1,6 +1,84 @@
 {
+  "name": "spotify-player",
+  "version": "0.1.0",
   "private": true,
+  "dependencies": {
+    "@absinthe/socket-apollo-link": "^0.2.1",
+    "@apollo/react-hooks": "^3.1.3",
+    "@emotion/core": "^10.0.14",
+    "@emotion/styled": "^10.0.14",
+    "@reactions/component": "^2.0.2",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.12.3",
+    "@types/ramda": "^0.26.33",
+    "@types/reach__router": "^1.3.1",
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/styled-components": "^4.1.20",
+    "apollo-cache-inmemory": "^1.6.3",
+    "apollo-client": "^2.6.4",
+    "apollo-link": "^1.2.13",
+    "apollo-link-context": "^1.0.19",
+    "apollo-link-error": "^1.1.12",
+    "apollo-link-http": "^1.5.16",
+    "emotion-theming": "^10.0.14",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "phoenix": "^1.4.8",
+    "polished": "^3.4.2",
+    "ramda": "^0.26.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-pose": "^4.0.8",
+    "react-redux": "^6.0.1",
+    "react-router": "^6.0.0-alpha.2",
+    "react-router-dom": "^6.0.0-alpha.2",
+    "react-scripts": "3.4.1",
+    "react-spring": "^8.0.27",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-simple-auth": "^0.6.6",
+    "styled-components": "^4.1.3",
+    "typescript": "^3.8.3"
+  },
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write ./src/**/*.js",
+    "generate:types": "apollo client:codegen --target typescript --globalTypesFile ./src/types/globalTypes.ts --endpoint http://localhost:4000/graphql types",
+    "generate": "graphql-codegen --config codegen.yml"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "resolutions": {
+    "apollo/graphql": "14.5.8"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "devDependencies": {
-    "prettier": "^2.5.1"
+    "@emotion/babel-preset-css-prop": "^10.0.14",
+    "@graphql-codegen/cli": "^1.8.2",
+    "@graphql-codegen/fragment-matcher": "1.8.2",
+    "@graphql-codegen/typescript": "1.8.2",
+    "@graphql-codegen/typescript-operations": "1.8.2",
+    "apollo": "^2.21.0",
+    "customize-cra": "^0.9.1",
+    "node-fetch": "^2.3.0",
+    "prettier": "1.18.2",
+    "react-app-rewired": "^2.1.5"
   }
 }
