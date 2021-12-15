@@ -1,3 +1,0 @@
-# Spotify
-
-**TODO: Add description**
