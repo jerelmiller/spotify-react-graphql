@@ -53,7 +53,8 @@ defmodule Spotify.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:new_relic_agent, "~> 1.23"},
-      {:new_relic_absinthe, "~> 0.0.4"}
+      {:new_relic_absinthe, "~> 0.0.4"},
+      {:httpoison, "~> 1.8"}
     ]
   end
 
