@@ -1,11 +1,8 @@
 overwrite: true
 schema:
   - 'http://localhost:4000/graphql'
-  - './src/config/typeDefs.ts'
-documents:
-  - 'src/**/*.js'
-  - 'src/**/*.ts'
-  - 'src/**/*.tsx'
+  - './assets/js/config/typeDefs.ts'
+documents: 'assets/js/**/!(*.d).{ts,tsx,js}'
 generates:
   # ./src/types/globalTypes.ts:
   #   plugins:
@@ -18,6 +15,6 @@ generates:
   #   hooks:
   #     afterOneFileWrite:
   #       - prettier --write
-  ./src/config/fragmentTypes.json:
+  ./assets/js/config/fragmentTypes.json:
     plugins:
       - 'fragment-matcher'
