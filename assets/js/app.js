@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Routes from './Routes'
+import Routes from './routes'
 import BackgroundColorProvider from './components/BackgroundColorProvider'
 import client from './config/apollo'
 import store from './config/store'
