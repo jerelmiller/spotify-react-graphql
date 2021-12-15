@@ -22,12 +22,6 @@ defmodule SpotifyWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", SpotifyWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   scope "/oauth", SpotifyWeb do
     pipe_through :oauth
 
@@ -81,5 +75,11 @@ defmodule SpotifyWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  scope "/", SpotifyWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :index
   end
 end
