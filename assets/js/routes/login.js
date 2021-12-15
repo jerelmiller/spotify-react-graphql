@@ -6,7 +6,7 @@ import Button from 'components/Button'
 
 const Container = styled(FlexContainer).attrs({
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
 })`
   height: 100vh;
 `
@@ -20,12 +20,7 @@ const Login = () => (
   <Container>
     <FlexContainer alignItems="center" direction="column">
       <Logo size="medium" />
-      <Button
-        as="a"
-        kind="primary"
-        size="md"
-        href={`${process.env.REACT_APP_API_HOST}/oauth/init`}
-      >
+      <Button as="a" kind="primary" size="md" href="/oauth/init">
         Login with Spotify
       </Button>
     </FlexContainer>
