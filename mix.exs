@@ -33,6 +33,9 @@ defmodule Spotify.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:absinthe, "~> 1.6"},
+      {:absinthe_phoenix, "~> 2.0.0"},
+      {:absinthe_plug, "~> 1.5"},
       {:phoenix, "~> 1.6.4"},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
@@ -48,7 +51,9 @@ defmodule Spotify.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:new_relic_agent, "~> 1.23"},
+      {:new_relic_absinthe, "~> 0.0.4"}
     ]
   end
 
