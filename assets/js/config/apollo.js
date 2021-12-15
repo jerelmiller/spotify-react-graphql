@@ -43,7 +43,7 @@ const cache = new InMemoryCache({ fragmentMatcher })
 
 const absintheSocketLink = createAbsintheSocketLink(
   AbsintheSocket.create(
-    new Socket(`${process.env.REACT_APP_SOCKET_HOST}/socket`, {
+    new Socket('/socket', {
       params: {
         get token() {
           return getToken()
