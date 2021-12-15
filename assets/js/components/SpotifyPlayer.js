@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react'
+/* @jsx jsx */
+import { Fragment } from 'react'
 import LazyImage from 'components/LazyImage'
 import PlayIcon from 'components/PlayIcon'
 import PauseIcon from 'components/PauseIcon'
@@ -9,7 +10,7 @@ import useSpotifyContext from 'hooks/useSpotifyContext'
 import useShuffleMutation from 'hooks/useShuffleMutation'
 import RepeatIcon from 'components/RepeatIcon'
 import styled from '@emotion/styled'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import Timestamp from 'components/Timestamp'
 import posed, { PoseGroup } from 'react-pose'
 import { color, textColor, typography } from 'styles/utils'
@@ -89,7 +90,7 @@ const TimeControls = styled.div`
 
 const ControlButton = ({ fill, icon: Icon, ...props }) => (
   <button
-    css={theme => css`
+    css={(theme) => css`
       color: ${color('offWhite', { theme })};
       background: none;
       padding: 0;
@@ -178,9 +179,9 @@ const Container = styled(
   posed.footer({
     enter: {
       y: 0,
-      transition: { type: 'spring', stiffness: 100, damping: 14, mass: 0.9 }
+      transition: { type: 'spring', stiffness: 100, damping: 14, mass: 0.9 },
     },
-    exit: { y: '100%' }
+    exit: { y: '100%' },
   })
 )`
   grid-area: footer;
@@ -205,7 +206,7 @@ const SpotifyPlayer = ({ token }) => {
     togglePlayback,
     seek,
     setVolume,
-    shuffle: shuffleState
+    shuffle: shuffleState,
   } = useSpotifyContext()
 
   const shuffle = useShuffleMutation()
@@ -237,7 +238,7 @@ const SpotifyPlayer = ({ token }) => {
             <ControlButtons>
               <ControlButton
                 icon={ShuffleIcon}
-                css={theme =>
+                css={(theme) =>
                   shuffleState &&
                   css`
                     color: ${color('green', { theme })};

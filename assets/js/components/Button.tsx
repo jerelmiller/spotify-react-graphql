@@ -1,5 +1,6 @@
-import React, { FC, HTMLProps, ReactType } from 'react'
-import { css, ClassNames } from '@emotion/core'
+/* @jsx jsx */
+import { FC, HTMLProps, ReactType } from 'react'
+import { css, jsx, ClassNames } from '@emotion/core'
 import { color, lighten, typography } from '../styles/utils'
 import { Omit } from '../types/shared'
 import { Theme } from '../styles/theme'

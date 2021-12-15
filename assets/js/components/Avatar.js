@@ -1,7 +1,7 @@
-import React from 'react'
+/* @jsx jsx */
 import LazyImage from './LazyImage'
 import gql from 'graphql-tag'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 
 const Avatar = ({ image }) => (
   <LazyImage
@@ -21,7 +21,7 @@ Avatar.fragments = {
     fragment Avatar_image on Image {
       url
     }
-  `
+  `,
 }
 
 export default Avatar

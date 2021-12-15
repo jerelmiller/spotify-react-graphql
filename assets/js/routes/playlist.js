@@ -1,15 +1,15 @@
-import React from 'react'
+/* @jsx jsx */
 import BackgroundFromImage from 'components/BackgroundFromImage'
 import gql from 'graphql-tag'
 import styled from '@emotion/styled'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 import Track from 'components/Track'
 import { textColor } from 'styles/utils'
 import PlayableCollectionCover from '../components/PlayableCollectionCover'
 import PlayCollectionButton from '../components/PlayCollectionButton'
 import { useQuery } from '@apollo/react-hooks'
 import usePaginationObserver, {
-  usePaginationObserver_pageInfo
+  usePaginationObserver_pageInfo,
 } from 'hooks/usePaginationObserver'
 import { lensPath } from 'utils/fp'
 import { useParams, Link } from 'react-router-dom'
@@ -106,7 +106,7 @@ const Playlist = () => {
   const ref = usePaginationObserver(result, {
     threshold: '750px',
     edgesLens,
-    pageInfoLens
+    pageInfoLens,
   })
 
   return (

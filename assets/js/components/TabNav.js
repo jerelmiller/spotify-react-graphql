@@ -1,9 +1,8 @@
 /* @jsx jsx */
-import { jsx } from '@emotion/core'
 import NavLink from 'components/NavLink'
 import styled from 'styled-components'
 import { color } from 'styles/utils'
-import { css } from '@emotion/core'
+import { css, jsx } from '@emotion/core'
 
 const Link = styled(NavLink)`
   display: block;
