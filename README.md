@@ -1,35 +1,19 @@
-# Spotify React + GraphQL
+# Spotify
 
-Web player for the Spotify Web and Connect APIs. I wanted to play around with
-Apollo Server by using it on top of an established REST API.
+To start your Phoenix server:
 
-**client**
+  * Install dependencies with `mix deps.get`
+  * Create and migrate your database with `mix ecto.setup`
+  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
-The frontend React app powered by Apollo.
+Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
-**server**
+Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-The backend Apollo server. This layers a GraphQL API on top of the Spotify APIs.
+## Learn more
 
-## Running the app
-
-Running the frontend:
- 
-```sh
-$ cd client
-$ yarn
-$ yarn start
-```
-
-Running the backend:
-
-```sh
-$ cd server
-$ yarn
-$ cp .env.sample .env
-$ yarn start
-```
-
-You will need to get your Spotify credentials through the [Spotify developer
-dashboard](https://developer.spotify.com/dashboard/applications). Update the
-`.env` file to use the appropriate credentials.
+  * Official website: https://www.phoenixframework.org/
+  * Guides: https://hexdocs.pm/phoenix/overview.html
+  * Docs: https://hexdocs.pm/phoenix
+  * Forum: https://elixirforum.com/c/phoenix-forum
+  * Source: https://github.com/phoenixframework/phoenix

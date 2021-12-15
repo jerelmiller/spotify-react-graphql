@@ -1,28 +1,46 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# The directory Mix will write compiled artifacts to.
+/_build/
 
-# dependencies
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
+
+# The directory Mix downloads your dependencies sources to.
+/deps/
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+/doc/
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+spotify-*.tar
+
+# Ignore assets that are produced by build tools.
+/priv/static/assets/
+
+# Ignore digested assets cache.
+/priv/static/cache_manifest.json
+
+# In case you use Node.js/npm, you want to ignore these.
+npm-debug.log
 node_modules
 
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.tern-port
+# Ignore vscode settings
 .vscode
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-newrelic_agent*.log
+# log files
+yarn-error.log
+newrelic_agent.log
 
-/server/.env
+# Misc
+.DS_Store
+.env*
 server.pem
+.tern-port
