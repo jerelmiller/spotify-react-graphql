@@ -31,8 +31,8 @@ config :spotify, SpotifyWeb.Endpoint,
   ]
 
 config :spotify, SpotifyWeb.OAuthConfig,
-  redirect_uri: "http://localhost:4001/oauth/finalize",
-  client_uri: "http://localhost:4001"
+  redirect_uri: "http://localhost:4000/oauth/finalize",
+  client_uri: "http://localhost:4000"
 
 config :spotify, SpotifyWeb.Middleware, debug: true
 
