@@ -10,6 +10,8 @@ import Config
 config :spotify,
   ecto_repos: [Spotify.Repo]
 
+config :spotify, Spotify.Repo, migration_primary_key: [name: :id, type: :binary_id]
+
 # Configures the endpoint
 config :spotify, SpotifyWeb.Endpoint,
   url: [host: "localhost"],
