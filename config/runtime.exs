@@ -12,6 +12,22 @@ if System.get_env("PHX_SERVER") && System.get_env("RELEASE_NAME") do
   config :spotify, SpotifyWeb.Endpoint, server: true
 end
 
+spotify_client_id =
+  System.get_env("SPOTIFY_CLIENT_ID") ||
+    raise """
+    environment variable SPOTIFY_CLIENT_ID is missing.
+    """
+
+spotify_client_secret =
+  System.get_env("SPOTIFY_CLIENT_SECRET") ||
+    raise """
+    environment variable SPOTIFY_CLIENT_SECRET is missing.
+    """
+
+config :spotify_client,
+  client_id: spotify_client_id
+  client_secret: spotify_client_secret
+
 if config_env() == :prod do
   database_url =
     System.get_env("DATABASE_URL") ||
