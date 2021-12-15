@@ -1,18 +1,16 @@
-import * as AbsintheSocket from '@absinthe/socket'
-import { createAbsintheSocketLink } from '@absinthe/socket-apollo-link'
 import { Socket } from 'phoenix'
 import { ApolloLink, Observable, split } from 'apollo-link'
 import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import {
   InMemoryCache,
-  IntrospectionFragmentMatcher
+  IntrospectionFragmentMatcher,
 } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 import {
   authenticate,
   getSessionData,
-  invalidateSession
+  invalidateSession,
 } from 'redux-simple-auth'
 import { setContext } from 'apollo-link-context'
 import introspectionQueryResultData from './fragmentTypes.json'
@@ -22,22 +20,23 @@ import typeDefs from './typeDefs'
 import resolvers from './resolvers'
 import { getMainDefinition } from 'apollo-utilities'
 
+// HACK: Fixes the "Cannot instantiate an arrow function" issue using this with
+// esbuild
+const AbsintheSocket = require('@absinthe/socket')
+const { createAbsintheSocketLink } = require('@absinthe/socket-apollo-link')
+
 let isRefreshingToken = false
 let tokenSubscribers = []
 
-const subscribeToRefresh = fn => tokenSubscribers.push(fn)
-const onTokenRefreshed = token => tokenSubscribers.forEach(fn => fn(token))
+const subscribeToRefresh = (fn) => tokenSubscribers.push(fn)
+const onTokenRefreshed = (token) => tokenSubscribers.forEach((fn) => fn(token))
 
 const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
 
-const getToken = compose(
-  prop('token'),
-  getSessionData,
-  store.getState
-)
+const getToken = compose(prop('token'), getSessionData, store.getState)
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
-  introspectionQueryResultData
+  introspectionQueryResultData,
 })
 
 const cache = new InMemoryCache({ fragmentMatcher })
@@ -48,8 +47,8 @@ const absintheSocketLink = createAbsintheSocketLink(
       params: {
         get token() {
           return getToken()
-        }
-      }
+        },
+      },
     })
   )
 )
@@ -60,22 +59,22 @@ const retryAuthLink = onError(
       return
     }
 
-    return new Observable(observer => {
-      graphQLErrors.forEach(error => {
+    return new Observable((observer) => {
+      graphQLErrors.forEach((error) => {
         switch (error.extensions.code) {
           case 'UNAUTHENTICATED':
-            const retryRequest = token => {
+            const retryRequest = (token) => {
               operation.setContext(({ headers = {} }) => ({
                 headers: {
                   ...headers,
-                  Authorization: `Bearer ${token}`
-                }
+                  Authorization: `Bearer ${token}`,
+                },
               }))
 
               return forward(operation).subscribe({
                 next: observer.next.bind(observer),
                 error: observer.next.bind(observer),
-                complete: observer.next.bind(observer)
+                complete: observer.next.bind(observer),
               })
             }
 
@@ -88,7 +87,7 @@ const retryAuthLink = onError(
             fetch(API_URI, {
               method: 'POST',
               headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },
               body: JSON.stringify({
                 operationName: 'RefreshSessionMutation',
@@ -99,10 +98,10 @@ const retryAuthLink = onError(
                     }
                   }
                 `.trim(),
-                variables: { input: { token: getToken() } }
-              })
+                variables: { input: { token: getToken() } },
+              }),
             })
-              .then(res => res.json())
+              .then((res) => res.json())
               .then(async ({ errors, data }) => {
                 if (errors) {
                   throw new Error(errors[0].message)
@@ -134,11 +133,11 @@ const retryAuthLink = onError(
 )
 
 const setAuthorizationLink = setContext(() => ({
-  headers: { Authorization: `Bearer ${getToken()}` }
+  headers: { Authorization: `Bearer ${getToken()}` },
 }))
 
 const httpLink = new HttpLink({
-  uri: API_URI
+  uri: API_URI,
 })
 
 const requestLink = split(
@@ -155,13 +154,13 @@ const client = new ApolloClient({
   cache,
   link: ApolloLink.from([setAuthorizationLink, retryAuthLink, requestLink]),
   typeDefs,
-  resolvers
+  resolvers,
 })
 
 cache.writeData({
   data: {
-    notifications: []
-  }
+    notifications: [],
+  },
 })
 
 export default client
