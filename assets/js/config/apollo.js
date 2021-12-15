@@ -31,7 +31,7 @@ let tokenSubscribers = []
 const subscribeToRefresh = (fn) => tokenSubscribers.push(fn)
 const onTokenRefreshed = (token) => tokenSubscribers.forEach((fn) => fn(token))
 
-const API_URI = `${process.env.REACT_APP_API_HOST}/graphql`
+const API_URI = '/graphql'
 
 const getToken = compose(prop('token'), getSessionData, store.getState)
 
