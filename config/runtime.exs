@@ -25,7 +25,7 @@ spotify_client_secret =
     """
 
 config :spotify_client,
-  client_id: spotify_client_id
+  client_id: spotify_client_id,
   client_secret: spotify_client_secret
 
 if config_env() == :prod do
