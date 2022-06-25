@@ -77,7 +77,7 @@
     "@graphql-codegen/typescript-operations": "1.8.2",
     "apollo": "^2.21.0",
     "customize-cra": "^0.9.1",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^2.6.7",
     "prettier": "1.18.2",
     "react-app-rewired": "^2.1.5"
   }
